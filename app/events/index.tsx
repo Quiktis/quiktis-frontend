@@ -6,8 +6,42 @@ import SearchBar from '@/components/ui/SearchBar'
 import Image from 'next/image'
 import React from 'react'
 import { IoTicketSharp } from 'react-icons/io5'
+import useAxios from "../hooks/useAxios";
+import { useEffect, useState } from 'react'
+
 
 const EventsPage = () => {
+
+const [events, setEvents] = useState([])    
+
+const { sendRequest, loading, error } = useAxios();
+
+  
+
+useEffect(() => {
+
+    const fetchAllEvents = async () => {
+        console.log("sending request")
+        try {
+          const response = await sendRequest({
+            url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/events`, // Use environment variable for base URL
+            method: "GET",
+          });
+    
+          if (response) {
+            console.log(response);
+            alert("request successful!");
+            // Logic
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      fetchAllEvents();
+
+}, [])
+
   return (
     <main className='min-h-screen'>
         <div className='flex md:flex-row flex-col gap-20 justify-center items-center w-full'>

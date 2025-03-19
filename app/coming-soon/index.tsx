@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { FaGoogle, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
-import Countdown from 'react-countdown';
+//import Countdown from 'react-countdown';
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
@@ -91,7 +91,7 @@ const ComingSoon: React.FC = () => {
         </div>
         <div className="flex flex-col items-center md:items-start">
           <h1 className="text-xl md:text-2xl font-bold">Launching Soon</h1>
-          <Countdown date={targetDate} className="text-2xl md:text-[32px]" />
+          {/*<Countdown date={targetDate} className="text-2xl md:text-[32px]" />*/}
         </div>
       </div>
     </div>
