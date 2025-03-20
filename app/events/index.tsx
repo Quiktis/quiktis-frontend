@@ -24,13 +24,14 @@ useEffect(() => {
         console.log("sending request")
         try {
           const response = await sendRequest({
-            url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/events`, // Use environment variable for base URL
+            url: `https://api2-quiktis.onrender.com/events?limit=4`, // Use environment variable for base URL
             method: "GET",
           });
     
-          if (response) {
+          if (response?.status === "success") {
+            setEvents(response.data.events)
             console.log(response);
-            alert("request successful!");
+            //alert("request successful!");
             // Logic
           }
         } catch (error) {
@@ -68,7 +69,7 @@ useEffect(() => {
             </div>
         </div>
         <HappeningSection/>
-        <AllEvents/>
+        <AllEvents events={events}/>
         <div className='flex flex-col gap-5 mt-10'>
                 <h1 className='uppercase text-[30px] font-bold'>Coming Next</h1>
                 <div className='w-full flex gap-10'>

@@ -5,11 +5,35 @@ import Image from 'next/image';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 import { SocialButton } from '@/components/ui/SocialButton';
+import useAxios from '../hooks/useAxios';
 
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { sendRequest, loading, error } = useAxios();
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      console.log("sending request")
+      if (password == "" || email == "") return null;
+      try {
+        const response = await sendRequest({
+          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/users/login`, // Use environment variable for base URL
+          method: "POST",
+          body: { email, password },
+        });
+  
+        if (response) {
+          console.log(response);
+          alert("Signup successful!");
+          // Optionally, redirect the user to login
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
   return (
     <div className="flex gap-20 justify-center text-white overflow-hidden mt-5 items-center w-full">

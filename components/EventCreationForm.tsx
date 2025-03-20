@@ -3,7 +3,7 @@ import InputField from "./ui/InputFields";
 import Button from "./ui/Button";
 import { useState } from "react";
 import useAxios from "@/app/hooks/useAxios";
-
+import Dropdown from "./ui/DropDown";
 
 const body = {
   "name": "Blockchain Summit 2025 DAY 2",
@@ -19,18 +19,56 @@ const body = {
 }
 
 
+const body_2 = {
+  "title": "Summer Music Festival",
+  "description": "Join us for an unforgettable summer music festival featuring top artists from around the world.",
+  "venue": {
+    "name": "Central Park",
+    "address": "59th St to 110th St, New York, NY",
+    "coordinates": {
+      "latitude": 40.785091,
+      "longitude": -73.968285
+    }
+  },
+  "dateTime": "2025-07-15T18:00:00.000Z",
+  "ticketTypes": [
+    {
+      "name": "General Admission",
+      "price": 50,
+      "quantity": 1000,
+      "available": 1000,
+      "maxPerTransaction": 4
+    },
+    {
+      "name": "VIP Pass",
+      "price": 150,
+      "quantity": 200,
+      "available": 200,
+      "maxPerTransaction": 2
+    }
+  ],
+  "organizer": "64f8e8f8e4b0f4a9c8f8e8f8",
+//   "status": "published",
+  "tags": ["music", "festival", "summer"],
+  "images": [
+    "http://localhost:8081/media/9400644aaae3447c8682f48bb3bc3ffbg"
+  ]
+}
+
 
 const CreateEventForm: React.FC = () => {
   const [eventName, setEventName] = useState("");
-  const [eventDescription, setEventDescription] = useState("");
-  const [eventLocation, setEventLocation] = useState("");
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState("");
+  const [ticketType, setTicketType] = useState("");
   const [eventImageUrl, setEventImageUrl] = useState("");
-  const [eventDate, setEventDate] = useState("");
+  const [category, setCategory] = useState("");
   const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-  const [currency, setCurrency] = useState("");
-  const [ticketPrice, setTicketPrice] = useState("");
-  const [totalTickets, setTotalTickets] = useState("");
+  const [location, setLocation] = useState("");
+  const [price, setPrice] = useState("");
+  const [websiteUrl, setWebsiteUrl] = useState("");
+  const [selected, setSelected] = useState("");
+  
 
   const { sendRequest, loading, error } = useAxios();
 
@@ -39,19 +77,18 @@ const CreateEventForm: React.FC = () => {
         console.log("sending request")
         try {
           const response = await sendRequest({
-            url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/events`, // Use environment variable for base URL
+            url: `https://api2-quiktis.onrender.com/events`, // Use environment variable for base URL
             method: "POST",
             body: {
-              name: eventName,
-              description: eventDescription,
-              location: eventLocation,
-              image_url: eventImageUrl,
-              date: eventDate,
-              start_time: startTime,
-              end_time: endTime,
-              currency: currency,
-              ticket_price: ticketPrice,
-              total_tickets: totalTickets,
+              eventName,
+              description,
+              date,
+              ticketType,
+              category,
+              StartAt: startTime,
+              location,
+              websiteUrl,
+              price,
             }
           });
     
@@ -111,19 +148,20 @@ const CreateEventForm: React.FC = () => {
             label="Date"
             type="date"
             placeholder="Choose date"
-            value={eventDate}
-            onChange={(e) => setEventDate(e.target.value)}
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
             required
           />
-          <InputField
-            label="Ticket Type"
-            type="text"
+          <Dropdown 
+            options={["General Admission","VIP Pass"]} 
+            label={"Ticket Type"} selected={ticketType}
+            onChange={setTicketType}
             placeholder="Select ticket type"
-            
           />
-          <InputField
-            label="Category"
-            type="text"
+          <Dropdown 
+            options={["Category 1","Category 2"]} 
+            label={"Category"} selected={category}
+            onChange={setCategory}
             placeholder="Select category"
           />
         </div>
@@ -140,8 +178,8 @@ const CreateEventForm: React.FC = () => {
             label="Location"
             type="text"
             placeholder="Input location"
-            value={eventLocation}
-            onChange={(e) => setEventLocation(e.target.value)}
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
             required
           />
           <InputField
@@ -153,11 +191,12 @@ const CreateEventForm: React.FC = () => {
         <InputField
           label="Website URL (Optional)"
           type="url"
+          value={websiteUrl}
+          onChange={(e) => setWebsiteUrl(e.target.value)}
           placeholder="Input website link"
         />
         <p className="text-gray-500 text-sm border border-primary rounded-[10px] p-2">
-          The event will first go to pre-approval, we’ll send you a notification
-          before publishing.
+          {"The event will first go to pre-approval, we’ll send you a notification before publishing."}"
         </p>
 
         <div className="flex justify-end gap-4">

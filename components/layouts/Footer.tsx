@@ -2,15 +2,16 @@
 import { usePathname } from "next/navigation";
 import Logo from "../Logo";
 import Link from "next/link";
-//import NewsLetter from "../NewsLetter";
+import NewsLetter from "../NewsLetter";
 
 const Footer = () => {
   const pathname = usePathname();
   const excludePaths = ['/login', '/register'];
+  const hiddenPaths = ["/event-viewing", "/dashboard", "/history"];
   if(excludePaths.includes(pathname)) return null;
   return (
     <footer className=" text-white flex flex-col justify-between h-full gap-20 relative pb-[2em]">
-        {/*<NewsLetter/>*/}
+        {!hiddenPaths.includes(pathname) && <NewsLetter/>}
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between">
           <div className="mb-6 md:mb-0">

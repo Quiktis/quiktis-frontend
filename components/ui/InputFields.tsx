@@ -19,7 +19,7 @@ const InputField: React.FC<InputFieldProps> = ({ label, type, value, placeholder
         type={type}
         value={value}
         placeholder={placeholder}
-        className="p-2 border bg-inherit border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
+        className="p-3 border bg-inherit border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
         required={required}
         onChange={onChange}
       />

@@ -18,14 +18,17 @@ const RegisterPage: React.FC = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("sending request")
-    if (password == "" || fullName == "" || email == "") return null;
+    //if (password == "" || fullName == "" || email == "") return null;
     try {
-      if (!agreed) return alert("You must agree to the terms to continue.");
-      if (password !== confirmPassword) return alert("Passwords do not match.");
+      //if (!agreed) return alert("You must agree to the terms to continue.");
+      //if (password !== confirmPassword) return alert("Passwords do not match.");
 
       const response = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/users/register`, // Use environment variable for base URL
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/events`, // Use environment variable for base URL
         method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: { name: fullName, email, password },
       });
 

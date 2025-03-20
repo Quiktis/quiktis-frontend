@@ -1,0 +1,182 @@
+{
+    "status": "success",
+    "message": "Events retrieved successfully",
+    "data": {
+        "events": [
+            {
+                "venue": {
+                    "coordinates": {
+                        "latitude": 40.785091,
+                        "longitude": -73.968285
+                    },
+                    "name": "Central Park",
+                    "address": "59th St to 110th St, New York, NY"
+                },
+                "_id": "67c0352ec4478e5af5304c83",
+                "title": "Summer Music Festival",
+                "description": "Join us for an unforgettable summer music festival featuring top artists from around the world.",
+                "dateTime": "2025-07-15T18:00:00.000Z",
+                "ticketTypes": [
+                    {
+                        "maxPerTransaction": 4,
+                        "_id": "67db6143d733428e6fb1c761",
+                        "id": "67db6143d733428e6fb1c761"
+                    },
+                    {
+                        "maxPerTransaction": 4,
+                        "_id": "67db6143d733428e6fb1c762",
+                        "id": "67db6143d733428e6fb1c762"
+                    }
+                ],
+                "organizer": "64f8e8f8e4b0f4a9c8f8e8f8",
+                "status": "draft",
+                "tags": [
+                    "music",
+                    "festival",
+                    "summer"
+                ],
+                "images": [
+                    "http://localhost:8081/media/9400644aaae3447c8682f48bb3bc3ffbg"
+                ],
+                "createdAt": "2025-02-27T09:49:34.081Z",
+                "updatedAt": "2025-02-27T09:49:34.081Z",
+                "__v": 0,
+                "id": "67c0352ec4478e5af5304c83"
+            },
+            {
+                "venue": {
+                    "coordinates": {
+                        "latitude": 40.785091,
+                        "longitude": -73.968285
+                    },
+                    "name": "Central Park",
+                    "address": "59th St to 110th St, New York, NY"
+                },
+                "_id": "67c03596c672ac0e7ceb0a8a",
+                "title": "Summer Music Festival",
+                "description": "Join us for an unforgettable summer music festival featuring top artists from around the world.",
+                "dateTime": "2025-07-15T18:00:00.000Z",
+                "ticketTypes": [
+                    {
+                        "_id": "67db6143d733428e6fb1c763",
+                        "name": "General Admission",
+                        "price": 50,
+                        "quantity": 1000,
+                        "available": 1000,
+                        "maxPerTransaction": 4,
+                        "id": "67db6143d733428e6fb1c763"
+                    },
+                    {
+                        "_id": "67db6143d733428e6fb1c764",
+                        "name": "VIP Pass",
+                        "price": 150,
+                        "quantity": 200,
+                        "available": 200,
+                        "maxPerTransaction": 2,
+                        "id": "67db6143d733428e6fb1c764"
+                    }
+                ],
+                "organizer": "64f8e8f8e4b0f4a9c8f8e8f8",
+                "status": "draft",
+                "tags": [
+                    "music",
+                    "festival",
+                    "summer"
+                ],
+                "images": [
+                    "http://localhost:8081/media/9400644aaae3447c8682f48bb3bc3ffbg"
+                ],
+                "createdAt": "2025-02-27T09:51:18.605Z",
+                "updatedAt": "2025-02-27T09:51:18.605Z",
+                "__v": 0,
+                "id": "67c03596c672ac0e7ceb0a8a"
+            },
+            {
+                "venue": {
+                    "coordinates": {
+                        "latitude": 40.785091,
+                        "longitude": -73.968285
+                    },
+                    "name": "Central Park",
+                    "address": "59th St to 110th St, New York, NY"
+                },
+                "_id": "67c035c0fda624d577d25324",
+                "title": "Summer Music Festival",
+                "description": "Join us for an unforgettable summer music festival featuring top artists from around the world.",
+                "dateTime": "2025-07-15T18:00:00.000Z",
+                "ticketTypes": [
+                    {
+                        "name": "General Admission",
+                        "price": 50,
+                        "quantity": 1000,
+                        "available": 1000,
+                        "maxPerTransaction": 4,
+                        "_id": "67c035c0fda624d577d25325",
+                        "id": "67c035c0fda624d577d25325"
+                    },
+                    {
+                        "name": "VIP Pass",
+                        "price": 150,
+                        "quantity": 200,
+                        "available": 200,
+                        "maxPerTransaction": 2,
+                        "_id": "67c035c0fda624d577d25326",
+                        "id": "67c035c0fda624d577d25326"
+                    }
+                ],
+                "organizer": "64f8e8f8e4b0f4a9c8f8e8f8",
+                "status": "draft",
+                "tags": [
+                    "music",
+                    "festival",
+                    "summer"
+                ],
+                "images": [
+                    "http://localhost:8081/media/9400644aaae3447c8682f48bb3bc3ffbg"
+                ],
+                "createdAt": "2025-02-27T09:52:00.981Z",
+                "updatedAt": "2025-02-27T09:52:00.981Z",
+                "__v": 0,
+                "id": "67c035c0fda624d577d25324"
+            }
+        ],
+        "nextCursor": null
+    }
+}
+
+
+{
+    "title": "Summer Music Festival",
+    "description": "Join us for an unforgettable summer music festival featuring top artists from around the world.",
+    "venue": {
+      "name": "Central Park",
+      "address": "59th St to 110th St, New York, NY",
+      "coordinates": {
+        "latitude": 40.785091,
+        "longitude": -73.968285
+      }
+    },
+    "dateTime": "2025-07-15T18:00:00.000Z",
+    "ticketTypes": [
+      {
+        "name": "General Admission",
+        "price": 50,
+        "quantity": 1000,
+        "available": 1000,
+        "maxPerTransaction": 4
+      },
+      {
+        "name": "VIP Pass",
+        "price": 150,
+        "quantity": 200,
+        "available": 200,
+        "maxPerTransaction": 2
+      }
+    ],
+    "organizer": "64f8e8f8e4b0f4a9c8f8e8f8",
+  //   "status": "published",
+    "tags": ["music", "festival", "summer"],
+    "images": [
+      "http://localhost:8081/media/9400644aaae3447c8682f48bb3bc3ffbg"
+    ]
+  }

@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 interface EventProps {
+  eventId: string; //
   image: string;
   alt: string;
   price: string;
@@ -21,6 +22,7 @@ interface EventProps {
 }
 
 const EventsCard: React.FC<EventProps> = ({
+  eventId,
   image,
   alt,
   price,
@@ -57,9 +59,9 @@ const EventsCard: React.FC<EventProps> = ({
       <h4 className='text-[#666666] text-[12px]'>{title}</h4>
       <p className='text-[12px]'>{description}</p>
       <div className='flex justify-between items-center'>
-        <div>{date}</div>
-        <h4>{country}</h4>
-        <Link href={slug} className='flex gap-2 justify-center items-center rounded-md'>
+        <div className='w-[5em] text-sm'>{date}</div>
+        <h4 className='mx-auto text-sm  text-gray-500'>{country}</h4>
+        <Link href={slug} className='text-[0.75em] flex gap-2 justify-center items-center border rounded-md px-3 py-[0.3em]'>
           Read more
           <FaLongArrowAltRight />
         </Link>

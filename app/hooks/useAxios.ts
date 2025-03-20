@@ -38,10 +38,9 @@ const useAxios = () => {
         method,
         data: body,
         headers: {
-          "Content-Type": "application/json",
+          ...(body ? { "Content-Type": "application/json" } : {}), // Add Content-Type only if there's a body
           ...headers,
         },
-        withCredentials: true,
       };
 
       const response: AxiosResponse = await axios(config);
