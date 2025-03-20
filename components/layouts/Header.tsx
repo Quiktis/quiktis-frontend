@@ -11,6 +11,9 @@ const Header = () => {
   const router = useRouter()
   const pathname = usePathname()
   const specialPaths = ['/events', '/create-events'] 
+  const excludeHeaderPaths = ["/search"];
+
+  if (excludeHeaderPaths.includes(pathname)) return null;
 
   return (
     <div className='flex w-full justify-between mt-10'>
@@ -23,7 +26,7 @@ const Header = () => {
       <Navbar />
       {specialPaths.includes(pathname) ? (
         <div className='flex items-center gap-4'>
-          <Button onClick={() => router.push('/connect-wallet')} className='text-[16px] w-[150px] flex items-center justify-center py-1 drop-shadow-custom-red bg-primary'>
+          <Button onClick={() => router.push('/connect-wallet')} className='text-[16px] w-fit flex items-center justify-center py-1 drop-shadow-custom-red bg-primary'>
             Connect Wallet
           </Button>
           <div className='w-10 h-10 rounded-full bg-gray-300 overflow-hidden'>

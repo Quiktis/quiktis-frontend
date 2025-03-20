@@ -8,9 +8,9 @@ const Navbar: React.FC = () => {
 const pathname = usePathname()
   const navItems = [
     { name: 'Home', path: '/' },
-    { name: 'Pages', path: '/pages' },
+    { name: 'Pages', path: '/my-tickets' },
     { name: 'Events', path: '/events' },
-    { name: 'Help', path: '/help' },
+    { name: 'Help', path: '/faq' },
     { name: 'Create', path: '/create-events' },
   ];
 

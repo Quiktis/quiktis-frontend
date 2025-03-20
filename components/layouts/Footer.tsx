@@ -4,60 +4,148 @@ import Logo from "../Logo";
 import Link from "next/link";
 import NewsLetter from "../NewsLetter";
 
-const Footer = () => {
-  const pathname = usePathname();
-  const excludePaths = ['/login', '/register'];
-  const hiddenPaths = ["/event-viewing", "/dashboard", "/history"];
-  if(excludePaths.includes(pathname)) return null;
-  return (
-    <footer className=" text-white flex flex-col justify-between h-full gap-20 relative pb-[2em]">
-        {!hiddenPaths.includes(pathname) && <NewsLetter/>}
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between">
-          <div className="mb-6 md:mb-0">
-            <Logo />
-          </div>
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInstagram,
+  faFacebook,
+  faTwitter,
+  faYoutube,
+  faLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
+import {
+  faEnvelope,
+  faMapMarkerAlt,
+  faPhone,
+} from "@fortawesome/free-solid-svg-icons";
 
-          <div className="mb-6 md:mb-0">
-            <div className="grid md:grid-cols-2 w-full gap-y-2">
-              <Link href="home" className="hover:text-quikitsOrange">Home</Link>
-              <Link href="tickets" className="hover:text-quikitsOrange">Get Tickets</Link>
-              <Link href="pages" className="hover:text-quikitsOrange">Pages</Link>
-              <Link href="faqs" className="hover:text-quikitsOrange">FAQs</Link>
-              <Link href="event" className="hover:text-quikitsOrange">Event</Link>
-              <Link href="genres" className="hover:text-quikitsOrange">Genres</Link>
-              <Link href="help" className="hover:text-quikitsOrange">Help</Link>
-              <Link href="news" className="hover:text-quikitsOrange">News</Link>
+export default function Footer() {
+  const pathname = usePathname();
+
+  const excludeFooterPaths = ["/login", "/register"];
+  const hiddenPaths = ["/event-viewing", "/dashboard", "/history"];
+  if (excludeFooterPaths.includes(pathname)) return null;
+
+  return (
+    <>
+    {!hiddenPaths.includes(pathname) && <NewsLetter/>}
+    <footer className="mt-8 text-white w-full px-12 py-8">
+      
+      <div className="flex flex-col md:flex-row md:justify-between gap-8 w-full">
+        {/* Column 1*/}
+        <div className="flex-shrink-0 md:w-1/5">
+          <Logo />
+        </div>
+
+        {/* Column 2*/}
+        <div className="md:w-2/5 flex flex-wrap gap-16 justify-center md:ml-[-20px]">
+          <div className="flex flex-col space-y-2">
+            <Link href="/" className="hover:text-[#FF4D2A]">
+              Home
+            </Link>
+            <Link href="/my-tickets" className="hover:text-[#FF4D2A]">
+              Pages
+            </Link>
+            <Link href="/events" className="hover:text-[#FF4D2A]">
+              Event
+            </Link>
+            <Link href="/help" className="hover:text-[#FF4D2A]">
+              Help
+            </Link>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <Link href="/event-viewing" className="hover:text-[#FF4D2A]">
+              Get Tickets
+            </Link>
+            <Link href="/faq" className="hover:text-[#FF4D2A]">
+              FAQs
+            </Link>
+            <Link href="/search" className="hover:text-[#FF4D2A]">
+              Genres
+            </Link>
+            <Link href="/history" className="hover:text-[#FF4D2A]">
+              News
+            </Link>
+          </div>
+        </div>
+
+        {/* Column 3*/}
+        <div className="md:w-1/3 flex flex-col">
+          <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
+
+          <div className="flex flex-wrap items-center gap-4 mb-4">
+            <div className="flex items-center gap-2">
+              <Link
+                href="https://facebook.com/quiktis"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#FF4D2A]">
+                <FontAwesomeIcon icon={faFacebook} size="lg" />
+              </Link>
+              <span>@Quiktis</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Link
+                href="https://instagram.com/quiktis"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#FF4D2A]">
+                <FontAwesomeIcon icon={faInstagram} size="lg" />
+              </Link>
+              <span>@Quiktis</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Link
+                href="https://linkedin.com/company/quiktis"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#FF4D2A]">
+                <FontAwesomeIcon icon={faLinkedin} size="lg" />
+              </Link>
+              <span>@Quiktis</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Link
+                href="https://twitter.com/quiktis"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#FF4D2A]">
+                <FontAwesomeIcon icon={faTwitter} size="lg" />
+              </Link>
+              <span>@Quiktis</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Link
+                href="https://youtube.com/quiktis"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#FF4D2A]">
+                <FontAwesomeIcon icon={faYoutube} size="lg" />
+              </Link>
+              <span>@Quiktis</span>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Get in Touch</h3>
-            <ul className="flex gap-10">
-              <li className="mb-2 flex items-center space-x-2">
-                <i className="fab fa-instagram"></i>
-                <a href="https://instagram.com/quiktis" target="_blank" rel="noopener noreferrer" className="hover:text-quikitsOrange">@Quikits</a>
-              </li>
-            </ul>
-            <ul>
-              <li className="mb-2 flex items-center space-x-2">
-                <i className="fas fa-envelope"></i>
-                <a href="mailto:support@quikits.com" className="hover:text-quikitsOrange">support@quikits.com</a>
-              </li>
-              <li className="mb-2 flex items-center space-x-2">
-                <i className="fas fa-map-marker-alt"></i>
-                <span>Lagos, Nigeria</span>
-              </li>
-              <li className="flex items-center space-x-2">
-                <i className="fas fa-phone"></i>
-                <span>+234 123 4567 890</span>
-              </li>
-            </ul>
-          </div>
+          <ul className="flex flex-col gap-y-2">
+            <li className="flex items-center space-x-2">
+              <FontAwesomeIcon icon={faEnvelope} />
+              <a
+                href="mailto:support@quiktis.com"
+                className="hover:text-[#FF4D2A]">
+                support@quiktis.com
+              </a>
+            </li>
+            <li className="flex items-center space-x-2">
+              <FontAwesomeIcon icon={faMapMarkerAlt} />
+              <span>01, Location Street, Location State, Country</span>
+            </li>
+            <li className="flex items-center space-x-2">
+              <FontAwesomeIcon icon={faPhone} />
+              <span>+234 123 4567 890</span>
+            </li>
+          </ul>
         </div>
       </div>
     </footer>
+    </>
   );
-};
-
-export default Footer;
+}

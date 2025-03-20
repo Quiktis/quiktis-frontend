@@ -5,7 +5,6 @@ import ProfileCard from '@/components/ProfileCard'
 import Statistics from '@/components/Statistics'
 import Image from 'next/image'
 import React from 'react'
-
 const images = [
     {
         image: '/ladies.png',
@@ -51,7 +50,6 @@ const images = [
     }, 
 ]
 const CreateEvent = () => {
-
   return (
     <main className='flex flex-col gap-5 w-full relative'>
              <div className='flex md:flex-row flex-col gap-20 shrink-0 relative w-full justify-center items-center h-full'>

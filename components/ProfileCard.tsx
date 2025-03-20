@@ -47,12 +47,12 @@ const ProfileCard: React.FC = () => {
       <div className="flex gap-14 justify-center w-full items-center text-gray-300 uppercase text-xs">
         <div className="flex flex-col gap-2">
           <h3 className="block text-gray-400">Age</h3>
-           <div className="flex flex-col gap-1">
+           <div className="flex gap-1">
              <p className="text-2xl font-bold text-white">2</p> 
              <p className="text-2xl font-bold text-white">8</p> 
            </div>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <h1 className="block text-gray-400">Location</h1>
           <p className="text-2xl font-bold text-white">South Florine</p>
         </div>

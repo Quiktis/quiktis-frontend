@@ -46,7 +46,7 @@ const AllEvents: React.FC<AllEventsProps> = ({ title, events = Events }) => {
             heading={eventItem.title?? ""}
             title={eventItem.title?? ""}
             description={eventItem.description?? ""}
-            country={eventItem.venue? `${eventItem.venue.name}` : ""}
+            country={eventItem.venue? `${eventItem.venue.name?? ""}` : ""}
             price={eventItem.price?? ""}
             slug={eventItem.slug?? ""}
             date={eventItem.dateTime? formatDate(eventItem.dateTime): ""}
