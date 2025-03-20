@@ -6,11 +6,12 @@ interface SearchBarProps {
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  inputClassName?: string;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ placeholder, value, onChange }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ placeholder, value, onChange, inputClassName }) => {
   return (
-    <div className='flex gap-4 items-center'>
+    <div className={`flex gap-4 items-center ${inputClassName}`}>
       <Input
         type='search'
         placeholder={placeholder}
