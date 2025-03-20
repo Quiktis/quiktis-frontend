@@ -187,7 +187,7 @@ const CreateEventForm: React.FC = () => {
         />
 
         <p className="text-gray-500 text-sm border border-primary rounded-[10px] p-2">
-          {"The event will first go to pre-approval, we’ll send you a notification before publishing."}
+          {`The event will first go to pre-approval, we’ll send you a notification before publishing.`}
         </p>
 
         <div className="flex justify-end gap-4">
