@@ -6,6 +6,8 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { SocialButton } from "@/components/ui/SocialButton";
 import useAxios from "../hooks/useAxios";
+import { useUser } from "../context/UserContext";
+import { useRouter } from "next/navigation";
 
 const RegisterPage: React.FC = () => {
   const [fullName, setFullName] = useState("");
@@ -13,32 +15,64 @@ const RegisterPage: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreed, setAgreed] = useState(false);
-  const { sendRequest, loading, error } = useAxios();
+  const { sendRequest, loading } = useAxios();
+  const [error, setError] = useState("");
+  const { user, setUser } = useUser();
+  const [isProcessing, setIsProcessing] = useState(false); // NEW state
+  const router = useRouter();
 
+
+  const handleLogin = (userId: string, name: string, email: string ) => {
+    setUser({ userId, name, email });
+  };
+
+  
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("sending request")
-    //if (password == "" || fullName == "" || email == "") return null;
+  
+    if (loading || isProcessing) return; // Prevent multiple submissions
+    setError("");
+  
+    if (!fullName || !email || !password || !confirmPassword) {
+      setError("All fields are required.");
+      return;
+    }
+  
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+  
+    if (!agreed) {
+      setError("Please agree to the terms to continue.");
+      return;
+    }
+  
+    console.log("Sending registration request...");
+    setIsProcessing(true); // Start tracking entire process
+  
     try {
-      //if (!agreed) return alert("You must agree to the terms to continue.");
-      //if (password !== confirmPassword) return alert("Passwords do not match.");
-
       const response = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/events`, // Use environment variable for base URL
+        url: `api/auth/register`,
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: { name: fullName, email, password },
       });
-
-      if (response) {
-        console.log(response);
-        alert("Signup successful!");
-        // Optionally, redirect the user to login
+  
+      if (response?.user?.id) {
+        await new Promise((resolve) => {
+          setUser({ userId: response.user.id, name: response.user.name, email: response.user.email });
+          resolve(null);
+        });
+  
+        console.log("User details: ", response.user);
+        router.push("/create-events");
       }
     } catch (error) {
       console.log(error);
+      setError("Registration failed. Please try again.");
+    } finally {
+      setTimeout(() => {setIsProcessing(false);}, 10000)
     }
   };
 
@@ -61,6 +95,7 @@ const RegisterPage: React.FC = () => {
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             placeholder="Enter your email address here"
+            required={true}
             className=" bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
           />
           <Input
@@ -78,6 +113,7 @@ const RegisterPage: React.FC = () => {
             label="Confirm Password"
             placeholder="Enter your password here"
             className=" bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
+            error={confirmPassword !== password ? "passwords don't match" : ""}
           />
           <div className="flex items-center">
             <input
@@ -92,9 +128,12 @@ const RegisterPage: React.FC = () => {
             type="submit"
             className="w-full py-4 border-white border mt-4"
             disabled={!agreed}
+            loading={isProcessing}
+            loaderClass='mt-[0.08em] ml-[-0.005em]'
           >
             Create an account
           </Button>
+          {error && <p className="text-sm text-red-600">{error}</p>}
         </form>
         <div className="mt-6 w-full max-w-md">
           <div className="flex items-center justify-center gap-2 my-6">

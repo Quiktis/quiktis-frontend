@@ -8,9 +8,11 @@ interface InputProps {
   className?: string;
   disabled?: boolean;
   label?: string;
+  error?: string;
+  required?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({ value, onChange, type = 'text', placeholder, className, disabled = false, label }) => {
+const Input: React.FC<InputProps> = ({ value, onChange, type = 'text', placeholder, className, disabled = false, label, error, required=false }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
@@ -27,6 +29,7 @@ const Input: React.FC<InputProps> = ({ value, onChange, type = 'text', placehold
         placeholder={placeholder}
         className={`rounded py-3 px-4 w-full ${className}`}
         disabled={disabled}
+        required={required}
       />
       {type === 'password' && (
         <button
@@ -37,6 +40,7 @@ const Input: React.FC<InputProps> = ({ value, onChange, type = 'text', placehold
           {showPassword ? 'Hide' : 'Show'}
         </button>
       )}
+      {error && <p className='text-red-600 text-sm'>{error}</p>}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import Header from "@/components/layouts/Header";
 import PageWrapper from "@/components/ui/PageWrapper";
 // import NewsLetter from "@/components/NewsLetter";
 import Footer from "@/components/layouts/Footer";
+import { UserProvider } from "./context/UserContext";
 
 const spacegro = Space_Grotesk({subsets: ["latin"]});
 export const metadata: Metadata = {
@@ -22,11 +23,13 @@ export default function RootLayout({
       <body
         className={`${spacegro.className} antialiased flex flex-col min-h-screen`}
       >
-        <PageWrapper>
-        <Header/>
-        {children}
-          <Footer />
-        </PageWrapper>
+        <UserProvider>
+          <PageWrapper>
+            <Header/>
+              {children}
+            <Footer />
+          </PageWrapper>
+        </UserProvider>
       </body>
     </html>
   );

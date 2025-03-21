@@ -5,6 +5,8 @@ import ProfileCard from '@/components/ProfileCard'
 import Statistics from '@/components/Statistics'
 import Image from 'next/image'
 import React from 'react'
+import { useUser } from '../context/UserContext'
+
 const images = [
     {
         image: '/ladies.png',
@@ -50,6 +52,7 @@ const images = [
     }, 
 ]
 const CreateEvent = () => {
+    const { user } = useUser();
   return (
     <main className='flex flex-col gap-5 w-full relative'>
              <div className='flex md:flex-row flex-col gap-20 shrink-0 relative w-full justify-center items-center h-full'>
@@ -58,10 +61,10 @@ const CreateEvent = () => {
                 alt='502'
                 width={369}
                 height={300}
-                className='absolute -z-50 -top-20 '
+                className='absolute -z-50 -top-20'
                 />
                 <div className='w-[50%] flex justify-center items-center'>
-                 <ProfileCard/>
+                 <ProfileCard name={user.name?? ""} email={user.email?? ""}/>
                 </div>
                 <div className='w-[40%] flex justify-center items-center'>
                    <EventsOperations/>

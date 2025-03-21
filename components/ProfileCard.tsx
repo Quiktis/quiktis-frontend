@@ -3,7 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaYoutube, FaPen } from "react-icons/fa";
 
-const ProfileCard: React.FC = () => {
+
+interface profileCardProps {
+  name: string;
+  email: string;
+  //userId?: string;
+}
+
+const defaultValues = {
+  name: "Jaxson Siphron",
+  email: "Jaxsonsiphron@gmail.com"
+}
+const ProfileCard: React.FC<profileCardProps> = ({ name, email }) => {
   return (
     <div className="relative w-full h-[250px] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] p-6 text-white shadow-lg flex justify-center flex-col gap-10 pt-16">
         <div className="flex w-full gap-28 ">
@@ -21,8 +32,8 @@ const ProfileCard: React.FC = () => {
                                 </div>
                             </div>
                             <div className="mt-4  flex flex-col">
-                                <h2 className="text-xl font-semibold">Jaxson Siphron</h2>
-                                <p className="text-gray-300 text-sm">Jaxsonsiphron@gmail.com</p>
+                                <h2 className="text-xl font-semibold">{name?? ""}</h2>
+                                <p className="text-gray-300 text-sm">{email?? ""}</p>
                             </div>
                         </div>
             <div className="mt-6 flex justify-center gap-4">

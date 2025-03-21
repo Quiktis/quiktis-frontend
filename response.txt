@@ -180,3 +180,28 @@
       "http://localhost:8081/media/9400644aaae3447c8682f48bb3bc3ffbg"
     ]
   }
+
+
+  Register body = {
+    "email": "testing2@gmail.com",
+    "names": "Mark",
+    "password": "12345"
+}
+
+
+  Register response = {
+    "message": "User registered successfully",
+    "user": {
+        "email": "testing2@gmail.com",
+        "password": "$2b$10$ncDgoE7i7tEDAQMWTcnjdOCNrAyay/fRcGWhH9.Woy1z72vzVPVZy",
+        "name": "Mark",
+        "role": "user",
+        "status": "active",
+        "email_verified": false,
+        "_id": "67dd5666cc567e9d51062809",
+        "createdAt": "2025-03-21T12:07:02.793Z",
+        "updatedAt": "2025-03-21T12:07:02.793Z",
+        "__v": 0,
+        "id": "67dd5666cc567e9d51062809"
+    }
+}
