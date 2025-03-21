@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import Logo from "../Logo";
 import Link from "next/link";
 import NewsLetter from "../NewsLetter";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInstagram,
@@ -28,7 +29,7 @@ export default function Footer() {
   return (
     <>
       {!hiddenPaths.includes(pathname) && <NewsLetter />}
-      <footer className="mt-8 text-gray-800 md:text-white w-full px-6 sm:px-12 py-8 bg-transparent">
+      <footer className="mt-8 text-white w-full px-6 sm:px-8 md:px-12 py-8">
         <div className="flex flex-col md:flex-row md:justify-between gap-8 w-full">
           {/* Column 1 */}
           <div className="flex-shrink-0 md:w-1/5 text-center md:text-left">
