@@ -40,7 +40,7 @@ const UpNext = () => {
               alt={next.title}
               width={300}
               height={300}
-              className="object-cover w-[280px] h-[280px] md:w-[300px] md:h-[300px] rounded-[20px]"
+              className="object-fill w-[280px] h-[280px] md:w-[300px] md:h-[300px] md:object-contain rounded-[20px] "
             />
             <div
               className={`
