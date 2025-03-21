@@ -56,28 +56,33 @@ export default function Footer() {
           <div className="md:w-1/3 flex flex-col text-center md:text-left">
             <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
 
+            {/* Social Links */}
             <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 mb-4">
-              <Link href="https://instagram.com/quiktis" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF4D2A]">
-                <FontAwesomeIcon icon={faInstagram} size="lg" /> @Quiktis
+              <Link href="https://instagram.com/quiktis" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF4D2A] flex items-center gap-2">
+                <FontAwesomeIcon icon={faInstagram} size="lg" />
+                <span>@Quiktis</span>
               </Link>
-              <Link href="https://linkedin.com/company/quiktis" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF4D2A]">
-                <FontAwesomeIcon icon={faLinkedin} size="lg" /> @Quiktis
+              <Link href="https://linkedin.com/company/quiktis" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF4D2A] flex items-center gap-2">
+                <FontAwesomeIcon icon={faLinkedin} size="lg" />
+                <span>@Quiktis</span>
               </Link>
-              <Link href="https://twitter.com/quiktis" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF4D2A]">
-                <FontAwesomeIcon icon={faTwitter} size="lg" /> @Quiktis
+              <Link href="https://twitter.com/quiktis" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF4D2A] flex items-center gap-2">
+                <FontAwesomeIcon icon={faTwitter} size="lg" />
+                <span>@Quiktis</span>
               </Link>
             </div>
 
-            <ul className="flex flex-col gap-y-2">
-              <li className="flex items-center space-x-2">
+            <div className="flex flex-col items-center gap-2">
+              <Link href="mailto:support@quiktis.com" className="hover:text-[#FF4D2A] flex items-center gap-2">
                 <FontAwesomeIcon icon={faEnvelope} />
-                <a href="mailto:support@quiktis.com" className="hover:text-[#FF4D2A]">support@quiktis.com</a>
-              </li>
-              <li className="flex items-center space-x-2">
+                <span>support@quiktis.com</span>
+              </Link>
+              <div className="flex items-center gap-2">
                 <FontAwesomeIcon icon={faMapMarkerAlt} />
                 <span>Lagos, Nigeria</span>
-              </li>
-            </ul>
+              </div>
+            </div>
+
           </div>
         </div>
       </footer>
