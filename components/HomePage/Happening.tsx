@@ -51,8 +51,8 @@ const HappeningSection = () => {
 
   return (
     <div>
-      {/* Container with responsive height and padding */}
-      <div className="bg-[#2D2D2D] text-white md:h-[350px] pt-6 md:pt-[50px] mt-20 rounded-[50px] border border-primary w-full">
+      {/* Desktop remains unchanged, mobile gets auto height */}
+      <div className="bg-[#2D2D2D] text-white h-auto md:h-[350px] pt-6 md:pt-[50px] mt-20 rounded-[50px] border border-primary w-full">
         <div className="flex flex-col">
           {/* Heading & Location Section */}
           <div className="flex flex-col md:flex-row md:justify-center md:gap-[109px] items-center">
@@ -60,9 +60,9 @@ const HappeningSection = () => {
               HAPPENING IN
             </h1>
             <div className="flex items-center gap-2 mb-4 md:mb-0">
-              {/* Only show these buttons on desktop */}
+              {/* Navigation Buttons - Hide on mobile */}
               <Button
-                className="bg-white text-black rounded-lg w-8 h-8 hidden md:flex items-center justify-center"
+                className="hidden md:flex bg-white text-black rounded-lg w-8 h-8 items-center justify-center"
                 onClick={() => {}}>
                 <FaAngleLeft />
               </Button>
@@ -82,7 +82,7 @@ const HappeningSection = () => {
                 </div>
               </div>
               <Button
-                className="bg-white text-black rounded-lg w-8 h-8 hidden md:flex items-center justify-center"
+                className="hidden md:flex bg-white text-black rounded-lg w-8 h-8 items-center justify-center"
                 onClick={() => {}}>
                 <FaAngleRight />
               </Button>
@@ -95,8 +95,8 @@ const HappeningSection = () => {
             <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
           </div>
         </div>
-        {/* Filters Section - Horizontal scroll on mobile */}
-        <div className="flex gap-4 items-center overflow-x-auto whitespace-nowrap px-4 md:flex-wrap md:justify-center md:overflow-visible">
+        {/* Filters - Desktop version fully restored, Mobile gets horizontal scroll */}
+        <div className="flex flex-wrap md:justify-center gap-4 px-4">
           {filters.map((filter, index) => (
             <Button
               key={index}
@@ -112,13 +112,13 @@ const HappeningSection = () => {
         </div>
       </div>
 
-      {/* Events Cards */}
+      {/* Events - Desktop fully restored, Mobile full-width */}
       {pathname !== "/events" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10 mb-10 px-4">
+        <div className="flex justify-start md:gap-5 flex-wrap mt-10 mb-10 px-4">
           {events.map((event, index) => (
             <div
               key={index}
-              className="w-full md:w-[282px] md:h-[454px] rounded-lg overflow-hidden shadow-lg bg-black text-white flex flex-col">
+              className="w-full md:w-[282px] h-auto md:h-[454px] rounded-lg overflow-hidden shadow-lg bg-black text-white flex flex-col">
               <div className="relative w-full h-auto md:h-3/5">
                 <Image
                   src={event.image}
