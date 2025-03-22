@@ -66,11 +66,12 @@ export default function FAQPage() {
               />
             </div>
           </div>
-          <div className="w-full md:w-1/3 flex flex-col items-center">
+          {/* Question Mark Image: Left aligned on Mobile, Centered on Desktop */}
+          <div className="w-full md:w-1/3 flex flex-col items-start md:items-center">
             <img
               src="/Triplequestionmark.png"
               alt="Question Mark"
-              className="w-[200px] md:w-[300px]"
+              className="w-[250px] md:w-[300px]"
             />
             <div className="flex gap-4 mt-4">
               <Button
@@ -91,17 +92,19 @@ export default function FAQPage() {
 
         {/* FAQ GRID SECTION */}
         <div className="relative flex flex-col md:flex-row gap-8 mt-8">
+          {/* Background Accent Images */}
           <img
             src="/ellipse2.png"
             alt="Orange Blur"
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[250px] opacity-60 blur-sm z-0"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[250px] opacity-60 blur-sm z-0"
           />
           <img
             src="/star2.png"
             alt="Star Accent"
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100px] md:w-[120px] opacity-90 z-0"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[120px] opacity-90 z-0"
             style={{ transform: "translate(-50%, -60%)" }}
           />
+
           <div className="relative z-10 flex flex-col gap-4 w-full md:w-1/2">
             {filteredFAQs.length === 0 && <p>No results found.</p>}
             {leftFAQs.map((faq, index) => (
