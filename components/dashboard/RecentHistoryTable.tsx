@@ -215,7 +215,6 @@ const RecentHistoryTable: React.FC<RecentHistoryTableProps> = ({
             </div>
           </div>
 
-          {/* End Date Filter */}
           <div className="flex flex-col">
             <span className="text-xs text-gray-400">End Date</span>
             <div
