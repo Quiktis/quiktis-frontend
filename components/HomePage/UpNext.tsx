@@ -12,55 +12,47 @@ const upnext = [
 
 const UpNext = () => {
   return (
-    <div className="flex flex-col md:flex-row gap--10 md:gap--10 w-full justify-center items-center mt--10 md:mt-40">
-      <div className="w-full md:w-[50%] h-[349px] flex flex-col gap-10 px-4 md:px-0 text-center md:text-left">
-        <h1 className="text-[30px] font-primary font-bold">UP NEXT</h1>
-        <h1 className="text-[20px] md:text-[40px] font-primary font-bold">
+    <div className="flex flex-col md:flex-row gap-8 w-full justify-center items-center mt-20 px-6">
+      {/* Left Side (Text + Search) */}
+      <div className="w-full md:w-1/2 flex flex-col gap-6 text-center md:text-left">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-primary font-bold">
+          UP NEXT
+        </h1>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-primary font-bold">
           EXPLORE A WIDE RANGE OF EVENTS FROM ALL AROUND THE WORLD
         </h1>
-        <div className="hidden md:block">
+        <div className="flex justify-center md:justify-start">
           <SearchBar placeholder="Search Event" value="" onChange={() => {}} />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 md:gap-y-0 md:gap-x-20 w-full md:w-[50%] px-4 md:px-0">
-        {upnext.map((next) => (
+      {/* Right Side (Image Grid) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full md:w-1/2">
+        {upnext.map((next, index) => (
           <div
-            key={next.title}
-            className={`
-              relative
-              ${
-                next.title === "Club" || next.title === "Ladies"
-                  ? "md:mt-20"
-                  : "md:mt-10"
-              }
-            `}>
+            key={index}
+            className={`relative ${
+              (next.title === "Club" || next.title === "Ladies") && "mt-8"
+            }`}
+          >
             <Image
               src={next.image}
               alt={next.title}
               width={300}
               height={300}
-              className="object-fill w-[280px] h-[280px] md:w-[300px] md:h-[300px] md:object-contain rounded-[20px] "
+              className="w-full object-cover rounded-lg"
             />
             <div
-              className={`
-                absolute bottom-0
-                ${
-                  next.title === "Club" || next.title === "Ladies"
-                    ? "md:bottom-0"
-                    : "md:bottom-10"
-                }
-                text-[24px] font-primary font-bold w-full h-[70px]
-                flex justify-center items-center bg-white rounded-b-[20px] newsletter-bg
-              `}>
+              className={`absolute ${
+                next.title === "Club" || next.title === "Ladies"
+                  ? "bottom-0"
+                  : "bottom-4"
+              } text-lg sm:text-xl md:text-2xl font-primary font-bold w-full h-[70px] flex justify-center items-center bg-white rounded-b-lg newsletter-bg`}
+            >
               {next.title}
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="md:hidden w-full flex justify-center mt-6 px-4">
-        <SearchBar placeholder="Search Event" value="" onChange={() => {}} />
       </div>
     </div>
   );
