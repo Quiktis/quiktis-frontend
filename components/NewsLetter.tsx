@@ -26,7 +26,7 @@ const NewsLetter = () => {
 
         {/* Newsletter Box */}
         <div className="relative w-full rounded-[40px] p-6 sm:p-[50px] bg-white bg-opacity-10 backdrop-blur-[40px] border border-white border-opacity-20 shadow-lg text-white text-center sm:text-left">
-          <h1 className="text-[40px] sm:text-[48px] font-serif font-semibold leading-tight">
+          <h1 className="text-[32px] sm:text-[48px] font-serif font-semibold leading-tight">
             Get the latest updates from{" "}
             <span className="text-primary">Quiktis</span>
           </h1>
