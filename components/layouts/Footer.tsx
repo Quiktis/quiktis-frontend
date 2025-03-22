@@ -32,7 +32,7 @@ export default function Footer() {
       <footer className="mt-8 text-white w-full px-6 sm:px-8 md:px-12 py-8">
         <div className="flex flex-col md:flex-row md:justify-between gap-8 w-full">
           {/* Column 1 */}
-          <div className="flex-shrink-0 md:w-1/5 text-center md:text-left">
+          <div className="flex-shrink-0 md:w-1/5 flex justify-center md:justify-start">
             <Logo />
           </div>
 
@@ -56,7 +56,6 @@ export default function Footer() {
           <div className="md:w-1/3 flex flex-col text-center md:text-left">
             <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
 
-            {/* Social Links */}
             <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 mb-4">
               <Link href="https://instagram.com/quiktis" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF4D2A] flex items-center gap-2">
                 <FontAwesomeIcon icon={faInstagram} size="lg" />
@@ -71,7 +70,7 @@ export default function Footer() {
                 <span>@Quiktis</span>
               </Link>
             </div>
-
+            
             <div className="flex flex-col items-center gap-2">
               <Link href="mailto:support@quiktis.com" className="hover:text-[#FF4D2A] flex items-center gap-2">
                 <FontAwesomeIcon icon={faEnvelope} />
