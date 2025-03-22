@@ -41,7 +41,8 @@ const ComingNext: React.FC = () => {
         {upcomingEvents.map((event) => (
           <div
             key={event.id}
-            className="w-[300px] min-h-[400px] border-[4px] border-[#ff4d2a] rounded-xl overflow-hidden bg-transparent shadow-[0_0_30px_rgba(255,77,42,0.8)]">
+            className="w-full max-w-[300px] sm:w-[300px] min-h-[400px] border-[4px] border-[#ff4d2a] rounded-xl overflow-hidden bg-transparent shadow-[0_0_30px_rgba(255,77,42,0.8)]"
+          >
             <div className="relative h-40 w-full">
               <Image
                 src={event.image}
@@ -61,7 +62,7 @@ const ComingNext: React.FC = () => {
                 </div>
                 <div className="w-1/2 text-right">{event.location}</div>
               </div>
-              <div className="flex justify-center gap-4">
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <button className="flex items-center gap-1 border border-white bg-transparent text-white px-3 py-1 rounded-[12px] whitespace-nowrap">
                   Read more <FaLongArrowAltRight className="text-white" />
                 </button>
