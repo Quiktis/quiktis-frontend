@@ -31,6 +31,51 @@ const PurchaseHistory = () => {
       dateTime: "Aug 7, 2024 | 4:00PM",
       ticketType: "VIP",
     },
+    {
+      id: 4,
+      image: "/event1.png",
+      name: "Event 4",
+      price: "$110",
+      venue: "Venue 4",
+      dateTime: "Aug 8, 2024 | 5:00PM",
+      ticketType: "VVIP",
+    },
+    {
+      id: 5,
+      image: "/event2.png",
+      name: "Event 5",
+      price: "$130",
+      venue: "Venue 5",
+      dateTime: "Aug 9, 2024 | 6:00PM",
+      ticketType: "Regular",
+    },
+    {
+      id: 6,
+      image: "/event3.png",
+      name: "Event 6",
+      price: "$95",
+      venue: "Venue 6",
+      dateTime: "Aug 10, 2024 | 7:00PM",
+      ticketType: "VIP",
+    },
+    {
+      id: 7,
+      image: "/event1.png",
+      name: "Event 7",
+      price: "$105",
+      venue: "Venue 7",
+      dateTime: "Aug 11, 2024 | 8:00PM",
+      ticketType: "VVIP",
+    },
+    {
+      id: 8,
+      image: "/event2.png",
+      name: "Event 8",
+      price: "$115",
+      venue: "Venue 8",
+      dateTime: "Aug 12, 2024 | 9:00PM",
+      ticketType: "Regular",
+    },
   ];
 
   return (
@@ -39,37 +84,46 @@ const PurchaseHistory = () => {
         Purchase History
       </h3>
 
-      {/* Desktop Table View (Unchanged) */}
-      <div className="hidden md:block relative bg-white/10 backdrop-blur-sm rounded-xl p-6 overflow-hidden">
+      {/* Glassmorphic container */}
+      <div className="relative bg-white/10 backdrop-blur-sm rounded-xl p-6 overflow-hidden">
         {/* Top white line */}
         <div className="pointer-events-none absolute top-0 left-0 right-0 h-[1px] bg-white" />
+
+        {/* Fading sides */}
+        <div className="pointer-events-none absolute top-0 left-0 bottom-0 w-[1px] bg-gradient-to-b from-white to-transparent" />
+        <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-[1px] bg-gradient-to-b from-white to-transparent" />
+
+        {/* Bottom fade overlay */}
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-b from-transparent to-black" />
 
-        {/* Table Headers */}
-        <div className="flex items-center justify-between mb-2">
-          <div className="w-1/5 text-white font-bold text-sm">Package</div>
-          <div className="w-1/5 text-white font-bold text-sm text-center">
+        {/* Header Row */}
+        <div className="flex flex-col sm:flex-row items-start gap-2 mb-2">
+          <div className="w-full sm:w-1/5 text-white font-bold text-sm">
+            Package
+          </div>
+          <div className="w-full sm:w-1/5 text-white font-bold text-sm text-center">
             Price
           </div>
-          <div className="w-1/5 text-white font-bold text-sm text-center">
+          <div className="w-full sm:w-1/5 text-white font-bold text-sm text-center">
             Venue
           </div>
-          <div className="w-1/5 text-white font-bold text-sm text-center">
+          <div className="w-full sm:w-1/5 text-white font-bold text-sm text-center">
             Date & Time
           </div>
-          <div className="w-1/5 text-white font-bold text-sm text-center">
+          <div className="w-full sm:w-1/5 text-white font-bold text-sm text-center">
             Ticket Type
           </div>
         </div>
 
         <hr className="border border-gray-600 mb-2" />
 
-        {/* Table Content */}
+        {/* Data Rows */}
         <div className="max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
           {purchases.map((item, index) => (
             <React.Fragment key={item.id}>
-              <div className="flex items-center justify-between py-3">
-                <div className="w-1/5 flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
+                {/* Package Column */}
+                <div className="flex w-full sm:w-1/5 items-center gap-2">
                   <div className="w-10 h-10 overflow-hidden rounded-md flex-shrink-0">
                     <Image
                       src={item.image}
@@ -81,72 +135,29 @@ const PurchaseHistory = () => {
                   </div>
                   <span className="text-white text-sm">{item.name}</span>
                 </div>
-
-                <div className="w-1/5 text-white text-sm text-center">
+                {/* Price */}
+                <div className="w-full sm:w-1/5 text-white text-sm text-left sm:text-center">
                   {item.price}
                 </div>
-
-                <div className="w-1/5 text-white text-sm text-center">
+                {/* Venue */}
+                <div className="w-full sm:w-1/5 text-white text-sm text-left sm:text-center">
                   {item.venue}
                 </div>
-
-                <div className="w-1/5 text-white text-sm text-center">
+                {/* Date & Time */}
+                <div className="w-full sm:w-1/5 text-white text-sm text-left sm:text-center">
                   {item.dateTime}
                 </div>
-
-                <div className="w-1/5 text-white text-sm text-center">
+                {/* Ticket Type */}
+                <div className="w-full sm:w-1/5 text-white text-sm text-left sm:text-center">
                   {item.ticketType}
                 </div>
               </div>
-
               {index < purchases.length - 1 && (
                 <hr className="border border-gray-600" />
               )}
             </React.Fragment>
           ))}
         </div>
-      </div>
-
-      {/* Mobile View - Stacked Cards */}
-      <div className="md:hidden flex flex-col gap-4">
-        {purchases.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-md"
-          >
-            {/* Image */}
-            <div className="w-full h-40 overflow-hidden rounded-md mb-3">
-              <Image
-                src={item.image}
-                alt={item.name}
-                width={300}
-                height={200}
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Event Name & Price */}
-            <h4 className="text-white text-lg font-bold mb-1">{item.name}</h4>
-            <p className="text-[#FF4D2A] font-semibold mb-2">💰 {item.price}</p>
-
-            {/* Venue & Date/Time */}
-            <p className="text-white text-sm mb-1">📍 {item.venue}</p>
-            <p className="text-white text-sm mb-2">🗓 {item.dateTime}</p>
-
-            {/* Ticket Type */}
-            <span
-              className={`text-white text-xs font-semibold px-3 py-1 rounded-full ${
-                item.ticketType === "VIP"
-                  ? "bg-yellow-500"
-                  : item.ticketType === "Regular"
-                  ? "bg-blue-500"
-                  : "bg-red-500"
-              }`}
-            >
-              🔖 {item.ticketType}
-            </span>
-          </div>
-        ))}
       </div>
     </div>
   );
