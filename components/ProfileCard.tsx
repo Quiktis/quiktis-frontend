@@ -13,11 +13,12 @@ import {
 
 const ProfileCard: React.FC = () => {
   return (
-    <div className="relative w-full h-[320px] sm:h-[250px] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] p-6 text-white shadow-lg flex justify-center flex-col gap-10 pt-16">
+    <div className="relative w-full h-[320px] sm:h-[250px] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] p-6 text-white shadow-lg flex flex-col justify-center gap-6 pt-16">
+      {/* Top Section */}
       <div className="flex flex-col sm:flex-row w-full gap-4 sm:gap-28 items-center">
         {/* Profile Info */}
         <div className="flex items-center gap-5">
-          <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto sm:mx-0">
+          <div className="relative w-16 h-16 mx-auto sm:mx-0">
             <Image
               src="/jax.png"
               alt="Jaxson Siphron"
@@ -54,12 +55,14 @@ const ProfileCard: React.FC = () => {
             <FaYoutube size={20} />
           </Link>
         </div>
+        {/* Decorative Border - Desktop Only */}
         <div className="hidden sm:block absolute border left-32 w-[72%] top-32 border-[#AAAAAA]"></div>
       </div>
       {/* Bottom Section */}
       <div className="flex gap-14 justify-center w-full items-center text-gray-300 uppercase text-xs">
         <div className="flex flex-col gap-2">
           <h3 className="block text-gray-400">Age</h3>
+          {/* Age: horizontal on mobile, vertical on desktop */}
           <div className="flex flex-row sm:flex-col gap-1">
             <p className="text-2xl font-bold text-white">2</p>
             <p className="text-2xl font-bold text-white">8</p>
