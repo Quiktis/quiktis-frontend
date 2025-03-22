@@ -31,7 +31,7 @@ const UpNext = () => {
         {upnext.map((next, index) => (
           <div
             key={index}
-            className={`relative ${
+            className={`relative overflow-hidden rounded-lg ${
               (next.title === "Club" || next.title === "Ladies") && "mt-8"
             }`}
           >
@@ -40,14 +40,14 @@ const UpNext = () => {
               alt={next.title}
               width={300}
               height={300}
-              className="w-full object-cover rounded-lg"
+              className="w-full object-cover"
             />
             <div
               className={`absolute ${
                 next.title === "Club" || next.title === "Ladies"
                   ? "bottom-0"
-                  : "bottom-4"
-              } text-lg sm:text-xl md:text-2xl font-primary font-bold w-full h-[70px] flex justify-center items-center bg-white rounded-b-lg newsletter-bg`}
+                  : "bottom-0 sm:bottom-4"
+              } text-lg sm:text-xl md:text-2xl font-primary font-bold w-full h-[70px] flex justify-center items-center bg-white newsletter-bg rounded-b-lg`}
             >
               {next.title}
             </div>
