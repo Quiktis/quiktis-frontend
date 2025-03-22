@@ -28,14 +28,19 @@ const FavoriteEvents = () => {
   ];
 
   return (
-    <div className="p-4">
-      <h3 className="text-white text-lg font-bold mb-2">Favorite Events</h3>
-      <div className="flex flex-col gap-1">
+    <div className="p-4 sm:p-6">
+      <h3 className="text-white text-lg sm:text-xl font-bold mb-4">
+        Favorite Events
+      </h3>
+      <div className="flex flex-col gap-2 sm:gap-4">
         {favoriteEvents.map((event) => (
-          <div key={event.id} className="flex items-center justify-between p-2">
-            {/* Left Section*/}
+          <div
+            key={event.id}
+            className="flex flex-col sm:flex-row items-center justify-between p-2 sm:p-4"
+          >
+            {/* Left Section */}
             <div className="flex items-center gap-3">
-              <div className="w-14 h-14 overflow-hidden rounded-md">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 overflow-hidden rounded-md">
                 <Image
                   src={event.image}
                   alt={event.name}
@@ -45,16 +50,19 @@ const FavoriteEvents = () => {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-white font-semibold leading-5">
+                <span className="text-white font-semibold text-sm sm:text-base leading-5">
                   {event.name}
                 </span>
-                <span className="text-gray-400 text-sm">{event.subTitle}</span>
+                <span className="text-gray-400 text-xs sm:text-sm">
+                  {event.subTitle}
+                </span>
               </div>
             </div>
-
-            {/* Right Section*/}
-            <div className="flex items-center gap-4">
-              <span className="text-white text-sm">{event.date}</span>
+            {/* Right Section */}
+            <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4 mt-2 sm:mt-0">
+              <span className="text-white text-xs sm:text-sm">
+                {event.date}
+              </span>
               <FaHeart className="text-[#FF4D2A]" size={18} />
             </div>
           </div>
