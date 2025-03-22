@@ -13,8 +13,7 @@ import {
 
 const ProfileHeader: React.FC = () => {
   return (
-    <div className="relative w-full h-[250px] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] p-6 text-white shadow-lg flex flex-col gap-6 pt-16">
-      {/* Top Section */}
+    <div className="relative w-full h-[300px] sm:h-[250px] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] p-6 text-white shadow-lg flex justify-center flex-col gap-10 pt-16">
       <div className="flex flex-col sm:flex-row w-full gap-4 sm:gap-28 items-center">
         {/* Profile Info */}
         <div className="flex items-center gap-5">
@@ -32,9 +31,7 @@ const ProfileHeader: React.FC = () => {
           </div>
           <div className="flex flex-col">
             <h2 className="text-xl font-semibold">Jaxson Siphron</h2>
-            <p className="text-gray-300 text-sm">
-              Jaxsonsiphron@gmail.com
-            </p>
+            <p className="text-gray-300 text-sm">Jaxsonsiphron@gmail.com</p>
           </div>
         </div>
         {/* Social Links */}
@@ -55,6 +52,7 @@ const ProfileHeader: React.FC = () => {
             <FaYoutube size={20} />
           </Link>
         </div>
+        {/* Decorative Border (Desktop Only) */}
         <div className="hidden sm:block absolute border left-32 w-[72%] top-32 border-[#AAAAAA]"></div>
       </div>
       {/* Bottom Section */}
