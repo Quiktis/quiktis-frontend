@@ -13,7 +13,7 @@ import {
 
 const ProfileHeader: React.FC = () => {
   return (
-    <div className="relative w-full h-[300px] sm:h-[250px] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] p-6 text-white shadow-lg flex justify-center flex-col gap-10 pt-16">
+    <div className="relative w-full h-[320px] sm:h-[250px] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] p-6 text-white shadow-lg flex justify-center flex-col gap-10 pt-16">
       <div className="flex flex-col sm:flex-row w-full gap-4 sm:gap-28 items-center">
         {/* Profile Info */}
         <div className="flex items-center gap-5">
