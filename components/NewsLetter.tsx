@@ -6,41 +6,41 @@ import Input from "./ui/Input";
 
 const NewsLetter = () => {
   return (
-    <div className="w-full px-4 sm:px-6 md:px-12">
-      <div className="relative flex justify-between items-center w-full -z-50">
+    <section className="w-full px-6 sm:px-10 py-20 overflow-hidden -mb-20">
+      <div className="relative w-full flex justify-center sm:justify-between items-center">
         {/* Left Image */}
         <Image
           src={"/mask-fade.svg"}
           alt="mask-fade"
           width={200}
           height={200}
-          className="absolute left-0 sm:-left-10 md:-left-20"
+          className="absolute -left-10 sm:-left-20"
         />
+        
+        {/* Newsletter Box - Centered on Mobile */}
+        <div className="relative w-full max-w-[900px] rounded-[40px] p-6 sm:p-[50px] bg-white bg-opacity-10 backdrop-blur-[40px] border border-white border-opacity-20 shadow-lg text-white text-center sm:text-left">
+          <h1 className="text-[32px] sm:text-[48px] font-serif font-semibold leading-tight">
+            Get the latest updates from <span className="text-primary">Quiktis</span>
+          </h1>
+          <p className="mt-4 text-[14px] sm:text-[16px] leading-relaxed">
+            Subscribe to our newsletter and be the first to get the latest updates from{" "}
+            <span className="text-primary">Quiktis</span>
+          </p>
 
-        {/* Newsletter Content - Glassmorphism background fully covering everything */}
-        <div className="relative w-full flex justify-center">
-          <div className="w-full max-w-[900px] rounded-[40px] border-2 shadow-lg backdrop-blur-md bg-white/10 text-center sm:text-left p-6 sm:p-10 flex flex-col gap-4 z-50">
-            <h1 className="text-[32px] sm:text-[40px] md:text-[50px] leading-none text-white">
-              Get the latest updates from <span className="text-primary">Quiktis</span>
-            </h1>
-            <p className="text-sm sm:text-base text-white">
-              Subscribe to our newsletter and be the first to get the latest updates from{" "}
-              <span className="text-primary">Quiktis</span>
-            </p>
-
-            {/* Input & Button */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full justify-center sm:justify-start">
-              <Input
-                value={""}
-                onChange={() => {}}
-                type="email"
-                placeholder="Input email here"
-                className="bg-opacity-15 bg-white py-3 border border-[#CBCAD7] text-white placeholder-gray-500 rounded-[15px] px-6 sm:px-12 md:px-20"
-              />
-              <Button className="py-3 rounded-[15px] bg-primary px-10 sm:px-14" onClick={() => {}}>
-                Subscribe
-              </Button>
-            </div>
+          {/* Input & Button - Centered on Mobile */}
+          <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full max-w-[600px] mx-auto sm:mx-0">
+            <Input
+              value={""}
+              onChange={() => {}}
+              type="email"
+              placeholder="Input email here"
+              className="bg-opacity-15 bg-white py-3 border border-[#CBCAD7] text-white placeholder-gray-500 rounded-[15px] px-6 sm:px-20"
+            />
+            <Button
+              className="py-4 rounded-[15px] bg-primary px-10 text-white"
+              onClick={() => {}}>
+              Subscribe
+            </Button>
           </div>
         </div>
 
@@ -50,10 +50,10 @@ const NewsLetter = () => {
           alt="mask-green"
           width={200}
           height={200}
-          className="absolute right-0 sm:-right-10 md:-right-20"
+          className="absolute -right-10 sm:-right-20"
         />
       </div>
-    </div>
+    </section>
   );
 };
 
