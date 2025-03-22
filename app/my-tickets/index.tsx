@@ -29,7 +29,7 @@ export default function MyTicketsPage() {
       </div>
 
       {/* Bottom Section */}
-      <div>
+      <div className="mt-4 sm:mt-0">
         <ComingNext />
       </div>
     </main>
