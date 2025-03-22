@@ -96,7 +96,6 @@ const PurchaseHistory = () => {
         {/* Bottom fade overlay */}
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-b from-transparent to-black" />
 
-        {/* Header Row */}
         <div className="flex flex-col sm:flex-row items-start gap-2 mb-2">
           <div className="w-full sm:w-1/5 text-white font-bold text-xs sm:text-sm">
             Package
@@ -117,12 +116,10 @@ const PurchaseHistory = () => {
 
         <hr className="border border-gray-600 mb-2" />
 
-        {/* Data Rows */}
         <div className="max-h-[300px] overflow-x-auto overflow-y-auto pr-2 custom-scrollbar">
           {purchases.map((item, index) => (
             <React.Fragment key={item.id}>
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
-                {/* Package Column */}
                 <div className="flex w-full sm:w-1/5 items-center gap-2">
                   <div className="w-8 h-8 sm:w-10 sm:h-10 overflow-hidden rounded-md flex-shrink-0">
                     <Image
@@ -137,19 +134,15 @@ const PurchaseHistory = () => {
                     {item.name}
                   </span>
                 </div>
-                {/* Price */}
                 <div className="w-full sm:w-1/5 text-white text-xs sm:text-sm text-left sm:text-center">
                   {item.price}
                 </div>
-                {/* Venue */}
                 <div className="w-full sm:w-1/5 text-white text-xs sm:text-sm text-left sm:text-center">
                   {item.venue}
                 </div>
-                {/* Date & Time */}
                 <div className="w-full sm:w-1/5 text-white text-xs sm:text-sm text-left sm:text-center">
                   {item.dateTime}
                 </div>
-                {/* Ticket Type */}
                 <div className="w-full sm:w-1/5 text-white text-xs sm:text-sm text-left sm:text-center">
                   {item.ticketType}
                 </div>
