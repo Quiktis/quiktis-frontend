@@ -34,7 +34,6 @@ const Notifications: React.FC = () => {
       <h3 className="text-2xl font-bold uppercase tracking-wide mb-8">
         Notification
       </h3>
-      {/* Background SVG - Hidden on Mobile */}
       <div className="hidden sm:block absolute inset-0 pointer-events-none z-0">
         <svg width="100%" height="100%">
           <defs>
@@ -77,7 +76,6 @@ const Notifications: React.FC = () => {
       </div>
 
       {notificationsData.map((notif) => {
-        // Build position classes for desktop only (sm and up)
         let desktopPositionClasses = "";
         if (notif.position === "left1") {
           desktopPositionClasses = "sm:left-10 sm:top-[120px]";
