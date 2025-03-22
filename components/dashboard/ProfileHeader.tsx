@@ -17,7 +17,7 @@ const ProfileHeader: React.FC = () => {
       <div className="flex flex-col sm:flex-row w-full gap-4 sm:gap-28 items-center">
         {/* Profile Info */}
         <div className="flex items-center gap-5">
-          <div className="relative w-20 h-20 mx-auto sm:mx-0">
+          <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto sm:mx-0">
             <Image
               src="/jax.png"
               alt="Jaxson Siphron"
@@ -31,7 +31,9 @@ const ProfileHeader: React.FC = () => {
           </div>
           <div className="flex flex-col">
             <h2 className="text-xl font-semibold">Jaxson Siphron</h2>
-            <p className="text-gray-300 text-sm">Jaxsonsiphron@gmail.com</p>
+            <p className="text-gray-300 text-xs sm:text-sm">
+              Jaxsonsiphron@gmail.com
+            </p>
           </div>
         </div>
         {/* Social Links */}
@@ -52,7 +54,6 @@ const ProfileHeader: React.FC = () => {
             <FaYoutube size={20} />
           </Link>
         </div>
-        {/* Decorative Border (Desktop Only) */}
         <div className="hidden sm:block absolute border left-32 w-[72%] top-32 border-[#AAAAAA]"></div>
       </div>
       {/* Bottom Section */}
