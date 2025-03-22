@@ -5,24 +5,30 @@ const notificationsData = [
   {
     id: 1,
     label: "EVENT UPDATE",
-    title: "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
-    subheading: "Sub heading. Lorem ipsum dolor sit amet consectetur.",
+    title:
+      "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
+    subheading:
+      "Sub heading. Lorem ipsum dolor sit amet consectetur.",
     date: "May 23, 2024",
     position: "left1",
   },
   {
     id: 2,
     label: "ALERT",
-    title: "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
-    subheading: "Sub heading. Lorem ipsum dolor sit amet consectetur.",
+    title:
+      "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
+    subheading:
+      "Sub heading. Lorem ipsum dolor sit amet consectetur.",
     date: "May 23, 2024",
     position: "right",
   },
   {
     id: 3,
     label: "EVENT UPDATE",
-    title: "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
-    subheading: "Sub heading. Lorem ipsum dolor sit amet consectetur.",
+    title:
+      "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
+    subheading:
+      "Sub heading. Lorem ipsum dolor sit amet consectetur.",
     date: "May 23, 2024",
     position: "left2",
   },
@@ -34,6 +40,7 @@ const Notifications: React.FC = () => {
       <h3 className="text-2xl font-bold uppercase tracking-wide mb-8">
         Notification
       </h3>
+      {/* Background SVG */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <svg width="100%" height="100%">
           <defs>
@@ -74,14 +81,15 @@ const Notifications: React.FC = () => {
           />
         </svg>
       </div>
+
       {notificationsData.map((notif) => {
-        let positionClasses = "";
+        let desktopPositionClasses = "";
         if (notif.position === "left1") {
-          positionClasses = "left-10 top-[120px]";
+          desktopPositionClasses = "sm:left-10 sm:top-[120px]";
         } else if (notif.position === "right") {
-          positionClasses = "right-10 top-[350px]";
+          desktopPositionClasses = "sm:right-10 sm:top-[350px]";
         } else if (notif.position === "left2") {
-          positionClasses = "left-10 top-[600px]";
+          desktopPositionClasses = "sm:left-10 sm:top-[600px]";
         }
         let labelColor = "#2E9000";
         if (notif.label === "ALERT") {
@@ -92,23 +100,31 @@ const Notifications: React.FC = () => {
           <div
             key={notif.id}
             className={`
-              absolute z-10
-              ${positionClasses}
-              w-[600px]
+              relative sm:absolute z-10
+              ${desktopPositionClasses}
+              w-full sm:w-[600px]
               p-6
               bg-black/30
               rounded-[20px]
               border border-[#F68B61]
               shadow-[0_0_20px_rgba(246,139,97,0.7)]
-            `}>
+            `}
+          >
             <span
               className="font-semibold text-sm uppercase"
-              style={{ color: labelColor }}>
+              style={{ color: labelColor }}
+            >
               {notif.label}
             </span>
-            <h4 className="text-lg font-bold mt-2 leading-5">{notif.title}</h4>
-            <p className="text-gray-400 text-sm mt-2">{notif.subheading}</p>
-            <div className="text-gray-300 text-xs mt-3">{notif.date}</div>
+            <h4 className="text-lg font-bold mt-2 leading-5">
+              {notif.title}
+            </h4>
+            <p className="text-gray-400 text-sm mt-2">
+              {notif.subheading}
+            </p>
+            <div className="text-gray-300 text-xs mt-3">
+              {notif.date}
+            </div>
           </div>
         );
       })}
