@@ -29,7 +29,7 @@ export default function MyTicketsPage() {
       </div>
 
       {/* Bottom Section */}
-      <div className="mt-4 sm:mt-0">
+      <div className="mt-[calc(1rem+env(safe-area-inset-bottom))] sm:mt-0">
         <ComingNext />
       </div>
     </main>
