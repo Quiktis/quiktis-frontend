@@ -5,30 +5,24 @@ const notificationsData = [
   {
     id: 1,
     label: "EVENT UPDATE",
-    title:
-      "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
-    subheading:
-      "Sub heading. Lorem ipsum dolor sit amet consectetur.",
+    title: "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
+    subheading: "Sub heading. Lorem ipsum dolor sit amet consectetur.",
     date: "May 23, 2024",
     position: "left1",
   },
   {
     id: 2,
     label: "ALERT",
-    title:
-      "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
-    subheading:
-      "Sub heading. Lorem ipsum dolor sit amet consectetur.",
+    title: "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
+    subheading: "Sub heading. Lorem ipsum dolor sit amet consectetur.",
     date: "May 23, 2024",
     position: "right",
   },
   {
     id: 3,
     label: "EVENT UPDATE",
-    title:
-      "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
-    subheading:
-      "Sub heading. Lorem ipsum dolor sit amet consectetur.",
+    title: "HEADLINE LOREM IPSUM DOLOR SIT AMET CONSECTETUR. MORBI UT",
+    subheading: "Sub heading. Lorem ipsum dolor sit amet consectetur.",
     date: "May 23, 2024",
     position: "left2",
   },
@@ -40,8 +34,8 @@ const Notifications: React.FC = () => {
       <h3 className="text-2xl font-bold uppercase tracking-wide mb-8">
         Notification
       </h3>
-      {/* Background SVG */}
-      <div className="absolute inset-0 pointer-events-none z-0">
+      {/* Background SVG - Hidden on Mobile */}
+      <div className="hidden sm:block absolute inset-0 pointer-events-none z-0">
         <svg width="100%" height="100%">
           <defs>
             <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -83,6 +77,7 @@ const Notifications: React.FC = () => {
       </div>
 
       {notificationsData.map((notif) => {
+        // Build position classes for desktop only (sm and up)
         let desktopPositionClasses = "";
         if (notif.position === "left1") {
           desktopPositionClasses = "sm:left-10 sm:top-[120px]";
@@ -100,7 +95,7 @@ const Notifications: React.FC = () => {
           <div
             key={notif.id}
             className={`
-              relative sm:absolute z-10
+              relative mb-4 sm:mb-0 sm:absolute z-10
               ${desktopPositionClasses}
               w-full sm:w-[600px]
               p-6
