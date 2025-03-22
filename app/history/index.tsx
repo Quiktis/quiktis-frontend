@@ -44,7 +44,6 @@ const HistoryPage = () => {
         </div>
       </div>
 
-      {/* Recent History Table Section */}
       <div className="mt-10 md:mt-20">
         <RecentHistoryTable
           data={historyData}
