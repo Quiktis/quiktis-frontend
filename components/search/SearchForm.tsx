@@ -12,9 +12,9 @@ export default function SearchForm() {
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full max-w-[600px]">
+    <div className="flex flex-col gap-3 w-full max-w-[600px]">
       <div className="flex flex-col">
-        <label className="text-sm text-gray-300 mb-1"></label>
+        <label className="text-xs sm:text-sm text-gray-300 mb-1"></label>
         <select
           value={country}
           onChange={(e) => setCountry(e.target.value)}
@@ -24,11 +24,11 @@ export default function SearchForm() {
             border 
             border-[#FF4D2A] 
             text-[#FF4D2A] 
-            px-4 
-            py-3 
+            px-3 py-2 
+            sm:px-4 sm:py-3 
             rounded-md 
             outline-none 
-            w-32
+            w-28 sm:w-32
           "
         >
           <option value="Nigeria">Nigeria</option>
@@ -51,8 +51,8 @@ export default function SearchForm() {
             border-[#FF4D2A] 
             text-white 
             placeholder:text-gray-300 
-            px-4 
-            py-3 
+            px-3 py-2 
+            sm:px-4 sm:py-3 
             rounded-md 
             outline-none
           "
@@ -66,8 +66,8 @@ export default function SearchForm() {
             border 
             border-[#FF4D2A] 
             text-white 
-            px-4 
-            py-3 
+            px-3 py-2 
+            sm:px-4 sm:py-3 
             rounded-md 
             hover:bg-[#FF4D2A]/20 
             transition-colors 
