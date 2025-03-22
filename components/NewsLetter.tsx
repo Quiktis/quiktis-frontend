@@ -6,8 +6,8 @@ import Input from "./ui/Input";
 
 const NewsLetter = () => {
   return (
-    <div className="w-full">
-      <div className="relative w-full flex justify-center items-center -z-50">
+    <section className="w-full px-6 sm:px-10 py-20 overflow-hidden -mb-20">
+      <div className="relative w-full flex justify-center sm:justify-between items-center">
         {/* Background Images */}
         <Image
           src={"/mask-fade.svg"}
@@ -26,22 +26,19 @@ const NewsLetter = () => {
 
         {/* Newsletter Box */}
         <div
-          className={`relative w-full max-w-[900px] rounded-[40px] border-2 shadow flex flex-col gap-3 justify-center absolute z-50 newsletter-bg
-                      p-4 sm:pl-[70px]
-                      h-auto sm:h-[250px]
-                      text-center sm:text-left`}
+          className="absolute sm:static w-full rounded-[40px] p-4 sm:p-[50px] bg-white bg-opacity-10 backdrop-blur-[40px] border border-white border-opacity-20 shadow-lg text-white text-center sm:text-left"
         >
-          <h1 className="text-[40px] sm:text-[50px] leading-none text-white">
+          <h1 className="text-[40px] sm:text-[48px] font-serif font-semibold leading-tight">
             Get the latest updates from{" "}
             <span className="text-primary">Quiktis</span>
           </h1>
-          <p className="text-[14px] sm:text-[16px]">
+          <p className="mt-4 text-[14px] sm:text-[16px] leading-relaxed">
             Subscribe to our newsletter and be the first to get the latest updates from{" "}
             <span className="text-primary">Quiktis</span>
           </p>
 
           {/* Input & Button */}
-          <div className="flex flex-col sm:flex-row gap-4 w-full mx-auto sm:mx-0">
+          <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full max-w-[600px] mx-auto sm:mx-0">
             <Input
               value={""}
               onChange={() => {}}
@@ -58,7 +55,7 @@ const NewsLetter = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
