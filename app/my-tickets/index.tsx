@@ -7,9 +7,9 @@ import ComingNext from "@/components/dashboard/ComingNext";
 
 export default function MyTicketsPage() {
   return (
-    <main className="p-8 bg-transparent min-h-screen text-white">
-      {/* Top Section*/}
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
+    <main className="p-4 md:p-8 bg-transparent min-h-screen text-white">
+      {/* Top Section */}
+      <div className="flex flex-col md:flex-row gap-4 md:gap-8 mb-8">
         <div className="flex-1">
           <ProfileHeader />
         </div>
@@ -18,7 +18,7 @@ export default function MyTicketsPage() {
         </div>
       </div>
 
-      {/* Middle Section*/}
+      {/* Middle Section */}
       <div className="flex flex-col gap-4 mb-8">
         <div className="w-full">
           <PurchaseHistory />
