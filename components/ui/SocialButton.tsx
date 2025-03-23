@@ -1,12 +1,14 @@
 import React from 'react';
 import { FaApple, FaFacebookF, FaGoogle, FaTwitter } from 'react-icons/fa';
 import Button from './Button';
+import { LuLoaderCircle } from 'react-icons/lu';
 
 interface SocialLoginButtonProps {
   onClick: () => void;
   className?: string;
   children: React.ReactNode;
   icon: React.ReactNode;
+  
 }
 
 export const AuthButton: React.FC<SocialLoginButtonProps> = ({ onClick, className, children, icon }) => {
@@ -18,12 +20,17 @@ export const AuthButton: React.FC<SocialLoginButtonProps> = ({ onClick, classNam
   );
 };
 
+interface SocialButtonProps {
+  googleLogin: () => any;
+  googleLoading?: boolean
+}
 
-export const SocialButton = () => {
+
+export const SocialButton: React.FC<SocialButtonProps> = ({googleLogin, googleLoading}) => {
   return (
     <div className="grid grid-cols-2 gap-2 items-center">
-    <AuthButton onClick={() => alert('Login with Google')} icon={<FaGoogle size={20} />}>
-      Login with Google
+    <AuthButton onClick={googleLogin} className='flex gap-3 w-full' icon={<FaGoogle size={20} />}>
+      Login with Google {googleLoading && <LuLoaderCircle className={`animate-spin ml-2`} />}
     </AuthButton>
     <AuthButton onClick={() => alert('Login with Apple')} icon={<FaApple size={20} />}>
       Login with Apple

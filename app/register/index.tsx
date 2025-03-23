@@ -8,6 +8,7 @@ import { SocialButton } from "@/components/ui/SocialButton";
 import useAxios from "../hooks/useAxios";
 import { useUser } from "../context/UserContext";
 import { useRouter } from "next/navigation";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const RegisterPage: React.FC = () => {
   const [fullName, setFullName] = useState("");
@@ -19,12 +20,31 @@ const RegisterPage: React.FC = () => {
   const [error, setError] = useState("");
   const { user, setUser } = useUser();
   const [isProcessing, setIsProcessing] = useState(false); // NEW state
+  const [googleLoading, setGoogleLoading] = useState(false);
   const router = useRouter();
 
 
   const handleLogin = (userId: string, name: string, email: string ) => {
     setUser({ userId, name, email });
   };
+
+  const googleLogin = useGoogleLogin({
+      onSuccess: async (tokenResponse) => {
+        console.log(tokenResponse);
+        setGoogleLoading(false);
+        router.push("/create-events");
+      },
+      onError: (error) => {
+        console.error("Login Failed:", error);
+        setGoogleLoading(false);
+      },
+    });
+
+
+    const handleGoogle = () => {
+      setGoogleLoading(true)
+      googleLogin();
+    }
 
   
   const handleRegister = async (e: React.FormEvent) => {
@@ -135,13 +155,13 @@ const RegisterPage: React.FC = () => {
           </Button>
           {error && <p className="text-sm text-red-600">{error}</p>}
         </form>
-        <div className="mt-6 w-full max-w-md">
+        <div className="mt-6 w-full">
           <div className="flex items-center justify-center gap-2 my-6">
             <div className="flex-grow border-t border-[#808080]"></div>
             <p className="text-center mb-0 px-2">Continue with</p>
             <div className="flex-grow border-t border-[#808080]"></div>
           </div>
-          <SocialButton />
+          <SocialButton googleLogin={handleGoogle} googleLoading={googleLoading}/>
           <p className="mt-6 w-full flex justify-center">
             Already have an account?{" "}
             <Link
@@ -154,7 +174,7 @@ const RegisterPage: React.FC = () => {
           </p>
         </div>
       </div>
-      <div className="flex justify-center w-[707px] h-[950px]">
+      <div className="max-sm:hidden flex justify-center w-[707px] h-[950px]">
         <Image
           src="/authImage.png"
           alt="auth"
