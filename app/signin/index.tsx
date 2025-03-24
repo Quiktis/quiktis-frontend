@@ -8,6 +8,7 @@ import { SocialButton } from '@/components/ui/SocialButton';
 import useAxios from '../hooks/useAxios';
 import { useUser } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
+import { useGoogleLogin } from "@react-oauth/google";
 
 
 const LoginPage: React.FC = () => {
@@ -16,11 +17,30 @@ const LoginPage: React.FC = () => {
   const { sendRequest, loading, error } = useAxios();
   const [isProcessing, setIsProcessing] = useState(false); // NEW state
   const { user, setUser } = useUser();
+  const [googleLoading, setGoogleLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = (userId: string, name: string, email: string ) => {
     setUser({ userId, name, email });
   };
+
+  const googleLogin = useGoogleLogin({
+        onSuccess: async (tokenResponse) => {
+          console.log(tokenResponse);
+          setGoogleLoading(false);
+          router.push("/create-events");
+        },
+        onError: (error) => {
+          console.error("Login Failed:", error);
+          setGoogleLoading(false);
+        },
+      });
+  
+  
+      const handleGoogle = () => {
+        setGoogleLoading(true)
+        googleLogin();
+      }
 
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -90,7 +110,7 @@ const LoginPage: React.FC = () => {
           <p className="text-center mb-0 px-2">Continue with</p>
           <div className='flex-grow border-t border-[#808080]'></div>
         </div>
-          <SocialButton />
+          <SocialButton googleLogin={handleGoogle} googleLoading={googleLoading}/>
           <p className="mt-6 w-full flex justify-center">
           Don&apos;t have an account? <Link href={'/register'} className="text-orange-500 cursor-pointer ml-2"> Sign Up</Link>
         </p>
