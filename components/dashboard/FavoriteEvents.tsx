@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { FaHeart } from "react-icons/fa";
 
-const FavoriteEvents = () => {
+const FavoriteEvents: React.FC = () => {
   const favoriteEvents = [
     {
       id: 1,
@@ -28,29 +28,28 @@ const FavoriteEvents = () => {
   ];
 
   return (
-    <div className="p-4 sm:p-6">
-      <h3 className="text-white text-lg sm:text-xl font-bold mb-4">
+    <div className="p-2 sm:p-3">
+      <h3 className="text-white text-lg sm:text-xl font-bold mb-1 text-center md:text-left">
         Favorite Events
       </h3>
-      <div className="flex flex-col gap-2 sm:gap-4">
+      <div className="flex flex-col gap-1">
         {favoriteEvents.map((event) => (
           <div
             key={event.id}
-            className="flex flex-col sm:flex-row items-center justify-between p-2 sm:p-4"
-          >
+            className="flex flex-col sm:flex-row items-center justify-between p-2">
             {/* Left Section */}
-            <div className="flex items-center gap-3">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 overflow-hidden rounded-md">
+            <div className="flex items-center gap-2">
+              <div className="w-16 h-16 sm:w-16 sm:h-16 overflow-hidden rounded-md">
                 <Image
                   src={event.image}
                   alt={event.name}
-                  width={56}
-                  height={56}
+                  width={64}
+                  height={64}
                   className="object-cover"
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-white font-semibold text-sm sm:text-base leading-5">
+                <span className="text-white font-semibold text-base sm:text-base">
                   {event.name}
                 </span>
                 <span className="text-gray-400 text-xs sm:text-sm">
@@ -58,12 +57,15 @@ const FavoriteEvents = () => {
                 </span>
               </div>
             </div>
+
             {/* Right Section */}
-            <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4 mt-2 sm:mt-0">
+            <div className="flex flex-col sm:flex-row items-center gap-2">
               <span className="text-white text-xs sm:text-sm">
                 {event.date}
               </span>
-              <FaHeart className="text-[#FF4D2A]" size={18} />
+              <button aria-label="Favorite" className="p-2 sm:p-1">
+                <FaHeart className="text-[#FF4D2A]" size={20} />
+              </button>
             </div>
           </div>
         ))}
