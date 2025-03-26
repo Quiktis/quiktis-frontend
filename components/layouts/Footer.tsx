@@ -53,7 +53,7 @@ export default function Footer() {
               <Link href="/events" className="hover:text-[#FF4D2A]">
                 Event
               </Link>
-              <Link href="/help" className="hover:text-[#FF4D2A]">
+              <Link href="/contact" className="hover:text-[#FF4D2A]">
                 Help
               </Link>
             </div>
