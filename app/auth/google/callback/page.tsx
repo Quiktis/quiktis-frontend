@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
 
 const GoogleCallbackPage = () => {
@@ -60,4 +60,13 @@ const GoogleCallbackPage = () => {
   );
 };
 
-export default GoogleCallbackPage;
+
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div></div>}>
+      <GoogleCallbackPage />
+    </Suspense>
+  );
+}
+

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Input from "@/components/ui/Input";
@@ -233,4 +233,14 @@ const RegisterPage: React.FC = () => {
   );
 };
 
-export default RegisterPage;
+
+
+
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div></div>}>
+      <RegisterPage />
+    </Suspense>
+  );
+}
