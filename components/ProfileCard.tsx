@@ -11,13 +11,7 @@ import {
   FaPen,
 } from "react-icons/fa";
 
-
-interface ProfileCardProps {
-  name: string;
-  email: string;
-}
-
-const ProfileCard: React.FC<ProfileCardProps> = ({name, email}) => {
+const ProfileCard: React.FC = () => {
   return (
     <div className="relative w-[calc(100%+40px)] sm:w-full h-[320px] sm:h-[250px] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] p-6 text-white shadow-lg flex flex-col justify-center gap-10 pt-16">
       {/* Top Section */}
@@ -36,13 +30,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({name, email}) => {
             </div>
           </div>
           <div className="mt-4 flex flex-col">
-            <h2 className="text-xl font-semibold">{name}</h2>
+            <h2 className="text-xl font-semibold">Jaxson Siphron</h2>
             <p className="text-gray-300 text-xs sm:text-sm">
-              {email}
+              Jaxsonsiphron@gmail.com
             </p>
           </div>
         </div>
-        {/* Social Links */}
         <div className="flex justify-center gap-4">
           <Link href="#" className="hover:text-gray-400">
             <FaFacebook size={20} />
