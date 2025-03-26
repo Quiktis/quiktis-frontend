@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaChevronDown } from "react-icons/fa"; // Import the arrow icon
+import { FaChevronDown } from "react-icons/fa"; 
 
 interface DropdownProps {
   options: string[];
@@ -16,7 +16,7 @@ const CustomDropdown: React.FC<DropdownProps> = ({
   onChange,
   label,
   className,
-  placeholder = "Select an option", // Default placeholder
+  placeholder = "Select an option", 
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,7 +31,7 @@ const CustomDropdown: React.FC<DropdownProps> = ({
         className={`relative border border-gray-300 text-gray-400 px-4 py-3 rounded-md cursor-pointer flex items-center justify-between ${className}`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selected || placeholder} {/* Use placeholder if no option is selected */}
+        {selected || placeholder} 
         <FaChevronDown className={`ml-2 transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </div>
 

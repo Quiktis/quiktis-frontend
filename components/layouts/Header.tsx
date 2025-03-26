@@ -10,7 +10,15 @@ import Image from "next/image";
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const specialPaths = ["/events", "/create-events"];
+  const specialPaths = [
+    "/events",
+    "/create-events",
+    "/contact",
+    "/event-creator",
+    "/notifications",
+    "/reviews",
+    "/announcement",
+  ];
   const excludeHeaderPaths = ["/search"];
 
   if (excludeHeaderPaths.includes(pathname)) return null;
@@ -20,7 +28,7 @@ const Header = () => {
       <div className="flex gap-1 items-center cursor-pointer">
         <Logo />
         <Link
-          href={"/"}
+          href="/"
           className="text-white drop-shadow-custom-red text-[30px] font-primary">
           Quiktis
         </Link>
@@ -29,10 +37,10 @@ const Header = () => {
       <Navbar />
 
       {specialPaths.includes(pathname) ? (
-        <div className="flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4">
           <Button
             onClick={() => router.push("/connect-wallet")}
-            className="hidden md:flex text-[16px] w-fit items-center justify-center py-1 drop-shadow-custom-red bg-primary">
+            className="text-[16px] w-fit items-center justify-center py-1 drop-shadow-custom-red bg-primary">
             Connect Wallet
           </Button>
           <div className="hidden md:flex w-10 h-10 rounded-full bg-gray-300 overflow-hidden">

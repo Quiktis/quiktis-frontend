@@ -8,7 +8,6 @@ const NewsLetter = () => {
   return (
     <section className="w-full px-6 sm:px-10 py-20 overflow-hidden -mb-20">
       <div className="relative w-full flex justify-between items-center">
-        {/* Background Images */}
         <Image
           src={"/mask-fade.svg"}
           alt="mask-fade"
@@ -24,15 +23,14 @@ const NewsLetter = () => {
           className="absolute -right-10 sm:-right-20"
         />
 
-        {/* Newsletter Box */}
         <div className="relative w-full rounded-[40px] p-6 sm:p-[50px] bg-white bg-opacity-10 backdrop-blur-[40px] border border-white border-opacity-20 shadow-lg text-white text-center sm:text-left">
           <h1 className="text-[32px] sm:text-[48px] font-serif font-semibold leading-tight">
             Get the latest updates from{" "}
             <span className="text-primary">Quiktis</span>
           </h1>
           <p className="mt-4 text-[14px] sm:text-[16px] leading-relaxed">
-            Subscribe to our newsletter and be the first to get the latest updates
-            from <span className="text-primary">Quiktis</span>
+            Subscribe to our newsletter and be the first to get the latest
+            updates from <span className="text-primary">Quiktis</span>
           </p>
 
           {/* Input & Button */}
@@ -46,8 +44,7 @@ const NewsLetter = () => {
             />
             <Button
               className="py-3 rounded-[15px] bg-primary px-6 sm:px-10 text-white"
-              onClick={() => {}}
-            >
+              onClick={() => {}}>
               Subscribe
             </Button>
           </div>

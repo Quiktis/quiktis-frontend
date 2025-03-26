@@ -46,15 +46,15 @@ export default function FAQPage() {
 
   return (
     <main className="bg-transparent text-white min-h-screen">
-      <div className="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto py-10 px-6">
         {/* Top Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-          <div className="w-full md:w-2/3">
-            <h1 className="text-[60px] md:text-[100px] font-extrabold">
+        <div className="flex justify-between items-start flex-wrap gap-8">
+          <div>
+            <h1 className="text-[80px] md:text-[100px] font-extrabold">
               F<span className="mx-1 text-[#FF4D2A]">.</span>A
               <span className="mx-1 text-[#FF4D2A]">.</span>Q
             </h1>
-            <p className="text-[16px] md:text-[20px] mt-2 mb-6">
+            <p className="text-[20px] mt-2 mb-6 whitespace-normal max-w-xs md:whitespace-nowrap md:max-w-full">
               Looking for help? Here are our most frequently asked questions.
             </p>
             <div className="w-full max-w-[500px] mb-8">
@@ -66,7 +66,7 @@ export default function FAQPage() {
               />
             </div>
           </div>
-          <div className="w-full md:w-1/3 flex flex-col items-start md:items-center">
+          <div className="flex flex-col items-center">
             <img
               src="/Triplequestionmark.png"
               alt="Question Mark"
@@ -75,14 +75,12 @@ export default function FAQPage() {
             <div className="flex gap-4 mt-4">
               <Button
                 className="bg-[#FF4D2A] hover:bg-[#FF4D2A]/90 transition-colors duration-300 text-sm"
-                onClick={() => alert("Contact Us clicked")}
-              >
+                onClick={() => alert("Contact Us clicked")}>
                 Contact Us
               </Button>
               <Button
                 className="bg-[#FF4D2A] hover:bg-[#FF4D2A]/90 transition-colors duration-300 text-sm"
-                onClick={() => alert("Live Chat clicked")}
-              >
+                onClick={() => alert("Live Chat clicked")}>
                 Live Chat
               </Button>
             </div>
@@ -94,12 +92,12 @@ export default function FAQPage() {
           <img
             src="/ellipse2.png"
             alt="Orange Blur"
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] md:w-[250px] opacity-60 blur-sm z-0"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] opacity-60 blur-sm z-0"
           />
           <img
             src="/star2.png"
             alt="Star Accent"
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[120px] opacity-90 z-0"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120px] opacity-90 z-0"
             style={{ transform: "translate(-50%, -60%)" }}
           />
           <div className="relative z-10 flex flex-col gap-4 w-full md:w-1/2">
@@ -107,8 +105,7 @@ export default function FAQPage() {
             {leftFAQs.map((faq, index) => (
               <div
                 key={index}
-                className="p-4 rounded-lg shadow-md bg-[#1A1A1A]"
-              >
+                className="p-4 rounded-lg shadow-md bg-[#1A1A1A]">
                 <h2 className="font-semibold text-xl mb-2">{faq.question}</h2>
                 <p>{faq.answer}</p>
               </div>
@@ -118,8 +115,7 @@ export default function FAQPage() {
             {rightFAQs.map((faq, index) => (
               <div
                 key={index}
-                className="p-4 rounded-lg shadow-md bg-[#1A1A1A]"
-              >
+                className="p-4 rounded-lg shadow-md bg-[#1A1A1A]">
                 <h2 className="font-semibold text-xl mb-2">{faq.question}</h2>
                 <p>{faq.answer}</p>
               </div>

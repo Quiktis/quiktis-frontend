@@ -1,24 +1,33 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import Image from "next/image";
 
 const Navbar: React.FC = () => {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Pages", path: "/my-tickets" },
     { name: "Events", path: "/events" },
-    { name: "Help", path: "/faq" },
-    { name: "Create", path: "/create-events" },
+    { name: "ContactUs", path: "/contact" },
+    { name: "Help", path: "/reviews" },
+    // { name: "Create", path: "/notifications" },
+  ];
+  const specialPaths = [
+    "/events",
+    "/create-events",
+    "/contact",
+    "/event-creator",
+    "/notifications",
+    "/reviews",
+    "/announcement",
   ];
 
   return (
     <nav className="relative">
+      {/* Desktop Navbar */}
       <div className="hidden md:flex items-center gap-[40px]">
         {navItems.map((item) => (
           <Link
@@ -34,7 +43,18 @@ const Navbar: React.FC = () => {
         ))}
       </div>
 
-      <div className="md:hidden flex items-center">
+      <div className="md:hidden flex items-center gap-2">
+        {specialPaths.includes(pathname) && (
+          <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden">
+            <Image
+              src="/pp.png"
+              alt="Profile"
+              width={32}
+              height={32}
+              className="object-cover"
+            />
+          </div>
+        )}
         <button
           onClick={() => setSidebarOpen(true)}
           className="text-white"
@@ -72,11 +92,19 @@ const Navbar: React.FC = () => {
               ))}
             </div>
             <div className="mt-auto">
-              <Link href="/register">
-                <button className="w-full py-3 bg-primary text-white text-[16px] font-bold rounded-md">
-                  Get Started
-                </button>
-              </Link>
+              {specialPaths.includes(pathname) ? (
+                <Link href="/connect-wallet">
+                  <button className="w-full py-3 bg-primary text-white text-[16px] font-bold rounded-md">
+                    Connect Wallet
+                  </button>
+                </Link>
+              ) : (
+                <Link href="/register">
+                  <button className="w-full py-3 bg-primary text-white text-[16px] font-bold rounded-md">
+                    Get Started
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

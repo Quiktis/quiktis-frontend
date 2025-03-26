@@ -1,7 +1,7 @@
 import React from "react";
 
 interface InputFieldProps {
-  name?: string; // Added name prop
+  name?: string;
   label: string;
   type: string;
   placeholder: string;
@@ -11,7 +11,7 @@ interface InputFieldProps {
 }
 
 const InputField: React.FC<InputFieldProps> = ({
-  name, // Added name prop
+  name,
   label,
   type,
   value,
@@ -25,7 +25,7 @@ const InputField: React.FC<InputFieldProps> = ({
         {label} {required && <span className="text-red-500">*</span>}
       </label>
       <input
-        name={name} // Added name attribute
+        name={name}
         type={type}
         value={value}
         placeholder={placeholder}

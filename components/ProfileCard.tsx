@@ -13,8 +13,10 @@ import {
 
 
 interface ProfileCardProps {
+  // Add profile card props here
   name: string;
   email: string;
+  // Add more profile card props as needed
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({name, email}) => {
@@ -36,13 +38,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({name, email}) => {
             </div>
           </div>
           <div className="mt-4 flex flex-col">
-            <h2 className="text-xl font-semibold">{name}</h2>
+            <h2 className="text-xl font-semibold">{/*Jaxson Siphron*/name}</h2>
             <p className="text-gray-300 text-xs sm:text-sm">
-              {email}
+              {/*Jaxsonsiphron@gmail.com*/ email}
             </p>
           </div>
         </div>
-        {/* Social Links */}
         <div className="flex justify-center gap-4">
           <Link href="#" className="hover:text-gray-400">
             <FaFacebook size={20} />
