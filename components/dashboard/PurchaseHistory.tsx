@@ -84,7 +84,6 @@ const PurchaseHistory = () => {
         Purchase History
       </h3>
 
-      {/* Glassmorphic  */}
       <div className="relative bg-white/10 backdrop-blur-sm rounded-xl p-6 overflow-hidden">
         {/* Top white line */}
         <div className="pointer-events-none absolute top-0 left-0 right-0 h-[1px] bg-white" />
