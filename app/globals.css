@@ -73,3 +73,19 @@ body {
   rgba(216, 98, 43, 0.3) 50%,
   rgba(27, 27, 27, 0) 100%);
 }
+
+.glass-bg-dark {
+  position: relative;
+  background: rgba(0, 0, 0, 0.555) 100%;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 2.5px solid rgba(128, 128, 128, 0.692);
+  color: white;     /* Outer drop shadow */
+   
+}
+
+
+
+
+
+

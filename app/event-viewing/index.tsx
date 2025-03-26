@@ -8,6 +8,10 @@ import { FaLocationDot } from "react-icons/fa6";
 import { RiFileCopy2Fill } from "react-icons/ri";
 import AllEvents from "@/components/AllEvents";
 import Link from "next/link";
+import Input from "@/components/ui/Input";
+import { useState } from "react";
+import InputField from "@/components/ui/InputFields";
+import { FaStar } from "react-icons/fa";
 
 const tags = [
   { tag: "Syracuse Events" },
@@ -26,6 +30,7 @@ const socials = [
 ];
 
 export default function EventViewingPage() {
+  const [email, setEmail] = useState("")
   return (
     <>
       <section className="flex flex-col md:grid grid-cols-[65%_32%] md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
@@ -177,6 +182,50 @@ export default function EventViewingPage() {
         >
           Buy with Crypto
         </Button>
+      </section>
+
+      <section className="relative mt-3">
+        <div className="grid grid-cols-3 absolute w-full">
+        <div className=" w-full h-[28em] top-[-12em] radial-gradient blur-3xl opacity-[30%]"></div>
+        <div className=" w-full h-[25em] bg-[transparent]"></div>
+        <div className=" w-full h-[30em] mt-[5em] radial-gradient blur-3xl opacity-[38%]"></div>
+        </div>
+      
+      <div className="border-2 glass-bg-dark border-[#ffffff56] px-[2em] lg:px-[4em] py-4 pt-8 lg:pt-12 rounded-[2em]">
+        <h2 className="text-[2.2em] font-inter font-medium">Write a review</h2>
+        <div className="flex gap-4 my-7">
+          <button><FaStar color="gray" size={26} /></button>
+          <button><FaStar color="gray" size={26} /></button>
+          <button><FaStar color="gray" size={26} /></button>
+          <button><FaStar color="gray" size={26} /></button>
+          <button><FaStar color="gray" size={26} /></button>
+        </div>
+        
+        <form className="flex flex-col gap-[2.5em] w-full lg:w-[50%] mt-[2.8em] mb-4">
+        <InputField
+            value={email}
+            label="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            placeholder="Input email"
+            required={true}
+            //className=" bg-[transparent] border border-[#ffffff56] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
+          />
+          <div className="relative grid">
+          <label className="absolute bg-[#0c0c0c] top-[-0.8em] text-primary left-2 px-1 font-semibold">
+              Message
+           </label>
+           <textarea placeholder="Leave us a message" className=" focus:outline-orange-500 px-4 py-4 bg-[transparent] h-[12em] border rounded-md border-[#ffffff56]"></textarea>
+           <div className="mt-4 gap-4 grid grid-cols-[1fr_1.6fr] w-[65%]">
+            <button className="border border-[#ffffff56] rounded-xl px-3 py-4 w-full hover:bg-[#ffffff11]" type="button">Cancel</button>
+            <button className="bg-primary border-[#ffffff56] rounded-xl px-3 py-4 w-full">Submit Review </button>
+          </div>
+          </div>
+
+          
+         
+        </form>
+      </div>
       </section>
 
       <section className="relative grid place-items-center">

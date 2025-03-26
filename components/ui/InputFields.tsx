@@ -21,7 +21,7 @@ const InputField: React.FC<InputFieldProps> = ({
 }) => {
   return (
     <div className="relative flex flex-col gap-1">
-      <label className="absolute bg-black -top-2 text-primary left-2 px-1 font-semibold">
+      <label className="absolute bg-[#0c0c0c] top-[-0.8em] text-primary left-2 px-1 font-semibold">
         {label} {required && <span className="text-red-500">*</span>}
       </label>
       <input
@@ -29,7 +29,7 @@ const InputField: React.FC<InputFieldProps> = ({
         type={type}
         value={value}
         placeholder={placeholder}
-        className="p-3 border bg-inherit border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
+        className="p-3 border bg-inherit border-[#ffffff56] rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
         required={required}
         onChange={onChange}
       />

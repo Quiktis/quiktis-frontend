@@ -9,9 +9,15 @@ interface User {
   name?: string | null;
 }
 
+interface GoogleUser {
+  token?: string | null;
+}
+
 interface UserContextType {
   user: User;
   setUser: (user: User) => void;
+  googleUser: GoogleUser;
+  setGoogleUser: (googleUser: GoogleUser) => void;
 }
 
 // Create the context with default values
@@ -26,9 +32,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     email: null,
   });
 
+  const [googleUser, setGoogleUser] = useState<GoogleUser>({ token: null });
+
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, googleUser, setGoogleUser }}>
       {children}
     </UserContext.Provider>
   );

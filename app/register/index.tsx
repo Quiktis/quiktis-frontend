@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Input from "@/components/ui/Input";
@@ -7,7 +7,7 @@ import Button from "@/components/ui/Button";
 import { SocialButton } from "@/components/ui/SocialButton";
 import useAxios from "../hooks/useAxios";
 import { useUser } from "../context/UserContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useGoogleLogin } from "@react-oauth/google";
 
 const RegisterPage: React.FC = () => {
@@ -22,6 +22,36 @@ const RegisterPage: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false); // NEW state
   const [googleLoading, setGoogleLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const handleGoogleCallback = async () => {
+      const code = searchParams.get("code");
+      if (!code) return;
+
+      try {
+        const res = await fetch("/api/auth/google/callback", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code }),
+        });
+
+        const data = await res.json();
+        if (data.token) {
+          //localStorage.setItem("authToken", data.token);
+          //router.push("/dashboard");
+          console.log("response body: ", data);
+          console.log("token: ", data.token);
+        } else {
+          console.error("Authentication failed:", data);
+        }
+      } catch (error) {
+        console.error("Error processing Google auth:", error);
+      }
+    };
+
+    handleGoogleCallback();
+  }, [searchParams, router]);
 
 
   const handleLogin = (userId: string, name: string, email: string ) => {
@@ -32,7 +62,7 @@ const RegisterPage: React.FC = () => {
       onSuccess: async (tokenResponse) => {
         console.log(tokenResponse);
         setGoogleLoading(false);
-        router.push("/create-events");
+        //router.push("/create-events");
       },
       onError: (error) => {
         console.error("Login Failed:", error);
@@ -45,6 +75,22 @@ const RegisterPage: React.FC = () => {
       setGoogleLoading(true)
       googleLogin();
     }
+
+    const handleGoogleLogin = async () => {
+      try {
+        if (googleLoading) return;
+        console.log("testing google auth with backend");
+        setGoogleLoading(true);
+        const response = await fetch("/api/auth/google");
+        const data = await response.json();
+        if (data.url) {
+          window.location.href = data.url; // Redirect to Google OAuth
+        }
+      } catch (error) {
+        console.error("Google OAuth failed:", error);
+      }
+      setGoogleLoading(false);
+    };
 
   
   const handleRegister = async (e: React.FormEvent) => {
@@ -73,7 +119,7 @@ const RegisterPage: React.FC = () => {
   
     try {
       const response = await sendRequest({
-        url: `api/auth/register`,
+        url: `/api/auth/register`,
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: { name: fullName, email, password },
@@ -161,7 +207,7 @@ const RegisterPage: React.FC = () => {
             <p className="text-center mb-0 px-2">Continue with</p>
             <div className="flex-grow border-t border-[#808080]"></div>
           </div>
-          <SocialButton googleLogin={handleGoogle} googleLoading={googleLoading}/>
+          <SocialButton googleLogin={handleGoogleLogin} googleLoading={googleLoading}/>
           <p className="mt-6 w-full flex justify-center">
             Already have an account?{" "}
             <Link

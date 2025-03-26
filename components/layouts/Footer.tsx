@@ -16,13 +16,14 @@ import { faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function Footer() {
   const pathname = usePathname();
-  const excludeFooterPaths = ["/login", "/register"];
+  const excludeFooterPaths = ["/login", "/register", "/auth/google/callback"];
   const hiddenPaths = [
     "/event-viewing",
     "/faq",
     "/history",
     "/my-tickets",
     "/search",
+    "/auth/google/callback"
   ];
   if (excludeFooterPaths.includes(pathname)) return null;
 

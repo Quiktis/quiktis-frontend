@@ -53,15 +53,17 @@ const LoginPage: React.FC = () => {
   
     try {
       const response = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,
+        url: `/api/auth/login`,
         headers: { "Authorization": "Bearer 12345" },
         method: "POST",
-        body: { email, password, secretKey: "12345" },
+        body: { email, password },
       });
+
+
   
-      if (response && response.user && response.user.id) {
+      if (response && response.user && response.user._id) {
         await new Promise((resolve) => {
-          setUser({ userId: response.user.id, name: response.user.name, email: response.user.email });
+          setUser({ userId: response.user._id, name: response.user.name, email: response.user.email });
           resolve(null); // Wait for state update
         });
   
@@ -76,6 +78,24 @@ const LoginPage: React.FC = () => {
     }
 
     //setTimeout(() => {setIsProcessing(false);}, 40000)
+  };
+
+
+  const handleGoogleLogin = async () => {
+    try {
+      if (googleLoading) return;
+      console.log("testing google auth with backend");
+      setGoogleLoading(true);
+      const response = await fetch("/api/auth/google");
+      const data = await response.json();
+      if (data.url) {
+        //console.log(data.url);
+        window.location.href = data.url; // Redirect to Google OAuth
+      }
+    } catch (error) {
+      console.error("Google OAuth failed:", error);
+    }
+    setGoogleLoading(false);
   };
 
   return (
@@ -110,7 +130,7 @@ const LoginPage: React.FC = () => {
           <p className="text-center mb-0 px-2">Continue with</p>
           <div className='flex-grow border-t border-[#808080]'></div>
         </div>
-          <SocialButton googleLogin={handleGoogle} googleLoading={googleLoading}/>
+          <SocialButton googleLogin={handleGoogleLogin} googleLoading={googleLoading}/>
           <p className="mt-6 w-full flex justify-center">
           Don&apos;t have an account? <Link href={'/register'} className="text-orange-500 cursor-pointer ml-2"> Sign Up</Link>
         </p>
