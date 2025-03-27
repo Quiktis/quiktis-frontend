@@ -51,16 +51,14 @@ const HappeningSection = () => {
 
   return (
     <div>
-      {/* Desktop remains unchanged, mobile gets auto height */}
+      {/* Desktop  */}
       <div className="bg-[#2D2D2D] text-white h-auto md:h-[350px] pt-6 md:pt-[50px] mt-20 rounded-[50px] border border-primary w-full">
         <div className="flex flex-col">
-          {/* Heading & Location Section */}
           <div className="flex flex-col md:flex-row md:justify-center md:gap-[109px] items-center">
             <h1 className="text-[24px] md:text-[40px] font-bold mb-4 md:mb-0">
               HAPPENING IN
             </h1>
             <div className="flex items-center gap-2 mb-4 md:mb-0">
-              {/* Navigation Buttons - Hide on mobile */}
               <Button
                 className="hidden md:flex bg-white text-black rounded-lg w-8 h-8 items-center justify-center"
                 onClick={() => {}}>
@@ -95,7 +93,6 @@ const HappeningSection = () => {
             <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
           </div>
         </div>
-        {/* Filters - Desktop version fully restored, Mobile gets horizontal scroll */}
         <div className="flex flex-wrap md:justify-center gap-4 px-4">
           {filters.map((filter, index) => (
             <Button
@@ -112,7 +109,6 @@ const HappeningSection = () => {
         </div>
       </div>
 
-      {/* Events - Desktop fully restored, Mobile full-width */}
       {pathname !== "/events" && (
         <div className="flex justify-start md:gap-5 flex-wrap mt-10 mb-10 px-4">
           {events.map((event, index) => (
