@@ -23,11 +23,15 @@ const RegisterPage: React.FC = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [requestLoading, setRequestLoading] = useState(false);
 
   useEffect(() => {
     const handleGoogleCallback = async () => {
       const code = searchParams.get("code");
       if (!code) return;
+      if (requestLoading) return;
+
+      setRequestLoading(true);
 
       try {
         const res = await fetch("/api/auth/google/callback", {
@@ -48,6 +52,7 @@ const RegisterPage: React.FC = () => {
       } catch (error) {
         console.error("Error processing Google auth:", error);
       }
+      setRequestLoading(false);
     };
 
     handleGoogleCallback();

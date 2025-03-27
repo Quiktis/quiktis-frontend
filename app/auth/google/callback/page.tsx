@@ -7,6 +7,7 @@ import { useEffect, useState, Suspense } from "react";
 const GoogleCallbackPage = () => {
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
+  const [loading, setLoading] = useState(false)
 
   const router = useRouter();
   const [dots, setDots] = useState(".");
@@ -24,6 +25,9 @@ const GoogleCallbackPage = () => {
 
     const handleGoogleCallback = async (code: any) => {
         if (!code) return;
+        if (loading) return;
+
+        setLoading(true);
 
     console.log("Google Auth Code:", code);
       try {
@@ -45,6 +49,8 @@ const GoogleCallbackPage = () => {
       } catch (error) {
         console.error("Error processing Google auth:", error);
       }
+
+      setLoading(false);
     };
 
     handleGoogleCallback(code);
