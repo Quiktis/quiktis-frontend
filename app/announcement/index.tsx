@@ -25,7 +25,7 @@ const AnnouncementPage = () => {
 
   return (
     <main
-      className="relative min-h-screen text-white py-8"
+      className="relative min-h-screen text-white py-8 overflow-x-hidden"
       style={{
         backgroundImage: "url('/gradient.png')",
         backgroundSize: "cover",
@@ -33,11 +33,11 @@ const AnnouncementPage = () => {
       }}>
       <DashboardNav />
 
-      <div className="flex flex-col md:flex-row items-start justify-between gap-8 mt-6">
+      <div className="flex flex-col md:flex-row items-start justify-between gap-8 mt-6 px-4 sm:px-6">
         {/* LEFT COLUMN */}
-        <div className="flex-1">
-          <div className="w-full max-w-7xl">
-            <h1 className="text-6xl md:text-7xl font-bold leading-tight mb-4">
+        <div className="flex-1 w-full max-w-7xl">
+          <div>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-4">
               Announcement
             </h1>
             <p className="text-base md:text-lg mb-8 max-w-2xl">
@@ -46,6 +46,7 @@ const AnnouncementPage = () => {
             </p>
           </div>
 
+          {/* Event Title */}
           <div className="mb-24">
             <label
               htmlFor="eventTitle"
@@ -69,7 +70,6 @@ const AnnouncementPage = () => {
             <label className="block text-[#FF4D2A] font-semibold mb-2 text-lg">
               Message body
             </label>
-
             <div className="max-w-lg">
               <div
                 className="rounded-md p-4 w-full"
@@ -80,7 +80,6 @@ const AnnouncementPage = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 />
-
                 <div
                   className="flex items-center gap-4 p-2 mt-2 rounded-md"
                   style={{ backgroundColor: "rgba(198,198,206,0.2)" }}>

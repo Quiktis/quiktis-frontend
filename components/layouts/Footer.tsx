@@ -49,7 +49,7 @@ export default function Footer() {
               <Link href="/" className="hover:text-[#FF4D2A]">
                 Home
               </Link>
-              <Link href="/my-tickets" className="hover:text-[#FF4D2A]">
+              <Link href="/history" className="hover:text-[#FF4D2A]">
                 Pages
               </Link>
               <Link href="/events" className="hover:text-[#FF4D2A]">
@@ -69,7 +69,7 @@ export default function Footer() {
               <Link href="/search" className="hover:text-[#FF4D2A]">
                 Genres
               </Link>
-              <Link href="/history" className="hover:text-[#FF4D2A]">
+              <Link href="/my-tickets" className="hover:text-[#FF4D2A]">
                 News
               </Link>
             </div>

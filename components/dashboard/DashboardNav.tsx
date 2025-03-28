@@ -6,7 +6,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const navItems = [
   { name: "My Profile", path: "/event-creator" },
-  { name: "My Events", path: "/events" },
+  { name: "My Events", path: "" },
   { name: "Events Stats", path: "/stats" },
   { name: "Notifications", path: "/notifications" },
   { name: "Reviews", path: "/reviews" },
@@ -41,11 +41,9 @@ const DashboardNav = () => {
 
   return (
     <div className="relative mt-4">
-      {/* Mobile */}
       <div className="absolute top-0 left-0 h-full w-6 bg-gradient-to-r from-black to-transparent pointer-events-none block md:hidden" />
       <div className="absolute top-0 right-0 h-full w-6 bg-gradient-to-l from-black to-transparent pointer-events-none block md:hidden" />
 
-      {/* Mobile Arrow */}
       <div className="md:hidden absolute left-0 top-1/2 transform -translate-y-1/2 z-10">
         <button
           onClick={() => scrollByAmount(-120)}
@@ -72,7 +70,7 @@ const DashboardNav = () => {
       <nav
         ref={scrollRef}
         onScroll={updateArrows}
-        className="flex gap-2 md:gap-4 overflow-x-auto scroll-smooth relative w-[360px] md:w-auto">
+        className="flex gap-2 md:gap-4 overflow-x-auto scroll-smooth relative w-full scrollbar-hide">
         {navItems.map((item) => {
           const isActive = pathname === item.path;
           return (
