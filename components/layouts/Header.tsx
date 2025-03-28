@@ -18,8 +18,9 @@ const Header = () => {
     "/notifications",
     "/reviews",
     "/announcement",
+    
   ];
-  const excludeHeaderPaths = ["/search"];
+  const excludeHeaderPaths = ["/search", "/new-landing-page"];
 
   if (excludeHeaderPaths.includes(pathname)) return null;
 
