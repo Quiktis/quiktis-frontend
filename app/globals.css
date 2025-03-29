@@ -24,6 +24,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-primary);
+  overflow-x: hidden;
 }
 
 .newsletter-bg {
@@ -124,6 +125,16 @@ body {
   background: radial-gradient(circle, 
   rgb(0, 115, 255) 0%,
   rgba(0, 115, 255, 0.205) 50%,
+  rgba(255, 0, 0, 0) 100%);
+}
+
+
+
+.radial-gradient-purple {
+  border-radius: 50%; /* Ensures the gradient is perfectly circular */
+  background: radial-gradient(circle, 
+  rgba(112, 79, 242, 0.877) 0%,
+  rgba(112, 79, 242, 0.349) 50%,
   rgba(255, 0, 0, 0) 100%);
 }
 

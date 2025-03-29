@@ -1,7 +1,14 @@
+"use client"
+import { useState } from 'react'
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import TrustedBrands from '@/components/TrustedBrands'
+import Button from "@/components/ui/Button";
+import { FiArrowLeft, FiArrowRight, FiArrowUpRight } from "react-icons/fi";
+import ComingUpNext from '@/components/ComingUpNext';
+import NewsLetter2 from '@/components/NewsLetter2';
+import Footer from '@/components/NewFooter'
 
 const strongPoints = [
   {
@@ -36,15 +43,74 @@ const strongPoints = [
   }
 ]
 
+const locations = ["Nigeria", "USA", "United Kingdom"];
+
+const firstRowFilters = [
+  "All",
+  "Trending for you",
+  "Today",
+  "Online",
+  "This weekend",
+  "Music",
+];
+const secondRowFilters = [
+  "Shows",
+  "Festival",
+  "Food & Drinks",
+  "Happening now",
+  "Games",
+];
+
 export default function page() {
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [currentLocationIndex, setCurrentLocationIndex] = useState(0);
+
+  const handlePrevLocation = () => {
+    setCurrentLocationIndex((prev) =>
+      prev === 0 ? locations.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextLocation = () => {
+    setCurrentLocationIndex((prev) =>
+      prev === locations.length - 1 ? 0 : prev + 1
+    );
+  }
+
+  const renderFilterRow = (filters: string[]) => {
+    return (
+      <div className="flex flex-wrap justify-center gap-4">
+        {filters.map((filter) => (
+          <Button
+            key={filter}
+            className={`py-2 px-6 border rounded-full transition-colors ${
+              filter === activeFilter
+                ? "border-[#FF4D2A] text-[#FF4D2A]"
+                : "border-gray-600 text-gray-300 hover:border-[#FF4D2A] hover:text-[#FF4D2A]"
+            }`}
+            onClick={() => setActiveFilter(filter)}>
+            {filter}
+          </Button>
+        ))}
+      </div>
+    );
+  };
+
+  const getLocationStyles = (index: number) => {
+    const isActive = index === currentLocationIndex;
+    return isActive
+      ? "text-[#FF4D2A] text-2xl md:text-5xl font-bold"
+      : "text-gray-300 text-base md:text-lg";
+  };
+  
   return (
-    <main className='relative'>
+    <main className='relative '>
     <div className='grid left-auto top-[-20em] right-auto place-items-center absolute z-10 w-full h-[50em]'>
             <div className="w-full h-[60em] inset-0 radial-gradient-custom blur-3xl opacity-50"></div>
         </div>
       <header className='relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] md:shadow-2xl'>
         
-        <div className='my-auto lg:px-8'>
+        <div className='my-auto lg:px-8' >
           <Image unoptimized={true} src='/new_logo.svg' className='w-[80px]' alt='Logo' width={120} height={60} />
         </div>
         <ul className='relative z-20 gap-9 my-auto hidden md:flex tablet-hidden'>
@@ -62,7 +128,7 @@ export default function page() {
       </header>
       <section className='relative z-40 mt-[2em] md:mt-[5em] text-center'>
       <div className="gradient-text flex justify-center flex-col gap-6">
-        <div className='bg-[#acabab21] max-sm:text-[0.7em] w-fit mx-auto p-2 shadow-md px-6 rounded-[2em] border border-[#69696948]'>Join 850,000+ top organizations and attendees like Apple, OpenAI, and NASA.</div>
+        <div className='bg-[#acabab21] max-sm:text-[0.9em] max-sm:w-[80%] w-fit mx-auto p-2 shadow-md px-6 rounded-[2em] border border-[#69696948]'>Join 850,000+ top organizations and attendees like Apple, OpenAI, and NASA.</div>
           <h1 className="flex justify-center text-[2.8em] md:max-w-[76%] sm:max-w-[76%] mx-auto max-sm:text-[2.5em] md:text-[3.4em] lg:text-[4.4em] leading-[1.2em] text-center  font-bold">
           Revolutionizing Event Ticketing
           </h1>
@@ -125,6 +191,112 @@ export default function page() {
 
         </div>
       </section>
+
+
+
+
+
+      <section className="relative w-full text-white mt-[15em] ">
+      
+   
+       
+        <Image
+          src="/landing_mockup2.png"
+          alt="Decorative background swirl"
+          width={100}
+          height={100}
+          className="absolute object-contain w-[25em] right-0 left-auto mr-[-10em]"
+          unoptimized={true}
+        />
+    
+    <div className="absolute w-full h-[80em] top-[-19em] translate-x-[50vw] tr inset-0 radial-gradient-custom blur-3xl opacity-50"></div>
+       
+
+      <div className="relative z-10 w-full mx-auto">
+        {/* Main heading */}
+        
+        <h1 className='mt-[-2em] mb-[1.4em] md:mt-[-10em] md:text-center max-w-[45%] lg:text-left text-[1.5em] lg:mt-[-4em] lg:text-[2.5em] font-semibold'>EXPLORE EVENTS FROM ALL AROUND THE WORLD</h1>
+
+        <div
+          className="
+            bg-white-900
+            rounded-md
+            bg-clip-padding
+            backdrop-filter
+            backdrop-blur-lg
+            bg-opacity-0
+            border border-gray-100/30
+            px-8 pt-12 pb-16
+            min-h-[350px]
+          ">
+          <div className="flex flex-col items-center justify-center space-y-10">
+            <div className="flex items-center justify-center flex-wrap gap-12">
+              <h1 className="text-xl md:text-3xl font-bold">HAPPENING IN</h1>
+
+              <Button
+                className="
+                  relative z-50
+                  w-8 h-8
+                  bg-white
+                  text-[#FF4D2A]
+                  flex items-center justify-center
+                  rounded-[10px]
+                "
+                onClick={handlePrevLocation}>
+                <FiArrowLeft size={16} />
+              </Button>
+
+              <div className="flex items-center gap-2">
+                {locations.map((location, index) => (
+                  <span
+                    key={location}
+                    className={getLocationStyles(index)}
+                    style={
+                      index === currentLocationIndex
+                        ? {}
+                        : { filter: "blur(1px)" }
+                    }>
+                    {location}
+                  </span>
+                ))}
+              </div>
+
+              <Button
+                className="
+                  relative z-50
+                  w-8 h-8
+                  bg-white
+                  text-[#FF4D2A]
+                  flex items-center justify-center
+                  rounded-[10px]
+                "
+                onClick={handleNextLocation}>
+                <FiArrowRight size={16} />
+              </Button>
+            </div>
+
+            {renderFilterRow(firstRowFilters)}
+            <div className="mb-10">{renderFilterRow(secondRowFilters)}</div>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <button className="bg-primary hover:bg-red-600 text-black font-semibold py-2 px-6 rounded-[10px] flex justify-center gap-2">
+            Get Started
+            <FiArrowUpRight />
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <ComingUpNext containerClass='mt-[6em] w-[80%] mx-auto'/>
+
+    
+
+    <Footer />
+    
+
     </main>
   )
 }
