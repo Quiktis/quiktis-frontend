@@ -7,6 +7,7 @@ import PageWrapper from "@/components/ui/PageWrapper";
 import Footer from "@/components/layouts/Footer";
 import { UserProvider } from "./context/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import NewHeader from "@/components/NewHeader";
 
 const spacegro = Space_Grotesk({subsets: ["latin"]});
 export const metadata: Metadata = {
@@ -27,7 +28,8 @@ export default function RootLayout({
         <UserProvider>
           <GoogleOAuthProvider clientId="830975869130-so9vr3687i78dr8fnqq8f61orggklv05.apps.googleusercontent.com">
           <PageWrapper>
-            <Header/>
+            {/*<NewHeader />*/}
+            <Header />
               {children}
             <Footer />
           </PageWrapper>

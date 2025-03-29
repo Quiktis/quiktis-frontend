@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React from "react";
 
 interface ReviewCardProps {
@@ -31,7 +32,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       {/* Top Section */}
       <div className="flex items-start">
         <div className="mr-3">
-          <img
+          <Image
+          height={10}
+          width={10}
             src={image}
             alt={title}
             className="w-10 h-10 rounded-full object-cover border border-white"

@@ -20,7 +20,7 @@ const Header = () => {
     "/announcement",
     
   ];
-  const excludeHeaderPaths = ["/search", "/new-landing-page"];
+  const excludeHeaderPaths = ["/search", "/new-landing-page", "/"];
 
   if (excludeHeaderPaths.includes(pathname)) return null;
 

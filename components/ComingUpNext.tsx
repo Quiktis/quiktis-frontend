@@ -62,7 +62,7 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({containerClass}) => {
   return (
     <section className={`relative py-10 overflow-hidden ${containerClass}`}>
 
-      <div className="relative z-10 container mx-auto px-2 text-white">
+      <div className="relative z-10 container mx-auto text-white">
         <h2 className="text-2xl font-semibold mb-6">Coming Up Next</h2>
 
         <div className="space-y-4">
@@ -70,9 +70,9 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({containerClass}) => {
 
             <div
               key={event.id}
-              className="grid flex-wrap lg:grid-cols-4 items-center p-4 border border-gray-800 rounded-[5px] bg-transparent">
+              className="grid flex-wrap lg:grid-cols-2 xl:grid-cols-[0.9fr_0.5fr_1fr] gap-4 items-center p-4 border border-gray-800 rounded-[5px] bg-transparent">
               {/* Left */}
-              <div className="flex gap-3 ">
+              <div className="flex gap-3 w-fit">
                 <div className="relative w-24 h-24 rounded-[5px] overflow-hidden flex-shrink-0">
                 <Image
                   src={event.image}
@@ -92,28 +92,29 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({containerClass}) => {
                 </div>
               </div>
 
-              <div className="max-sm:hidden tablet-hidden lg:flex justify-center"><p className="hidden md:flex  text-white md:text-sm">{event.date}</p></div>
+              <div className="hidden xl:flex justify-center"><p className="  text-white md:text-sm">{event.date}</p></div>
 
 
 
               {/* Right */}
-              <div className="flex justify-center">
+              <div className="flex justify-center gap-4 md:grid grid-cols-2 max-sm:flex-col sm:flex-col">
                 
 
                 <a
                   href={event.readMoreLink}
-                  className="border border-gray-700 text-gray-400 hover:text-white rounded-[5px] text-xs md:text-sm  py-4 px-8 flex items-center">
-                  Read more <FiArrowRight className="h-4 w-4 ml-1" />
+                  className="lg:w-fit border border-gray-700 text-gray-400 hover:text-white rounded-[5px] text-xs md:text-sm  py-4 px-8 flex justify-center">
+                  Read more <FiArrowRight className="h-4 w-4 ml-1 mt-[0.2em]" />
                 </a>
-                </div>
+             
                 <div>
 
                 <a
                   href={event.ticketLink}
-                  className="bg-[#ff4d2a] w-fit hover:bg-[#ff4d2a]/90 text-white font-semibold rounded-[5px] text-xs md:text-sm py-4 px-8 flex items-center mr-0 ml-auto">
+                  className="bg-[#ff4d2a] lg:w-fit hover:bg-[#ff4d2a]/90 text-white font-semibold rounded-[5px] text-xs md:text-sm py-4 px-8 flex justify-center lg:mr-0 lg:ml-auto">
                   GET TICKET
                   <FiArrowRight className="h-4 w-4 ml-1 transform rotate-45" />
                 </a>
+              </div>
               </div>
             </div>
           ))}

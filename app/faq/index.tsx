@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import SearchBar from "@/components/ui/SearchBar";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 
 export default function FAQPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -67,8 +68,10 @@ export default function FAQPage() {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <img
+            <Image
               src="/Triplequestionmark.png"
+              height={250}
+              width={300}
               alt="Question Mark"
               className="w-[250px] md:w-[300px]"
             />
@@ -89,13 +92,17 @@ export default function FAQPage() {
 
         {/* FAQ GRID SECTION */}
         <div className="relative flex flex-col md:flex-row gap-8 mt-8">
-          <img
+          <Image
+            height={250}
+            width={300}
             src="/ellipse2.png"
             alt="Orange Blur"
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] opacity-60 blur-sm z-0"
           />
-          <img
+          <Image
             src="/star2.png"
+            height={250}
+              width={120}
             alt="Star Accent"
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120px] opacity-90 z-0"
             style={{ transform: "translate(-50%, -60%)" }}

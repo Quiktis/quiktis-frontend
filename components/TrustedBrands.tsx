@@ -49,9 +49,8 @@ const TrustedBrands: React.FC<TrustedBrandsProps> = ({ containerClass }) => {
               unoptimized
               src={logo}
               alt={`Brand ${index + 1}`}
-              layout="fill"
-              objectFit="contain"
-              className="hover:scale-105 transition-transform duration-300 w-full h-full"
+              fill={true}
+              className="hover:scale-105 transition-transform duration-300 w-full h-full object-contain"
               priority
             />
           </div>

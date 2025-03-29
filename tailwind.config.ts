@@ -37,6 +37,11 @@ const config: Config = {
       boxShadow: {
         'custom-red': '0 25px 50px -12px rgba(255, 77, 42, 0.25)', // Example for custom red shadow
       },
+      screens: {
+        'tablet': '980px', 
+        'tablet-sm': '700px' // Custom extra small screen
+       
+      },
     },
   },
   plugins: [],

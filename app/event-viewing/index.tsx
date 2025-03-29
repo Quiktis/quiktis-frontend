@@ -278,8 +278,8 @@ export default function EventViewingPage() {
 
       <section className="border-2 glass-bg-dark border-[#ffffff56] px-[2.5em] rounded-[2em] py-12 pb-6 shadow-xl ">
       {reviews.map((review, index) => (
-        <>
-        <div className="grid grid-cols-[45px_auto] w-full rounded-full gap-3">
+        <div key={index} >
+        <div  className="grid grid-cols-[45px_auto] w-full rounded-full gap-3">
           <div className="relative w-[45px] h-[45px] grid grid-cols-[45px_auto] rounded-full">
             <Image
               src={review.profileImage}
@@ -290,7 +290,7 @@ export default function EventViewingPage() {
           </div>
           
             
-            <div key={index} className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
               <h1>{review.name}</h1>
               <div className="flex gap-1">
               {[...Array(5)].map((_, i) => (
@@ -306,7 +306,7 @@ export default function EventViewingPage() {
 
         </div>
          <hr className="my-6 border-gray-600"></hr>
-         </>
+         </div>
       ))}
       </section>
 

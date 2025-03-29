@@ -15,29 +15,36 @@ const NewsLetter2: React.FC<NewsLetterProps> = ({ containerClass }) => {
       
 
       <div className="relative z-10 w-full mx-auto flex flex-col">
-        <h2 className="text-white text-left text-[40px] sm:text-[48px] font-semibold mb-6 leading-tight">
-          JOIN THE <br />
-          <span className="font-bold">FUTURE NOW /&gt;</span>
+        <h2 className="text-white text-left max-sm:text-center sm:text-[2em] flex flex-col gap-3 font-semibold mb-6 leading-tight text-[2em]">
+          JOIN THE <span className="font-bold">FUTURE NOW /&gt;</span>
         </h2>
 
         <div
           className="
             grid
             w-full 
-            bg-gray-300
+            bg-white-900
             backdrop-filter 
-            backdrop-blur-[20px]
+            bg-clip-padding
+           
+            backdrop-blur-lg
             bg-opacity-0 
             border 
             border-[#ff4e2aa6]
             rounded-md 
             py-[7em]
+            sm:py-[5em]
+            max-sm:py-[2.5em]
+            px-7
+            max-sm:px-5
             text-white
             text-center
+          
+          
 
             
           ">
-          <h1 className="text-[28px] sm:text-[40px] font-semibold leading-tight">
+          <h1 className="text-[1.3em] md:text-[2.2em] font-semibold leading-tight">
             GET THE LATEST UPDATE FROM QUIKTIS
           </h1>
 
@@ -46,7 +53,7 @@ const NewsLetter2: React.FC<NewsLetterProps> = ({ containerClass }) => {
             updates from QUIKTIS
           </p>
 
-          <div className="grid grid-cols-[auto_6em] sm:flex-row gap-4 mt-8 w-full mx-auto justify-center">
+          <div className="flex flex-col md:grid grid-cols-[auto_6em] sm:flex-row gap-4 mt-8 w-full mx-auto justify-center">
             <Input
               value=""
               onChange={() => {}}

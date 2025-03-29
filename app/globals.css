@@ -17,6 +17,7 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    overflow-x: hidden;
   }
 }
 
@@ -24,7 +25,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-primary);
-  overflow-x: hidden;
+
 }
 
 .newsletter-bg {
@@ -106,7 +107,7 @@ body {
 .radial-gradient-custom {
   border-radius: 50%; /* Ensures the gradient is perfectly circular */
   background: radial-gradient(circle, 
-  rgba(245, 45, 45, 0.842) 0%,
+  rgba(255, 78, 42, 0.918) 0%,
   rgba(255, 59, 25, 0.178) 50%,
   rgba(255, 0, 0, 0) 100%);
 }
@@ -196,4 +197,13 @@ body {
   .tablet-block {
     display: block !important; 
   }
+}
+
+.icon {
+  transition: 200ms ease-in-out;
+}
+
+.icon:hover {
+  transform: translateY(-5px); /* Tailwind's hover:translate-y-[-5px] */
+
 }
