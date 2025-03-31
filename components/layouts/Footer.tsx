@@ -16,7 +16,13 @@ import { faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function Footer() {
   const pathname = usePathname();
-  const excludeFooterPaths = ["/login", "/register", "/auth/google/callback", "/new-landing-page", "/"];
+  const excludeFooterPaths = [
+    "/login",
+    "/register",
+    "/auth/google/callback",
+    "/new-landing-page",
+    "/",
+  ];
   const hiddenPaths = [
     "/event-viewing",
     "/faq",
@@ -29,7 +35,6 @@ export default function Footer() {
     "/reviews",
     "/announcement",
     "/auth/google/callback",
-    
   ];
   if (excludeFooterPaths.includes(pathname)) return null;
 
@@ -37,14 +42,14 @@ export default function Footer() {
     <>
       {!hiddenPaths.includes(pathname) && <NewsLetter />}
       <footer className="mt-8 text-white w-full px-6 sm:px-8 md:px-12 py-8">
-        <div className="flex flex-col md:flex-row md:justify-between gap-8 w-full">
+        <div className="flex flex-col md:flex-row md:justify-between gap-4 md:gap-8 w-full">
           {/* Column 1 */}
           <div className="flex-shrink-0 md:w-1/5 flex justify-center md:justify-start">
             <Logo />
           </div>
 
           {/* Column 2 */}
-          <div className="md:w-2/5 flex flex-wrap gap-12 justify-center md:justify-start">
+          <div className="md:w-2/5 flex flex-wrap gap-4 md:gap-12 justify-center md:justify-start">
             <div className="flex flex-col space-y-2 text-center md:text-left">
               <Link href="/" className="hover:text-[#FF4D2A]">
                 Home
@@ -69,7 +74,7 @@ export default function Footer() {
               <Link href="/search" className="hover:text-[#FF4D2A]">
                 Genres
               </Link>
-              <Link href="/my-tickets" className="hover:text-[#FF4D2A]">
+              <Link href="/my-ticket" className="hover:text-[#FF4D2A]">
                 News
               </Link>
             </div>
@@ -79,14 +84,13 @@ export default function Footer() {
           <div className="md:w-1/3 flex flex-col text-center md:text-left">
             <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
             <div className="flex flex-col gap-4">
-              <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-4">
+              <div className="flex flex-row items-center justify-center md:justify-start gap-4">
                 <Link
                   href="https://instagram.com/quiktis"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-[#FF4D2A] flex items-center gap-2">
                   <FontAwesomeIcon icon={faInstagram} size="lg" />
-                  <span>@Quiktis</span>
                 </Link>
                 <Link
                   href="https://linkedin.com/company/quiktis"
@@ -94,7 +98,6 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-[#FF4D2A] flex items-center gap-2">
                   <FontAwesomeIcon icon={faLinkedin} size="lg" />
-                  <span>@Quiktis</span>
                 </Link>
                 <Link
                   href="https://twitter.com/quiktis"
@@ -102,7 +105,6 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-[#FF4D2A] flex items-center gap-2">
                   <FontAwesomeIcon icon={faTwitter} size="lg" />
-                  <span>@Quiktis</span>
                 </Link>
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2">
