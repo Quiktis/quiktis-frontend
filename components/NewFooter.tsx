@@ -35,7 +35,7 @@ export default function Footer() {
     <>
       {!hiddenPaths.includes(pathname) && 
       <section className='relative w-full mb-[5em]'>
-          <div className="absolute w-full h-[80em] top-[-22em] translate-x-[35vw] tr inset-0 radial-gradient-blue blur-3xl opacity-50"></div>
+          <div className="absolute w-[45em] left-auto right-0 h-[45em] top-[-5em] tr inset-0 radial-gradient-blue blur-3xl opacity-50"></div>
             <NewsLetter2  containerClass='relative w-full md:w-[80%] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]'/>
             
           </section>
@@ -125,7 +125,7 @@ export default function Footer() {
           </div>
           
         </div>
-        <div className="absolute w-[75%] h-[26em] top-[-3em] right-0 left-auto inset-0 radial-gradient-purple blur-3xl opacity-50"></div>
+        <div className="absolute w-[10%] h-[26em] top-[-3em] right-0 left-auto inset-0 radial-gradient-purple blur-3xl opacity-50"></div>
       </footer>
     </>
   );

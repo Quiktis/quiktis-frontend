@@ -32,17 +32,19 @@ export async function POST(request: Request): Promise<NextResponse> {
       body: JSON.stringify({ code }),
     });
 
-    if (!response.ok) {
-      return NextResponse.json({ error: "Authentication failed" }, { status: response.status });
-    }
+
+    //console.log("Response: ", response)
+
 
     const data: ResponseObject = await response.json();
+    console.log("Response Body: ", data)
 
     if (!data.token) {
       return NextResponse.json({ error: "Invalid token received" }, { status: 401 });
     }
 
-    console.log("Authentication Successful:", data);
+    
+    
 
     // **Correct way to set a cookie in Next.js**
     const nextResponse = NextResponse.json({ ok: true, token: data.token });
@@ -50,6 +52,12 @@ export async function POST(request: Request): Promise<NextResponse> {
       "Set-Cookie",
       `quiktis_token=${data.token}; HttpOnly; Secure; Path=/; SameSite=Strict`
     );
+
+    console.log("Authentication Successful:", data);
+    if (data) {
+      return NextResponse.json({ ok: true, token: data.token });
+    }
+
 
     return nextResponse;
 

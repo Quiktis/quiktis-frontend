@@ -30,20 +30,18 @@ const RegisterPage: React.FC = () => {
       const code = searchParams.get("code");
       if (!code) return;
       if (requestLoading) return;
-
+  
       setRequestLoading(true);
-
+  
       try {
         const res = await fetch("/api/auth/google/callback", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ code }),
         });
-
+  
         const data = await res.json();
-        if (data.token) {
-          //localStorage.setItem("authToken", data.token);
-          //router.push("/dashboard");
+        if (data) {
           console.log("response body: ", data);
           console.log("token: ", data.token);
         } else {
@@ -54,9 +52,10 @@ const RegisterPage: React.FC = () => {
       }
       setRequestLoading(false);
     };
-
+  
     handleGoogleCallback();
-  }, [searchParams, router]);
+  }, [searchParams.toString()]); // Convert to string to avoid unnecessary re-renders
+  
 
 
   const handleLogin = (userId: string, name: string, email: string ) => {

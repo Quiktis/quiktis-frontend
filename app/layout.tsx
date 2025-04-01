@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spacegro.className} max-sm:overflow-x-hidden antialiased flex flex-col min-h-screen`}
+        className={`${spacegro.className}  antialiased flex flex-col min-h-screen`}
       >
         <UserProvider>
           <GoogleOAuthProvider clientId="830975869130-so9vr3687i78dr8fnqq8f61orggklv05.apps.googleusercontent.com">

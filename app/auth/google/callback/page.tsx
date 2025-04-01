@@ -2,15 +2,17 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
-
+import useAxios from "@/app/hooks/useAxios";
 
 const GoogleCallbackPage = () => {
+  const { sendRequest, loading } = useAxios();
   const searchParams = useSearchParams();
-  const code = searchParams.get("code");
-  const [loading, setLoading] = useState(false)
-
   const router = useRouter();
+  const code = searchParams.get("code");
+
+  //const [loading, setLoading] = useState(false);
   const [dots, setDots] = useState(".");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Animate the ellipsis
@@ -18,55 +20,54 @@ const GoogleCallbackPage = () => {
       setDots((prev) => (prev === "." ? ".." : prev === ".." ? "..." : "."));
     }, 500);
 
-    return () => clearInterval(interval); // Cleanup function
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
+    const handleGoogleCallback = async () => {
+      const code = searchParams.get("code");
+      if (!code) return;
+      if (loading) return;
 
-    const handleGoogleCallback = async (code: any) => {
-        if (!code) return;
-        if (loading) return;
+      console.log("Google Auth Code:", code);
 
-        setLoading(true);
-
-    console.log("Google Auth Code:", code);
       try {
-        const res = await fetch("/api/auth/google/callback", {
+        const response = await sendRequest({
+          url: `/api/auth/google/callback`,
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ code: code }),
+          body: { code },
         });
-
-        const data = await res.json();
-        if (data.token) {
-          console.log("response body: ", data);
+    
+        if (response.token) {
+          await new Promise((resolve) => {
+            //setUser({ userId: response.user.id, name: response.user.name, email: response.user.email });
+            resolve(null);
+          });
+    
+          console.log("Response body: ", response);
           router.push("/create-events");
-          // localStorage.setItem("authToken", data.token);
-          // router.push("/dashboard");
-        } else {
-          console.error("Authentication failed:", data);
         }
       } catch (error) {
-        console.error("Error processing Google auth:", error);
-      }
+        console.log(error);
+        setError("Registration failed. Please try again.");
+      } 
 
-      setLoading(false);
+     
     };
 
-    handleGoogleCallback(code);
-  }, [code]);
+    handleGoogleCallback();
+  }, [searchParams.toString()]);
 
   return (
     <section className="min-h-[20em] h-[60vh] grid place-items-center">
       <div className="flex flex-col gap-3 justify-center min-w-[15em] text-center px-8 py-6 bg-[#7a7a7a1c] border border-gray-600 rounded-md shadow-md">
         <h1>Authenticating. Please wait{dots}</h1>
-        {/*code ? <p>Processing code: {code}</p> : <p>No code provided</p>*/}
+        {error && <p className="text-red-500">{error}</p>}
       </div>
     </section>
   );
 };
-
-
 
 export default function Page() {
   return (
@@ -75,4 +76,3 @@ export default function Page() {
     </Suspense>
   );
 }
-

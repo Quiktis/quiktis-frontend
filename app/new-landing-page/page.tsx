@@ -201,11 +201,13 @@ export default function NewLandingPage() {
           alt="Decorative background swirl"
           width={100}
           height={100}
-          className="absolute object-contain w-[25em] right-0 left-auto mr-[-10em]"
+          className="absolute object-contain w-[10em] md:w-[25em] right-0 left-auto md:mr-[-5em]"
           unoptimized={true}
         />
 
-        <div className="absolute w-full h-[80em] top-[-19em] translate-x-[50vw] tr inset-0 radial-gradient-custom blur-3xl opacity-50"></div>
+
+        {/**----------------HIDDEN-------------------------- */}
+        <div className="absolute w-full h-[80em] top-[-19em] tr inset-0 radial-gradient-custom blur-3xl opacity-50"></div>
 
         <div className="relative z-10 w-full mx-auto">
           {/* Main heading */}
