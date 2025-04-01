@@ -128,14 +128,14 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({ containerClass }) => {
           ))}
         </div>
 
-        <div className="md:hide-srollbar-container md:hidden flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide max-md:py-4">
+        <div className="md:hide-srollbar-container md:hidden flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide max-md:py-4 max-md:h-[max-content]">
           {events.map((event) => (
             <div
               key={event.id}
-              className="snap-start max-md:bg-[#77777717] flex-shrink-0 w-[80%] max-md:w-[20em] border border-gray-800 rounded-[5px] bg-transparent p-4 max-md:py-7 max-md:px-6">
+              className="snap-start max-md:bg-[#77777717] flex-shrink-0 w-[80%] max-md:w-[20em] border border-gray-800 rounded-[5px] bg-transparent p-4 max-md:py-7 max-md:px-6 max-md:grid max-md:h-[20em]">
               {/* Left */}
               <div className="flex gap-3 w-fit mb-2 max-sm:grid grid-cols-2 max-md:pt-[1.2em]">
-                <div className="relative w-24 h-24 rounded-[5px] overflow-hidden flex-shrink-0 max-sm:w-full max-sm:h-full">
+                <div className="relative w-24 h-24 rounded-[5px] overflow-hidden flex-shrink-0 max-sm:w-full max-sm:h-[8em]">
                   <Image
                     src={event.image}
                     alt={event.title}
@@ -162,7 +162,7 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({ containerClass }) => {
               </div>
 
               {/* Right*/}
-              <div className="flex flex-col-reverse gap-3 w-[80%] mx-auto max-sm:mt-[1.4em]">
+              <div className="flex flex-col-reverse gap-3 w-[80%] mx-auto">
                 <a
                   href={event.readMoreLink}
                   className="border border-gray-700 text-gray-400 hover:text-white rounded-[5px] text-xs md:text-sm py-2 px-4 flex justify-center">

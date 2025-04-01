@@ -26,7 +26,7 @@ export default function RootLayout({
         className={`${spacegro.className}  antialiased flex flex-col min-h-screen`}
       >
         <UserProvider>
-          <GoogleOAuthProvider clientId="830975869130-so9vr3687i78dr8fnqq8f61orggklv05.apps.googleusercontent.com">
+          <GoogleOAuthProvider clientId="305106076200-n1qka2asma7rlvpmq8nhk6lljgnd9qsq.apps.googleusercontent.com">
           <PageWrapper>
             {/*<NewHeader />*/}
             <Header />
