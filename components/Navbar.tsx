@@ -10,9 +10,9 @@ const Navbar: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Events", path: "/events" },
-    { name: "ContactUs", path: "/contact" },
-    { name: "Help", path: "/reviews" },
+    { name: "Explore Events", path: "/events" },
+    { name: "About Us", path: "/faq" },
+    { name: "Contact Us", path: "/contact" },
     // { name: "Create", path: "/notifications" },
   ];
   const specialPaths = [
