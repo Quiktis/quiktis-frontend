@@ -15,7 +15,7 @@ const NewsLetter2: React.FC<NewsLetterProps> = ({ containerClass }) => {
       
 
       <div className="relative z-10 w-full mx-auto flex flex-col">
-        <h2 className="text-white text-left max-sm:text-center sm:text-[2em] flex flex-col gap-3 font-semibold mb-6 leading-tight text-[2em]">
+        <h2 className="text-white text-left max-sm:text-center sm:text-[2em] gap-3 font-semibold mb-6 leading-tight text-[2em]">
           JOIN THE <span className="font-bold">FUTURE NOW /&gt;</span>
         </h2>
 

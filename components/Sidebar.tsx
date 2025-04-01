@@ -3,11 +3,11 @@ import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 
 const tabs = [
-  { label: "Get Started", link: "#" },
-  { label: "Sign in", link: "#" },
-  { label: "Explore Events", link: "#" },
-  { label: "Contact us", link: "#" },
-  { label: "Newsletter", link: "#" },
+  { label: "Get Started", link: "/register" },
+  { label: "Sign in", link: "/signin" },
+  { label: "Explore Events", link: "/events" },
+  { label: "Contact us", link: "/contact" },
+  { label: "Newsletter", link: "/faq" },
 ];
 
 interface SidebarProps {

@@ -136,7 +136,7 @@ const LoginPage: React.FC = () => {
         </p>
         </div>
       </div>
-      <div className='flex justify-center w-[707px] h-[950px]'>
+      <div className='flex justify-center w-[707px] h-[950px] max-md:hidden'>
         <Image src="/authImage.png" alt="auth" className='object-cover bg-cover' width={707} height={950} />
       </div>
     </div>

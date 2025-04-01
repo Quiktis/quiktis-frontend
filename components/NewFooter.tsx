@@ -36,24 +36,24 @@ export default function Footer() {
       {!hiddenPaths.includes(pathname) && 
       <section className='relative w-full mb-[5em]'>
           <div className="absolute w-[45em] left-auto right-0 h-[45em] top-[-5em] tr inset-0 radial-gradient-blue blur-3xl opacity-50"></div>
-            <NewsLetter2  containerClass='relative w-full md:w-[80%] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]'/>
+            <NewsLetter2  containerClass='relative w-full md:w-[80%] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em] px-20 max-md:px-5'/>
             
           </section>
       }{" "}
-      <footer className="relative mt-8 text-white w-full px-6 sm:px-8 md:px-12 py-8">
-        <div className="flex flex-col md:flex-row justify-between gap-8 w-full">
+      <footer className="relative mt-8 text-white w-full px-6 sm:px-8 md:px-12 py-8 grid place-items-center">
+        <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-8 w-[80%] mx-auto">
           {/* Column 1 */}
           <div className="flex-shrink-0 md:w-1/5 flex justify-center md:justify-start">
             <Logo />
           </div>
 
           {/* Column 2 */}
-          <div className="md:w-2/5 flex flex-wrap gap-12 justify-center md:justify-start">
+          <div className="md:w-2/5 flex flex-wrap gap-4 md:gap-12 justify-center md:justify-start">
             <div className="flex flex-col space-y-2 text-center md:text-left">
               <Link href="/" className="hover:text-[#FF4D2A]">
                 Home
               </Link>
-              <Link href="/my-tickets" className="hover:text-[#FF4D2A]">
+              <Link href="/my-ticket" className="hover:text-[#FF4D2A]">
                 Pages
               </Link>
               <Link href="/events" className="hover:text-[#FF4D2A]">
@@ -83,14 +83,13 @@ export default function Footer() {
           <div className="md:w-1/3 flex flex-col text-center md:text-left">
             <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
             <div className="flex flex-col gap-4">
-              <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-4">
+              <div className="flex flex-row items-center justify-center md:justify-start gap-4">
                 <Link
                   href="https://instagram.com/quiktis"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-[#FF4D2A] flex items-center gap-2">
                   <FontAwesomeIcon icon={faInstagram} size="lg" />
-                  <span>@Quiktis</span>
                 </Link>
                 <Link
                   href="https://linkedin.com/company/quiktis"
@@ -98,7 +97,6 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-[#FF4D2A] flex items-center gap-2">
                   <FontAwesomeIcon icon={faLinkedin} size="lg" />
-                  <span>@Quiktis</span>
                 </Link>
                 <Link
                   href="https://twitter.com/quiktis"
@@ -106,7 +104,6 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-[#FF4D2A] flex items-center gap-2">
                   <FontAwesomeIcon icon={faTwitter} size="lg" />
-                  <span>@Quiktis</span>
                 </Link>
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2">
@@ -123,7 +120,6 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          
         </div>
         <div className="absolute w-[10%] h-[26em] top-[-3em] right-0 left-auto inset-0 radial-gradient-purple blur-3xl opacity-50"></div>
       </footer>
