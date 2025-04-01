@@ -150,7 +150,7 @@ export default function NewLandingPage() {
 
   return (
     <main className="relative ">
-    <div className="overlay background-div z-10 absolute max-sm:top-[107vw] sm:top-[35vw] md:top-[50vh] lg:top-[23vw] xl:top-[7.9vw] right-0 left-0"></div>
+    <div className="overlay background-div z-10 absolute max-sm:top-[107vw] sm:top-[36vw] md:top-[50vh] lg:top-[23vw] xl:top-[7.9vw] right-0 left-0"></div>
       
       <Sidebar
         onSidebarClose={() => setSidebarOpen(false)}
@@ -180,7 +180,7 @@ export default function NewLandingPage() {
           <Link
             href="/register"
             className="text-[0.9em] md:text-[1em] absolute cursor-pointer bg-primary px-6 py-3 right-3 rounded-[1em] btn-3d border-1 border-[#eb4b3c] icon">
-            Join for free
+            Join <span className="max-sm:hidden">for free</span>
           </Link>
         </form>
       </section>
