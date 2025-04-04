@@ -34,6 +34,7 @@ export default function Footer() {
     "/notifications",
     "/reviews",
     "/announcement",
+    "/my-events",
     "/auth/google/callback",
   ];
   if (excludeFooterPaths.includes(pathname)) return null;
@@ -54,7 +55,7 @@ export default function Footer() {
               <Link href="/" className="hover:text-[#FF4D2A]">
                 Home
               </Link>
-              <Link href="/history" className="hover:text-[#FF4D2A]">
+              <Link href="/reviews" className="hover:text-[#FF4D2A]">
                 Pages
               </Link>
               <Link href="/events" className="hover:text-[#FF4D2A]">
