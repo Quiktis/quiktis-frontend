@@ -42,7 +42,6 @@ const HappeningNow = [
       "This weekend",
       "Music",
     ],
-    
     secondRowFilters: [
       "shows",
       "Trending for you",
@@ -62,7 +61,6 @@ const HappeningNow = [
       "This weekend",
       "Music",
     ],
-
     secondRowFilters: [
       "Festival",
       "Trending for you",
@@ -80,7 +78,6 @@ const HappeningNow = [
       "This weekend",
       "Music",
     ],
-
     secondRowFilters: [
       "Food & Drinks",
       "Trending for you",
@@ -89,7 +86,7 @@ const HappeningNow = [
       "Music",
     ]
   }
-]
+];
 
 interface renderFilterProps {
   activeFilter: string;
@@ -126,19 +123,19 @@ export default function NewLandingPage() {
   const [activeLocationIndex, setActiveLocationIndex] = useState(0);
 
   const handlePrevLocation = () => {
-    setCurrentLocationIndex((prev) =>{ 
-      console.log(prev === 0 ? locations.length - 1 : prev - 1)
-      setActiveLocationIndex(prev - 1)
-      return (prev === 0 ? locations.length - 1 : prev - 1)}
-    );
+    setCurrentLocationIndex((prev) => { 
+      console.log(prev === 0 ? locations.length - 1 : prev - 1);
+      setActiveLocationIndex(prev - 1);
+      return (prev === 0 ? locations.length - 1 : prev - 1);
+    });
   };
 
   const handleNextLocation = () => {
     setCurrentLocationIndex((prev) => {
-      console.log(prev)
-      setActiveLocationIndex(prev === locations.length - 1 ? 0 : prev + 1)
-      return (prev === locations.length - 1 ? 0 : prev + 1)}
-    );
+      console.log(prev);
+      setActiveLocationIndex(prev === locations.length - 1 ? 0 : prev + 1);
+      return (prev === locations.length - 1 ? 0 : prev + 1);
+    });
   };
 
   const getLocationStyles = (index: number) => {
@@ -150,7 +147,7 @@ export default function NewLandingPage() {
 
   return (
     <main className="relative ">
-    <div className="overlay background-div z-10 absolute max-sm:top-[107vw] sm:top-[36vw] md:top-[50vh] lg:top-[23vw] xl:top-[7.9vw] right-0 left-0"></div>
+      <div className="overlay background-div z-10 absolute max-sm:top-[107vw] sm:top-[36vw] md:top-[50vh] lg:top-[23vw] xl:top-[7.9vw] right-0 left-0"></div>
       
       <Sidebar
         onSidebarClose={() => setSidebarOpen(false)}
@@ -186,11 +183,12 @@ export default function NewLandingPage() {
       </section>
 
       <section className="mt-[8em] md:mt-[15em] relative z-40">
-      <div className="w-full h-[5em] md:h-[11em] inset-0 radial-gradient-black blur-3xl opacity-40"></div>
+        <div className="w-full h-[5em] md:h-[11em] inset-0 radial-gradient-black blur-3xl opacity-40"></div>
         <p className="text-center">Trusted by world leaders</p>
         <TrustedBrands containerClass="my-2" />
       </section>
 
+      {/* Strong Points Section */}
       <section className="max-sm:px-0 px-3 lg:px-[5em] gap-5 py-[6em] md:py-[10em]">
         <div className="flex flex-col justify-center md:grid md:grid-cols-2 lg:grid-cols-3 gap-[2.5em] w-fit mx-auto max-sm:w-[95%]">
           {strongPoints.map((item, index) => (
@@ -204,7 +202,9 @@ export default function NewLandingPage() {
                 width={80}
                 height={80}
               />
-              <p className="">{item.description}</p>
+              <p className={`${index === 0 ? "" : "blur-[8px]"}`}>
+                {item.description}
+              </p>
             </div>
           ))}
         </div>
@@ -267,16 +267,14 @@ export default function NewLandingPage() {
           unoptimized={true}
         />
 
-
-        {/**----------------HIDDEN-------------------------- */}
+        {/*----------------HIDDEN-------------------------- */}
         <div className="absolute w-full h-[80em] top-[-19em] tr inset-0 radial-gradient-custom blur-3xl opacity-50"></div>
-
 
         <div className="relative z-10 w-full mx-auto max-md:px-5">
           <div className="w-full md:w-[80%] mx-auto">
-          <h1 className="mt-[-2em] mb-[1em] md:mt-[-10em] text-left max-sm:mx-auto sm:mx-auto w-fit md:max-w-[50%] md:ml-0 lg:text-left text-[1.5em] lg:mt-[-4em] lg:text-[2.5em] font-semibold mx-auto">
-            EXPLORE EVENTS FROM ALL AROUND THE WORLD
-          </h1>
+            <h1 className="mt-[-2em] mb-[1em] md:mt-[-10em] text-left max-sm:mx-auto sm:mx-auto w-fit md:max-w-[50%] md:ml-0 lg:text-left text-[1.5em] lg:mt-[-4em] lg:text-[2.5em] font-semibold mx-auto">
+              EXPLORE EVENTS FROM ALL AROUND THE WORLD
+            </h1>
           </div>
           
           <div className="bg-white-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 border border-gray-100/30 max-md:px-3 px-8 pt-12 pb-16 min-h-[350px] md:w-[80%] mx-auto">
@@ -284,52 +282,48 @@ export default function NewLandingPage() {
               <div className="flex md:flex-row max-md:flex-col items-center justify-center flex-wrap max-sm:gap-3 gap-4 ">
                 <h1 className="text-xl md:text-3xl font-bold max-sm:w-full max-sm:text-center">HAPPENING IN</h1>
                 <div className="flex w-fit md:w-[70%] justify-between">
-
-                <Button
-                  className=" text-[#FF4D2A] flex items-center justify-center "
-                  onClick={handlePrevLocation}>
-                  <MdArrowBackIos size={24} color="white"/>
-                </Button>
-                <div className="flex items-center gap-2">
-                  {HappeningNow.map((item, index) => { 
-                    
-                    return (
-                    <span
-                      key={item.location}
-                      className={`${getLocationStyles(index)} text-center`}
-                      style={
-                        index === currentLocationIndex
-                          ? {}
-                          : { filter: "blur(0.5px) max-sm:hidden",
-                            display: "none"
-
-                           }
-                      }>
-                      {item.location}
-                    </span>
-                  )})}
+                  <Button
+                    className=" text-[#FF4D2A] flex items-center justify-center "
+                    onClick={handlePrevLocation}>
+                    <MdArrowBackIos size={24} color="white"/>
+                  </Button>
+                  <div className="flex items-center gap-2">
+                    {HappeningNow.map((item, index) => { 
+                      return (
+                        <span
+                          key={item.location}
+                          className={`${getLocationStyles(index)} text-center`}
+                          style={
+                            index === currentLocationIndex
+                              ? {}
+                              : { filter: "blur(0.5px) max-sm:hidden", display: "none" }
+                          }>
+                          {item.location}
+                        </span>
+                      );
+                    })}
+                  </div>
+                  <Button
+                    className="text-[#FF4D2A] flex items-center justify-center"
+                    onClick={handleNextLocation}>
+                    <MdArrowForwardIos size={24} className="white"/>
+                  </Button>
                 </div>
-                <Button
-                  className="text-[#FF4D2A] flex items-center justify-center"
-                  onClick={handleNextLocation}>
-                  <MdArrowForwardIos size={24} className="white"/>
-                </Button>
-                </div>
-                
               </div>
-              {<>
-              <RenderFilterRow
-                filters={HappeningNow[activeLocationIndex].firstRowFilters}
-                activeFilter={activeFilter}
-                setActiveFilter={setActiveFilter}
-              />
-              <div className="mb-10">
+              <>
                 <RenderFilterRow
-                  filters={HappeningNow[activeLocationIndex].secondRowFilters}
+                  filters={HappeningNow[activeLocationIndex].firstRowFilters}
                   activeFilter={activeFilter}
                   setActiveFilter={setActiveFilter}
                 />
-              </div></>}
+                <div className="mb-10">
+                  <RenderFilterRow
+                    filters={HappeningNow[activeLocationIndex].secondRowFilters}
+                    activeFilter={activeFilter}
+                    setActiveFilter={setActiveFilter}
+                  />
+                </div>
+              </>
             </div>
           </div>
           <div className="mt-6 md:w-[80%] mx-auto">
