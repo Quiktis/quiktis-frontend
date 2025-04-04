@@ -6,7 +6,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const navItems = [
   { name: "My Profile", path: "/event-creator" },
-  { name: "My Events", path: "" },
+  { name: "My Events", path: "/my-events" },
   { name: "Events Stats", path: "/stats" },
   { name: "Notifications", path: "/notifications" },
   { name: "Reviews", path: "/reviews" },
