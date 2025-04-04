@@ -33,15 +33,14 @@ export default function Footer() {
 
   return (
     <>
-      {!hiddenPaths.includes(pathname) && 
-      <section className='relative w-full mb-[5em]'>
-          <div className="absolute w-[45em] left-auto right-0 h-[45em] top-[-5em] tr inset-0 radial-gradient-blue blur-3xl opacity-50"></div>
-            <NewsLetter2  containerClass='relative w-full md:w-[80%] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em] px-20 max-md:px-5'/>
-            
-          </section>
-      }{" "}
-      <footer className="relative mt-8 text-white w-full px-6 sm:px-8 md:px-12 py-8 grid place-items-center">
-        <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-8 w-[80%] mx-auto">
+      {!hiddenPaths.includes(pathname) && (
+        <section className="relative w-full mb-[5em]">
+          <div className="absolute w-full h-[80em] top-[-22em] translate-x-[35vw] tr inset-0 radial-gradient-blue blur-3xl opacity-50"></div>
+          <NewsLetter2 containerClass="relative w-full md:w-[80%] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]" />
+        </section>
+      )}
+      <footer className="relative mt-8 text-white w-full px-6 sm:px-8 md:px-12 py-8">
+        <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-8 w-full">
           {/* Column 1 */}
           <div className="flex-shrink-0 md:w-1/5 flex justify-center md:justify-start">
             <Logo />
@@ -53,7 +52,7 @@ export default function Footer() {
               <Link href="/" className="hover:text-[#FF4D2A]">
                 Home
               </Link>
-              <Link href="/history" className="hover:text-[#FF4D2A]">
+              <Link href="/my-ticket" className="hover:text-[#FF4D2A]">
                 Pages
               </Link>
               <Link href="/events" className="hover:text-[#FF4D2A]">
@@ -73,7 +72,7 @@ export default function Footer() {
               <Link href="/search" className="hover:text-[#FF4D2A]">
                 Genres
               </Link>
-              <Link href="/my-ticket" className="hover:text-[#FF4D2A]">
+              <Link href="/history" className="hover:text-[#FF4D2A]">
                 News
               </Link>
             </div>
@@ -99,7 +98,7 @@ export default function Footer() {
                   <FontAwesomeIcon icon={faLinkedin} size="lg" />
                 </Link>
                 <Link
-                  href="https://twitter.com/quiktis"
+                  href="https://x.com/QuiktisTik"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-[#FF4D2A] flex items-center gap-2">
@@ -121,7 +120,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="absolute w-[10%] h-[26em] top-[-3em] right-0 left-auto inset-0 radial-gradient-purple blur-3xl opacity-50"></div>
+        <div className="absolute pointer-events-none w-[75%] h-[26em] top-[-3em] right-0 left-auto inset-0 radial-gradient-purple blur-3xl opacity-50"></div>
       </footer>
     </>
   );
