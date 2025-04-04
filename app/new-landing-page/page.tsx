@@ -201,7 +201,7 @@ export default function NewLandingPage() {
                 width={80}
                 height={80}
               />
-              <p className={`${index === 0 ? "" : "blur-[8px]"}`}>
+              <p className={`${index === strongPoints.length - 1 ? "" : "blur-[8px]"}`}>
                 {item.description}
               </p>
             </div>
