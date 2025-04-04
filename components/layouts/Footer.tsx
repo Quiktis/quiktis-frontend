@@ -101,7 +101,7 @@ export default function Footer() {
                   <FontAwesomeIcon icon={faLinkedin} size="lg" />
                 </Link>
                 <Link
-                  href="https://twitter.com/quiktis"
+                  href="https://x.com/QuiktisTik"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-[#FF4D2A] flex items-center gap-2">
