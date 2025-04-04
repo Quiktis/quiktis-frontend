@@ -18,7 +18,7 @@ const Header = () => {
     "/notifications",
     "/reviews",
     "/announcement",
-    
+    "/my-events",
   ];
   const excludeHeaderPaths = ["/search", "/new-landing-page", "/"];
 
