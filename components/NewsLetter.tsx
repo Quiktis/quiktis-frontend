@@ -1,10 +1,16 @@
 "use client";
+import React, { useState } from "react";
 import Image from "next/image";
-import React from "react";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 
 const NewsLetter = () => {
+  const [email, setEmail] = useState("");
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
   return (
     <section className="w-full px-6 sm:px-10 py-20 overflow-hidden -mb-20">
       <div className="relative w-full flex justify-between items-center">
@@ -36,15 +42,15 @@ const NewsLetter = () => {
           {/* Input & Button */}
           <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full max-w-[600px] mx-auto">
             <Input
-              value={""}
-              onChange={() => {}}
+              value={email}
+              onChange={handleEmailChange}
               type="email"
               placeholder="Input email here"
               className="bg-opacity-15 bg-white py-3 border border-[#CBCAD7] text-white placeholder-gray-500 rounded-[15px] px-4 sm:px-20"
             />
             <Button
               className="py-3 rounded-[15px] bg-primary px-6 sm:px-10 text-white"
-              onClick={() => {}}>
+              onClick={() => console.log(email)}>
               Subscribe
             </Button>
           </div>
