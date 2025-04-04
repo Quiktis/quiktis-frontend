@@ -1,6 +1,5 @@
 "use client";
-
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
@@ -8,7 +7,14 @@ import Input from "./ui/Input";
 interface NewsLetterProps {
   containerClass?: string;
 }
+
 const NewsLetter2: React.FC<NewsLetterProps> = ({ containerClass }) => {
+  const [email, setEmail] = useState("");
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
   return (
     <section className={`${containerClass}`}>
       <div className="relative z-10 w-full mx-auto flex flex-col">
@@ -23,7 +29,6 @@ const NewsLetter2: React.FC<NewsLetterProps> = ({ containerClass }) => {
             bg-white-900
             backdrop-filter 
             bg-clip-padding
-           
             backdrop-blur-lg
             bg-opacity-0 
             border 
@@ -36,10 +41,6 @@ const NewsLetter2: React.FC<NewsLetterProps> = ({ containerClass }) => {
             max-sm:px-5
             text-white
             text-center
-          
-          
-
-            
           ">
           <h1 className="text-[1.3em] md:text-[2.2em] font-semibold leading-tight">
             GET THE LATEST UPDATE FROM QUIKTIS
@@ -52,8 +53,8 @@ const NewsLetter2: React.FC<NewsLetterProps> = ({ containerClass }) => {
 
           <div className="flex flex-col md:grid grid-cols-[auto_6em] sm:flex-row gap-4 mt-8 w-full mx-auto justify-center">
             <Input
-              value=""
-              onChange={() => {}}
+              value={email}
+              onChange={handleEmailChange}
               type="email"
               placeholder="Input Email Here ..."
               className="
@@ -69,7 +70,7 @@ const NewsLetter2: React.FC<NewsLetterProps> = ({ containerClass }) => {
                 py-3 rounded-[5px] bg-red-500 
                 px-[4em] sm:px-10 text-white font-semibold
               "
-              onClick={() => {}}>
+              onClick={() => console.log(email)}>
               Subscribe
             </Button>
           </div>
