@@ -47,7 +47,7 @@ const EventStats: React.FC = () => {
         ))}
       </div>
 
-      <div className="absolute left-[10px] bottom-[50px] z-0">
+      <div className="absolute left-1/2 transform -translate-x-1/2 md:left-[10px] md:transform-none bottom-[50px] z-0">
         <div className="w-[450px] h-[450px] bg-[#FF4D2A] opacity-30 blur-3xl rounded-full"></div>
       </div>
 
