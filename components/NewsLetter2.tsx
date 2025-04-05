@@ -26,6 +26,7 @@ const NewsLetter2: React.FC<NewsLetterProps> = ({ containerClass }) => {
           className="
             grid
             w-full 
+            max-sm:max-w-[90%] mx-auto
             bg-white-900
             backdrop-filter 
             bg-clip-padding
