@@ -36,7 +36,7 @@ export default function Footer() {
       {!hiddenPaths.includes(pathname) && (
         <section className="relative w-full mb-[5em]">
           <div className="absolute w-full h-[80em] top-[-22em] translate-x-[35vw] tr inset-0 radial-gradient-blue blur-3xl opacity-50"></div>
-          <NewsLetter2 containerClass="relative w-full md:w-[80%] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]" />
+          <NewsLetter2 containerClass="relative w-full max-w-4xl mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]" />
         </section>
       )}
       <footer className="relative mt-8 text-white w-full px-6 sm:px-8 md:px-12 py-8">
