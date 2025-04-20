@@ -21,7 +21,7 @@ const events: Event[] = [
     location: "Lagos, Nigeria",
     date: "May 23, 2024",
     time: "13:20",
-    image: "/africa.png",
+    image: "/upcoming1.png",
     readMoreLink: "#",
     ticketLink: "#",
   },
@@ -31,7 +31,7 @@ const events: Event[] = [
     location: "Lagos, Nigeria",
     date: "May 14, 2024",
     time: "9:30",
-    image: "/africa.png",
+    image: "/upcoming2.png",
     readMoreLink: "#",
     ticketLink: "#",
   },
@@ -41,7 +41,7 @@ const events: Event[] = [
     location: "Ontario, Canada",
     date: "May 23, 2024",
     time: "13:20",
-    image: "/africa.png",
+    image: "/upcoming1.png",
     readMoreLink: "#",
     ticketLink: "#",
   },
@@ -51,7 +51,7 @@ const events: Event[] = [
     location: "Lagos, Nigeria",
     date: "May 14, 2024",
     time: "9:30",
-    image: "/africa.png",
+    image: "/upcoming2.png",
     readMoreLink: "#",
     ticketLink: "#",
   },
@@ -71,18 +71,23 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({ containerClass }) => {
   }
 
   return (
-    <section className={`relative py-10 overflow-hidden ${containerClass}`}>
+    <section className={`relative py-10  ${containerClass}`}>
+      <div className="grid grid-cols-[1fr_2.2fr] w-full absolute h-[50em]">
+            <div></div>
+            <div className=" h-full w-full  translate-x-0  radial-gradient-red-light blur-[18px] md:blur-3xl opacity-50"></div>
+          </div>
       <div className="relative z-10 container mx-auto text-white">
-        <h2 className="text-2xl font-semibold mb-6">Coming Up Next</h2>
+      
+        <h2 className="md:text-[1.8em] lg:text-[2.2em] mb-8">Coming Up Next</h2>
 
         <div className=" hidden md:grid grid-cols-1 lg:grid-cols-1 gap-4">
           {events.map((event) => (
             <div
               key={event.id}
-              className="grid flex-wrap lg:grid-cols-2 xl:grid-cols-[0.9fr_0.5fr_1fr] gap-4 items-center p-4 border border-gray-800 rounded-[5px] bg-transparent">
+              className="grid flex-wrap lg:grid-cols-2 xl:grid-cols-[0.9fr_0.5fr_1fr] gap-4 items-center p-4 border border-[#ffffff60] rounded-[5px] bg-transparent">
               {/* Left */}
               <div className="flex gap-3 w-fit">
-                <div className="relative w-24 h-24 rounded-[5px] overflow-hidden flex-shrink-0">
+                <div className="relative w-[7.5em] h-[7.5em] rounded-[5px] overflow-hidden flex-shrink-0">
                   <Image
                     src={event.image}
                     alt={event.title}
@@ -91,20 +96,20 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({ containerClass }) => {
                   />
                 </div>
                 <div className="my-auto">
-                  <h3 className="text-[#ff4d2a] font-semibold text-sm md:text-base lg:text-lg leading-2">
+                  <h3 className="text-[#FF1400] font-bold text-sm md:text-base lg:text-[1.4em] max-w-[10em] leading-2">
                     {event.title}
                   </h3>
-                  <p className="text-gray-400 text-xs md:text-sm">
+                  <p className="py-2">
                     {event.location}
                   </p>
-                  <p className="text-gray-400 text-xs md:text-sm">
+                  <p className="">
                     {event.time}
                   </p>
                 </div>
               </div>
 
               <div className="hidden xl:flex justify-center">
-                <p className="text-white md:text-sm">{event.date}</p>
+                <p className="text-white text-[1.1em]">{event.date}</p>
               </div>
 
               {/* Right */}

@@ -29,7 +29,7 @@ export default function RootLayout({
           <GoogleOAuthProvider clientId="305106076200-n1qka2asma7rlvpmq8nhk6lljgnd9qsq.apps.googleusercontent.com">
           <PageWrapper>
             {/*<NewHeader />*/}
-            <Header />
+            <NewHeader containerClass="max-w-[40em]"/>
               {children}
             <Footer />
           </PageWrapper>

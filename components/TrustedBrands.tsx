@@ -3,21 +3,15 @@
 import { useRef } from "react";
 import Image from "next/image";
 
-const brands: string[] = [
-  "/brand1.svg",
-  "/brand3.svg",
-  "/brand4.svg",
-  "/brand5.svg",
-  "/brand6.svg",
-  "/brand1.svg",
-  "/brand5.svg",
-];
-
-interface TrustedBrandsProps {
+interface BrandListProps {
   containerClass?: string;
+  brands: Array<string>;
+  brandHeightClass?: string;
+  brandWidthClass?: string;
+  speed?: string;
 }
 
-const TrustedBrands: React.FC<TrustedBrandsProps> = ({ containerClass }) => {
+const BrandList: React.FC<BrandListProps> = ({ containerClass, brands, brandHeightClass, brandWidthClass, speed = "normal" }) => {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
 
   const handleMouseEnter = () => {
@@ -36,13 +30,13 @@ const TrustedBrands: React.FC<TrustedBrandsProps> = ({ containerClass }) => {
     <div className={`overflow-hidden py-6 relative w-full ${containerClass}`}>
       <div
         ref={marqueeRef}
-        className="flex whitespace-nowrap animate-marquee w-max"
+        className={`flex whitespace-nowrap ${speed === "slow" ? "animate-marquee-slow" : "animate-marquee"} w-max`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         {[...brands, ...brands].map((logo, index) => (
           <div
-            className="relative w-[10em] h-[1.3em] mx-6 flex-shrink-0"
+            className={`relative ${ brandHeightClass ? brandHeightClass : "h-[1.3em] "} ${ brandWidthClass ? brandWidthClass : "w-[10em]"}  mx-6 flex-shrink-0`}
             key={index}
           >
             <Image
@@ -60,4 +54,4 @@ const TrustedBrands: React.FC<TrustedBrandsProps> = ({ containerClass }) => {
   );
 };
 
-export default TrustedBrands;
+export default BrandList;

@@ -4,14 +4,16 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Sidebar from "./Sidebar";
+import { useState } from "react";
 
 interface HeaderProps {
-  onSidebarOpen?: () => void;
   containerClass?: string;
 }
 
-const NewHeader: React.FC<HeaderProps> = ({ onSidebarOpen, containerClass }) => {
+const NewHeader: React.FC<HeaderProps> = ({containerClass }) => {
   const pathname = usePathname();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
     { name: "Home", path: "/" },
@@ -21,7 +23,24 @@ const NewHeader: React.FC<HeaderProps> = ({ onSidebarOpen, containerClass }) => 
     // { name: "Newsletter", path: "/reviews" },
   ];
 
+  const allowedPaths = [
+    "/",
+  ];
+
+  const hiddenPaths = [
+    "", "",
+  ];
+
+  if (hiddenPaths.includes(pathname)) return null;
+
   return (
+    <>
+    {allowedPaths.includes(pathname) && <div className="overlay background-div z-10 absolute max-sm:top-[107vw] sm:top-[36vw] md:top-[50vh] lg:top-[23vw] xl:top-[7.9vw] right-0 left-0"></div>
+    
+    }
+    
+
+
     <header className={`relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] md:shadow-2xl ${containerClass}`}>
       <div className="my-auto lg:px-8">
         <Image
@@ -57,7 +76,7 @@ const NewHeader: React.FC<HeaderProps> = ({ onSidebarOpen, containerClass }) => 
       </Link>
 
       <div className="relative h-[30px] w-[30px] my-auto block md:hidden tablet-block">
-        <button onClick={onSidebarOpen}>
+        <button onClick={() => setSidebarOpen(true)}>
           <Image
             unoptimized={true}
             src="/ep_menu.svg"
@@ -68,6 +87,9 @@ const NewHeader: React.FC<HeaderProps> = ({ onSidebarOpen, containerClass }) => 
         </button>
       </div>
     </header>
+
+    <Sidebar onSidebarClose={() => setSidebarOpen(false)} isOpen={sidebarOpen} />
+    </>
   );
 };
 

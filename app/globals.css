@@ -3,30 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+    --foreground: #ededed;
   --primary: #FF4D2A;
   --secondary-white: #ffffff;
   --secondary-brown: #401801;
   --accent-dark-gray: #181819;
   --font-primary: 'Space Grotesk';
   --font-secondary: 'Montserrat';
-  overflow-x: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    overflow-x: hidden;
-    
-  }
-}
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-primary);
+  overflow-x: hidden;
  
 
 }
@@ -110,7 +102,7 @@ body {
 .radial-gradient-custom {
   border-radius: 50%; /* Ensures the gradient is perfectly circular */
   background: radial-gradient(circle, 
-  rgba(255, 78, 42, 0.918) 0%,
+  rgba(255, 20, 0, 1) 0%,
   rgba(255, 59, 25, 0.178) 50%,
   rgba(255, 0, 0, 0) 100%);
 }
@@ -118,8 +110,8 @@ body {
 .radial-gradient-red-light {
   border-radius: 50%; /* Ensures the gradient is perfectly circular */
   background: radial-gradient(circle, 
-  rgba(245, 45, 45, 0.527) 0%,
-  rgba(255, 59, 25, 0.178) 50%,
+  rgba(255, 105, 93, 1) 0%,
+  rgba(255, 104, 93, 0.205) 50%,
   rgba(255, 0, 0, 0) 100%);
 }
 
@@ -180,6 +172,10 @@ body {
 
 .animate-marquee {
   animation: marquee 25s linear infinite;
+}
+
+.animate-marquee-slow {
+  animation: marquee 45s linear infinite;
 }
 
 .paused {
