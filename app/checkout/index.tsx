@@ -1,4 +1,3 @@
-// File: /app/checkout/index.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -13,7 +12,6 @@ export default function CheckoutPage() {
   return (
     <main className="min-h-screen bg-transparent text-white py-12">
       <div className="space-y-8">
-        {/* Header with new ticket SVG */}
         <div className="flex items-center space-x-4">
           <img
             src="/event-ticket.svg"
@@ -23,7 +21,6 @@ export default function CheckoutPage() {
           <h1 className="text-3xl font-semibold">My Cart</h1>
         </div>
 
-        {/* Cart Item using maskgirl.png + pp.png */}
         <CartItem
           imageUrl="/maskgirl.png"
           title="Africa's fashion industry."
@@ -37,7 +34,6 @@ export default function CheckoutPage() {
           onPlus={() => setQuantity((q) => q + 1)}
         />
 
-        {/* Qty & Total (now centered) */}
         <div className="flex justify-center items-center space-x-4 my-4">
           <span className="text-lg">Qty:</span>
           <span className="text-xl font-medium text-blue-500">{quantity}</span>
@@ -45,7 +41,6 @@ export default function CheckoutPage() {
           <span className="text-xl font-medium text-blue-500">NGN {total}</span>
         </div>
 
-        {/* Attendee Details */}
         <div className="pt-8">
           <h2 className="text-2xl font-semibold">
             Attendee Details <span className="text-gray-400">(Optional)</span>
