@@ -7,7 +7,6 @@ import { IoMdCheckmark } from "react-icons/io";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import UserProfileDisplay from "@/components/dashboard/UserProfileDisplay";
 
-
 const ButtonGrid = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm">
