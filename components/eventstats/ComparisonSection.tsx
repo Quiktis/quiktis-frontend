@@ -46,12 +46,10 @@ const ComparisonSection: React.FC<ComparisonSectionProps> = ({
 
   return (
     <div className="bg-[#111111] rounded-lg p-6">
-      {/* Title */}
       <h2 className="text-center text-white text-xl font-semibold uppercase mb-10">
         COMPARISON WITH LAST EVENT
       </h2>
 
-      {/* Event Images + Labels */}
       <div className="flex justify-center items-center gap-[80px] md:gap-[120px] mb-12">
         <div className="flex items-center gap-2">
           <span className="text-[10px] md:text-sm uppercase text-white">
@@ -80,10 +78,7 @@ const ComparisonSection: React.FC<ComparisonSectionProps> = ({
         </div>
       </div>
 
-      {/* Bar Comparisons Row */}
-      {/* Responsive Bar Comparisons Row */}
       <div className="flex flex-row justify-between items-center gap-2 mt-6 flex-wrap md:flex-nowrap">
-        {/* Left Side Bars (Previous Events) */}
         <div className="flex flex-col gap-6 flex-1 items-end min-w-[80px]">
           {metrics.map(({ prev }, i) => (
             <div
@@ -111,7 +106,6 @@ const ComparisonSection: React.FC<ComparisonSectionProps> = ({
           ))}
         </div>
 
-        {/* Center Rectangle with Icons */}
         <div
           className="flex flex-col items-center justify-center w-[80px] md:w-[120px] py-2 md:py-4 space-y-3 md:space-y-4 shrink-0"
           style={{
@@ -135,7 +129,6 @@ const ComparisonSection: React.FC<ComparisonSectionProps> = ({
           ))}
         </div>
 
-        {/* Right Side Bars (Current Events) */}
         <div className="flex flex-col gap-6 flex-1 items-start min-w-[80px]">
           {metrics.map(({ curr }, i) => (
             <div
