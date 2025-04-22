@@ -10,7 +10,6 @@ const navItems = [
   { name: "Events Stats", path: "/stats" },
   { name: "Notifications", path: "/notifications" },
   { name: "Reviews", path: "/reviews" },
-  { name: "Announcement", path: "/announcement" },
 ];
 
 const DashboardNav = () => {
