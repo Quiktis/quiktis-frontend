@@ -13,7 +13,6 @@ interface CheckInTableProps {
 }
 
 const CheckInTable: React.FC<CheckInTableProps> = ({ data }) => {
-  // pad data to 15+ entries
   const paddedData = [...data];
   while (paddedData.length < 70) {
     paddedData.push({
@@ -58,7 +57,6 @@ const CheckInTable: React.FC<CheckInTableProps> = ({ data }) => {
         </table>
       </div>
 
-      {/* Local scoped custom scrollbar */}
       <style jsx>{`
         div::-webkit-scrollbar {
           width: 4px;
