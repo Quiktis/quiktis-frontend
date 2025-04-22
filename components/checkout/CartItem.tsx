@@ -29,7 +29,7 @@ const CartItem: React.FC<CartItemProps> = ({
 }) => {
   return (
     <div className="w-full flex flex-col lg:flex-row justify-between items-start lg:items-center gap-y-6 lg:gap-x-20 px-4 sm:px-6 py-5 rounded-xl backdrop-blur-md bg-white/5 border border-white/10">
-      {/* Section 1: Event Image + Title + Location */}
+      {/* Section 1 */}
       <div className="flex items-center space-x-4 sm:space-x-5 min-w-0 w-full lg:min-w-[260px]">
         <Image
           src={imageUrl}
@@ -47,7 +47,7 @@ const CartItem: React.FC<CartItemProps> = ({
         </div>
       </div>
 
-      {/* Section 2: Organizer Info */}
+      {/* Section 2 */}
       <div className="flex items-center space-x-3 w-full justify-start lg:justify-center lg:min-w-[220px]">
         <Image
           src={organizerAvatar}
@@ -59,7 +59,7 @@ const CartItem: React.FC<CartItemProps> = ({
         <span className="text-white text-base">{organizer}</span>
       </div>
 
-      {/* Section 3: Ticket Type Dropdown */}
+      {/* Section 3 */}
       <div className="w-full lg:w-auto lg:min-w-[170px] relative flex justify-start lg:justify-center items-center">
         <select className="appearance-none bg-transparent border border-white/20 rounded-md px-4 py-2 text-base text-white focus:outline-none w-full lg:w-[170px]">
           <option disabled selected>
@@ -74,8 +74,7 @@ const CartItem: React.FC<CartItemProps> = ({
         <IoIosArrowDown className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white pointer-events-none" />
       </div>
 
-      {/* Section 4: Quantity Controls */}
-      {/* Section 4: Quantity Controls */}
+      {/* Section 4 */}
       <div className="flex items-center justify-center lg:justify-end space-x-3 w-full lg:min-w-[140px] mt-2 lg:mt-0 mx-auto">
         <button
           onClick={onMinus}
