@@ -6,7 +6,7 @@ import { BsPlus } from "react-icons/bs";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { RiFileCopy2Fill } from "react-icons/ri";
-import AllEvents from "@/components/AllEvents";
+import NewEventCard from "@/components/search/NewEventCard";
 import Link from "next/link";
 import Input from "@/components/ui/Input";
 import { useState } from "react";
@@ -68,6 +68,104 @@ const reviews = [
   },
 ];
 
+const relatedEvents = [
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "africa.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "dj.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "camera.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "party1.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "conf.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "dance.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "wed.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "show.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+];
 export default function EventViewingPage() {
   const [email, setEmail] = useState("");
   const icons = Array(5).fill(<FaStar className="text-yellow-500" />);
@@ -75,25 +173,15 @@ export default function EventViewingPage() {
 
   return (
     <>
-      <section className="flex flex-col md:grid grid-cols-[65%_32%] md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
+      <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
         <div className="relative w-full h-full">
           <Image
-            src={"/party1.png"}
-            alt="party 1"
+            src={"/party1.png"} 
+            alt="Event header"
             layout="fill"
             objectFit="cover"
             className="rounded-[30px]"
-            objectPosition="50% 80%"
             unoptimized
-          />
-        </div>
-        <div className="relative w-full h-full">
-          <Image
-            src={"/happy-birthday-party-toasting-champagne.png"}
-            alt="party 1"
-            layout="fill"
-            objectFit="cover"
-            className="rounded-[30px]"
           />
         </div>
       </section>
@@ -109,8 +197,7 @@ export default function EventViewingPage() {
           <div className="grid h-full mr-0 md:ml-auto my-auto md:mt-0 mt-5 md:w-fit w-full">
             <Button
               onClick={() => {}}
-              className="text-[16px]  md:w-[150px]  flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary "
-            >
+              className="text-[16px]  md:w-[150px]  flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary ">
               Get Ticket $70
             </Button>
           </div>
@@ -147,8 +234,7 @@ export default function EventViewingPage() {
                 <Link
                   key={index}
                   href="#"
-                  className="bg-[#ffffff18] px-4 py-3 shadow-2xl rounded-xl mb-1 hover:border-2 hover:border-white border-2 border-[transparent]"
-                >
+                  className="bg-[#ffffff18] px-4 py-3 shadow-2xl rounded-xl mb-1 hover:border-2 hover:border-white border-2 border-[transparent]">
                   {item.tag}
                 </Link>
               ))}
@@ -174,8 +260,7 @@ export default function EventViewingPage() {
 
               <Button
                 onClick={() => {}}
-                className="mr-0 md:ml-auto mb-0 mt-auto  text-[16px] w-[150px] h-fit flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary "
-              >
+                className="mr-0 md:ml-auto mb-0 mt-auto  text-[16px] w-[150px] h-fit flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary ">
                 Get Tickets
               </Button>
             </div>
@@ -202,8 +287,7 @@ export default function EventViewingPage() {
               </button>
               <Button
                 onClick={() => {}}
-                className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[16px] w-full h-fit flex items-center justify-center py-3 px-2 bg-primary "
-              >
+                className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[16px] w-full h-fit flex items-center justify-center py-3 px-2 bg-primary ">
                 Open Map
               </Button>
             </div>
@@ -214,14 +298,12 @@ export default function EventViewingPage() {
       <section className="max-sm:flex flex-col grid grid-cols-2 gap-6 mt-3">
         <Button
           onClick={() => {}}
-          className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[1.2em] w-full h-fit flex items-center justify-center py-4 px-2 bg-primary shadow-xl shadow-[#eeab8536]"
-        >
+          className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[1.2em] w-full h-fit flex items-center justify-center py-4 px-2 bg-primary shadow-xl shadow-[#eeab8536]">
           Buy with Card
         </Button>
         <Button
           onClick={() => {}}
-          className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[1.2em] w-full h-fit flex items-center justify-center py-4 px-2 bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl shadow-[#85d5ee36]"
-        >
+          className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[1.2em] w-full h-fit flex items-center justify-center py-4 px-2 bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl shadow-[#85d5ee36]">
           Buy with Crypto
         </Button>
       </section>
@@ -237,10 +319,13 @@ export default function EventViewingPage() {
           <h2 className="text-[2.2em] font-inter font-medium">
             Write a review
           </h2>
-          
-            
-            <StarRating rating={rating} setRating={setRating} size={24} className="my-7"/>
-          
+
+          <StarRating
+            rating={rating}
+            setRating={setRating}
+            size={24}
+            className="my-7"
+          />
 
           <form className="flex flex-col gap-[2.5em] w-full lg:w-[50%] mt-[2.8em] mb-4">
             <InputField
@@ -250,7 +335,6 @@ export default function EventViewingPage() {
               type="email"
               placeholder="Input email"
               required={true}
-              //className=" bg-[transparent] border border-[#ffffff56] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
             />
             <div className="relative grid">
               <label className="absolute bg-[#0c0c0c] top-[-0.8em] text-primary left-2 px-1 font-semibold">
@@ -258,13 +342,11 @@ export default function EventViewingPage() {
               </label>
               <textarea
                 placeholder="Leave us a message"
-                className=" focus:outline-orange-500 px-4 py-4 bg-[transparent] h-[12em] border rounded-md border-[#ffffff56]"
-              ></textarea>
+                className=" focus:outline-orange-500 px-4 py-4 bg-[transparent] h-[12em] border rounded-md border-[#ffffff56]"></textarea>
               <div className="mt-4 gap-4 grid grid-cols-[1fr_1.6fr] w-[65%]">
                 <button
                   className="border border-[#ffffff56] rounded-xl px-3 py-4 w-full hover:bg-[#ffffff11]"
-                  type="button"
-                >
+                  type="button">
                   Cancel
                 </button>
                 <button className="bg-primary border-[#ffffff56] rounded-xl px-3 py-4 w-full">
@@ -277,55 +359,58 @@ export default function EventViewingPage() {
       </section>
 
       <section className="border-2 glass-bg-dark border-[#ffffff56] px-[2.5em] rounded-[2em] py-12 pb-6 shadow-xl ">
-      {reviews.map((review, index) => (
-        <div key={index} >
-        <div  className="grid grid-cols-[45px_auto] w-full rounded-full gap-3">
-          <div className="relative w-[45px] h-[45px] grid grid-cols-[45px_auto] rounded-full">
-            <Image
-              src={review.profileImage}
-              alt="profile image"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-full" />
-          </div>
-          
-            
-            <div className="flex flex-col gap-2">
-              <h1>{review.name}</h1>
-              <div className="flex gap-1">
-              {[...Array(5)].map((_, i) => (
-              <FaStar key={i} className={i < review.rating ? "text-yellow-500" : "text-gray-400"} />
-            ))}
+        {reviews.map((review, index) => (
+          <div key={index}>
+            <div className="grid grid-cols-[45px_auto] w-full rounded-full gap-3">
+              <div className="relative w-[45px] h-[45px] grid grid-cols-[45px_auto] rounded-full">
+                <Image
+                  src={review.profileImage}
+                  alt="profile image"
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-full"
+                />
               </div>
-              <p>{review.review}</p>
-              
-            </div>
-           
-            
-          
 
-        </div>
-         <hr className="my-6 border-gray-600"></hr>
-         </div>
-      ))}
+              <div className="flex flex-col gap-2">
+                <h1>{review.name}</h1>
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <FaStar
+                      key={i}
+                      className={
+                        i < review.rating ? "text-yellow-500" : "text-gray-400"
+                      }
+                    />
+                  ))}
+                </div>
+                <p>{review.review}</p>
+              </div>
+            </div>
+            <hr className="my-6 border-gray-600"></hr>
+          </div>
+        ))}
       </section>
 
-      {/*<section className="relative grid place-items-center">
-        <div className="absolute w-full h-[45em] radial-gradient blur-3xl opacity-50"></div>
-        <div className="relative w-[87%] lg:h-[40em] md:h-[30em] max-sm:h-[17em] bg-black my-4 rounded-2xl">
-          <Image
-            src={"/Gemini_Generated_Image_noqspznoqspznoqs.png"}
-            alt="party 1"
-            layout="fill"
-            objectFit="contain"
-            className="rounded-[30px]"
-            unoptimized
-          />
+      <section className="mt-16">
+        <h1 className="text-3xl font-bold mb-6">Upcoming Events</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {relatedEvents.map((event, index) => (
+            <NewEventCard
+              key={index}
+              title={event.title}
+              subtitle={event.subtitle}
+              description={event.description}
+              date={event.date}
+              location={event.location}
+              price={event.price}
+              image={event.image}
+              getTicketUrl={event.getTicketUrl}
+              readMoreUrl={event.readMoreUrl}
+            />
+          ))}
         </div>
-      </section>*/}
-
-      <AllEvents title="NFT TICKETS" />
-      <div className="my-5"></div>
+      </section>
     </>
   );
 }
