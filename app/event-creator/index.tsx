@@ -1,41 +1,28 @@
 "use client";
-
 import React from "react";
 import Image from "next/image";
-import {
-  AiOutlineCalendar,
-  AiOutlineBarChart,
-  AiOutlineWallet,
-  AiOutlinePlus,
-} from "react-icons/ai";
-
+import { AiOutlineCalendar } from "react-icons/ai";
+import { HiArrowTrendingUp } from "react-icons/hi2"; 
+import { IoMdCheckmark } from "react-icons/io";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import UserProfileDisplay from "@/components/dashboard/UserProfileDisplay";
-import FavoriteEvents from "@/components/dashboard/FavoriteEvents";
+
 
 const ButtonGrid = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-sm">
       <button
         className="flex items-center gap-2 bg-primary text-white font-semibold text-lg 
-                   px-6 py-4 sm:px-8 sm:py-5 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                   px-6 py-4 sm:px-8 sm:py-5 rounded-xl shadow-[0_0_20px_#FF4D2A] transition-shadow">
         <AiOutlineCalendar className="w-6 h-6" />
         <span>Create Event</span>
       </button>
 
       <button
         className="flex items-center gap-2 bg-primary text-white font-semibold text-lg 
-                   px-6 py-4 sm:px-8 sm:py-5 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-        <AiOutlineBarChart className="w-6 h-6" />
+                   px-6 py-4 sm:px-8 sm:py-5 rounded-xl shadow-[0_0_20px_#FF4D2A] transition-shadow">
+        <HiArrowTrendingUp className="w-6 h-6" />
         <span>Sales Analytics</span>
-      </button>
-
-      <button
-        className="flex items-center gap-2 bg-primary text-white font-semibold text-lg 
-                   px-6 py-4 sm:px-8 sm:py-5 rounded-xl shadow-md hover:shadow-lg transition-shadow 
-                   sm:col-span-1">
-        <AiOutlineWallet className="w-6 h-6" />
-        <span>Connect Wallet</span>
       </button>
     </div>
   );
@@ -57,7 +44,7 @@ const EventCreatorDashboard: React.FC = () => {
           <UserProfileDisplay />
         </div>
 
-        <div className="w-full sm:w-auto flex justify-center">
+        <div className="w-full sm:w-auto flex justify-center mt-4">
           <ButtonGrid />
         </div>
       </section>
@@ -114,23 +101,29 @@ const EventCreatorDashboard: React.FC = () => {
                            focus:outline-none focus:ring-2 focus:ring-[#FF4D2A] transition-colors"
               />
               <button
-                className="flex items-center gap-2 bg-[#FF4D2A] text-white px-4 py-3 
+                className="flex items-center justify-center bg-[#FF4D2A] text-white px-4 py-3 
                            rounded-md font-semibold hover:brightness-90 transition-colors">
-                <AiOutlinePlus />
-                Add Email
+                <IoMdCheckmark className="w-6 h-6 mr-1" />
+                <span>Verify Email Address</span>
               </button>
             </div>
           </div>
 
-          <div className="mt-12 w-full">
+          <div className="mt-28 w-full">
             <h2 className="text-2xl font-bold mb-4">Privacy Settings</h2>
             <div className="flex flex-col gap-4">
-              <label className="flex items-center space-x-2">
-                <input type="checkbox" className="h-5 w-5 accent-[#FF4D2A]" />
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="h-5 w-5 accent-[#FF4D2A] cursor-pointer"
+                />
                 <span>Show my email address on my profile</span>
               </label>
-              <label className="flex items-center space-x-2">
-                <input type="checkbox" className="h-5 w-5 accent-[#FF4D2A]" />
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="h-5 w-5 accent-[#FF4D2A] cursor-pointer"
+                />
                 <span>Show my birthday on my profile</span>
               </label>
             </div>
@@ -148,7 +141,6 @@ const EventCreatorDashboard: React.FC = () => {
 
         <div className="flex-1 flex justify-center sm:justify-end">
           <div className="w-full max-w-sm">
-            <FavoriteEvents />
           </div>
         </div>
       </section>
