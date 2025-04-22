@@ -58,9 +58,8 @@ export default function AboutPage() {
   return (
     <main className="bg-transparent text-white min-h-screen">
       <div className="py-10">
-        {/* Top Section */}
+        {/* Top*/}
         <div className="flex flex-col md:flex-row gap-8 items-start">
-          {/* Left Side: Title & Text */}
           <div className="md:w-1/2 flex flex-col gap-4 md:mt-[380px] mt-0 px-4">
             <p className="text-base max-w-md">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
@@ -78,9 +77,7 @@ export default function AboutPage() {
             </h1>
           </div>
 
-          {/* Fragmented Layout using background-image (Better control) */}
           <div className="md:w-1/2 w-full grid grid-cols-3 gap-3 px-4 md:px-0">
-            {/* Left */}
             <div
               className="h-40 md:h-[300px] bg-cover bg-left bg-no-repeat"
               style={{
@@ -88,7 +85,6 @@ export default function AboutPage() {
               }}
             />
 
-            {/* Center */}
             <div
               className="h-72 md:h-[500px] bg-cover bg-center bg-no-repeat"
               style={{
@@ -96,7 +92,6 @@ export default function AboutPage() {
               }}
             />
 
-            {/* Right */}
             <div
               className="h-56 md:h-[380px] bg-cover bg-right bg-no-repeat"
               style={{
@@ -106,10 +101,8 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Spacer */}
         <div className="mt-16" />
 
-        {/* Content Section */}
         <section className="py-16 px-4">
           <div className="max-w-5xl mx-auto text-gray-200 space-y-6 leading-loose text-sm sm:text-base">
             <p>
@@ -179,7 +172,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Team Section */}
+        {/* Team */}
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
             <Image
@@ -221,7 +214,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Stats Section */}
+        {/* Stats*/}
         <section className="py-16 px-4">
           <div className="max-w-5xl mx-auto text-center">
             <h2 className="text-[32px] sm:text-[36px] font-semibold mb-4">
