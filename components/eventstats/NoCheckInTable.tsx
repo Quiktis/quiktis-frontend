@@ -48,7 +48,6 @@ const NoCheckInTable: React.FC<NoCheckInTableProps> = ({ data }) => {
         </table>
       </div>
 
-      {/* Scoped custom scrollbar */}
       <style jsx>{`
         div::-webkit-scrollbar {
           width: 4px; /* reduced from 6px */
