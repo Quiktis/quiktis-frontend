@@ -1,45 +1,151 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { IoTicketSharp } from "react-icons/io5";
-import HappeningSection from "@/components/HomePage/Happening";
+import { FaLongArrowAltRight } from "react-icons/fa";
+import NewHappeningSection from "@/components/eventsexplore/NewHappeningSection";
+import NewEventCard from "@/components/search/NewEventCard";
 import Button from "@/components/ui/Button";
 import SearchBar from "@/components/ui/SearchBar";
-import AllEvents from "@/components/AllEvents";
-import useAxios from "../hooks/useAxios";
+import GlowStyles from "@/components/eventsexplore/GlowWrapper.module.css";
+
+const events = [
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "africa.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "dj.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "camera.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "party1.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "conf.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "dance.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "wed.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "show.png",
+    getTicketUrl: "#",
+    readMoreUrl: "#",
+  },
+];
+
+const comingNext = [
+  {
+    image: "party1.png",
+    title: "Africa’s fashion industry.",
+    date: "May 23, 2024",
+    time: "13:20",
+    location: "Lagos, Nigeria",
+    readMoreUrl: "#",
+    getTicketUrl: "#",
+  },
+  {
+    image: "party1.png",
+    title: "Africa’s fashion industry.",
+    date: "May 23, 2024",
+    time: "13:20",
+    location: "Lagos, Nigeria",
+    readMoreUrl: "#",
+    getTicketUrl: "#",
+  },
+  {
+    image: "party1.png",
+    title: "Africa’s fashion industry.",
+    date: "May 23, 2024",
+    time: "13:20",
+    location: "Lagos, Nigeria",
+    readMoreUrl: "#",
+    getTicketUrl: "#",
+  },
+];
 
 const EventsPage = () => {
-  const [events, setEvents] = useState([]);
-  const { sendRequest } = useAxios();
-
-  useEffect(() => {
-    const fetchAllEvents = async () => {
-      console.log("sending request");
-      try {
-        const response = await sendRequest({
-          url: `https://api2-quiktis.onrender.com/events?limit=4`,
-          method: "GET",
-        });
-        if (response?.status === "success") {
-          setEvents(response.data.events);
-          console.log(response);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchAllEvents();
-  }, [sendRequest]);
-
   return (
-    <main className="min-h-screen">
-      {/* Top Section */}
-      <div className="flex flex-col md:flex-row gap-20 justify-center items-center w-full">
+    <main className="min-h-screen relative overflow-hidden">
+      <div className="flex flex-col md:flex-row gap-20 justify-center items-center w-full px-6">
         <div className="w-full md:w-1/2 flex flex-col gap-8">
           <h1 className="md:text-[90px] text-2xl font-[900]">Events</h1>
-          <h4 className="text-[20px]">
+          <h4 className="text-[19px]">
             Stay Ahead of the Curve with Quiktis&apos; Cutting-Edge
             <br /> Solutions
           </h4>
@@ -52,6 +158,7 @@ const EventsPage = () => {
             />
           </div>
         </div>
+
         <div className="w-full md:w-1/2 flex justify-center items-center">
           <Image
             src={"/young-people-enjoying-street-food.png"}
@@ -62,73 +169,109 @@ const EventsPage = () => {
           />
         </div>
       </div>
-
-      <HappeningSection />
-      <AllEvents events={events} />
-
+      <div className="w-full h-[2px] bg-[#FF4D2A] my-16" />
+      <NewHappeningSection />
+      <div className="flex flex-col gap-5 mt-10">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          {events.map((event, index) => (
+            <NewEventCard
+              key={index}
+              title={event.title}
+              subtitle={event.subtitle}
+              description={event.description}
+              date={event.date}
+              location={event.location}
+              price={event.price}
+              image={event.image}
+              getTicketUrl={event.getTicketUrl}
+              readMoreUrl={event.readMoreUrl}
+            />
+          ))}
+        </div>
+      </div>
       <div className="flex flex-col gap-5 mt-10">
         <h1 className="uppercase text-[30px] font-bold">Coming Next</h1>
 
         <div className="md:hidden overflow-x-auto scrollbar-hide">
           <div className="flex gap-5">
-            {[1, 2, 3].map((next, idx) => (
+            {comingNext.map((evt, idx) => (
               <div
                 key={idx}
-                className="p-4 border-5 border-primary rounded-[30px] bg-black flex flex-col gap-3 shadow-custom-red w-[320px] sm:w-[420px] flex-shrink-0">
-                <Image
-                  src={"/party1.png"}
-                  alt="party 1"
-                  width={420}
-                  height={300}
-                  className="rounded-[30px]"
-                />
-                <h1 className="text-[20px]">Africa’s fashion industry.</h1>
-                <div className="flex justify-between">
-                  <h1>
-                    May 23, 2024
-                    <br />
-                    13:20
+                className={`${GlowStyles.glowWrapper} w-[320px] sm:w-[420px] flex-shrink-0`}>
+                <div className="relative z-10 p-4 border-[6px] border-[#FF4D2A] bg-black rounded-[30px] flex flex-col gap-3">
+                  <Image
+                    src={`/${evt.image}`}
+                    alt={evt.title}
+                    width={420}
+                    height={300}
+                    className="rounded-[30px]"
+                  />
+                  <h1 className="text-[20px] font-semibold text-white">
+                    {evt.title}
                   </h1>
-                  <h1>Lagos, Nigeria</h1>
+                  <div className="flex justify-between text-sm text-gray-400">
+                    <div>
+                      {evt.date}
+                      <br />
+                      {evt.time}
+                    </div>
+                    <div>{evt.location}</div>
+                  </div>
+                  <div className="mt-4 flex items-center gap-2">
+                    <button
+                      onClick={() => (window.location.href = evt.readMoreUrl)}
+                      className="px-4 py-2 text-sm border border-white text-white rounded-[15px] flex items-center gap-1">
+                      Read more <FaLongArrowAltRight size={10} />
+                    </button>
+                    <div className="w-4" />
+                    <button
+                      onClick={() => (window.location.href = evt.getTicketUrl)}
+                      className="px-4 py-2 text-sm bg-[#FF4D2A] text-white rounded-[10px] flex items-center gap-1 ml-auto">
+                      Get Ticket <IoTicketSharp size={12} />
+                    </button>
+                  </div>
                 </div>
-                <Button
-                  className="bg-primary flex gap-3 justify-center text-white py-3 items-center rounded-[15px]"
-                  onClick={() => {}}>
-                  Get Ticket
-                  <IoTicketSharp />
-                </Button>
               </div>
             ))}
           </div>
         </div>
 
         <div className="hidden md:flex gap-5">
-          {[1, 2, 3].map((next, idx) => (
-            <div
-              key={idx}
-              className="p-4 border-5 border-primary rounded-[30px] bg-black flex flex-col gap-3 shadow-custom-red w-[420px] h-auto">
-              <Image
-                src={"/party1.png"}
-                alt="party 1"
-                width={420}
-                height={300}
-                className="rounded-[30px]"
-              />
-              <h1 className="text-[20px]">Africa’s fashion industry.</h1>
-              <div className="flex justify-between">
-                <h1>
-                  May 23, 2024
-                  <br />
-                  13:20
+          {comingNext.map((evt, idx) => (
+            <div key={idx} className={`${GlowStyles.glowWrapper} w-[420px]`}>
+              <div className="relative z-10 p-4 border-[6px] border-[#FF4D2A] bg-black rounded-[30px] flex flex-col gap-3">
+                <Image
+                  src={`/${evt.image}`}
+                  alt={evt.title}
+                  width={420}
+                  height={300}
+                  className="rounded-[30px]"
+                />
+                <h1 className="text-[20px] font-semibold text-white">
+                  {evt.title}
                 </h1>
-                <h1>Lagos, Nigeria</h1>
+                <div className="flex justify-between text-sm text-gray-400">
+                  <div>
+                    {evt.date}
+                    <br />
+                    {evt.time}
+                  </div>
+                  <div>{evt.location}</div>
+                </div>
+                <div className="mt-4 flex items-center gap-2">
+                  <button
+                    onClick={() => (window.location.href = evt.readMoreUrl)}
+                    className="px-4 py-2 text-sm border border-white text-white rounded-[15px] flex items-center gap-1">
+                    Read more <FaLongArrowAltRight size={10} />
+                  </button>
+                  <div className="w-4" />
+                  <button
+                    onClick={() => (window.location.href = evt.getTicketUrl)}
+                    className="px-4 py-2 text-sm bg-[#FF4D2A] text-white rounded-[10px] flex items-center gap-1 ml-auto">
+                    Get Ticket <IoTicketSharp size={12} />
+                  </button>
+                </div>
               </div>
-              <Button
-                className="bg-primary flex gap-3 justify-center text-white py-3 items-center rounded-[15px]"
-                onClick={() => {}}>
-                Get Ticket
-                <IoTicketSharp />
-              </Button>
             </div>
           ))}
         </div>
