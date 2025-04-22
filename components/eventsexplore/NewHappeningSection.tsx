@@ -47,16 +47,12 @@ const NewHappeningSection = () => {
 
   return (
     <section className="w-full bg-transparent text-white max-w-7xl mx-auto mt-20 px-4 sm:px-6 md:px-10 py-10">
-      {/* Header & Country Carousel */}
       <div className="flex flex-col items-center mb-6 gap-6 md:flex-row md:justify-between md:items-start md:mb-2 md:gap-10">
-        {/* Heading */}
         <h1 className="text-[24px] sm:text-[28px] md:text-[50px] font-bold whitespace-nowrap text-center md:text-left">
           HAPPENING IN
         </h1>
 
-        {/* Carousel & Pagination */}
         <div className="flex flex-col items-center">
-          {/* Carousel */}
           <div className="flex items-center gap-2">
             <button
               onClick={goLeft}
@@ -83,7 +79,6 @@ const NewHappeningSection = () => {
             </button>
           </div>
 
-          {/* Pagination Dots */}
           <div className="flex gap-1 sm:gap-2 mt-2">
             {countries.map((_, idx) => (
               <div
@@ -97,7 +92,6 @@ const NewHappeningSection = () => {
         </div>
       </div>
 
-      {/* Tag Filters */}
       <div className="mt-10 flex flex-col items-center">
         <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
           {tags.slice(0, 6).map((tag) => (
