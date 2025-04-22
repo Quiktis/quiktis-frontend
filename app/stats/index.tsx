@@ -1,4 +1,3 @@
-// File: /app/event-stats/index.tsx
 "use client";
 
 import React from "react";
@@ -11,7 +10,6 @@ import ComparisonSection from "@/components/eventstats/ComparisonSection";
 import Image from "next/image";
 
 export default function EventsStatsPage() {
-  // ——— dummy data — replace with your real fetch/props ———
   const statsData = {
     totalTicketsSold: 700,
     totalAttendees: 700,
@@ -45,38 +43,31 @@ export default function EventsStatsPage() {
 
   return (
     <main className="bg-transparent text-white min-h-screen py-12">
-      {/* Dashboard nav */}
       <div className="py-4">
         <DashboardNav />
       </div>
 
-      {/* Content (inherits PageWrapper padding) */}
       <div className="relative">
-        {/* Decorative images */}
         <div className="absolute top-0 right-0 flex space-x-4">
           <div className="relative w-[410px] h-[410px] mx-auto mt-[-40px] ml-[-60px]">
-            {/* Main Maskgroup Image - shifted left */}
             <img
               src="/Maskgroup.png"
               alt="Maskgroup"
               className="w-full h-full object-contain hidden md:block"
             />
 
-            {/* Top Left - decor-chart.png */}
             <img
               src="/decor-chart.png"
               alt="Chart Decor"
               className="absolute top-[85px] left-[-90px] w-[100px] h-[100px] hidden md:block"
             />
 
-            {/* Top Right - decor-percent.png */}
             <img
               src="/decor-percent.png"
               alt="Percent Decor"
               className="absolute top-[85px] right-[-70px] w-[100px] h-[100px] hidden md:block"
             />
 
-            {/* Bottom Center - decor-icon.png */}
             <img
               src="/decor-icon.png"
               alt="Icon Decor"
@@ -86,7 +77,6 @@ export default function EventsStatsPage() {
         </div>
 
         <div className="space-y-8 pt-6">
-          {/* Title + subtitle */}
           <div className="max-w-2xl">
             <h1 className="text-6xl font-bold mb-4">EVENT STATISTICS</h1>
             <p className="text-white text-lg">
@@ -94,10 +84,8 @@ export default function EventsStatsPage() {
             </p>
           </div>
 
-          {/* ↓↓ Extra space before stats cards ↓↓ */}
           <div className="h-12" />
 
-          {/* Stats cards: 2×2 block, left‑aligned, extra‑large cards */}
           <section className="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-12 max-w-2xl">
             <StatsCard
               label="Total Tickets Sold"
@@ -114,7 +102,6 @@ export default function EventsStatsPage() {
             />
           </section>
 
-          {/* Ticket type bar chart */}
           <section>
             <TicketTypeChart
               labels={ticketTypeData.labels}
@@ -122,13 +109,11 @@ export default function EventsStatsPage() {
             />
           </section>
 
-          {/* Check‑in tables */}
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <CheckInTable data={checkedIn} />
             <NoCheckInTable data={notCheckedIn} />
           </section>
 
-          {/* Comparison section */}
           <ComparisonSection
             previousImage="/event1.png"
             currentImage="/event2.png"
