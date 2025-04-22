@@ -29,7 +29,7 @@ const NewsLetter = () => {
           className="absolute -right-10 sm:-right-20"
         />
 
-        <div className="relative w-full rounded-[40px] p-6 sm:p-[50px] bg-white bg-opacity-10 backdrop-blur-[40px] border border-white border-opacity-20 shadow-lg text-white text-center sm:text-left">
+        <div className="relative w-full rounded-[20px] p-6 sm:p-[50px] bg-white bg-opacity-10 backdrop-blur-[40px] border border-white border-opacity-20 shadow-lg text-white text-center sm:text-left">
           <h1 className="text-[32px] sm:text-[48px] font-serif font-semibold leading-tight">
             Get the latest updates from{" "}
             <span className="text-primary">Quiktis</span>
@@ -39,17 +39,18 @@ const NewsLetter = () => {
             updates from <span className="text-primary">Quiktis</span>
           </p>
 
-          {/* Input & Button */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full max-w-[600px] mx-auto">
+          <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full max-w-[600px]">
             <Input
               value={email}
               onChange={handleEmailChange}
               type="email"
               placeholder="Input email here"
-              className="bg-opacity-15 bg-white py-3 border border-[#CBCAD7] text-white placeholder-gray-500 rounded-[15px] px-4 sm:px-20"
+              className="bg-[#FFFFFF99] text-left placeholder:text-left py-3 border border-[#CBCAD7] 
+           text-white placeholder-gray-500 rounded-[10px] 
+           pl-5 pr-4 sm:pl-8 sm:pr-20"
             />
             <Button
-              className="py-3 rounded-[15px] bg-primary px-6 sm:px-10 text-white"
+              className="py-3 rounded-[10px] bg-[#FF4D2A] bg-opacity-60 hover:bg-opacity-100 text-white px-6 sm:px-10"
               onClick={() => console.log(email)}>
               Subscribe
             </Button>
