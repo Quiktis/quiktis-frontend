@@ -1,0 +1,24 @@
+.glowWrapper {
+  position: relative;
+  z-index: 0; /* make sure the glow stays behind */
+}
+
+.glowWrapper::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  right: -60px;
+  bottom: -60px;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 77, 42, 0.8) 0%,
+    rgba(255, 77, 42, 0.2) 50%,
+    rgba(255, 77, 42, 0) 100%
+  );
+  filter: blur(80px);
+  opacity: 0.9;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 9999px; /* ensures circular gradient */
+}
