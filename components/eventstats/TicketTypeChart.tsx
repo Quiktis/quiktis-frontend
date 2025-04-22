@@ -47,15 +47,15 @@ const TicketTypeChart: React.FC<TicketTypeChartProps> = ({
     scales: {
       x: {
         grid: {
-          drawOnChartArea: false, // hide vertical grid lines
-          drawBorder: false, // hide vertical axis line
+          drawOnChartArea: false, 
+          drawBorder: false, 
         },
         ticks: { color: "#aaa" },
       },
       y: {
         grid: {
-          color: "#fff", // white horizontal grid lines
-          drawBorder: false, // hide the y-axis border line
+          color: "#fff", 
+          drawBorder: false, 
         },
         beginAtZero: true,
         max: 160,
