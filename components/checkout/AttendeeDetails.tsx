@@ -1,11 +1,9 @@
-// File: /components/AttendeeDetails.tsx
 import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
 export default function AttendeeDetails() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-      {/* Full Name */}
       <div>
         <label className="block text-gray-300 mb-2">Full Name</label>
         <input
@@ -15,10 +13,9 @@ export default function AttendeeDetails() {
         />
       </div>
 
-      {/* Email Address (with tight label + note) */}
       <div>
         <label className="block text-gray-300 mb-1">
-          Email Address{" "}
+          Email Address
           <span className="text-gray-400 text-sm">
             (This mail would receive a copy of the event ticket)
           </span>
@@ -30,7 +27,6 @@ export default function AttendeeDetails() {
         />
       </div>
 
-      {/* Location */}
       <div>
         <label className="block text-gray-300 mb-2">Location</label>
         <input
@@ -40,7 +36,6 @@ export default function AttendeeDetails() {
         />
       </div>
 
-      {/* Gender with dropdown + icon */}
       <div className="relative">
         <label className="block text-gray-300 mb-2">Gender</label>
         <select className="w-full appearance-none bg-transparent border border-gray-600 rounded p-3 text-white focus:outline-none">
