@@ -35,6 +35,10 @@ export default function Footer() {
     "/reviews",
     "/announcement",
     "/my-events",
+    "/about",
+    "/checkout",
+    "/stats",
+    "/write-review",
     "/auth/google/callback",
   ];
   if (excludeFooterPaths.includes(pathname)) return null;
