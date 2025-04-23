@@ -11,8 +11,16 @@
   --accent-dark-gray: #181819;
   --font-primary: 'Space Grotesk';
   --font-secondary: 'Montserrat';
+    overflow-x: hidden;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    overflow-x: hidden;
+  }
+}
 
 body {
   color: var(--foreground);
@@ -44,7 +52,7 @@ body {
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 2.5px solid rgba(128, 128, 128, 0.692);
   color: white;
-  box-shadow: 2px 2px 30px 4px rgba(129, 129, 129, 0.226) inset;       /* Outer drop shadow */
+  box-shadow: 2px 2px 30px 4px rgba(129, 129, 129, 0.226) inset;
    
 }
 
@@ -59,12 +67,12 @@ body {
   backdrop-filter: blur(15px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 2.5px solid rgba(128, 128, 128, 0.692);
-  color: white;     /* Outer drop shadow */
+  color: white;   
    
 }
 
 .radial-gradient {
-  border-radius: 50%; /* Ensures the gradient is perfectly circular */
+  border-radius: 50%; 
   background: radial-gradient(circle, 
   rgba(228, 105, 74, 0.582) 0%,
   rgba(216, 98, 43, 0.3) 50%,
@@ -77,16 +85,15 @@ body {
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 2.5px solid rgba(128, 128, 128, 0.692);
-  color: white;     /* Outer drop shadow */
+  color: white;   
    
 }
 
 .glass-bg-light {
   position: relative;
-  /*background: rgba(141, 141, 141, 0.555) 100%;*/
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  color: white;     /* Outer drop shadow */
+  color: white;     
    
 }
 
