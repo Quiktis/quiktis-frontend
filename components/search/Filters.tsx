@@ -1,205 +1,3 @@
-// "use client";
-// import React, { useState } from "react";
-
-// export default function Filters() {
-//   // Separate state groups for each filter section
-//   const [priceOptions, setPriceOptions] = useState<string[]>([]);
-//   const [dateOptions, setDateOptions] = useState<string[]>([]);
-//   const [categories, setCategories] = useState<string[]>([]);
-
-//   const togglePriceOption = (option: string) => {
-//     setPriceOptions((prev) =>
-//       prev.includes(option)
-//         ? prev.filter((item) => item !== option)
-//         : [...prev, option]
-//     );
-//   };
-
-//   const toggleDateOption = (option: string) => {
-//     setDateOptions((prev) =>
-//       prev.includes(option)
-//         ? prev.filter((item) => item !== option)
-//         : [...prev, option]
-//     );
-//   };
-
-//   const toggleCategory = (option: string) => {
-//     setCategories((prev) =>
-//       prev.includes(option)
-//         ? prev.filter((item) => item !== option)
-//         : [...prev, option]
-//     );
-//   };
-
-//   return (
-//     <div className="rounded-lg p-4 backdrop-blur-md text-white space-y-6">
-//       <h2 className="text-xl font-bold mb-4">Filters</h2>
-
-//       {/* Price Filter */}
-//       <div className="mb-6">
-//         <h3 className="text-blue-400 text-sm font-bold mb-2">Price</h3>
-//         <div className="space-y-2 text-sm">
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="free"
-//               name="price"
-//               value="free"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="free">Free</label>
-//           </div>
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="paid"
-//               name="price"
-//               value="paid"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="paid">Paid</label>
-//           </div>
-//         </div>
-//         <hr className="mt-4 border-gray-600" />
-//       </div>
-
-//       {/* Date Filter */}
-//       <div className="mb-6">
-//         <h3 className="text-blue-400 text-sm font-bold mb-2">Date</h3>
-//         <div className="space-y-2 text-sm">
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="today"
-//               name="date"
-//               value="today"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="today">Today</label>
-//           </div>
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="tomorrow"
-//               name="date"
-//               value="tomorrow"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="tomorrow">Tomorrow</label>
-//           </div>
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="week"
-//               name="date"
-//               value="week"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="week">This Week</label>
-//           </div>
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="weekend"
-//               name="date"
-//               value="weekend"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="weekend">This Weekend</label>
-//           </div>
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="pick"
-//               name="date"
-//               value="pick"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="pick">Pick a Date</label>
-//           </div>
-//         </div>
-//         <hr className="mt-4 border-gray-600" />
-//       </div>
-
-//       {/* Category Filter */}
-//       <div className="mb-6">
-//         <h3 className="text-blue-400 text-sm font-bold mb-2">Category</h3>
-//         <div className="space-y-2 text-sm">
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="entertainment"
-//               name="category"
-//               value="entertainment"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="entertainment">Entertainment Events</label>
-//           </div>
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="sports"
-//               name="category"
-//               value="sports"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="sports">Sports Events</label>
-//           </div>
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="educational"
-//               name="category"
-//               value="educational"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="educational">Educational Events</label>
-//           </div>
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="business"
-//               name="category"
-//               value="business"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="business">Business & Professional Events</label>
-//           </div>
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="cultural"
-//               name="category"
-//               value="cultural"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="cultural">Cultural & Community Events</label>
-//           </div>
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="expos"
-//               name="category"
-//               value="expos"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="expos">Expos & Markets</label>
-//           </div>
-//           <div>
-//             <input
-//               type="checkbox"
-//               id="virtual"
-//               name="category"
-//               value="virtual"
-//               className="mr-2 bg-transparent"
-//             />
-//             <label htmlFor="virtual">Virtual & Hybrid Events</label>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 import React, { useState } from "react";
 
 export default function Filters() {
@@ -223,7 +21,6 @@ export default function Filters() {
     <div className="rounded-lg p-4 backdrop-blur-md text-white space-y-6">
       <h2 className="text-xl font-bold mb-4">Filters</h2>
 
-      {/* Price Filter */}
       <div className="mb-6">
         <h3 className="text-white text-sm font-bold mb-2">Price</h3>
         <div className="space-y-2 text-sm">
@@ -252,7 +49,6 @@ export default function Filters() {
         <hr className="mt-4 border-gray-600" />
       </div>
 
-      {/* Date Filter */}
       <div className="mb-6">
         <h3 className="text-white text-sm font-bold mb-2">Date</h3>
         <div className="space-y-2 text-sm">
@@ -281,7 +77,6 @@ export default function Filters() {
         <hr className="mt-4 border-gray-600" />
       </div>
 
-      {/* Category Filter */}
       <div className="mb-6">
         <h3 className="text-white text-sm font-bold mb-2">Category</h3>
         <div className="space-y-2 text-sm">
