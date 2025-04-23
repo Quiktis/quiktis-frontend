@@ -46,7 +46,6 @@ export default function WriteReviewIndex() {
         <form
           onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* First Name */}
           <div className="relative">
             <label className="absolute -top-3 left-4 bg-[rgba(11,11,11,0.6)] px-1 text-sm text-[#FF4D2A]">
               First Name
@@ -64,7 +63,6 @@ export default function WriteReviewIndex() {
             />
           </div>
 
-          {/* Email */}
           <div className="relative">
             <label className="absolute -top-3 left-4 bg-[rgba(11,11,11,0.6)] px-1 text-sm text-[#FF4D2A]">
               Email
@@ -82,9 +80,7 @@ export default function WriteReviewIndex() {
             />
           </div>
 
-          {/* Upload File and Message in same row */}
           <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Upload File */}
             <div>
               <label className="flex items-center gap-2 text-sm text-[#FF4D2A] mb-2">
                 Upload File
@@ -117,7 +113,6 @@ export default function WriteReviewIndex() {
               </div>
             </div>
 
-            {/* Message */}
             <div className="relative">
               <label className="absolute -top-3 left-4 bg-[rgba(11,11,11,0.6)] px-1 text-sm text-[#FF4D2A]">
                 Message
@@ -136,7 +131,6 @@ export default function WriteReviewIndex() {
             </div>
           </div>
 
-          {/* Buttons */}
           <div className="md:col-span-2 flex justify-end gap-4 mt-4">
             <Button
               type="button"
@@ -157,7 +151,6 @@ export default function WriteReviewIndex() {
           </div>
         </form>
 
-        {/* Bottom fade-out line */}
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#494949] to-transparent" />
       </div>
     </main>
