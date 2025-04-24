@@ -10,7 +10,7 @@ interface DropdownProps {
   placeholder?: string;
 }
 
-const CustomDropdown: React.FC<DropdownProps> = ({
+const Dropdown: React.FC<DropdownProps> = ({
   options,
   selected,
   onChange,
@@ -28,7 +28,7 @@ const CustomDropdown: React.FC<DropdownProps> = ({
         </label>
       )}
       <div
-        className={`relative border border-gray-300 text-gray-400 px-4 py-3 rounded-md cursor-pointer flex items-center justify-between ${className}`}
+        className={`relative border border-[#ffffff56] text-gray-400 px-4 py-3 rounded-md cursor-pointer flex items-center justify-between ${className}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         {selected || placeholder} 
@@ -36,7 +36,7 @@ const CustomDropdown: React.FC<DropdownProps> = ({
       </div>
 
       {isOpen && (
-        <ul className="absolute top-full left-0 w-full mt-1 bg-gray-800 rounded shadow-lg z-10">
+        <ul className="absolute top-full left-0 w-full mt-1 bg-[#1b1b1b] rounded shadow-lg z-10">
           {options.map((option, index) => (
             <li
               key={index}
@@ -55,4 +55,4 @@ const CustomDropdown: React.FC<DropdownProps> = ({
   );
 };
 
-export default CustomDropdown;
+export default Dropdown;

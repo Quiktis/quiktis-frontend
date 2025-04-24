@@ -2,9 +2,9 @@ import React from "react";
 
 interface InputFieldProps {
   name?: string;
-  label: string;
-  type: string;
-  placeholder: string;
+  label?: string;
+  type?: string;
+  placeholder?: string;
   required?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;

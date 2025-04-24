@@ -16,7 +16,7 @@ const Button: React.FC<ButtonProps> = ({ onClick, children, type = 'button', cla
   <button
     type={type}
     onClick={onClick}
-    className={`text-white py-2 px-4 justify-center rounded flex gap-1 ${className || 'bg-primary'}`}
+    className={`text-white py-2 px-4 justify-center rounded flex gap-1 bg-primary ${className || ''}`}
     disabled={disabled}
     style={style}
   >

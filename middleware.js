@@ -12,5 +12,5 @@ export default function middleware(req) {
 
 // Apply middleware only to protected routes
 export const config = {
-  matcher: ["/create-events", "/my-tickets"], // Protect nested routes too
+  matcher: ["/my-tickets"], // Protect nested routes too
 };

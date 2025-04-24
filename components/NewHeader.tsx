@@ -41,7 +41,7 @@ const NewHeader: React.FC<HeaderProps> = ({containerClass }) => {
     
 
 
-    <header className={`relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] md:shadow-2xl ${containerClass}`}>
+    <header className={`relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] shadow-2xl ${containerClass} border border-[#ffffff10]`}>
       <div className="my-auto lg:px-8">
         <Image
           unoptimized={true}
