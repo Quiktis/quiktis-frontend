@@ -18,7 +18,7 @@ const NewHeader: React.FC<HeaderProps> = ({containerClass }) => {
   const menuItems = [
     { name: "Home", path: "/" },
     { name: "Explore Events", path: "/events" },
-    { name: "About Us", path: "/faq" },
+    { name: "About Us", path: "/about" },
     { name: "Contact Us", path: "/contact" },
     // { name: "Newsletter", path: "/reviews" },
   ];
