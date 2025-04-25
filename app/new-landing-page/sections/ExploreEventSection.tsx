@@ -23,17 +23,17 @@ const RenderFilterRow: React.FC<renderFilterProps> = ({
   return (
     <div className="flex flex-wrap justify-center gap-3">
       {filters.map((filter) => (
-        <Button
+        <button
           key={filter}
           className={`max-sm:py-2 sm:py-2 max-md:text-sm py-3 max-sm:px-5 px-6 border rounded-full transition-colors ${
             filter === activeFilter
-              ? "border-[#FF4D2A] text-[#FF4D2A]"
-              : "border-gray-600 text-gray-300 hover:border-[#FF4D2A] hover:text-[#FF4D2A]"
+              ? "border-white text-white"
+              : "border-gray-600 text-gray-300 hover:border-white hover:text-white"
           }`}
           onClick={() => setActiveFilter(filter)}
         >
           {filter}
-        </Button>
+        </button>
       ))}
     </div>
   );
@@ -46,19 +46,20 @@ export default function ExploreEventSection({ containerClass }: { containerClass
 
   const handlePrevLocation = () => {
     setCurrentLocationIndex((prev) => {
-      console.log(prev === 0 ? locations.length - 1 : prev - 1);
-      setActiveLocationIndex(prev - 1);
-      return prev === 0 ? locations.length - 1 : prev - 1;
+      const newIndex = prev === 0 ? locations.length - 1 : prev - 1;
+      setActiveLocationIndex(newIndex);
+      return newIndex;
     });
   };
-
+  
   const handleNextLocation = () => {
     setCurrentLocationIndex((prev) => {
-      console.log(prev);
-      setActiveLocationIndex(prev === locations.length - 1 ? 0 : prev + 1);
-      return prev === locations.length - 1 ? 0 : prev + 1;
+      const newIndex = prev === locations.length - 1 ? 0 : prev + 1;
+      setActiveLocationIndex(newIndex);
+      return newIndex;
     });
   };
+  
 
   const getLocationStyles = (index: number) => {
     const isActive = index === currentLocationIndex;
@@ -95,13 +96,13 @@ export default function ExploreEventSection({ containerClass }: { containerClass
                 HAPPENING IN
               </h1>
               <div className="flex w-fit mx-auto justify-between">
-                <Button
-                  className=" text-[#FF4D2A] flex items-center justify-center "
+                <button
+                  className=" flex items-center justify-center "
                   onClick={handlePrevLocation}
                 >
                   <MdArrowBackIos size={24} color="white" />
-                </Button>
-                <div className="flex items-center gap-2">
+                </button>
+                <div className="flex items-center gap-2 px-4">
                   {HappeningNow.map((item, index) => {
                     return (
                       <span
@@ -121,12 +122,12 @@ export default function ExploreEventSection({ containerClass }: { containerClass
                     );
                   })}
                 </div>
-                <Button
-                  className="text-[#FF4D2A] flex items-center justify-center"
+                <button
+                  className="flex items-center justify-center "
                   onClick={handleNextLocation}
                 >
                   <MdArrowForwardIos size={24} className="white" />
-                </Button>
+                </button>
               </div>
             </div>
             <>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+//import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layouts/Header";
 import PageWrapper from "@/components/ui/PageWrapper";
@@ -10,7 +10,7 @@ import { UserProvider } from "./context/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import NewHeader from "@/components/NewHeader";
 
-const spacegro = Space_Grotesk({subsets: ["latin"]});
+//const spacegro = Space_Grotesk({subsets: ["latin"]});
 export const metadata: Metadata = {
   title: "Quiktis",
   description: "Redifining access"
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spacegro.className}  antialiased flex flex-col min-h-screen`}
+        className={`  antialiased flex flex-col min-h-screen`}
       >
         <UserProvider>
           <GoogleOAuthProvider clientId="305106076200-n1qka2asma7rlvpmq8nhk6lljgnd9qsq.apps.googleusercontent.com">

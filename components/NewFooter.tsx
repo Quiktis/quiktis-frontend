@@ -28,7 +28,7 @@ export default function Footer() {
     "/notifications",
     "/reviews",
     "/announcement",
-    "/new-events",
+    "/announcement",
   ];
   if (excludeFooterPaths.includes(pathname)) return null;
 
@@ -38,7 +38,7 @@ export default function Footer() {
         <section className="relative w-full mb-[5em]">
           <div className="grid grid-cols-[1fr_1.6fr] w-full absolute h-[70em] top-[-10em]">
             <div></div>
-            <div className=" h-full w-full  translate-x-0  radial-gradient-blue blur-[18px] md:blur-3xl opacity-50"></div>
+            {/*<div className=" h-full w-full  translate-x-0  radial-gradient-blue blur-[18px] md:blur-3xl opacity-50"></div>*/}
           </div>
           <NewsLetter2 
   containerClass="relative w-full md:px-[8em] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]" 

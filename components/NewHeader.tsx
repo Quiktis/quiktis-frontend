@@ -31,7 +31,7 @@ const NewHeader: React.FC<HeaderProps> = ({containerClass }) => {
     "", "",
   ];
 
-  if (hiddenPaths.includes(pathname)) return null;
+  //if (hiddenPaths.includes(pathname)) return null;
 
   return (
     <>

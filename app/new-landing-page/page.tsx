@@ -39,9 +39,6 @@ export default function NewLandingPage() {
       <TakeYourEventManagementSection />
       
       
-
-      
-      <Footer />
     </main>
   );
 }

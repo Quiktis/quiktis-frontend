@@ -26,18 +26,18 @@ const NewsLetter2: React.FC<NewsLetterProps> = ({ containerClass }) => {
         className="
           bg-gradient-to-r
           from-[#EA4335] via-[#14151F] to-[#EA4335]
-          p-[2px]
+          p-[1.5px]
           rounded-[10px]
           overflow-hidden
           w-full
         ">
         <div
           className="
-            bg-[#060606]
+            bg-[#0a0a0a]
             backdrop-filter bg-clip-padding backdrop-blur-lg
             rounded-[10px]
             grid w-full
-            py-[7em] sm:py-[5em] max-sm:py-[2.5em]
+            py-[10em] sm:py-[5em] max-sm:py-[2.5em]
             px-7 max-sm:px-5
             text-white text-center
           ">
