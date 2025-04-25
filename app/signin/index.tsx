@@ -68,7 +68,7 @@ const LoginPage: React.FC = () => {
         });
   
         console.log("user details: ", response.user);
-        router.push("/my-events");
+        router.push("/dashboard");
       }
     } catch (error) {
       console.log(error);
