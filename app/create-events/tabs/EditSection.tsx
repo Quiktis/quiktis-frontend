@@ -96,7 +96,7 @@ export default function EditSection(
               </div>
             </div>
 
-            <div className="grid gap-[2.2em] w-[90%]">
+            <div className="grid gap-[2.2em] w-[84.5%]">
             <div className="grid grid-cols-[5em_auto] gap-5">
               <p className="mr-0 ml-auto">Sessions</p>
               <div className="grid grid-cols-2 w-[100%] gap-[5em]">

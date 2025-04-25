@@ -8,6 +8,7 @@ interface InputFieldProps {
   required?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
+  className?: string;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -18,9 +19,10 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   required = false,
   onChange,
+  className
 }) => {
   return (
-    <div className="relative flex flex-col gap-1">
+    <div className={`relative flex flex-col gap-1 ${className}`}>
       <label className="absolute bg-[#0c0c0c] top-[-0.8em] text-primary left-2 px-1 font-semibold">
         {label} {required && <span className="text-red-500">*</span>}
       </label>

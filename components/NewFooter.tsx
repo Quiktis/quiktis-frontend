@@ -29,6 +29,7 @@ export default function Footer() {
     "/reviews",
     "/announcement",
     "/announcement",
+    "/create-events",
   ];
   if (excludeFooterPaths.includes(pathname)) return null;
 
