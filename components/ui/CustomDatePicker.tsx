@@ -79,7 +79,7 @@ const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
           disabled
           value={selectedDate ? formatDate(selectedDate) : ""}
           placeholder="DD/MM/YY"
-          className="p-3 border border-[#ffffff56] bg-transparent rounded-r-md w-[12em] focus:ring-2 focus:outline-none"
+          className="p-3 border border-[#ffffff56] bg-transparent rounded-r-md w-[6.5em] md:w-[12em] focus:ring-2 focus:outline-none"
         />
       </div>
 

@@ -45,54 +45,55 @@ export default function TickettingSection() {
 
 
   return (
-    <div className='relative flex flex-col gap-6 w-fit'>
-      <div className="w-[50em] h-[50em] mt-[8em] ml-[-9em] left-0 -z-10 inset-0 radial-gradient-blue blur-3xl opacity-30 absolute"></div>
-      <h1 className="text-[1.7em]">What type of event are you running?</h1>
+    <div className='relative flex flex-col gap-6 max-md:w-full w-fit'>
+      <div className="w-[50em] h-[50em] mt-[8em] ml-[-9em] left-0 -z-10 inset-0 radial-gradient-blue max-md:hidden blur-3xl opacity-30 absolute"></div>
+      <h1 className="max-md:text-[1.3em] text-[1.7em]">What type of event are you running?</h1>
 
-      <section className='flex gap-[2em] mb-[2.5em]'>
+      <section className='flex max-md:flex-col gap-[1em] md:gap-[2em] mb-[2.5em]'>
         <button
           type='button'
           onClick={() => setSelected('ticketed')}
-          className={`flex gap-5 border px-6 py-4 rounded-md 
-            ${selected === 'ticketed' ? 'border-primary' : 'border-[#fff0]'} 
+          className={`flex gap-5 border max-md:px-3 px-6 py-3 md:py-4 rounded-md
+            ${selected === 'ticketed' ? 'border-primary max-md:border-primary' : 'border-[#fff0] max-md:border-[#ffffff2d]'} 
             hover:border-gray-400 transition-all`}
         >
           <Image src="/icons/paid-ticket.svg" alt='icon' height={32} width={32} />
           <div>
             <h1 className='text-[1.1em] font-semibold w-fit'>Ticketed Event</h1>
-            <p>My event requires tickets for entry</p>
+            <p className='text-left max-md:text-[0.9em]'>My event requires tickets for entry</p>
           </div>
         </button>
 
         <button
           type='button'
           onClick={() => setSelected('free')}
-          className={`flex gap-5 border px-6 py-4 rounded-md 
-            ${selected === 'free' ? 'border-primary' : 'border-[#fff0]'} 
+          className={`flex gap-5 border px-6 max-md:px-3 py-3 md:py-4 rounded-md
+            ${selected === 'free' ? 'border-primary max-md:border-primary' : 'border-[#fff0] max-md:border-[#ffffff2d]'} 
             hover:border-gray-400 transition-all`}
         >
           <Image src="/icons/free-ticket.svg" alt='icon' height={32} width={32} />
           <div>
             <h1 className='text-[1.1em] font-semibold w-fit'>Free Event</h1>
-            <p>{`I’m running a free event`}</p>
+            <p className='text-left'>{`I’m running a free event`}</p>
           </div>
         </button>
       </section>
 
       {selected === 'ticketed' && (
         <section className='flex flex-col gap-5 mb-5'>
-          <h1 className="text-[1.7em]">What tickets are you selling?</h1>
+          <h1 className="text-[1.7em] max-md:text-[0.9em]">What tickets are you selling?</h1>
 
          
             
           {tickets.map((ticket, index) => (
-  <div key={index} className='grid grid-cols-[2fr_1fr_3em] gap-2'>
-    <div className='flex flex-col gap-3 w-[80%]'>
+  <div key={index} className='flex flex-col md:grid grid-cols-[2fr_1fr_3em] gap-2 max-md:gap-6'>
+    <div className='flex flex-col gap-3 md:w-[80%]'>
       <label className='text-[1.1em] font-semibold'>Ticket Type</label>
       <InputField
         placeholder='Ticket Name e.g. General Admission'
         value={ticket.name}
         onChange={(e) => handleTicketChange(index, 'name', e.target.value)}
+        className='max-md:w-[100%]'
       />
     </div>
 
@@ -107,10 +108,20 @@ export default function TickettingSection() {
         <input
           type="text"
           placeholder="0.00"
-          className="p-3 border border-[#ffffff56] bg-transparent rounded-r-md w-[12em] focus:ring-2 focus:outline-none"
+          className="p-3 border border-[#ffffff56] bg-transparent rounded-r-md w-full md:w-[12em] focus:ring-2 focus:outline-none"
           value={ticket.price}
           onChange={(e) => handleTicketChange(index, 'price', e.target.value)}
         />
+
+      {index !== 0 && (
+          <button
+            type="button"
+            onClick={() => deleteTicket(index)}
+            className='hover:bg-[#ffffff17] md:hidden gap-1 text-white rounded-md p-4 grid place-items-center w-fit mb-0 mt-auto'
+          >
+            <AiOutlineDelete size={20} color='white' className='my-auto' />
+          </button>
+        )}
         
       </div>
     </div>
@@ -120,11 +131,12 @@ export default function TickettingSection() {
           <button
             type="button"
             onClick={() => deleteTicket(index)}
-            className='hover:bg-[#ffffff17] gap-1 text-white rounded-md p-4 grid place-items-center w-fit mb-0 mt-auto'
+            className='hover:bg-[#ffffff17] gap-1 text-white max-md:hidden rounded-md p-4 grid place-items-center w-fit mb-0 mt-auto'
           >
             <AiOutlineDelete size={20} color='white' className='my-auto' />
           </button>
         )}
+        <hr className='border-[#ffffff27] border-[0.5px] md:hidden'></hr>
     
   </div>
 ))}
@@ -141,7 +153,7 @@ export default function TickettingSection() {
         </section>
       )}
 
-      <div className='flex gap-4 w-fit mr-0 ml-auto'>
+      <div className='flex gap-4 w-fit mr-0 md:ml-auto'>
         <button onClick={() => router.push(`?tab=banner`)} type="button" className='py-2 px-4 font-medium'>
           Back
         </button>

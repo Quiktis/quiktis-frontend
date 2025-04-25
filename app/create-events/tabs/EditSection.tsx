@@ -55,12 +55,12 @@ export default function EditSection(
       };
   return (
     <>
-         <section className="w-full mt-[4em] relative">
-          <div className="w-[63em] h-[63em] right-0 left-auto mt-[-20em] -z-10  inset-0 radial-gradient-custom blur-3xl opacity-30 absolute"></div>
-          <h1 className="text-[1.7em] mb-5 ml-[6em]">Event Details</h1>
-          <section className="flex flex-col gap-5">
-            <div className="grid grid-cols-[9em_60%] gap-5">
-              <label className="my-auto mr-0 ml-auto">Event Title</label>
+         <section className="w-full md:mt-[4em] relative">
+          <div className="w-[63em] h-[63em] right-0 left-auto mt-[-20em] -z-10  inset-0 radial-gradient-custom blur-3xl opacity-30 absolute "></div>
+          <h1 className="max-md:text-[1.3em]  text-[1.7em] mb-5 md:ml-[6em]">Event Details</h1>
+          <section className="flex flex-col gap-3 md:gap-5">
+            <div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
+              <label className="my-auto mr-0 md:ml-auto">Event Title</label>
               <InputField 
                 name="eventTitle"
                 placeholder="Enter the name of your event" 
@@ -68,8 +68,8 @@ export default function EditSection(
                 onChange={handleInputChange} />
             </div>
 
-            <div className="grid grid-cols-[9em_60%] gap-5">
-              <label className="my-auto mr-0 ml-auto">Event Category</label>
+            <div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
+              <label className="my-auto mr-0 md:ml-auto">Event Category</label>
               <Dropdown
             options={["Category 1", "Category 2"]}
             selected={eventData.ticketType}
@@ -81,12 +81,12 @@ export default function EditSection(
         </section>
 
         <section className="w-full mt-[4em] relative">
-        <div className="w-[54em] h-[54em] mt-[2em] left-0 -z-10  inset-0 radial-gradient-blue blur-3xl opacity-30 absolute"></div>
-          <h1 className="text-[1.7em] mb-5 ml-[6em]">Date & Time</h1>
-          <section className="flex flex-col gap-5 pl-[3.8em]">
-            <div className="grid grid-cols-[6em_60%] gap-5">
+        <div className="w-[30em] h-[30em] mt-[2em] left-0 -z-10  inset-0 radial-gradient-blue blur-3xl max-md:hidden opacity-30 absolute"></div>
+          <h1 className="max-md:text-[1.3em] text-[1.7em] mb-5 md:ml-[6em]">Date & Time</h1>
+          <section className="flex flex-col gap-5 md:pl-[3.8em]">
+            <div className="flex flex-col md:grid grid-cols-[6em_60%] gap-5 max-md:mb-4">
               <label className="">Event Type</label>
-              <div className="flex gap-4">
+              <div className="flex gap-6 md:gap-4">
               <div className="flex gap-2">
                 <input type="radio" name="event"></input> <p>Single Event</p>
               </div>
@@ -97,11 +97,11 @@ export default function EditSection(
             </div>
 
             <div className="grid gap-[2.2em] w-[84.5%]">
-            <div className="grid grid-cols-[5em_auto] gap-5">
-              <p className="mr-0 ml-auto">Sessions</p>
-              <div className="grid grid-cols-2 w-[100%] gap-[5em]">
-              <div className="flex flex-col gap-6">
-                <div className="max-w-[16em]">
+            <div className="flex flex-col md:grid grid-cols-[5em_auto] gap-5">
+              <p className="mr-0 md:ml-auto">Sessions</p>
+              <div className="flex flex-col md:grid grid-cols-2 w-[100%] gap-[2em] md:gap-[5em]">
+              <div className="flex md:flex-col gap-4 justify-between md:gap-6">
+                <div className="md:max-w-[16em] w-full">
                   <p className="mb-2">Start Date</p>
 
                   <CustomDatePicker selectedDate={startDate}
@@ -121,7 +121,7 @@ export default function EditSection(
                 </div>
               </div>
 
-              <div className="flex flex-col gap-6">
+              <div className="flex md:flex-col gap-4 justify-between md:gap-6">
               <div className="max-w-[16em]">
                   <p className="mb-2">End Date</p>
 
@@ -148,10 +148,10 @@ export default function EditSection(
         </section>
 
         <section className="w-full mt-[4em]">
-          <h1 className="text-[1.7em] mb-5 ml-[6em]">Location</h1>
+          <h1 className="max-md:text-[1.3em] text-[1.7em] mb-5 md:ml-[6em]">Location</h1>
           <section className="flex flex-col gap-5">
-            <div className="grid grid-cols-[9em_60%] gap-5">
-              <label className="my-auto mr-0 ml-auto text-right">
+            <div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
+              <label className="my-auto md:mr-0 md:ml-auto md:text-right">
                 Where will your event take place?
               </label>
               <InputField 
@@ -164,10 +164,10 @@ export default function EditSection(
         </section>
 
         <section className="w-full mt-[4em]">
-          <h1 className="text-[1.7em] mb-5 ml-[6em]">Additional Information</h1>
+          <h1 className="max-md:text-[1.3em] text-[1.7em] mb-5 md:ml-[6em]">Additional Information</h1>
           <div className="flex flex-col gap-5">
-            <div className="grid grid-cols-[9em_60%] gap-5">
-              <label className="my-auto mr-0 ml-auto text-right mt-0 mb-auto">
+            <div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
+              <label className="my-auto mr-0 md:ml-auto md:text-right mt-0 mb-auto">
                 Event Description
               </label>
               <textarea
@@ -187,7 +187,7 @@ export default function EditSection(
           
         </section>
         <div className="grid w-[72.2%]  mt-[2em]">
-          <Button  onClick={() => router.push(`?tab=banner`)} children="Save and Continue" className="w-fit mr-0 ml-auto"/>
+          <Button  onClick={() => router.push(`?tab=banner`)} children="Save and Continue" className="w-fit mr-0 md:ml-auto"/>
           </div>
     </>
   )

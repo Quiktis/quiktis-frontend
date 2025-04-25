@@ -57,10 +57,10 @@ function CreateEventPage() {
         <div className="w-full h-[60em] inset-0 radial-gradient-custom blur-3xl opacity-50"></div>
       </div>
 
-      <form className="md:w-[80%] max-md:px-1 mb-[14em] flex flex-col gap-6 mx-auto">
+      <form className="md:w-[80%] max-md:px-1 mb-8 md:mb-[14em] flex flex-col gap-2 md:gap-6 md:mx-auto">
         <div className="text-[1.4em] font-medium">create a new event</div>
 
-        <div className="grid grid-cols-5 place-items-center py-3 pb-6">
+        <div className="grid max-md:grid-cols-[1fr_1fr_1fr_1fr_0.7fr]  grid-cols-5 place-items-center py-3 pb-10">
           {steps.map((item, index) => (
             <div key={index} className="grid w-full">
               <div className="w-full grid place-items-end gap-3">
@@ -74,11 +74,11 @@ function CreateEventPage() {
                 ></div>
 
                 {/* Step Circle */}
-                <div className="grid place-items-center gap-2 mr-[-1.75em] z-30">
+                <div className="grid place-items-center gap-2 md:mr-[-1.75em] z-30">
                  
                     <button
                       type="button"
-                      className={`${ item.label === "blank" ? "bg-transparent" :"bg-white"} h-4 w-4 rounded-full grid place-items-center mt-[-1.6em]`}
+                      className={`${ item.label === "blank" ? "bg-transparent max-md:hidden" :"bg-white"} h-4 w-4 rounded-full grid place-items-center mt-[-1.6em]`}
                     >
                       <div
                         className={`h-2 w-2 rounded-full ${
@@ -94,7 +94,7 @@ function CreateEventPage() {
                   <p
                     className={`${
                       item.label == "blank" ? "text-transparent" : index <= currentStepIndex ? "" : "text-[#6F6F6F]"}
-                    }  font-medium`}
+                    }  font-medium max-md:hidden`}
                   >
                     {item.label}
                   </p>

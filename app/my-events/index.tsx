@@ -5,6 +5,7 @@ import DashboardNav from "@/components/dashboard/DashboardNav";
 import EventStats from "@/components/dashboard/EventStats";
 import EventCard from "@/components/dashboard/EventCard";
 import Button from "@/components/ui/Button";
+import { useRouter } from "next/navigation";
 import { FaCirclePlus } from "react-icons/fa6";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
@@ -108,6 +109,7 @@ const events = [
 ];
 
 const MyEvents = () => {
+  const router = useRouter();
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const handleArrowClick = () => {
@@ -131,8 +133,9 @@ const MyEvents = () => {
           }}>
           <h1 className="text-xs md:text-2xl font-bold">Manage Events</h1>
           <div className="flex flex-row items-center gap-4 w-full md:w-auto">
-            <Button className="w-[120px] h-[32px] md:w-[160px] md:h-[40px] rounded-[6.52px] bg-[#FF4D2A] text-white flex items-center gap-1 justify-center text-xs md:text-base">
+            <Button onClick={() => router.push(`/create-events`)}  className="w-[120px] h-[32px] md:w-[160px] md:h-[40px] rounded-[6.52px] bg-[#FF4D2A] text-white flex items-center gap-1 justify-center text-xs md:text-base">
               <FaCirclePlus size={14} color="white" /> Create Event
+              
             </Button>
           </div>
         </div>

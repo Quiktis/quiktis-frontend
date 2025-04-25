@@ -28,7 +28,7 @@ export default function ReviewSection() {
   const router = useRouter();
   return (
     <div className='flex flex-col gap-9 w-full mt-4'>
-      <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
+      <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] max-md:h-[25em] h-[40em] lg:gap-11 gap-6">
               <div className="relative w-full h-full">
                 <Image
                   src={"/party1.png"} 
@@ -45,7 +45,7 @@ export default function ReviewSection() {
             <section>
         <div className="w-full flex max-sm:flex-wrap md:gap-[4em] h-[max-content]">
           <div className="h-full">
-            <h1 className="text-[40px] font-primary font-bold max-w-[100%] lg:max-w-[80%]">
+            <h1 className="max-md:text-[1.3em] text-[40px] font-primary font-bold max-w-[100%] lg:max-w-[80%]">
               EVENT TITLE LOREM IPSUM DOLOR SIT SMET
             </h1>
             <p className="text-gray-500 font-secondary">By mention Creator</p>
@@ -65,17 +65,17 @@ export default function ReviewSection() {
       <section className="relative">
         <div className="absolute w-[73%] h-[65em] top-[-12em] radial-gradient blur-3xl opacity-50"></div>
         <div className="relative flex flex-col gap-3 lg:grid grid-cols-[65%_32%] h-[max-content] w-full lg:gap-11">
-          <div className="h-fit w-fit min px-9 lg:px-16 py-5 lg:py-9 glass-bg shadow-xl shadow-white rounded-[40px] font-secondary">
-            <h1 className="text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+          <div className="h-fit w-fit min max-md:px-4 md:px-9 lg:px-16 py-3 lg:py-9 glass-bg shadow-xl shadow-white md:rounded-[40px] rounded-lg font-secondary">
+            <h1 className="max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
               DESCRIPTION
             </h1>
-            <p>
+            <p className=''>
               {
                 "Lorem ipsum dolor sit amet consectetur. Odio praesent elementum vivamus aliquet est. Libero diam quisque elementum pharetra risus egestas at egestas. Vestibulum venenatis dignissim viverra est amet porta amet ipsum viverra. Lectus morbi egestas viverra sit blandit nulla odio semper. Quam hendrerit venenatis arcu urna cras tempus maecenas. Sed diam quam et volutpat enim mattis etiam diam pharetra. Gravida viverra ut elementum nunc urna donec. Purus a sit senectus elit."
               }
             </p>
 
-            <h1 className="mt-6 text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+            <h1 className="mt-6 max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
               DATE & TIME
             </h1>
             <div className="flex gap-3 w-full max-sm:flex-wrap sm:flex-wrap">
@@ -85,7 +85,7 @@ export default function ReviewSection() {
               </button>
             </div>
 
-            <h1 className="mt-6 text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+            <h1 className="mt-6 max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
               TAGS
             </h1>
             <div className="flex flex-wrap gap-2">
@@ -93,13 +93,13 @@ export default function ReviewSection() {
                 <Link
                   key={index}
                   href="#"
-                  className="bg-[#ffffff18] px-4 py-3 shadow-2xl rounded-xl mb-1 hover:border-2 hover:border-white border-2 border-[transparent]">
+                  className="bg-[#ffffff18] max-md:text-sm px-2 py-2 md:px-4 md:py-3 shadow-2xl rounded-xl mb-1 hover:border-2 hover:border-white border-2 border-[transparent]">
                   {item.tag}
                 </Link>
               ))}
             </div>
 
-            <h1 className="mt-6 text-[1.5em] lg:text-[30px] font-primary font-semibold max-w-[100%] lg:max-w-[80%]">
+            <h1 className="mt-6 max-md:text-[1.1em] text-[1.5em] lg:text-[30px] font-primary font-semibold max-w-[100%] lg:max-w-[80%]">
               Share with loved ones
             </h1>
             <div className="flex gap-4 flex-wrap">
@@ -111,15 +111,15 @@ export default function ReviewSection() {
                     </Link>
                   ))}
                 </span>
-                <p className="mt-6 flex gap-1">
-                  <FaLocationDot size={20} className="my-auto text-primary" />{" "}
+                <p className="mt-6 flex gap-3">
+                  <FaLocationDot size={20} className="my-auto text-primary max-md:text-sm" />{" "}
                   2118 Thornridge Cir. Syracuse, Connecticut 35624
                 </p>
               </div>
 
               <Button
                 onClick={() => {}}
-                className="mr-0 md:ml-auto mb-0 mt-auto  text-[16px] w-[150px] h-fit flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary ">
+                className="mr-0 md:ml-auto mb-3 max-md:mt-3 mt-auto  text-[16px] w-[150px] h-fit flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary ">
                 Get Tickets
               </Button>
             </div>
@@ -156,7 +156,7 @@ export default function ReviewSection() {
 
       <div className='flex gap-4 w-fit mr-0 ml-auto mt-4'>
         <button onClick={() => router.push(`?tab=ticketting`)} type="button" className='py-2 px-4  font-medium'>Back</button>
-         <Button  onClick={() => router.push(`?tab=review`)} children="Save & Continue" className="w-fit px-7 font-medium"/>
+         <Button  onClick={() => router.push(`/my-events`)} children="Save & Continue" className="w-fit px-7 font-medium"/>
                   </div>
   
     </div>

@@ -10,7 +10,7 @@ const CustomTimePicker: React.FC = () => {
 
   const togglePicker = () => setShowPicker((prev) => !prev);
 
-  /*const handleSelect = (
+  const handleSelect = (
     type: "hour" | "minute" | "period",
     value: number | "AM" | "PM"
   ) => {
@@ -28,13 +28,13 @@ const CustomTimePicker: React.FC = () => {
     if (allSet.hour && allSet.minute && allSet.period) {
       setTimeout(() => setShowPicker(false), 100); // a slight delay feels smoother
     }
-  };*/
+  };
 
-  const handleSelect = (type: "hour" | "minute" | "period", value: number | "AM" | "PM") => {
+  /*const handleSelect = (type: "hour" | "minute" | "period", value: number | "AM" | "PM") => {
     if (type === "hour") setSelectedHour(value as number);
     else if (type === "minute") setSelectedMinute(value as number);
     else setSelectedPeriod(value as "AM" | "PM");
-  };
+  };*/
 
   const selectedTime =
     selectedHour !== null &&
@@ -57,13 +57,13 @@ const CustomTimePicker: React.FC = () => {
           type="text"
           value={selectedTime}
           readOnly
-          placeholder="HH:MM AM/PM"
-          className="font-inter p-3 border bg-inherit border-[#ffffff56] rounded-r-md focus:ring-2 focus:outline-none w-[13.67em]"
+          placeholder="HH:MM"
+          className="font-inter p-3 border bg-inherit border-[#ffffff56] rounded-r-md focus:ring-2 focus:outline-none w-[7em] md:w-[13.67em]"
         />
       </div>
 
       {showPicker && (
-        <div className="absolute top-14 left-0 bg-[#1b1b1b] rounded-xl shadow-lg border border-[#ffffff56] z-20 p-4">
+        <div className="absolute top-14 md:left-0 left-[-5em] bg-[#1b1b1b] rounded-xl shadow-lg border border-[#ffffff56] z-20 p-4">
           <div className="grid w-full">
             <button
               type="button"

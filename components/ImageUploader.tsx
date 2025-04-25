@@ -68,7 +68,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({onImageSelect}) => {
     <div className="relative flex flex-col">
       <label
         htmlFor="file-upload"
-        className={`flex flex-col items-center justify-center w-[50em] h-[7em] border-2 ${image ? "border" : "border-dashed"} ${
+        className={`flex flex-col items-center justify-center max-md:w-full md:w-[50em] h-[7em] border-2 ${image ? "border" : "border-dashed"} ${
           isDragging ? "border-blue-500 bg-blue-100" : "border-gray-400"
         } rounded-lg cursor-pointer hover:border-gray-600 transition-all relative`}
         onDragOver={handleDragOver}
