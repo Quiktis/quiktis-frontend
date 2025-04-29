@@ -1,9 +1,20 @@
 import { NextResponse } from "next/server";
 
 interface ResponseObject {
-  message: string;
-  user: { id: string };
-  token: string;
+  message?: string;
+  status?: string;
+  data: { 
+    
+ 
+      user: { 
+        id: string; 
+        email: string 
+        name: string; 
+        role: string;
+      },
+      token: string,
+
+  };
 }
 
 
@@ -39,19 +50,22 @@ export async function POST(request: Request): Promise<Response> {
     });
 
     const data: ResponseObject = await backendResponse.json();
+    console.log("response from backend: ", data);
 
-    if (!data.user) {
+    if (!data.data.user) {
       return new Response(JSON.stringify(data));
     }
 
-    console.log("response from backend: ", data);
+    
 
     // ✅ Set the refresh token as an HTTP-only cookie using response headers
-    const response = NextResponse.json({ ok: true, message: data.message, user: data.user });
-    if( data.token) { response.headers.set(
+    const response = NextResponse.json({ ok: true, message: data.message, user: data.data.user, token: data.data.token, data: data });
+    if(data.data.token) { response.headers.set(
       "Set-Cookie",
-      `quiktis_token=${data.token}; HttpOnly; Secure; Path=/; SameSite=Strict`
+      `quiktis_token=${data.data.token}; HttpOnly; Secure; Path=/; SameSite=Strict`
     ); }
+
+    console.log(response)
 
     return response;
   } catch (error) {

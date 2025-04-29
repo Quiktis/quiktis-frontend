@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
+import { TimeData } from "@/constant/customTypes";
 
-const CustomTimePicker: React.FC = () => {
+interface CustomTimePickerProps {
+  timeData: TimeData;
+  field: "startTime" | "endTime";
+  handleTimeDataChange: (field: "startTime" | "endTime", timeField: "hour" | "minute" | "period", value: string) => void;
+}
+const CustomTimePicker: React.FC<CustomTimePickerProps> = ({
+  timeData,
+  field,
+  handleTimeDataChange
+}
+) => {
   const [showPicker, setShowPicker] = useState(false);
-  const [selectedHour, setSelectedHour] = useState<number | null>(null);
-  const [selectedMinute, setSelectedMinute] = useState<number | null>(null);
-  const [selectedPeriod, setSelectedPeriod] = useState<"AM" | "PM" | null>(null);
+  //const [selectedHour, setSelectedHour] = useState<number | null>(null);
+  //const [selectedMinute, setSelectedMinute] = useState<number | null>(null);
+  //const [selectedPeriod, setSelectedPeriod] = useState<"AM" | "PM" | null>(null);
 
   const togglePicker = () => setShowPicker((prev) => !prev);
 
@@ -14,15 +25,15 @@ const CustomTimePicker: React.FC = () => {
     type: "hour" | "minute" | "period",
     value: number | "AM" | "PM"
   ) => {
-    if (type === "hour") setSelectedHour(value as number);
-    else if (type === "minute") setSelectedMinute(value as number);
-    else setSelectedPeriod(value as "AM" | "PM");
+    if (type === "hour") handleTimeDataChange(field, "hour", value.toString()) 
+    else if (type === "minute") handleTimeDataChange(field, "minute", value.toString()) 
+    else handleTimeDataChange(field, "period", value.toString()) ;
 
     // Auto-close if all selected
     const allSet = {
-      hour: type === "hour" ? true : selectedHour !== null,
-      minute: type === "minute" ? true : selectedMinute !== null,
-      period: type === "period" ? true : selectedPeriod !== null,
+      hour: type === "hour" ? true : timeData[field].hour !== null,
+      minute: type === "minute" ? true : timeData[field].minute !== null,
+      period: type === "period" ? true :timeData[field].period !== null,
     };
 
     if (allSet.hour && allSet.minute && allSet.period) {
@@ -37,10 +48,10 @@ const CustomTimePicker: React.FC = () => {
   };*/
 
   const selectedTime =
-    selectedHour !== null &&
-    selectedMinute !== null &&
-    selectedPeriod !== null
-      ? `${String(selectedHour).padStart(2, "0")}:${String(selectedMinute).padStart(2, "0")} ${selectedPeriod}`
+  timeData[field].hour !== null &&
+  timeData[field].minute !== null &&
+  timeData[field].period !== null
+      ? `${String(timeData[field].hour).padStart(2, "0")}:${String(timeData[field].minute).padStart(2, "0")} ${timeData[field].period}`
       : "";
 
   return (
@@ -80,7 +91,7 @@ const CustomTimePicker: React.FC = () => {
             <div>
               <label className="block mb-2 font-medium text-white">Hour</label>
               <select
-                value={selectedHour ?? ""}
+                value={timeData[field].hour ?? ""}
                 onChange={(e) => handleSelect("hour", parseInt(e.target.value))}
                 className="w-24 p-2 border border-[#ffffff56] text-white rounded-md bg-[#1b1b1b] focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
@@ -97,7 +108,7 @@ const CustomTimePicker: React.FC = () => {
             <div>
               <label className="block mb-2 font-medium text-white">Minute</label>
               <select
-                value={selectedMinute ?? ""}
+                value={timeData[field].minute ?? ""}
                 onChange={(e) => handleSelect("minute", parseInt(e.target.value))}
                 className="w-24 p-2 border border-[#ffffff56] text-white rounded-md bg-[#1b1b1b] focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
@@ -121,7 +132,7 @@ const CustomTimePicker: React.FC = () => {
                     type="button"
                     onClick={() => handleSelect("period", period as "AM" | "PM")}
                     className={`px-4 py-2 rounded-md border text-sm font-semibold ${
-                      selectedPeriod === period
+                      timeData[field].period === period
                         ? "bg-white text-black border-white"
                         : "bg-transparent text-white border-[#ffffff56]"
                     }`}
@@ -139,3 +150,4 @@ const CustomTimePicker: React.FC = () => {
 };
 
 export default CustomTimePicker;
+

@@ -119,7 +119,7 @@ const CreateEventForm: React.FC = () => {
         {/* Image Upload */}
         <div className="flex flex-col gap-1">
           <label className="text-white font-semibold">Image</label>
-          <ImageUploader onImageSelect={setSelectedImage} />
+          
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

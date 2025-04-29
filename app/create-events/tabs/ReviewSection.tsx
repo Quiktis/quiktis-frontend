@@ -7,6 +7,13 @@ import { RiFileCopy2Fill } from "react-icons/ri";
 import { BsPlus } from "react-icons/bs";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Link from 'next/link';
+import { EventData } from '@/constant/customTypes';
+import { useUser } from '@/app/context/UserContext';
+interface ReviewSectionProps {
+  eventData: EventData;
+  uploadImage: () => void;
+  preview: string | null; 
+}
 
 const tags = [
   { tag: "Syracuse Events" },
@@ -24,14 +31,61 @@ const socials = [
   { icon: <FaLinkedin size={24} />, href: "" },
 ];
 
-export default function ReviewSection() {
+
+function formatDateToText(dateString: string): string {
+  // Split the input date string into day, month, and year
+  const [day, month, year] = dateString.split("/").map(Number);
+
+  // Define an array of month names
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  // Get the full year from the two-digit year
+  const fullYear = 2000 + year;
+
+  // Add ordinal suffix to the day
+  const ordinalSuffix = (n: number) => {
+    if (n > 3 && n < 21) return "th"; // Covers 11th to 19th
+    switch (n % 10) {
+      case 1: return "st";
+      case 2: return "nd";
+      case 3: return "rd";
+      default: return "th";
+    }
+  };
+
+  const dayWithSuffix = `${day}${ordinalSuffix(day)}`;
+
+  // Return the formatted date
+  return `${dayWithSuffix} ${monthNames[month - 1]} ${fullYear}`;
+}
+
+
+const ReviewSection: React.FC<ReviewSectionProps> = ({uploadImage, preview, eventData}) => {
   const router = useRouter();
+  const { user } = useUser();
+
+  async function handleClick() {
+    try {
+      // Wait for the image to be uploaded
+      await uploadImage();
+  
+      // Navigate to the next page after the image is uploaded
+      //router.push(`/my-events`);
+    } catch (error) {
+      console.error("Error during image upload or navigation:", error);
+      alert("Failed to upload the image. Please try again.");
+    }
+  }
+
   return (
     <div className='flex flex-col gap-9 w-full mt-4'>
-      <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] max-md:h-[25em] h-[40em] lg:gap-11 gap-6">
+      {preview && <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] max-md:h-[25em] h-[40em] lg:gap-11 gap-6">
               <div className="relative w-full h-full">
-                <Image
-                  src={"/party1.png"} 
+                 <Image
+                  src={preview}
                   alt="Event header"
                   layout="fill"
                   objectFit="cover"
@@ -39,22 +93,20 @@ export default function ReviewSection() {
                   unoptimized
                 />
               </div>
-            </section>
+            </section>}
 
 
             <section>
         <div className="w-full flex max-sm:flex-wrap md:gap-[4em] h-[max-content]">
           <div className="h-full">
-            <h1 className="max-md:text-[1.3em] text-[40px] font-primary font-bold max-w-[100%] lg:max-w-[80%]">
-              EVENT TITLE LOREM IPSUM DOLOR SIT SMET
-            </h1>
-            <p className="text-gray-500 font-secondary">By mention Creator</p>
+            <h1 className="max-md:text-[1.3em] text-[40px] font-primary font-bold max-w-[100%] w-fit">{eventData?.title || "EVENT TITLE" }</h1>
+            <p className="text-gray-500 font-secondary">organized by {user.name}</p>
           </div>
           <div className="grid h-full mr-0 md:ml-auto my-auto md:mt-0 mt-5 md:w-fit w-full">
             <Button
               onClick={() => {}}
               className="text-[16px]  md:w-[150px]  flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary ">
-              Get Ticket $70
+              Get Ticket
             </Button>
           </div>
         </div>
@@ -66,20 +118,18 @@ export default function ReviewSection() {
         <div className="absolute w-[73%] h-[65em] top-[-12em] radial-gradient blur-3xl opacity-50"></div>
         <div className="relative flex flex-col gap-3 lg:grid grid-cols-[65%_32%] h-[max-content] w-full lg:gap-11">
           <div className="h-fit w-fit min max-md:px-4 md:px-9 lg:px-16 py-3 lg:py-9 glass-bg shadow-xl shadow-white md:rounded-[40px] rounded-lg font-secondary">
-            <h1 className="max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+            {eventData.description && 
+            <div><h1 className="max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
               DESCRIPTION
             </h1>
-            <p className=''>
-              {
-                "Lorem ipsum dolor sit amet consectetur. Odio praesent elementum vivamus aliquet est. Libero diam quisque elementum pharetra risus egestas at egestas. Vestibulum venenatis dignissim viverra est amet porta amet ipsum viverra. Lectus morbi egestas viverra sit blandit nulla odio semper. Quam hendrerit venenatis arcu urna cras tempus maecenas. Sed diam quam et volutpat enim mattis etiam diam pharetra. Gravida viverra ut elementum nunc urna donec. Purus a sit senectus elit."
-              }
-            </p>
+            <p className=''>{eventData?.description || ""}</p>
+            </div>}
 
             <h1 className="mt-6 max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
               DATE & TIME
             </h1>
             <div className="flex gap-3 w-full max-sm:flex-wrap sm:flex-wrap">
-              <p className="text-gray-300">Saturday, June 22 · 8am - 6pm WAT</p>
+              <p className="text-gray-300">{formatDateToText(eventData?.startDate) || ""}, {eventData?.startTime || ""} - {eventData?.endTime || ""}</p>
               <button className="text-gray-300 mr-0 max-sm:ml-0 sm:ml-0  md:ml-auto flex  gap-1 text-primary">
                 <BsPlus size={24} className="m-auto" /> Add to Calender
               </button>
@@ -113,7 +163,7 @@ export default function ReviewSection() {
                 </span>
                 <p className="mt-6 flex gap-3">
                   <FaLocationDot size={20} className="my-auto text-primary max-md:text-sm" />{" "}
-                  2118 Thornridge Cir. Syracuse, Connecticut 35624
+                  {eventData?.location || ""}
                 </p>
               </div>
 
@@ -139,7 +189,7 @@ export default function ReviewSection() {
             <div className="relative w-full h-[16em]  lg:h-full bg-white rounded-[30px] px-8 py-7 text-black flex flex-col gap-2 ">
               <h2 className="text-[1.3em] font-semibold">Locate</h2>
               <p className=" text-gray-800">
-                2118 Thornridge Cir. Syracuse, Connecticut 35624
+                {eventData?.location || ""}
               </p>
               <button className="mt-1 w-fit text-primary flex gap-2">
                 <RiFileCopy2Fill size={20} className="my-auto" /> Copy Location
@@ -156,9 +206,12 @@ export default function ReviewSection() {
 
       <div className='flex gap-4 w-fit mr-0 ml-auto mt-4'>
         <button onClick={() => router.push(`?tab=ticketting`)} type="button" className='py-2 px-4  font-medium'>Back</button>
-         <Button  onClick={() => router.push(`/my-events`)} children="Save & Continue" className="w-fit px-7 font-medium"/>
+         <Button  onClick={handleClick} children="Save & Continue" className="w-fit px-7 font-medium"/>
                   </div>
   
     </div>
   )
 }
+
+
+export default ReviewSection

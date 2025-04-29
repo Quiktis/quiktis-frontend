@@ -30,6 +30,7 @@ export default function Footer() {
     "/announcement",
     "/announcement",
     "/create-events",
+    "/dashboard"
   ];
   if (excludeFooterPaths.includes(pathname)) return null;
 

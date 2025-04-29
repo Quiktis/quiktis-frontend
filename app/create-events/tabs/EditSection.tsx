@@ -6,53 +6,79 @@ import Button from "@/components/ui/Button";
 import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import CustomTimePicker from "@/components/ui/CustomTimePicker";
 import { useRouter } from 'next/navigation';
+import { EventData, TimeData } from '@/constant/customTypes';
 
-export default function EditSection(
-    { 
-        eventData, 
-        setEventData, 
-        startDate,
-        setStartDate, 
-        endDate,
-        setEndDate }: { 
-    eventData: {
-        eventTitle: string;
-        description: string;
-        date: string;
-        ticketType: string;
-        eventImageUrl: string; // This will be set after image upload
-        category: string;
-        startTime: string;
-        location: string;
-        price: string;
-        websiteUrl: string;
-    },
 
-    setEventData: (value: ((prevState: typeof eventData) => typeof eventData) | typeof eventData) => void,
-    startDate: Date | null,
-    setStartDate: (date: Date | null) => void,
-    endDate: Date | null,
-    setEndDate: (date: Date | null) => void
-}) {
+interface EditSectionProps {
+  eventData: EventData;
+  timeData: TimeData;
+  handleTimeDataChange: (field: "startTime" | "endTime", timeField: "hour" | "minute" | "period", value: string) => void;
+  setEventData: React.Dispatch<React.SetStateAction<EventData>>;
+  startDate: Date | null;
+  setStartDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  endDate: Date | null;
+  setEndDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  handleEventDataChange: (name: string, value: any) => void;
+  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
+
+}
+
+
+const EditSection: React.FC<EditSectionProps> = ({
+  eventData,
+  timeData,
+  handleTimeDataChange,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  handleEventDataChange,
+  setPageIndex,
+}) => {
 
   const router = useRouter();
     
+
+   // Validation function
+   const isFormValid = () => {
+    // Check if all required fields in eventData are filled
+    const requiredFields = ["title", "category", "eventType", "location", "description"];
+    const isEventDataValid = requiredFields.every((field) => eventData[field as keyof EventData]);
+
+    // Check if startDate and endDate are set
+    const isDateValid = startDate !== null && endDate !== null;
+
+    // Check if startTime and endTime are fully set
+    const isTimeValid =
+      timeData.startTime.hour !== null &&
+      timeData.startTime.minute !== null &&
+      timeData.startTime.period !== null &&
+      timeData.endTime.hour !== null &&
+      timeData.endTime.minute !== null &&
+      timeData.endTime.period !== null;
+
+    return isEventDataValid && isDateValid && isTimeValid;
+  };
+
+  // Handle button click
+  const handleNext = () => {
+    if (isFormValid()) {
+      router.push(`?tab=banner`);
+    } else {
+      alert("Please fill in all required fields before proceeding.");
+    }
+  };
     
          // Handle changes in input fields
           const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            setEventData((prev) => ({
-              ...prev,
-              [e.target.name]: e.target.value,
-            }));
+            handleEventDataChange(e.target.name, e.target.value)
           };
+
+          const formatDate = (date: Date) =>
+            `${String(date.getDate()).padStart(2, "0")}/${String(
+              date.getMonth() + 1
+            ).padStart(2, "0")}/${String(date.getFullYear()).slice(-2)}`;
     
-      // Handle dropdown changes
-      const handleDropdownChange = (name: string, value: string) => {
-        setEventData((prev) => ({
-          ...prev,
-          [name]: value,
-        }));
-      };
   return (
     <>
          <section className="w-full md:mt-[4em] relative">
@@ -62,9 +88,9 @@ export default function EditSection(
             <div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
               <label className="my-auto mr-0 md:ml-auto">Event Title</label>
               <InputField 
-                name="eventTitle"
+                name="title"
                 placeholder="Enter the name of your event" 
-                value={eventData.eventTitle}
+                value={eventData.title}
                 onChange={handleInputChange} />
             </div>
 
@@ -72,8 +98,8 @@ export default function EditSection(
               <label className="my-auto mr-0 md:ml-auto">Event Category</label>
               <Dropdown
             options={["Category 1", "Category 2"]}
-            selected={eventData.ticketType}
-            onChange={(value) => handleDropdownChange("ticketType", value)}
+            selected={eventData.category}
+            onChange={(value) => handleEventDataChange("category", value)}
             placeholder="Please select one"
           />
             </div>
@@ -88,10 +114,10 @@ export default function EditSection(
               <label className="">Event Type</label>
               <div className="flex gap-6 md:gap-4">
               <div className="flex gap-2">
-                <input type="radio" name="event"></input> <p>Single Event</p>
+                <input type="radio" name="eventType" checked={eventData.eventType == "single" } value={"single"} onChange={handleInputChange}></input> <p>Single Event</p>
               </div>
               <div className="flex gap-2">
-                <input type="radio" name="event"></input> <p>Recurring Event</p>
+                <input type="radio" name="eventType" checked={eventData.eventType == "recurring" } value={"recurring"} onChange={handleInputChange}></input> <p>Recurring Event</p>
               </div>
               </div>
             </div>
@@ -107,6 +133,7 @@ export default function EditSection(
                   <CustomDatePicker selectedDate={startDate}
                   onDateSelect={(date) => {
                     setStartDate(date);
+                    handleEventDataChange("startDate", formatDate(date));
                     // Reset end date if it's before new start
                     if (endDate && date > endDate) {
                       setEndDate(null);
@@ -117,7 +144,11 @@ export default function EditSection(
 
                 <div className="max-w-[16em]">
                   <p className="mb-2">Start Time</p>
-                  <CustomTimePicker />
+                  <CustomTimePicker
+                  field="startTime"
+                  timeData={timeData}
+                  handleTimeDataChange={handleTimeDataChange}
+                   />
                 </div>
               </div>
 
@@ -127,14 +158,21 @@ export default function EditSection(
 
                   <CustomDatePicker
                   selectedDate={endDate}
-                  onDateSelect={setEndDate}
+                  onDateSelect={(date) => {
+                    setEndDate(date);
+                    handleEventDataChange("endDate", formatDate(date))}
+                  }
                   minDate={startDate || undefined}/>
                  
                 </div>
 
                 <div className="max-w-[16em]">
                   <p className="mb-2">End Time</p>
-                  <CustomTimePicker />
+                  <CustomTimePicker 
+                  field='endTime'
+                  timeData={timeData}
+                  handleTimeDataChange={handleTimeDataChange}
+                  />
                 </div>
               </div>
               </div>
@@ -187,8 +225,11 @@ export default function EditSection(
           
         </section>
         <div className="grid w-[72.2%]  mt-[2em]">
-          <Button  onClick={() => router.push(`?tab=banner`)} children="Save and Continue" className="w-fit mr-0 md:ml-auto"/>
+          <Button  onClick={handleNext} children="Save and Continue" className="w-fit mr-0 md:ml-auto"/>
           </div>
     </>
   )
 }
+
+
+export default EditSection;

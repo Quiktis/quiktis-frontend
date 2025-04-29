@@ -6,12 +6,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
+import { useUser } from "@/app/context/UserContext";
 
 interface HeaderProps {
   containerClass?: string;
 }
 
+function getFirstName(fullName: string): string {
+  if (!fullName) return "";
+  return fullName.trim().split(" ")[0];
+}
+
+
+
 const NewHeader: React.FC<HeaderProps> = ({containerClass }) => {
+  const { user } = useUser();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -41,7 +50,7 @@ const NewHeader: React.FC<HeaderProps> = ({containerClass }) => {
     
 
 
-    <header className={`relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] shadow-2xl ${containerClass} border border-[#ffffff10]`}>
+    <header className={`h-[4.5em] relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] shadow-2xl ${containerClass} border border-[#ffffff10]`}>
       <div className="my-auto lg:px-8">
         <Image
           unoptimized={true}
@@ -69,11 +78,11 @@ const NewHeader: React.FC<HeaderProps> = ({containerClass }) => {
         ))}
       </ul>
 
-      <Link
+      {user.name ? <div className="mr-1 my-auto flex gap-3 items-center">Hi, {getFirstName(user.name)} <div className="bg-gray-400 h-[2.8em] w-[2.8em] rounded-full"></div> </div> : <Link
         href="/register"
         className="lg:block cursor-pointer bg-primary px-6 py-3 rounded-[1em] btn-3d border-1 border-[#eb4b3c] hidden icon">
         Get Started
-      </Link>
+      </Link>}
 
       <div className="relative h-[30px] w-[30px] my-auto block md:hidden tablet-block">
         <button onClick={() => setSidebarOpen(true)}>

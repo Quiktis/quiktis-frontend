@@ -18,12 +18,13 @@ const RegisterPage: React.FC = () => {
   const [agreed, setAgreed] = useState(false);
   const { sendRequest, loading } = useAxios();
   const [error, setError] = useState("");
-  const { user, setUser } = useUser();
+  //const { user, setUser } = useUser();
   const [isProcessing, setIsProcessing] = useState(false); // NEW state
   const [googleLoading, setGoogleLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [requestLoading, setRequestLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const handleGoogleCallback = async () => {
@@ -58,9 +59,9 @@ const RegisterPage: React.FC = () => {
   
 
 
-  const handleLogin = (userId: string, name: string, email: string ) => {
-    setUser({ userId, name, email });
-  };
+  //const handleLogin = (userId: string, name: string, email: string ) => {
+    //setUser({ userId, name, email });
+  //};
 
   const googleLogin = useGoogleLogin({
       onSuccess: async (tokenResponse) => {
@@ -123,20 +124,21 @@ const RegisterPage: React.FC = () => {
   
     try {
       const response = await sendRequest({
-        url: `/api/auth/register`,
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/signup`,
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: { name: fullName, email, password },
+        body: { name: fullName, email, password, role: "organizer" },
       });
   
-      if (response?.user?.id) {
-        await new Promise((resolve) => {
-          setUser({ userId: response.user.id, name: response.user.name, email: response.user.email });
-          resolve(null);
+      if (response?.status === "success") {
+        await new Promise(() => {
+          //setUser({ userId: response.user.id, name: response.user.name, email: response.user.email, token: response.token });
+          router.push("/check-email");          
+          //resolve(null);
         });
   
-        console.log("User details: ", response.user);
-        router.push("/create-events");
+        //console.log("User details: ", response.user);
+        //router.push("/create-events");
       }
     } catch (error) {
       console.log(error);
@@ -194,6 +196,8 @@ const RegisterPage: React.FC = () => {
             />
             <label>I agree to the Terms of Service and Privacy Policy</label>
           </div>
+          {error && <div className="text-red-500">{error}</div>}
+          {message && <div>{message}</div>}
           <Button
             type="submit"
             className="w-full py-4 border-white border mt-4"
@@ -228,7 +232,7 @@ const RegisterPage: React.FC = () => {
         <Image
           src="/authImage.png"
           alt="auth"
-          className="object-cover bg-cover rounded-[20px]"
+          className="object-cover bg-cover rounded-[20px] max-w-[90%] max-h-[90%]"
           width={707}
           height={950}
         />

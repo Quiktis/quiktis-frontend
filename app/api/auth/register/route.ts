@@ -30,10 +30,10 @@ export async function POST(request: Request): Promise<Response> {
     console.log(process.env.BASE_URL);
 
     // Register user
-    const registerResponse = await fetch(`${process.env.BASE_URL}/auth/register`, {
+    const registerResponse = await fetch(`${process.env.BASE_URL}/auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, name }),
+      body: JSON.stringify({ email, password, name, role: "user", location: "nil"}),
     });
 
     const registerData: ResponseObject = await registerResponse.json();

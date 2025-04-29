@@ -48,7 +48,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     });
 
     const data: ResponseObject = await response.json();
-    console.log("Response Body: ", data);
+    console.log("external server reponse: ", data);
 
     if (!data.token) {
       return NextResponse.json({ error: "Invalid token received" }, { status: 401 });
@@ -66,7 +66,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
 
     // ✅ Second request to verify email
-    const verifyResponse = await fetch("https://api2-quiktis.onrender.com/auth/verify-email", {
+    const verifyResponse = await fetch("https://api-quiktis.onrender.com/auth/verify-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: data.token }),

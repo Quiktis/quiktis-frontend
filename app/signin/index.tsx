@@ -60,15 +60,19 @@ const LoginPage: React.FC = () => {
       });
 
 
+      console.log(response)
+
+
   
-      if (response && response.user && response.user._id) {
+      if (response && response.user && response.user.id) {
         await new Promise((resolve) => {
           setUser({ userId: response.user._id, name: response.user.name, email: response.user.email });
           resolve(null); // Wait for state update
+          console.log("user details: ", response.user);
+        router.push("/dashboard");
         });
   
-        console.log("user details: ", response.user);
-        router.push("/dashboard");
+        
       }
     } catch (error) {
       console.log(error);

@@ -5,23 +5,15 @@ import { FaPlus } from "react-icons/fa";
 import Image from "next/image";
 
 interface ImageUploaderProps {
-    onImageSelect: (file: File | null) => void;
+  preview: string | null; // Optional prop for preview URL
+  setPreview: React.Dispatch<React.SetStateAction<string | null>>; // Optional prop for setting preview URL
+  setImage: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
-const ImageUploader: React.FC<ImageUploaderProps> = ({onImageSelect}) => {
-  const [image, setImage] = useState<string | null>(null);
+const ImageUploader: React.FC<ImageUploaderProps> = ({ setImage, preview, setPreview }) => {
   const [error, setError] = useState<string>("");
   const [isDragging, setIsDragging] = useState<boolean>(false);
-
-  const [preview, setPreview] = useState<string | null>(null);
-
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0] || null;
-        if (file) {
-            setPreview(URL.createObjectURL(file)); // Show preview
-            onImageSelect(file); // Send the file to the parent component
-        }
-    };
+  //const [preview, setPreview] = useState<string | null>(null); // For previewing the image
 
   const handleImageUpload = (file: File | null) => {
     if (!file) return;
@@ -38,9 +30,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({onImageSelect}) => {
     }
 
     setError("");
-    const reader = new FileReader();
-    reader.onloadend = () => setImage(reader.result as string);
-    reader.readAsDataURL(file);
+    setImage(file); // Store the File object in the state
+
+    // Generate a preview URL for the image
+    const previewUrl = URL.createObjectURL(file);
+    setPreview(previewUrl);
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,24 +62,24 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({onImageSelect}) => {
     <div className="relative flex flex-col">
       <label
         htmlFor="file-upload"
-        className={`flex flex-col items-center justify-center max-md:w-full md:w-[50em] h-[7em] border-2 ${image ? "border" : "border-dashed"} ${
+        className={`flex flex-col items-center justify-center max-md:w-full md:w-[50em] h-[7em] border-2 ${
+          preview ? "border" : "border-dashed"
+        } ${
           isDragging ? "border-blue-500 bg-blue-100" : "border-gray-400"
         } rounded-lg cursor-pointer hover:border-gray-600 transition-all relative`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        {image ? (
-            
+        {preview ? (
           <Image
-            src={image}
+            src={preview}
             objectFit="contain"
             alt="Uploaded Preview"
             height={100}
             width={100}
             className="rounded-lg"
           />
-        
         ) : (
           <div className="flex flex-col items-center text-gray-500">
             <FaPlus size={25} />

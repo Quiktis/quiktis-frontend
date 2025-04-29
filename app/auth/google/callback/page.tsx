@@ -70,10 +70,11 @@ const GoogleCallbackPage = () => {
           userId: verifyResponse.user.id,
           name: verifyResponse.user.name,
           email: verifyResponse.user.email,
+          token: authResponse.token,
         });
 
         // Redirect to the next page after authentication
-        router.push("/create-events");
+        router.push("/dashboard");
 
       } catch (error) {
         console.error("Authentication Error:", error);

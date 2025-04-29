@@ -7,6 +7,11 @@ interface User {
   userId?: string | null;
   email?: string | null;
   name?: string | null;
+  role?: string | null;
+  picture?: string | null;
+  age?: any | null;
+  location?: string | null;
+  token?: string | null;
 }
 
 interface GoogleUser {
@@ -30,6 +35,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     userId: null,
     name: null,
     email: null,
+    role: null,
+    picture: null,
+    age: null,
+    location: null,
+    token: null,
   });
 
   const [googleUser, setGoogleUser] = useState<GoogleUser>({ token: null });

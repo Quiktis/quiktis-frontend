@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 
 interface ResponseObject {
   url: string;
+  data: {
+    url: string;
+  }
 }
 
 
@@ -24,16 +27,17 @@ export async function GET(request: Request): Promise<Response> {
 
 
     const data: ResponseObject = await response.json();
+    console.log(data);
 
-    if (!data.url) {
+    if (!data.data.url) {
         return NextResponse.json({ok: false, error: "Google Auth failed" }, { status: 500 });
       }
 
       console.log(data);
-      return NextResponse.json({ url: data.url });
+      return NextResponse.json({ url: data.data.url });
 
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "Error initiating Google Auth" }, { status: 500 });
+    return NextResponse.json({ error: "Error initiating Google Auth", log: error }, { status: 500 });
   }
 }
