@@ -78,7 +78,7 @@ const NewHeader: React.FC<HeaderProps> = ({containerClass }) => {
         ))}
       </ul>
 
-      {user.name ? <div className="mr-1 my-auto flex gap-3 items-center">Hi, {getFirstName(user.name)} <div className="bg-gray-400 h-[2.8em] w-[2.8em] rounded-full"></div> </div> : <Link
+      {user.name ? <div className="hidden mr-1 my-auto lg:flex gap-3 items-center">Hi, {getFirstName(user.name)} <div className="bg-gray-400 h-[2.8em] w-[2.8em] rounded-full"></div> </div> : <Link
         href="/register"
         className="lg:block cursor-pointer bg-primary px-6 py-3 rounded-[1em] btn-3d border-1 border-[#eb4b3c] hidden icon">
         Get Started

@@ -23,9 +23,9 @@ interface ProfileCardProps {
 
 const ProfileCard: React.FC<ProfileCardProps> = ({name, email, age, location}) => {
   return (
-    <div className="grid relative w-[fit-content] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] px-[3.8em] py-[3em] text-white shadow-lg h-fit ">
+    <div className="grid relative w-full md:w-[fit-content] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] px-3 md:px-[3.8em] py-5 md:py-[3em] text-white shadow-lg h-fit ">
       {/* Top Section */}
-      <div className="grid grid-cols-[7em_auto] my-auto gap-[0.8em] w-fit h-fit">
+      <div className="grid grid-cols-[7em_auto] my-auto gap-[0.8em] max-md:w-[90%] max-md:mx-auto w-fit h-fit">
       <div className="relative w-[6em] h-[6em] mx-auto sm:mx-0">
             <Image
               src="/jax.png"
@@ -47,7 +47,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({name, email, age, location}) =
               {/*Jaxsonsiphron@gmail.com*/ email}
             </p>
           </div>
-          <div className="flex justify-center gap-4 h-fit my-auto">
+          <div className="hidden justify-center gap-4 h-fit my-auto">
           <Link href="#" className="hover:text-gray-400">
             <FaFacebook size={20} />
           </Link>
@@ -64,6 +64,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({name, email, age, location}) =
             <FaYoutube size={20} />
           </Link>
         </div>
+
+        <div className="w-[6em]"></div>
         </div>
         <hr className="my-4 border-gray-400 mt-5"></hr>
           </div>

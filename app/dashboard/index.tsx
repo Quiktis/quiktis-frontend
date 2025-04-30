@@ -8,6 +8,8 @@ import Button from '@/components/ui/Button'
 import React from 'react'
 import InputField from '@/components/ui/InputFields'
 import { useUser } from '../context/UserContext'
+import { useRouter } from 'next/navigation'
+import { FaArrowRight } from 'react-icons/fa6'
 
 const images = [
     {
@@ -54,6 +56,7 @@ const images = [
     }, 
 ]
 const CreateEvent = () => {
+    const router = useRouter();
     const { user } = useUser();
   return (
     <main className='flex flex-col gap-5 w-full relative min-h-screen'>
@@ -70,13 +73,18 @@ const CreateEvent = () => {
                 
                
                 <ProfileCard name={user.name?? ""} email={user.email?? ""} age={user.age?? ""}/>
+                <Button  onClick={() => router.push(`/create-event`)} className='flex justify-center gap-3 lg:hidden items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3 shadow-xl shadow-[#ff4e2a42]'>
+                    
+                    <Image src="/icons/event.svg" height={24} width={24} alt="icon"/>
+                    <p className='my-auto'>Create Event</p>
+                </Button>
                 </div>
                 
             </div>
             <section className='mt-[3em]'>
-                    <h2 className='text-[2em] font-medium mb-[1em]'>Profile Settings</h2>
-                    <div className="grid grid-cols-[6em_auto] my-auto gap-[0.8em] w-fit h-fit">
-                          <div className="relative w-[5em] h-[5em] mx-auto sm:mx-0">
+                    <h2 className='max-md:text-[1.3em] text-[2em] font-medium mb-[1em]'>Profile Settings</h2>
+                    <div className="grid max-sm:grid-cols-[3.5em_auto] grid-cols-[6em_auto] my-auto gap-[0.8em] w-fit h-fit">
+                          <div className="relative max-sm:w-[3em] max-md:h-[3em] w-[5em] h-[5em] mx-auto sm:mx-0">
                                 <Image
                                   src="/jax.png"
                                   alt="Jaxson Siphron"
@@ -102,18 +110,27 @@ const CreateEvent = () => {
                             
                           </div>
                           </div>
-                    <div className='my-4 mt-[3em] w-[65%] flex flex-col gap-[3em]'>
-                        <div className='grid grid-cols-2 gap-5'>
+                    <div className='max-md:w-full my-4 mt-[3em] w-[65%] flex flex-col max-sm:gap-8 gap-[3em]'>
+                        <div className='flex flex-col md:grid grid-cols-2 max-sm:gap-8 gap-5'>
                         <InputField label='First Name'/>
                         <InputField label='Last Name'/>
                         </div>
-                        <div className='grid grid-cols-[auto_16em] gap-5'>
+                        <div className='flex flex-col md:grid grid-cols-[auto_16em] max-sm:gap-8 gap-5'>
                         <InputField label='Email'/>
-                        <Button className='grid items-center'>Update Email Address</Button>
+                        <Button className='grid items-center'>Update Email Address </Button>
                         </div>
                         
                     </div>
                 </section>
+
+                <div className='my-[1.5em]'>
+                <Button  onClick={() => router.push(`/create-event`)} className='flex justify-center gap-3 items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3'>
+                <p className='my-auto'>Log out</p>
+                    <FaArrowRight />
+                    
+                </Button>
+                </div>
+                
             {/*<CreateEventForm/>*/}
             <div className=' flex flex-wrap gap-3 relative w-full mt-[5em]'>
                 {

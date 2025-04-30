@@ -18,8 +18,8 @@ const EventsOperations = () => {
   const router = useRouter();
 
   return (
-    <div className="flex justify-between w-full mt-3 px-4">
-      <ul className="flex gap-[3em]">
+    <div className="max-sm:hidden flex justify-between w-full mt-3 px-4 my-3">
+      <ul className="flex gap-[2.5em] h-fit my-auto">
         <li>
         <Link href={"#"} className="text-[1.1em]">My Profile</Link>
         </li>
@@ -37,7 +37,7 @@ const EventsOperations = () => {
         <Button
           key={index}
           onClick={() => router.push(`${op.href}`)}
-          className="px-[2.2em] py-5 w-fit h-fit rounded-[20px] bg-primary flex leading-none items-center justify-center gap-3 icon transition-all text-[16px] duration-300 shadow-xl shadow-[#ff4e2a42]">
+          className="hidden px-[2em] py-4 w-fit h-fit rounded-[20px] bg-primary lg:flex leading-none items-center justify-center gap-3 icon transition-all text-[16px] duration-300 shadow-xl shadow-[#ff4e2a42]">
           <Image src="/icons/event.svg" height={24} width={24} alt="icon"/>
           <span className="text-lg font-medium">{op.title}</span>
         </Button>
