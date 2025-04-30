@@ -209,9 +209,8 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
         </button>
         <Button
           onClick={() => router.push(`?tab=review`)}
-          children="Save & Continue"
           className="w-fit px-7 font-medium"
-        />
+        >Save & Continue</Button>
       </div>
     </div>
   );

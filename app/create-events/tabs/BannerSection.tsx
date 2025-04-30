@@ -22,7 +22,7 @@ const BannerSection: React.FC<BannerSectionProps> = ({setImage, preview, setPrev
       <p className='text-gray-300'>Valid file formats: JPG, GIF, PNG.</p>
       <div className='flex gap-4 w-fit mr-0 md:ml-auto max-md:mt-4'>
         <button onClick={() => router.push(`?tab=edit`)} type="button" className='py-2 px-4  font-medium'>Back</button>
-         <Button  onClick={() => router.push(`?tab=ticketting`)} children="Save & Continue" className="w-fit px-7 font-medium"/>
+         <Button  onClick={() => router.push(`?tab=ticketting`)} className="w-fit px-7 font-medium">Save & Continue</Button>
                   </div>
   
     </div>

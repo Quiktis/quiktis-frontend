@@ -225,7 +225,7 @@ const EditSection: React.FC<EditSectionProps> = ({
           
         </section>
         <div className="grid w-[72.2%]  mt-[2em]">
-          <Button  onClick={handleNext} children="Save and Continue" className="w-fit mr-0 md:ml-auto"/>
+          <Button  onClick={handleNext}  className="w-fit mr-0 md:ml-auto">Save & Continue</Button>
           </div>
     </>
   )

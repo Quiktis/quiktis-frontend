@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 const tabs = [
   { label: "Get Started", link: "/register" },
@@ -12,10 +13,18 @@ const tabs = [
 
 interface SidebarProps {
   isOpen?: boolean;
-  onSidebarClose?: () => void;
+  onSidebarClose: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
+  const router = useRouter();
+
+  
+  function handleClick(link: string) {
+    onSidebarClose();
+    router.push(link);
+  }
+  
   return (
     <>
       {isOpen && 
@@ -34,12 +43,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
                 key={index}
                 className="hover:bg-[#ffffff1c] grid w-full rounded-md"
               >
-                <Link
-                  href={item.link}
+                <button
+                  onClick={() => (handleClick(`${item.link}`))}
                   className="w-full text-gray-200 flex justify-center py-3"
                 >
                   {item.label}
-                </Link>
+                </button>
               </li>
             ))}
           </ul>
