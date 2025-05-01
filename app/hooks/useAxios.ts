@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { redirect } from "next/dist/server/api-utils";
 
 interface RequestParams {
   url: string;
@@ -8,6 +9,37 @@ interface RequestParams {
   headers?: Record<string, string>;
   retryCount?: number;
 }
+
+const customErrors = [
+  {
+    error: "Network Error",
+    message: "Please check your internet connection",
+    redirect: false
+  },
+  {
+    error: "User with this email already exists",
+    message: "User already exists. Please login",
+    redirectStatus: "user exists",
+    redirect: true, // Boolean instead of URL
+  },
+  {
+    error: "Invalid credentials",
+    message: "Invalid email or password",
+    redirect: false, // Boolean instead of URL
+  },
+  {
+    error: "Request failed with status code 500",
+    message: "an error occurred, please try again",
+    redirect: false, // Boolean instead of URL
+  },
+];
+
+
+
+// Helper function to get custom error object
+const getCustomError = (incomingError: string) => {
+  return customErrors.find((e) => e.error === incomingError) || null;
+};
 
 const useAxios = () => {
   const [data, setData] = useState<any>(null);
@@ -30,15 +62,13 @@ const useAxios = () => {
     setLoading(true);
     setError(null);
 
-    console.log("Sending request from useAxios hook");
-
     try {
       const config: AxiosRequestConfig = {
         url,
         method,
         data: body,
         headers: {
-          ...(body ? { "Content-Type": "application/json" } : {}), // Add Content-Type only if there's a body
+          ...(body ? { "Content-Type": "application/json" } : {}),
           ...headers,
         },
       };
@@ -46,17 +76,30 @@ const useAxios = () => {
       const response: AxiosResponse = await axios(config);
       setData(response.data);
       return response.data;
-    } catch (err: any) {
-      console.error("Error sending request:", err?.response?.data || err.message);
-      setError("An error occurred");
 
-      return null;
+    } catch (err: any) {
+      console.log(err)
+      const rawError = err?.response?.data?.message || err.message;
+      const matchedError = getCustomError(rawError);
+      const friendlyMessage =
+        matchedError?.message || rawError || "An error occurred, please try again.";
+
+      console.error("Error sending request:", rawError);
+      setError(friendlyMessage);
+
+      return {
+        status: "error",
+        message: friendlyMessage,
+        error: rawError,
+        redirect: matchedError?.redirect === true,
+        redirectStatus: matchedError?.redirectStatus,
+      };
     } finally {
       setLoading(false);
     }
   };
 
-  return { data, loading, error, sendRequest };
+  return { data, loading, setLoading, error, sendRequest };
 };
 
 export default useAxios;

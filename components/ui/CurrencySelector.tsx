@@ -1,17 +1,17 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 
-const currencyOptions = ['$', '€', '£', '₦', '¥', '₹'];
+const currencyOptions = ['₦'];
 
 // CurrencySelector.tsx
 export default function CurrencySelector({
     className,
     value,
-    onChange
+    onChange= () => ('₦')
   }: {
     className?: string;
-    value: string;
-    onChange: (currency: string) => void;
+    value?: string;
+    onChange?: (currency: string) => void;
   }) {
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);

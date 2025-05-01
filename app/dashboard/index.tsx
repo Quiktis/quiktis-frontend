@@ -1,8 +1,8 @@
 "use client"
-import CreateEventForm from '@/components/EventCreationForm'
+//import CreateEventForm from '@/components/EventCreationForm'
 import EventsOperations from '@/components/EventsOperations'
 import ProfileCard from '@/components/ProfileCard'
-import Statistics from '@/components/Statistics'
+//import Statistics from '@/components/Statistics'
 import Image from 'next/image'
 import Button from '@/components/ui/Button'
 import React from 'react'
@@ -10,6 +10,7 @@ import InputField from '@/components/ui/InputFields'
 import { useUser } from '../context/UserContext'
 import { useRouter } from 'next/navigation'
 import { FaArrowRight } from 'react-icons/fa6'
+import useAxios from '../hooks/useAxios'
 
 const images = [
     {
@@ -56,10 +57,52 @@ const images = [
     }, 
 ]
 const CreateEvent = () => {
+    const { sendRequest, loading, setLoading } = useAxios()
     const router = useRouter();
-    const { user } = useUser();
+    const { user, setUser } = useUser();
+
+
+    const handleLogout = async () => {
+
+    
+        if (loading) return; // Prevent multiple clicks
+        console.log("sending request");
+
+        setLoading(true); // Set loading state
+     
+      
+        try {
+          const response = await sendRequest({
+            url: `/api/auth/logout`,
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          console.log("response: ", response);
+
+          setUser({
+            userId: null,
+            name: null,
+            email: null,
+            role: null,
+            picture: null,
+            age: null,
+            location: null,
+            token: null,
+          })
+          localStorage.setItem("quiktis_user", JSON.stringify(user));
+        } catch (error) {
+          console.log(error);
+      
+        } finally {
+            setLoading(false); // Reset loading state
+            router.push('/')
+        }
+      };
+
+
   return (
-    <main className='flex flex-col gap-5 w-full relative min-h-screen'>
+    <main className='flex flex-col gap-5 w-full relative min-h-screen md:w-[90%] mx-auto'>
              <div className='flex md:flex-row flex-col gap-20 shrink-0 relative w-full justify-center items-center h-full'>
                 <Image
                 src={'/502.png'}
@@ -124,7 +167,7 @@ const CreateEvent = () => {
                 </section>
 
                 <div className='my-[1.5em]'>
-                <Button  onClick={() => router.push(`/create-event`)} className='flex justify-center gap-3 items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3'>
+                <Button  onClick={handleLogout} className='flex justify-center gap-3 items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3'>
                 <p className='my-auto'>Log out</p>
                     <FaArrowRight />
                     

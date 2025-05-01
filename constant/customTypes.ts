@@ -8,12 +8,13 @@ export type EventData = {
     eventType: string;
     accessType: string;
     bannerImage: string;
-    category: string;
+    category?: string;
     location: string;
     tickets: {
       name: string;
-      price: string;
-      currency: string;
+      price: number;
+      quantity?: number;
+      description?: string;
     }[];
   };
 

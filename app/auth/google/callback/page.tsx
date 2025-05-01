@@ -6,10 +6,10 @@ import useAxios from "@/app/hooks/useAxios";
 import { useUser } from "@/app/context/UserContext"; // Import User Context
 
 const GoogleCallbackPage = () => {
-  const { sendRequest, loading } = useAxios();
+  const { setUser, setGoogleUser } = useUser(); // Access global state
+  const { loading, sendRequest } = useAxios();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { setUser, setGoogleUser } = useUser(); // Access global state
   const code = searchParams.get("code");
 
   const [dots, setDots] = useState(".");
@@ -41,9 +41,10 @@ const GoogleCallbackPage = () => {
 
         console.log(authResponse);
 
-        if (!authResponse?.token) {
-          console.log(authResponse)
+        if (authResponse?.message === "error") {
+          console.log(authResponse);
           console.log("Failed to retrieve authentication token. Error: " + authResponse);
+          router.push("/register");
         }
 
         // Store the token globally
@@ -51,31 +52,22 @@ const GoogleCallbackPage = () => {
 
         console.log("Auth Response:", authResponse);
 
-        // Step 2: Verify email
-        const verifyResponse = await sendRequest({
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/verify-email`,
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: { token: authResponse.token },
-        });
-
-        if (!verifyResponse?.user) {
-          throw new Error("Failed to verify email.");
-        }
-
-        console.log("Verify Response:", verifyResponse);
-
-        // Step 3: Save verified user details in global context
-        setUser({
-          userId: verifyResponse.user.id,
-          name: verifyResponse.user.name,
-          email: verifyResponse.user.email,
+        // Step 2: Save verified user details in global context
+        const user = {
+          userId: authResponse.data.id,
+          name: authResponse.data.name,
+          email: authResponse.data.email,
           token: authResponse.token,
-        });
+        };
+
+        // Save user data directly to localStorage
+        localStorage.setItem("quiktis_user", JSON.stringify(user));
+
+        // Update global state with user data
+        setUser(user);
 
         // Redirect to the next page after authentication
         router.push("/dashboard");
-
       } catch (error) {
         console.error("Authentication Error:", error);
         setError("Registration failed. Please try again.");

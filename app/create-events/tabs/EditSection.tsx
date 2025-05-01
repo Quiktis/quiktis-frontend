@@ -12,7 +12,7 @@ import { EventData, TimeData } from '@/constant/customTypes';
 interface EditSectionProps {
   eventData: EventData;
   timeData: TimeData;
-  handleTimeDataChange: (field: "startTime" | "endTime", timeField: "hour" | "minute" | "period", value: string) => void;
+  handleTimeDataChange: (field: "startTime" | "endTime", timeField: "hour" | "minute" | "period", value: string | any) => void;
   setEventData: React.Dispatch<React.SetStateAction<EventData>>;
   startDate: Date | null;
   setStartDate: React.Dispatch<React.SetStateAction<Date | null>>;
@@ -42,7 +42,7 @@ const EditSection: React.FC<EditSectionProps> = ({
    // Validation function
    const isFormValid = () => {
     // Check if all required fields in eventData are filled
-    const requiredFields = ["title", "category", "eventType", "location", "description"];
+    const requiredFields = ["title", "eventType", "location", "description"];
     const isEventDataValid = requiredFields.every((field) => eventData[field as keyof EventData]);
 
     // Check if startDate and endDate are set
@@ -94,7 +94,7 @@ const EditSection: React.FC<EditSectionProps> = ({
                 onChange={handleInputChange} />
             </div>
 
-            <div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
+            {/*<div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
               <label className="my-auto mr-0 md:ml-auto">Event Category</label>
               <Dropdown
             options={["Category 1", "Category 2"]}
@@ -102,7 +102,7 @@ const EditSection: React.FC<EditSectionProps> = ({
             onChange={(value) => handleEventDataChange("category", value)}
             placeholder="Please select one"
           />
-            </div>
+            </div>*/}
           </section>
         </section>
 
@@ -133,7 +133,7 @@ const EditSection: React.FC<EditSectionProps> = ({
                   <CustomDatePicker selectedDate={startDate}
                   onDateSelect={(date) => {
                     setStartDate(date);
-                    handleEventDataChange("startDate", formatDate(date));
+                    handleEventDataChange("startDate", date);
                     // Reset end date if it's before new start
                     if (endDate && date > endDate) {
                       setEndDate(null);
@@ -160,7 +160,7 @@ const EditSection: React.FC<EditSectionProps> = ({
                   selectedDate={endDate}
                   onDateSelect={(date) => {
                     setEndDate(date);
-                    handleEventDataChange("endDate", formatDate(date))}
+                    handleEventDataChange("endDate", date)}
                   }
                   minDate={startDate || undefined}/>
                  

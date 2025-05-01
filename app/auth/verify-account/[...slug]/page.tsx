@@ -46,13 +46,15 @@ const VerifyAccountPage = () => {
         }
 
         if (response.data?.id) {
-          setUser({
+          const user = {
             userId: response.data.id,
             name: response.data.name,
             email: response.data.email,
             role: response.data.role,
             token,
-          });
+          }
+          setUser(user);
+          localStorage.setItem("quiktis_user", JSON.stringify(user));
         }
 
         setIsVerified(true);

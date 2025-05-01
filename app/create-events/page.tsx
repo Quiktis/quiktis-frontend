@@ -39,11 +39,11 @@ function CreateEventPage() {
     accessType: "",
     eventType: "",
     bannerImage: "",
-    category: "",
+    //category: "",
     startTime: "",
     endTime: "",
     location: "",
-    tickets: [{ name: "", price: "", currency: "₦" }],
+    tickets: [{ name: "", price: 0, description: "", quantity: 0}],
   });
 
   const [timeData, setTimeData] = useState<TimeData>({
@@ -239,7 +239,7 @@ function CreateEventPage() {
         )}
         {tab === "ticketting" && (
           <TickettingSection
-            eventData={eventData}
+            eventData={eventData.tickets}
             handleEventDataChange={handleEventDataChange}
           />
         )}

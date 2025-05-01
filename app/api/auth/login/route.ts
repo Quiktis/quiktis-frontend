@@ -52,14 +52,15 @@ export async function POST(request: Request): Promise<Response> {
     const data: ResponseObject = await backendResponse.json();
     console.log("response from backend: ", data);
 
-    if (!data.data.user) {
-      return new Response(JSON.stringify(data));
+    if (data.status === "error") {
+      return NextResponse.json({message: "Check your email and password or Sign In with Google", status: data.status});
     }
 
     
 
     // ✅ Set the refresh token as an HTTP-only cookie using response headers
-    const response = NextResponse.json({ ok: true, message: data.message, user: data.data.user, token: data.data.token, data: data });
+    
+    const response = NextResponse.json(data);
     if(data.data.token) { response.headers.set(
       "Set-Cookie",
       `quiktis_token=${data.data.token}; HttpOnly; Secure; Path=/; SameSite=Strict`

@@ -25,8 +25,8 @@ const NewHeader: React.FC<HeaderProps> = ({containerClass }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
-    { name: "Home", path: "/" },
-    { name: "Explore Events", path: "/events" },
+    { name: "Home", path: user.email ? "/dashboard" : "/" },
+    { name: "Explore Events", path: user.email ? "/" : "/events" },
     { name: "About Us", path: "/about" },
     { name: "Contact Us", path: "/contact" },
     // { name: "Newsletter", path: "/reviews" },

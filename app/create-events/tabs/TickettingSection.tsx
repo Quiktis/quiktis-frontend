@@ -11,7 +11,7 @@ import { EventData } from "@/constant/customTypes";
 
 interface TickettingSectionProps {
   eventData: EventData;
-  handleEventDataChange: (name: string, value: any) => void;
+  handleEventDataChange: (name: string, value: any, ) => void;
 }
 
 const TickettingSection: React.FC<TickettingSectionProps> = ({
@@ -22,11 +22,11 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
 
   const handleTicketChange = (
     index: number,
-    field: "name" | "price" | "currency",
-    value: string
+    field: "name" | "price" | "quantity" | "description",
+    value: string | number
   ) => {
     const updatedTickets = [...eventData.tickets];
-    updatedTickets[index][field] = value;
+    updatedTickets[index][field] = value as never;
     handleEventDataChange("tickets", updatedTickets); // Update the eventData with the new tickets array
   };
 
@@ -38,11 +38,11 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
     handleEventDataChange("tickets", updatedTickets);
   };
 
-  const handleCurrencyChange = (index: number, currency: string) => {
+  /*const handleCurrencyChange = (index: number, currency: string) => {
     const updated = [...eventData.tickets];
     updated[index].currency = currency;
     handleEventDataChange("tickets", updated);
-  };
+  };*/
 
   const deleteTicket = (index: number) => {
     if (index === 0) return; // prevent deleting the first
@@ -139,10 +139,10 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
                 </label>
                 <div className="flex items-center">
                   <CurrencySelector
-                    value={ticket.currency}
-                    onChange={(currency) =>
+                    //value={ticket.currency}
+                    /*onChange={(currency) =>
                       handleCurrencyChange(index, currency)
-                    }
+                    }*/
                     className="grid place-items-center rounded-l-md h-[2.7em] w-[2.7em]"
                   />
                   <input

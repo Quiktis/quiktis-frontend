@@ -6,9 +6,57 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { SocialButton } from "@/components/ui/SocialButton";
 import useAxios from "../hooks/useAxios";
-import { useUser } from "../context/UserContext";
+//import { useUser } from "../context/UserContext";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useGoogleLogin } from "@react-oauth/google";
+//import { useGoogleLogin } from "@react-oauth/google";
+
+type ValidationRule = {
+  test: (value: string) => boolean;
+  message: string;
+};
+
+
+const passwordRules: ValidationRule[] = [
+  {
+    test: (pw) => pw.length >= 8,
+    message: "Password must be at least 8 characters long.",
+  },
+  {
+    test: (pw) => /[A-Z]/.test(pw),
+    message: "Password must include at least one uppercase letter.",
+  },
+  {
+    test: (pw) => /[a-z]/.test(pw),
+    message: "Password must include at least one lowercase letter.",
+  },
+  {
+    test: (pw) => /[0-9]/.test(pw),
+    message: "Password must include at least one number.",
+  },
+  {
+    test: (pw) => /[^A-Za-z0-9]/.test(pw),
+    message: "Password must include at least one special character.",
+  },
+];
+
+const validateInput = (
+  value: string,
+  rules: ValidationRule[],
+  setError: (msg: string) => void
+): boolean => {
+  for (const rule of rules) {
+    if (!rule.test(value)) {
+      setError(rule.message);
+      setTimeout(() => setError(""), 3000);
+      return false;
+    }
+  }
+  return true;
+};
+
+// Inside your submit function or onChange handler:
+//const isPasswordValid = validateInput(password, passwordRules, setError);
+
 
 const RegisterPage: React.FC = () => {
   const [fullName, setFullName] = useState("");
@@ -16,7 +64,7 @@ const RegisterPage: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreed, setAgreed] = useState(false);
-  const { sendRequest, loading } = useAxios();
+  const { sendRequest, loading, setLoading } = useAxios();
   const [error, setError] = useState("");
   //const { user, setUser } = useUser();
   const [isProcessing, setIsProcessing] = useState(false); // NEW state
@@ -25,6 +73,9 @@ const RegisterPage: React.FC = () => {
   const searchParams = useSearchParams();
   const [requestLoading, setRequestLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [passwordValid, setPasswordValid] = useState()
+
+
 
   useEffect(() => {
     const handleGoogleCallback = async () => {
@@ -58,29 +109,6 @@ const RegisterPage: React.FC = () => {
   }, [searchParams.toString()]); // Convert to string to avoid unnecessary re-renders
   
 
-
-  //const handleLogin = (userId: string, name: string, email: string ) => {
-    //setUser({ userId, name, email });
-  //};
-
-  const googleLogin = useGoogleLogin({
-      onSuccess: async (tokenResponse) => {
-        console.log(tokenResponse);
-        setGoogleLoading(false);
-        //router.push("/create-events");
-      },
-      onError: (error) => {
-        console.error("Login Failed:", error);
-        setGoogleLoading(false);
-      },
-    });
-
-
-    const handleGoogle = () => {
-      setGoogleLoading(true)
-      googleLogin();
-    }
-
     const handleGoogleLogin = async () => {
       try {
         if (googleLoading) return;
@@ -100,27 +128,34 @@ const RegisterPage: React.FC = () => {
   
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-    if (loading || isProcessing) return; // Prevent multiple submissions
-    setError("");
-  
-    if (!fullName || !email || !password || !confirmPassword) {
-      setError("All fields are required.");
-      return;
+
+    
+
+    if(confirmPassword !== password) {
+      setError("Passwords dont't match");
+      setTimeout(() => setError(""), 3000)
+      return
     }
-  
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
-  
+
+    const isPasswordValid = validateInput(password, passwordRules, setError);
+
+    if (!isPasswordValid) return;
+    
+    
     if (!agreed) {
       setError("Please agree to the terms to continue.");
+      setTimeout(() => setError(""), 3000)
       return;
     }
-  
+    
     console.log("Sending registration request...");
-    setIsProcessing(true); // Start tracking entire process
+    setIsProcessing(true);
+  
+     // Start tracking entire process
+
+
+    if (loading || isProcessing) return; // Prevent multiple submissions
+    setError("");
   
     try {
       const response = await sendRequest({
@@ -132,14 +167,28 @@ const RegisterPage: React.FC = () => {
   
       if (response?.status === "success") {
         await new Promise(() => {
-          //setUser({ userId: response.user.id, name: response.user.name, email: response.user.email, token: response.token });
           router.push("/check-email");          
-          //resolve(null);
         });
-  
-        //console.log("User details: ", response.user);
-        //router.push("/create-events");
       }
+
+
+      if (response?.status === "error") {
+        setLoading(false);
+        setIsProcessing(false);
+        setError(response.message);
+        setTimeout(() => setError(""), 4000)
+        if (response.redirectStatus === "user exists") {
+          // You can append the email and error message in the URL query parameters
+          const redirectUrl = `/signin?email=${encodeURIComponent(email)}&message=${encodeURIComponent(response.message)}`;
+          router.push(redirectUrl);
+        }
+        return
+      }
+
+      
+
+
+      console.log("response: ", response);
     } catch (error) {
       console.log(error);
       setError("Registration failed. Please try again.");
@@ -149,14 +198,15 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="flex gap-20 justify-center text-white overflow-hidden mt-5 items-center w-full">
-      <div className="flex-1 flex flex-col p-6  w-[505px]">
+    <div className="flex md:grid grid-cols-[1.6fr_2fr] gap-[3.5em] justify-center text-white overflow-hidden mt-5 items-center w-full md:w-[86%] mx-auto">
+      <div className="flex-1 flex flex-col p-6 w-full">
         <h1 className="text-[44px] font-bold">Welcome!!!</h1>
         <p className="mb-6">Create Your Quikitis Account</p>
         <form className="w-full space-y-4" onSubmit={handleRegister}>
           <Input
             value={fullName}
             label="Full Name"
+            required={true}
             onChange={(e) => setFullName(e.target.value)}
             placeholder="Enter your full name here"
             className=" bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
@@ -175,6 +225,8 @@ const RegisterPage: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             label="Password"
+            required={true}
+            showPasswordCriteria={true}
             placeholder="Enter your password here"
             className=" bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
           />
@@ -183,9 +235,10 @@ const RegisterPage: React.FC = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             type="password"
             label="Confirm Password"
+            required={true}
             placeholder="Enter your password here"
             className=" bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
-            error={confirmPassword !== password ? "passwords don't match" : ""}
+            error={confirmPassword !== password ? "Passwords don't match" : ""}
           />
           <div className="flex items-center">
             <input
@@ -196,18 +249,17 @@ const RegisterPage: React.FC = () => {
             />
             <label>I agree to the Terms of Service and Privacy Policy</label>
           </div>
-          {error && <div className="text-red-500">{error}</div>}
+          {error && <div className="text-red-500 text-[0.95em]">{error}</div>}
           {message && <div>{message}</div>}
           <Button
             type="submit"
             className="w-full py-4 border-white border mt-4"
-            disabled={!agreed}
+            //disabled={!agreed}
             loading={isProcessing}
             loaderClass='mt-[0.08em] ml-[-0.005em]'
           >
             Create an account
           </Button>
-          {error && <p className="text-sm text-red-600">{error}</p>}
         </form>
         <div className="mt-6 w-full">
           <div className="flex items-center justify-center gap-2 my-6">
@@ -228,11 +280,11 @@ const RegisterPage: React.FC = () => {
           </p>
         </div>
       </div>
-      <div className="max-sm:hidden flex justify-center w-[707px] h-[950px]">
+      <div className="max-sm:hidden flex justify-center w-full h-[950px]">
         <Image
           src="/authImage.png"
           alt="auth"
-          className="object-cover bg-cover rounded-[20px] max-w-[90%] max-h-[90%]"
+          className="object-cover bg-cover rounded-[25px] w-full max-h-[90%]"
           width={707}
           height={950}
         />
