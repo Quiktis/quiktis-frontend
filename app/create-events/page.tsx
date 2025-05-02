@@ -239,7 +239,7 @@ function CreateEventPage() {
         )}
         {tab === "ticketting" && (
           <TickettingSection
-            eventData={eventData.tickets}
+            eventData={eventData}
             handleEventDataChange={handleEventDataChange}
           />
         )}
