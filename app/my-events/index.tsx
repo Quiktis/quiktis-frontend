@@ -2,11 +2,9 @@
 
 import React, { useRef } from "react";
 import DashboardNav from "@/components/dashboard/DashboardNav";
-import EventStats from "@/components/dashboard/EventStats";
+import MyEventsTable from "@/components/dashboard/MyEventsTable";
+import type { Event as TableEvent } from "@/components/dashboard/EventRow";
 import EventCard from "@/components/dashboard/EventCard";
-import Button from "@/components/ui/Button";
-import { useRouter } from "next/navigation";
-import { FaCirclePlus } from "react-icons/fa6";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 const events = [
@@ -108,8 +106,136 @@ const events = [
   },
 ];
 
+const tableEvents: TableEvent[] = [
+  {
+    id: "evt-1",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Upcoming",
+  },
+  {
+    id: "evt-2",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Live",
+  },
+  {
+    id: "evt-3",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-4",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Canceled",
+  },
+  {
+    id: "evt-5",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-6",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-5",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-6",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-5",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-6",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-5",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-6",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-5",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-6",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+];
+
 const MyEvents = () => {
-  const router = useRouter();
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const handleArrowClick = () => {
@@ -133,10 +259,7 @@ const MyEvents = () => {
           }}>
           <h1 className="text-xs md:text-2xl font-bold">Manage Events</h1>
           <div className="flex flex-row items-center gap-4 w-full md:w-auto">
-            <Button onClick={() => router.push(`/create-events`)}  className="w-[120px] h-[32px] md:w-[160px] md:h-[40px] rounded-[6.52px] bg-[#FF4D2A] text-white flex items-center gap-1 justify-center text-xs md:text-base">
-              <FaCirclePlus size={14} color="white" /> Create Event
-              
-            </Button>
+           
           </div>
         </div>
         <p className="mt-2 text-gray-400 text-xs md:text-sm">
@@ -144,8 +267,12 @@ const MyEvents = () => {
         </p>
       </div>
 
+      <div className="mt-10">
+        <h1 className="text-2xl md:text-3xl font-bold">My Events</h1>
+      </div>
       <div className="mt-8">
-        <EventStats />
+        <MyEventsTable events={tableEvents} />
+        <hr className="border-gray-700 mt-1" />
       </div>
 
       <div className="mt-16" />
@@ -168,7 +295,6 @@ const MyEvents = () => {
           />
         ))}
       </section>
-
     </main>
   );
 };
