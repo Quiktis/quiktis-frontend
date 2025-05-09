@@ -198,8 +198,8 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="flex md:grid grid-cols-[1.6fr_2fr] gap-[3.5em] justify-center text-white overflow-hidden mt-5 items-center w-full md:w-[86%] mx-auto">
-      <div className="flex-1 flex flex-col p-6 w-full">
+    <div className="relative max-md:mb-[5em]  md:flex lg:grid grid-cols-[1.6fr_2fr] gap-[3em] justify-center text-white overflow-hidden mt-5 items-center w-full lg:w-[86%] mx-auto">
+      <div className="flex-1 flex flex-col lg:p-6 w-full">
         <h1 className="text-[44px] font-bold">Welcome!!!</h1>
         <p className="mb-6">Create Your Quikitis Account</p>
         <form className="w-full space-y-4" onSubmit={handleRegister}>
@@ -280,11 +280,11 @@ const RegisterPage: React.FC = () => {
           </p>
         </div>
       </div>
-      <div className="max-sm:hidden flex justify-center w-full h-[950px]">
+      <div className="tablet-hidden md:flex justify-center w-full lg:w-[90%] mx-auto sm:w-[48%] h-[950px]">
         <Image
           src="/authImage.png"
           alt="auth"
-          className="object-cover bg-cover rounded-[25px] w-full max-h-[90%]"
+          className="object-cover bg-cover rounded-[25px] w-full max-h-[90%] sm:h-[70%]"
           width={707}
           height={950}
         />

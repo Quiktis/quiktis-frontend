@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { FaChevronDown } from "react-icons/fa"; 
 
 interface DropdownProps {
-  options: string[];
-  selected: string;
-  onChange: (value: string) => void;
+  options?: string[];
+  selected?: string;
+  onChange?: (value: string) => void;
   label?: string;
   className?: string;
   placeholder?: string;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
-  options,
+  options = [],
   selected,
-  onChange,
+  onChange = () => {},
   label,
   className,
   placeholder = "Select an option", 
@@ -23,12 +23,12 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div className="flex flex-col gap-2 relative">
       {label && (
-        <label className="absolute px-1 text-primary font-semibold bg-black top-[-0.6em] z-40 left-2">
+        <label className="absolute px-1 text-primary bg-[#0c0c0c] top-[-0.6em] z-40 left-4">
           {label}
         </label>
       )}
       <div
-        className={`relative border border-[#ffffff56] text-gray-400 px-4 py-3 rounded-md cursor-pointer flex items-center justify-between ${className}`}
+        className={`relative text-[0.95em] border-2 border-[#ffffff56] text-gray-400 px-[1.15em] py-4 rounded-md cursor-pointer flex items-center justify-between ${className}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         {selected || placeholder} 

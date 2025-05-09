@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
 import {
   FaFacebook,
@@ -10,34 +11,39 @@ import {
   FaYoutube,
   FaPen,
 } from "react-icons/fa";
+import ProfileImageUploader from "./ProfileImageUploader/ProfileImageUploader";
 
 
 interface ProfileCardProps {
-  // Add profile card props here
   name: string;
   email: string;
   age?: any;
   location?: string;
-  // Add more profile card props as needed
+  preview: string | null; 
+  setPreview: React.Dispatch<React.SetStateAction<string | null>>; 
+  setImage: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
-const ProfileCard: React.FC<ProfileCardProps> = ({name, email, age, location}) => {
+const ProfileCard: React.FC<ProfileCardProps> = (
+  {
+    name, 
+    email, 
+    age, 
+    location,
+    setImage,
+    preview,
+    setPreview,
+  }) => {
+
   return (
     <div className="grid relative w-full md:w-[fit-content] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] px-3 md:px-[3.8em] py-5 md:py-[3em] text-white shadow-lg h-fit ">
       {/* Top Section */}
-      <div className="grid grid-cols-[7em_auto] my-auto gap-[0.8em] max-md:w-[90%] max-md:mx-auto w-fit h-fit">
-      <div className="relative w-[6em] h-[6em] mx-auto sm:mx-0">
-            <Image
-              src="/jax.png"
-              alt="Jaxson Siphron"
-              width={100}
-              height={100}
-              className="rounded-full border-2 border-white object-cover"
-            />
-            <div className="absolute bottom-0 right-0 bg-white text-gray-700 rounded-full p-1 text-xs">
-              <FaPen size={12} />
-            </div>
-          </div>
+      <div className="grid grid-cols-[5.1em_auto] md:grid-cols-[7em_auto] my-auto gap-[0.8em] max-md:w-[90%] max-md:mx-auto w-fit h-fit">
+      <ProfileImageUploader 
+        preview={preview}
+        setPreview={setPreview}
+        setImage={setImage}
+      />
           <div className="h-fit my-auto">
           <div className="flex max-md:gap-3 gap-[3em] justify-between ">
           
@@ -65,7 +71,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({name, email, age, location}) =
           </Link>
         </div>
 
-        <div className="w-[6em]"></div>
+        <div className="w-[6em] max-md:w-[0em]"></div>
         </div>
         <hr className="my-4 border-gray-400 mt-5"></hr>
           </div>

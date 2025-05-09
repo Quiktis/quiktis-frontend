@@ -8,6 +8,7 @@ import CurrencySelector from "@/components/ui/CurrencySelector";
 import { IoIosAdd } from "react-icons/io";
 import { AiOutlineDelete } from "react-icons/ai";
 import { EventData } from "@/constant/customTypes";
+import QuantityCounter from "@/components/QuantityCounter";
 
 interface TickettingSectionProps {
   eventData: EventData;
@@ -117,8 +118,7 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
           {eventData.tickets.map((ticket, index) => (
             <div
               key={index}
-              className="flex flex-col md:grid grid-cols-[2fr_1fr_3em] gap-2 max-md:gap-6"
-            >
+              className="flex flex-col md:grid grid-cols-[2fr_1fr_3em] gap-2 max-md:gap-6">
               <div className="flex flex-col gap-3 md:w-[80%]">
                 <label className="text-[1.1em] font-semibold">
                   Ticket Type
@@ -168,6 +168,8 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
                       />
                     </button>
                   )}
+
+                  
                 </div>
               </div>
 
@@ -184,6 +186,7 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
                   />
                 </button>
               )}
+              <QuantityCounter />
               <hr className="border-[#ffffff27] border-[0.5px] md:hidden"></hr>
             </div>
           ))}

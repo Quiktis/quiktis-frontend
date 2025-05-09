@@ -99,8 +99,8 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex md:grid grid-cols-[1.6fr_2fr] gap-[3.5em] justify-center text-white overflow-hidden mt-5 items-center w-full md:w-[86%] mx-auto">
-      <div className="flex-1 flex flex-col justify-center p-6 ">
+    <div className="mb-[5em] flex md:grid grid-cols-[1.6fr_2fr] gap-[3.5em] justify-center text-white overflow-hidden mt-5 items-center w-full lg:w-[86%] mx-auto">
+      <div className="flex-1 flex flex-col justify-center md:p-6 ">
         {/* Display the message if it exists */}
         {message && <p className="border border-gray-300 px-5 py-6 mb-6 text-center text-gray-300">{message}</p>}
         <h1 className="text-4xl font-bold mb-1">Welcome back!</h1>

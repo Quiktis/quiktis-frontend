@@ -7,6 +7,7 @@ import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import CustomTimePicker from "@/components/ui/CustomTimePicker";
 import { useRouter } from 'next/navigation';
 import { EventData, TimeData } from '@/constant/customTypes';
+import { generateId } from '@/app/utils/utilities';
 
 
 interface EditSectionProps {
@@ -63,6 +64,7 @@ const EditSection: React.FC<EditSectionProps> = ({
   // Handle button click
   const handleNext = () => {
     if (isFormValid()) {
+      handleEventDataChange("categoryId", generateId());
       router.push(`?tab=banner`);
     } else {
       alert("Please fill in all required fields before proceeding.");

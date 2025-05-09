@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { redirect } from "next/dist/server/api-utils";
 
 interface RequestParams {
   url: string;
@@ -8,35 +7,33 @@ interface RequestParams {
   body?: any;
   headers?: Record<string, string>;
   retryCount?: number;
+  withCredentials?: boolean; // NEW: for handling credentials
 }
 
 const customErrors = [
   {
     error: "Network Error",
     message: "Please check your internet connection",
-    redirect: false
+    redirect: false,
   },
   {
     error: "User with this email already exists",
     message: "User already exists. Please login",
     redirectStatus: "user exists",
-    redirect: true, // Boolean instead of URL
+    redirect: true,
   },
   {
     error: "Invalid credentials",
     message: "Invalid email or password",
-    redirect: false, // Boolean instead of URL
+    redirect: false,
   },
   {
     error: "Request failed with status code 500",
-    message: "an error occurred, please try again",
-    redirect: false, // Boolean instead of URL
+    message: "An error occurred, please try again",
+    redirect: false,
   },
 ];
 
-
-
-// Helper function to get custom error object
 const getCustomError = (incomingError: string) => {
   return customErrors.find((e) => e.error === incomingError) || null;
 };
@@ -52,6 +49,7 @@ const useAxios = () => {
     body = null,
     headers = {},
     retryCount = 0,
+    withCredentials = false, // default to false
   }: RequestParams): Promise<any> => {
     if (retryCount > 3) {
       console.error("Max retry attempts reached. Request failed.");
@@ -71,6 +69,7 @@ const useAxios = () => {
           ...(body ? { "Content-Type": "application/json" } : {}),
           ...headers,
         },
+        withCredentials,
       };
 
       const response: AxiosResponse = await axios(config);
@@ -78,7 +77,7 @@ const useAxios = () => {
       return response.data;
 
     } catch (err: any) {
-      console.log(err)
+      console.log(err);
       const rawError = err?.response?.data?.message || err.message;
       const matchedError = getCustomError(rawError);
       const friendlyMessage =

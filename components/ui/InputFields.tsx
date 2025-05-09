@@ -23,7 +23,7 @@ const InputField: React.FC<InputFieldProps> = ({
 }) => {
   return (
     <div className={`relative flex flex-col gap-1 ${className}`}>
-      <label className="absolute bg-[#0c0c0c] top-[-0.8em] text-primary left-2 px-1 font-semibold">
+      <label className="absolute bg-[#0c0c0c] top-[-0.8em] text-primary left-4 px-1">
         {label} {required && <span className="text-red-500">*</span>}
       </label>
       <input

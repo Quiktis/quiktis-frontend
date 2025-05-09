@@ -34,6 +34,7 @@ function CreateEventPage() {
   const [eventData, setEventData] = useState<EventData>({
     title: "",
     description: "",
+    categoryId: "",
     startDate: "",
     endDate: "",
     accessType: "",

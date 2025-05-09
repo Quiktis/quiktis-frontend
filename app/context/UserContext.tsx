@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"; // Import usePathname from next/n
 import NewHeader from "@/components/NewHeader";
 import Image from "next/image";
 import Link from "next/link"; 
+import useAxios from "../hooks/useAxios";
 
 interface User {
   userId?: string | null;
@@ -57,11 +58,38 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     token: null,
   });
 
+  const { sendRequest } = useAxios(); // Custom hook for making API requests
+
   const [googleUser, setGoogleUser] = useState<GoogleUser>({ token: null });
   const [loading, setLoading] = useState(true); // Loading state to track when user data is ready
   const pathname = usePathname(); // Get current route path
 
   useEffect(() => {
+    const clearLocalStorage = () => {
+      
+        console.log("Clearing local storage...");
+        localStorage.removeItem("quiktis_user");
+        // Remove the cookie after processing
+      
+    };
+  
+    const checkTokenPresence = async (): Promise<boolean> => {
+    try {
+      const data = await sendRequest({
+        url: "/api/auth/me",
+        method: "GET",
+        withCredentials: true
+      })
+
+  
+      console.log("Token presence check response:", data);
+      return data?.authenticated === true;
+      } catch (error) {
+        console.error("Error checking token:", error);
+        return false;
+      }
+    };
+  
     const fetchUserFromLocalStorage = () => {
       try {
         const storedUser = localStorage.getItem("quiktis_user");
@@ -73,13 +101,27 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         }
       } catch (err) {
         console.error("Failed to load user from localStorage:", err);
-      } finally {
-        setLoading(false); // Set loading to false after checking localStorage
       }
     };
+  
+    const initializeUser = async () => {
+      //clearLocalStorage();
+      const tokenExists = await checkTokenPresence();
+  
+      if (!tokenExists) {
+        clearLocalStorage(); 
+      }
 
-    fetchUserFromLocalStorage();
-  }, []); // Empty dependency array ensures this effect runs once on mount
+      if (tokenExists) {
+        fetchUserFromLocalStorage(); 
+      }
+  
+      setLoading(false);
+    };
+  
+    initializeUser();
+  }, []);
+  
 
   // Check if the current route is one where we want to exclude the loading state
   const shouldExcludeLoading = pathname === "/" || pathname === "/some-other-page"; // Add conditions for other pages
