@@ -1,6 +1,4 @@
-// app/manage-event-viewing/page.tsx
 "use client";
-
 import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -8,11 +6,8 @@ import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { FaLocationDot } from "react-icons/fa6";
 import { RiFileCopy2Fill } from "react-icons/ri";
-// import { BsPlus } from "react-icons/bs";
-// import { MdConfirmationNumber } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
-// import { MdOutlineDelete } from "react-icons/md";
 import { useUser } from "@/app/context/UserContext";
 import { EventData } from "@/constant/customTypes";
 import { IoTicket } from "react-icons/io5";
@@ -34,7 +29,6 @@ const socials = [
   { icon: <FaLinkedin size={24} />, href: "" },
 ];
 
-// attendee avatars
 const attendees = [
   "/user1.jpg",
   "/user2.png",
@@ -101,22 +95,9 @@ export default function ManageEventViewingPage() {
     ],
   };
 
-  // async function uploadImage() {
-  //   // implement your image upload logic here
-  // }
-
-  // async function handleClick() {
-  //   try {
-  //     await uploadImage();
-  //   } catch (error) {
-  //     console.error("Upload error:", error);
-  //     alert("Failed to upload the image. Please try again.");
-  //   }
-  // }
 
   return (
     <div className="flex flex-col gap-9 w-full mt-4">
-      {/* HEADER IMAGE */}
       <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
         <div className="relative w-full h-full">
           <Image
@@ -132,7 +113,6 @@ export default function ManageEventViewingPage() {
 
       <section>
         <div className="w-full flex flex-wrap md:gap-[4em] h-max justify-between">
-          {/* LEFT: Title + Creator */}
           <div className="h-full max-sm:w-1/2">
             <h1 className="text-[40px] max-sm:text-[1.1rem] font-primary font-bold max-w-full w-fit">
               {eventData.title}
@@ -142,16 +122,13 @@ export default function ManageEventViewingPage() {
             </p>
           </div>
 
-          {/* RIGHT: Ticket Info */}
           <div className="h-full my-auto md:w-fit max-sm:w-1/2">
             <div className="flex flex-col items-center justify-center text-[#FF4D2A]">
-              {/* Top row: Get Ticket */}
               <div className="flex items-center gap-2 font-bold text-[1.6rem] max-sm:text-[1rem]">
                 <span>Get Ticket $70</span>
                 <IoTicket className="max-sm:w-5 max-sm:h-5 w-7 h-7" />
               </div>
 
-              {/* Bottom: Tickets sold */}
               <span className="text-[1.1rem] font-medium text-center w-full max-sm:text-sm">
                 53 tickets sold
               </span>
@@ -160,10 +137,8 @@ export default function ManageEventViewingPage() {
         </div>
       </section>
 
-      {/* MAIN PANEL */}
       <section className="relative">
         <div className="relative flex flex-col gap-3 lg:grid grid-cols-[65%_32%] lg:gap-11">
-          {/* ——— THIS PANEL ——— */}
           <div
             className={`
               relative z-10
@@ -173,7 +148,6 @@ export default function ManageEventViewingPage() {
               shadow-xl
               ${styles.glassOverride}
             `}>
-            {/* Orange Glow */}
             <div
               className="
                 absolute w-[500px] h-[500px]
@@ -186,7 +160,6 @@ export default function ManageEventViewingPage() {
               "
             />
 
-            {/* Fading White Border */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
@@ -202,9 +175,7 @@ export default function ManageEventViewingPage() {
               }}
             />
 
-            {/* CONTENT */}
             <div className="relative space-y-8">
-              {/* DESCRIPTION */}
               <div>
                 <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">
                   DESCRIPTION
@@ -222,7 +193,6 @@ export default function ManageEventViewingPage() {
                 </p>
               </div>
 
-              {/* DATE & TIME */}
               <div>
                 <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">
                   DATE &amp; TIME
@@ -232,10 +202,8 @@ export default function ManageEventViewingPage() {
                 </p>
               </div>
 
-              {/* TAGS */}
               <div>
                 <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">TAGS</h2>
-                {/* TAGS */}
                 <div className="flex flex-wrap gap-1 text-sm">
                   {tags.map((item, idx) => (
                     <Link
@@ -253,7 +221,6 @@ export default function ManageEventViewingPage() {
                 </div>
               </div>
 
-              {/* SHARE */}
               <div className="space-y-4">
                 <p className="text-gray-200 text-xl font-medium">
                   Share with loved ones
@@ -270,7 +237,6 @@ export default function ManageEventViewingPage() {
                 </div>
               </div>
 
-              {/* ADDRESS */}
               <div className="flex items-center gap-2 text-gray-300 text-sm">
                 <FaLocationDot size={18} className="text-[#FF4D2A]" />
                 <span>2118 Thornridge Cir, Syracuse, Connecticut 35624</span>
@@ -278,7 +244,6 @@ export default function ManageEventViewingPage() {
             </div>
           </div>
 
-          {/* MAP & LOCATE */}
           <div className="mt-3 lg:mt-0 flex max-sm:flex-col lg:grid h-full w-full grid-rows-[63.5%_31%] lg:gap-11 gap-6">
             <div className="relative w-full h-[16em] lg:h-full">
               <Image
@@ -307,10 +272,8 @@ export default function ManageEventViewingPage() {
         </div>
       </section>
 
-      {/* ATTENDEES & CANCEL BUTTON */}
       <section className="w-full">
         <div className="flex justify-between items-center w-full max-sm:px-1 max-sm:gap-1">
-          {/* Left: Avatars + View all attendees */}
           <div className="flex items-center cursor-pointer max-sm:gap-1">
             <div className="flex -space-x-3">
               {attendees.map((src, i) => (
@@ -318,7 +281,7 @@ export default function ManageEventViewingPage() {
                   key={i}
                   src={src}
                   alt={`Attendee ${i + 1}`}
-                  width={30} // smaller avatar for mobile
+                  width={30} 
                   height={30}
                   className="rounded-full ring-2 ring-black transition-transform duration-200 hover:-translate-y-1 max-sm:w-[28px] max-sm:h-[28px]"
                   unoptimized
@@ -332,7 +295,6 @@ export default function ManageEventViewingPage() {
             </Link>
           </div>
 
-          {/* Right: Cancel Button */}
           <Button className="bg-red-600 hover:bg-red-700 text-white flex items-center gap-2 px-3 py-1 max-sm:px-2 max-sm:py-1 max-sm:text-xs max-sm:gap-1">
             <span>Cancel event</span>
             <MdDelete size={14} className="max-sm:w-3 max-sm:h-3" />
