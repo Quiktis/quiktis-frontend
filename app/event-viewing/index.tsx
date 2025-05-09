@@ -2,17 +2,17 @@
 import React from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import { IoTicketSharp } from "react-icons/io5";
 import { BsPlus } from "react-icons/bs";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { RiFileCopy2Fill } from "react-icons/ri";
 import NewEventCard from "@/components/search/NewEventCard";
 import Link from "next/link";
-import Input from "@/components/ui/Input";
 import { useState } from "react";
-import InputField from "@/components/ui/InputFields";
 import { FaStar } from "react-icons/fa";
-import StarRating from "@/components/StarRating";
+import { MdOutlineAccessTimeFilled } from "react-icons/md";
+import manageStyles from "@/app/manage-event-viewing/page.module.css";
 
 const tags = [
   { tag: "Syracuse Events" },
@@ -28,44 +28,6 @@ const socials = [
   { icon: <FaInstagram size={24} />, href: "" },
   { icon: <FaTwitter size={24} />, href: "" },
   { icon: <FaLinkedin size={24} />, href: "" },
-];
-
-const reviews = [
-  {
-    profileImage: "/user_profile.png",
-    name: "Guy Hawkins",
-    review:
-      "I appreciate the precise short videos (10 mins or less each) because overly long videos tend to make me lose focus. The instructor is very knowledgeable in Web Design and it shows as he shares his knowledge. These were my best 6 months of training. Thanks, Vako.",
-    rating: 5,
-  },
-  {
-    profileImage: "/user_profile.png",
-    name: "Guy Hawkins",
-    review:
-      "I appreciate the precise short videos (10 mins or less each) because overly long videos tend to make me lose focus. The instructor is very knowledgeable in Web Design and it shows as he shares his knowledge. These were my best 6 months of training. Thanks, Vako.",
-    rating: 5,
-  },
-  {
-    profileImage: "/user_profile.png",
-    name: "Guy Hawkins",
-    review:
-      "I appreciate the precise short videos (10 mins or less each) because overly long videos tend to make me lose focus. The instructor is very knowledgeable in Web Design and it shows as he shares his knowledge. These were my best 6 months of training. Thanks, Vako.",
-    rating: 5,
-  },
-  {
-    profileImage: "/user_profile.png",
-    name: "Guy Hawkins",
-    review:
-      "I appreciate the precise short videos (10 mins or less each) because overly long videos tend to make me lose focus. The instructor is very knowledgeable in Web Design and it shows as he shares his knowledge. These were my best 6 months of training. Thanks, Vako.",
-    rating: 5,
-  },
-  {
-    profileImage: "/user_profile.png",
-    name: "Guy Hawkins",
-    review:
-      "I appreciate the precise short videos (10 mins or less each) because overly long videos tend to make me lose focus. The instructor is very knowledgeable in Web Design and it shows as he shares his knowledge. These were my best 6 months of training. Thanks, Vako.",
-    rating: 5,
-  },
 ];
 
 const relatedEvents = [
@@ -176,7 +138,7 @@ export default function EventViewingPage() {
       <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
         <div className="relative w-full h-full">
           <Image
-            src={"/party1.png"} 
+            src={"/battle1.png"} 
             alt="Event header"
             layout="fill"
             objectFit="cover"
@@ -185,109 +147,166 @@ export default function EventViewingPage() {
           />
         </div>
       </section>
-
       <section>
         <div className="w-full flex max-sm:flex-wrap md:gap-[4em] h-[max-content]">
           <div className="h-full">
-            <h1 className="text-[40px] font-primary font-bold max-w-[100%] lg:max-w-[80%]">
-              EVENT TITLE LOREM IPSUM DOLOR SIT SMET
+            <h1 className="text-[40px] font-primary font-bold whitespace-nowrap">
+              The Battle Of The Bots 2025
             </h1>
             <p className="text-gray-500 font-secondary">By mention Creator</p>
           </div>
-          <div className="grid h-full mr-0 md:ml-auto my-auto md:mt-0 mt-5 md:w-fit w-full">
-            <Button
-              onClick={() => {}}
-              className="text-[16px]  md:w-[150px]  flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary ">
-              Get Ticket $70
-            </Button>
+          <div className="grid h-full mr-0 md:ml-auto mt-4 md:mt-0 md:w-fit w-full">
+            <Link href="/concert-ticket" passHref>
+              <span className="text-[#FF4D2A] text-[1.3em] font-semibold flex items-center justify-center gap-2 cursor-pointer hover:no-underline">
+                Get Ticket $70 <IoTicketSharp size={20} />
+              </span>
+            </Link>
           </div>
         </div>
       </section>
       <section className="relative">
         <div className="absolute w-[73%] h-[65em] top-[-12em] radial-gradient blur-3xl opacity-50"></div>
         <div className="relative flex flex-col gap-3 lg:grid grid-cols-[65%_32%] h-[max-content] w-full lg:gap-11">
-          <div className="h-fit w-fit min px-9 lg:px-16 py-5 lg:py-9 glass-bg shadow-xl shadow-white rounded-[40px] font-secondary">
-            <h1 className="text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
-              DESCRIPTION
-            </h1>
-            <p>
-              {
-                "Lorem ipsum dolor sit amet consectetur. Odio praesent elementum vivamus aliquet est. Libero diam quisque elementum pharetra risus egestas at egestas. Vestibulum venenatis dignissim viverra est amet porta amet ipsum viverra. Lectus morbi egestas viverra sit blandit nulla odio semper. Quam hendrerit venenatis arcu urna cras tempus maecenas. Sed diam quam et volutpat enim mattis etiam diam pharetra. Gravida viverra ut elementum nunc urna donec. Purus a sit senectus elit."
-              }
-            </p>
+          <div
+            className={`
+              relative z-10
+              h-fit w-fit
+              max-md:px-4 md:px-9 lg:px-16
+              py-3 lg:py-9
+              shadow-xl
+              ${manageStyles.glassOverride}
+            `}>
+            <div
+              className="
+                absolute w-[500px] h-[500px]
+                rounded-full
+                bg-[#FF4D2A]/35
+                filter blur-[100px]
+                top-1/2 left-1/2
+                transform -translate-x-1/2 -translate-y-1/2
+                pointer-events-none
+              "
+            />
 
-            <h1 className="mt-6 text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
-              DATE & TIME
-            </h1>
-            <div className="flex gap-3 w-full max-sm:flex-wrap sm:flex-wrap">
-              <p className="text-gray-300">Saturday, June 22 · 8am - 6pm WAT</p>
-              <button className="text-gray-300 mr-0 max-sm:ml-0 sm:ml-0  md:ml-auto flex  gap-1 text-primary">
-                <BsPlus size={24} className="m-auto" /> Add to Calender
-              </button>
-            </div>
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                borderRadius: "24px",
+                borderTop: "1px solid rgba(255,255,255,0.8)",
+                borderLeft: "1px solid rgba(255,255,255,0.8)",
+                borderRight: "1px solid rgba(255,255,255,0.8)",
+                borderBottom: "none",
+                maskImage:
+                  "linear-gradient(to bottom, white 0%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, white 0%, transparent 100%)",
+              }}
+            />
 
-            <h1 className="mt-6 text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
-              TAGS
-            </h1>
-            <div className="flex flex-wrap gap-2">
-              {tags.map((item, index) => (
-                <Link
-                  key={index}
-                  href="#"
-                  className="bg-[#ffffff18] px-4 py-3 shadow-2xl rounded-xl mb-1 hover:border-2 hover:border-white border-2 border-[transparent]">
-                  {item.tag}
-                </Link>
-              ))}
-            </div>
-
-            <h1 className="mt-6 text-[1.5em] lg:text-[30px] font-primary font-semibold max-w-[100%] lg:max-w-[80%]">
-              Share with loved ones
-            </h1>
-            <div className="flex gap-4 flex-wrap">
+            <div className="relative space-y-8">
               <div>
-                <span className="mt-4 flex gap-4 text-primary">
-                  {socials.map((item, index) => (
-                    <Link key={index} href="#" className="hover:text-white">
-                      {item.icon}
-                    </Link>
-                  ))}
-                </span>
-                <p className="mt-6 flex gap-1">
-                  <FaLocationDot size={20} className="my-auto text-primary" />{" "}
-                  2118 Thornridge Cir. Syracuse, Connecticut 35624
+                <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">
+                  DESCRIPTION
+                </h2>
+                <p className="text-white text-sm leading-relaxed">
+                  Lorem ipsum dolor sit amet consectetur. Odio praesent
+                  elementum vivamus aliquet est. Libero diam quisque elementum
+                  pharetra risus egestas at egestas. Vestibulum venenatis
+                  dignissim viverra est amet porta amet ipsum viverra. Lectus
+                  morbi egestas viverra sit blandit nulla odio semper. Quam
+                  hendrerit venenatis arcu urna cras tempus maecenas. Sed diam
+                  quam et volutpat enim mattis etiam diam pharetra. Gravida
+                  viverra ut elementum nunc urna donec. Purus a sit senectus
+                  elit.
                 </p>
               </div>
+              <div>
+                <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">
+                  DATE &amp; TIME
+                </h2>
 
-              <Button
-                onClick={() => {}}
-                className="mr-0 md:ml-auto mb-0 mt-auto  text-[16px] w-[150px] h-fit flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary ">
-                Get Tickets
-              </Button>
+                <div className="flex flex-wrap gap-x-6 gap-y-3 items-center text-white text-sm">
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src="/icons/date.png"
+                      alt="Calendar icon"
+                      width={18}
+                      height={18}
+                    />
+                    <span>Friday, June 27th 2025</span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <MdOutlineAccessTimeFilled size={18} />
+                    <span>9:00 AM - 4:00 PM UTC</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">TAGS</h2>
+                <div className="flex flex-wrap gap-1 text-sm">
+                  {tags.map((item, idx) => (
+                    <Link
+                      key={idx}
+                      href="#"
+                      className="
+                        px-2 py-1
+                        bg-white/10 backdrop-blur-sm
+                        rounded-xl mb-1
+                        hover:bg-white/20 transition
+                      ">
+                      <span className="text-body-txt">{item.tag}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <p className="text-white text-xl font-medium">
+                  Share with loved ones
+                </p>
+                <div className="flex gap-4">
+                  {socials.map((s, i) => (
+                    <Link
+                      key={i}
+                      href={s.href}
+                      className="text-[#FF4D2A] hover:text-[#FF4D2A]/80 transition-colors">
+                      {s.icon}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 text-white text-sm">
+                <FaLocationDot size={18} className="text-[#FF4D2A]" />
+                <span>2118 Thornridge Cir, Syracuse, Connecticut 35624</span>
+              </div>
             </div>
           </div>
-          <div className="mt-3 lg:mt-0 flex max-sm:flex-col lg:grid h-full w-full grid-rows-[63.5%_31%] lg:gap-11 gap-6">
-            <div className="relative w-full h-[16em] lg:h-full">
+
+          <div className="-mt-2 flex flex-col gap-7">
+            <div className="relative w-full h-[27em] rounded-[30px] overflow-hidden">
               <Image
-                src={"/map.png"}
-                alt="party 1"
+                src="/map.png"
+                alt="Map view"
                 layout="fill"
                 objectFit="cover"
-                className="rounded-[30px]"
                 objectPosition="50% 80%"
                 unoptimized
               />
             </div>
-            <div className="relative w-full h-[16em]  lg:h-full bg-white rounded-[30px] px-8 py-7 text-black flex flex-col gap-2 ">
+
+            <div className="bg-white rounded-[30px] px-8 py-6 text-black flex flex-col gap-3">
               <h2 className="text-[1.3em] font-semibold">Locate</h2>
-              <p className=" text-gray-800">
-                2118 Thornridge Cir. Syracuse, Connecticut 35624
-              </p>
-              <button className="mt-1 w-fit text-primary flex gap-2">
-                <RiFileCopy2Fill size={20} className="my-auto" /> Copy Location
+              <p className="text-black">Podium, Lagos</p>
+              <button className="inline-flex items-center text-primary gap-2">
+                <RiFileCopy2Fill size={20} /> Copy Location
               </button>
+
               <Button
                 onClick={() => {}}
-                className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[16px] w-full h-fit flex items-center justify-center py-3 px-2 bg-primary ">
+                className="mt-auto text-[16px] w-full py-3 px-4 bg-primary font-secondary">
                 Open Map
               </Button>
             </div>
@@ -295,101 +314,30 @@ export default function EventViewingPage() {
         </div>
       </section>
 
-      <section className="max-sm:flex flex-col grid grid-cols-2 gap-6 mt-3">
-        <Button
-          onClick={() => {}}
-          className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[1.2em] w-full h-fit flex items-center justify-center py-4 px-2 bg-primary shadow-xl shadow-[#eeab8536]">
-          Buy with Card
-        </Button>
-        <Button
-          onClick={() => {}}
-          className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[1.2em] w-full h-fit flex items-center justify-center py-4 px-2 bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl shadow-[#85d5ee36]">
-          Buy with Crypto
-        </Button>
-      </section>
-
-      <section className="relative mt-3">
-        <div className="grid grid-cols-3 absolute w-full">
-          <div className=" w-full h-[28em] top-[-12em] radial-gradient blur-3xl opacity-[30%]"></div>
-          <div className=" w-full h-[25em] bg-[transparent]"></div>
-          <div className=" w-full h-[30em] mt-[5em] radial-gradient blur-3xl opacity-[38%]"></div>
-        </div>
-
-        <div className="border-2 glass-bg-dark border-[#ffffff56] px-[2em] lg:px-[4em] py-4 pt-8 lg:pt-12 rounded-[2em]">
-          <h2 className="text-[2.2em] font-inter font-medium">
-            Write a review
-          </h2>
-
-          <StarRating
-            rating={rating}
-            setRating={setRating}
-            size={24}
-            className="my-7"
-          />
-
-          <form className="flex flex-col gap-[2.5em] w-full lg:w-[50%] mt-[2.8em] mb-4">
-            <InputField
-              value={email}
-              label="Email"
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              placeholder="Input email"
-              required={true}
-            />
-            <div className="relative grid">
-              <label className="absolute bg-[#0c0c0c] top-[-0.8em] text-primary left-2 px-1 font-semibold">
-                Message
-              </label>
-              <textarea
-                placeholder="Leave us a message"
-                className=" focus:outline-orange-500 px-4 py-4 bg-[transparent] h-[12em] border rounded-md border-[#ffffff56]"></textarea>
-              <div className="mt-4 gap-4 grid grid-cols-[1fr_1.6fr] w-[65%]">
-                <button
-                  className="border border-[#ffffff56] rounded-xl px-3 py-4 w-full hover:bg-[#ffffff11]"
-                  type="button">
-                  Cancel
-                </button>
-                <button className="bg-primary border-[#ffffff56] rounded-xl px-3 py-4 w-full">
-                  Submit Review{" "}
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      <section className="border-2 glass-bg-dark border-[#ffffff56] px-[2.5em] rounded-[2em] py-12 pb-6 shadow-xl ">
-        {reviews.map((review, index) => (
-          <div key={index}>
-            <div className="grid grid-cols-[45px_auto] w-full rounded-full gap-3">
-              <div className="relative w-[45px] h-[45px] grid grid-cols-[45px_auto] rounded-full">
-                <Image
-                  src={review.profileImage}
-                  alt="profile image"
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-full"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <h1>{review.name}</h1>
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar
-                      key={i}
-                      className={
-                        i < review.rating ? "text-yellow-500" : "text-gray-400"
-                      }
-                    />
-                  ))}
-                </div>
-                <p>{review.review}</p>
-              </div>
-            </div>
-            <hr className="my-6 border-gray-600"></hr>
+      <section className="max-sm:flex flex-col grid grid-cols-2 gap-6 mt-3 relative z-10">
+        {/* Buy with Card */}
+        <Link href="/checkout">
+          <div className="w-full">
+            <button className="font-secondary text-[1.2em] w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-primary shadow-xl shadow-[#eeab8536] cursor-pointer rounded-md hover:opacity-90 transition-all">
+              Buy with Card <IoTicketSharp size={20} />
+            </button>
           </div>
-        ))}
+        </Link>
+
+        {/* Buy with Crypto */}
+        <Link href="/checkout">
+          <div className="w-full">
+            <button className="font-secondary text-[1.2em] w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl shadow-[#85d5ee36] cursor-pointer rounded-md hover:opacity-90 transition-all">
+              Buy with Crypto
+              <Image
+                src="/icons/crypto.png"
+                alt="Crypto icon"
+                width={20}
+                height={20}
+              />
+            </button>
+          </div>
+        </Link>
       </section>
 
       <section className="mt-16">
