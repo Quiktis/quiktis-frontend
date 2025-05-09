@@ -6,7 +6,7 @@ import AttendeeDetails from "@/components/checkout/AttendeeDetails";
 
 export default function CheckoutPage() {
   const [quantity, setQuantity] = useState(1);
-  const pricePerTicket = 200;
+  const pricePerTicket = 2000;
   const total = pricePerTicket * quantity;
 
   return (
@@ -42,12 +42,34 @@ export default function CheckoutPage() {
         </div>
 
         <div className="pt-8">
-          <h2 className="text-2xl font-semibold">
-            Attendee Details <span className="text-gray-400">(Optional)</span>
+          <h2 className="font-semibold text-white mb-2">
+            <span className="text-4xl">Attendee Details</span>{" "}
+            <span className="text-4xl text-white font-normal">
+              (Optional)
+            </span>
           </h2>
-          <p className="text-gray-400">Confirm recipient details</p>
-          <AttendeeDetails />
+          <p className="text-white mb-6">Confirm recipient details</p>
+          <div className="w-full md:w-6/10">
+             <AttendeeDetails />
+          </div>
         </div>
+
+        <div className="mt-8 flex justify-end">
+  <button
+    className="
+      px-8 py-4 
+      bg-[#FF4D2A] 
+      text-white 
+      rounded-lg 
+      hover:bg-[#e6391a] 
+      transition-colors 
+      shadow-[0_0_20px_rgba(255,77,42,0.6)] 
+      active:shadow-[0_0_5px_rgba(255,77,42,0.3)]
+    "
+  >
+    Pay NGN2000
+  </button>
+</div>
       </div>
     </main>
   );
