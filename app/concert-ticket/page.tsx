@@ -12,7 +12,6 @@ export default function Home() {
         ticketType="GENERAL ADMISSION"
         ticketHolder="JOHN DOE"
         ticketNumber="ETK-2049-AFRO"
-        // ← no logoUrl or qrCodeUrl here!
       />
     </main>
   );
