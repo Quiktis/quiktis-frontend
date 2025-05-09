@@ -1,11 +1,9 @@
-/* app/manage-event-viewing/page.module.css */
 
 .glassOverride {
-  position: relative; /* for our overlays */
-  overflow: hidden; /* clip glow & border to the radius */
-  border-radius: 24px; /* match v0’s radius */
+  position: relative; 
+  overflow: hidden; 
+  border-radius: 24px; 
 
-  /* v0’s semi-opaque dark glass */
   background: rgba(33, 29, 28, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
