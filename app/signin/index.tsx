@@ -71,8 +71,15 @@ const LoginPage: React.FC = () => {
           role: response.data.user.role,
           token: response.data.token,
         };
+
+        const userForStorage = {
+          userId: response.data.user.id,
+          name: response.data.user.name,
+          email: response.data.user.email,
+        };
+
         setUser(user);
-        localStorage.setItem("quiktis_user", JSON.stringify(user));
+        localStorage.setItem("quiktis_user", JSON.stringify(userForStorage));
         router.push("/dashboard");
       }
     } catch (error) {

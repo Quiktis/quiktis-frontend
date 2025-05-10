@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link"; 
 import useAxios from "../hooks/useAxios";
 
-interface User {
+export interface User {
   userId?: string | null;
   email?: string | null;
   name?: string | null;
@@ -32,6 +32,8 @@ interface UserContextType {
   profilePreview: string | null;
   setProfilePreview: React.Dispatch<React.SetStateAction<string | null>>;
 }
+
+
 
 const menuItems = [
   { name: "Home", path: "/" },
@@ -71,7 +73,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true); // Loading state to track when user data is ready
   const pathname = usePathname(); // Get current route path
 
-  useEffect(() => {
+  
     const clearLocalStorage = () => {
       
         console.log("Clearing local storage...");
@@ -110,6 +112,40 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         console.error("Failed to load user from localStorage:", err);
       }
     };
+
+    const fetchUserProfile = async () => {
+      try {
+        const response = await sendRequest({
+          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/profile`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${user.token}`
+          }
+        });
+  
+        if (response?.data?.picture) {
+          // Update user state with the fetched profile picture
+          setUser(prev => ({
+            ...prev,
+            picture: response.data.picture
+          }));
+          // Update profile preview with the fetched picture
+          setProfilePreview(response.data.picture);
+          
+          // Update local storage
+          const storedUser = localStorage.getItem("quiktis_user");
+          if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            parsedUser.picture = response.data.picture;
+            localStorage.setItem("quiktis_user", JSON.stringify(parsedUser));
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
+    useEffect(() => {
   
     const initializeUser = async () => {
       //clearLocalStorage();
@@ -121,6 +157,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
       if (tokenExists) {
         fetchUserFromLocalStorage(); 
+        await fetchUserProfile();
       }
   
       setLoading(false);

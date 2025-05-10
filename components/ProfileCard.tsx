@@ -1,4 +1,3 @@
-
 import React from "react";
 import Link from "next/link";
 import {
@@ -9,8 +8,8 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import ProfileImageUploader from "./ProfileImageUploader/ProfileImageUploader";
-import { useUser } from "@/app/context/UserContext";
-import { Container } from "postcss";
+import { useUser, User } from "@/app/context/UserContext";
+import useAxios from "@/app/hooks/useAxios";
 
 interface ProfileCardProps {
   name?: string;
@@ -24,7 +23,89 @@ const ProfileCard: React.FC<ProfileCardProps> = (
   {containerClass
   }) => {
 
-    const { user, setProfile, setProfilePreview, profilePreview } = useUser();
+    const { sendRequest } = useAxios();
+    const { user, setProfile, setProfilePreview, profilePreview, setUser } = useUser();
+
+    // ...existing code...
+
+const handleProfileSave = async (croppedImage: string) => {
+  try {
+    // Convert base64 string to file
+    const response = await fetch(croppedImage);
+    const blob = await response.blob();
+    const file = new File([blob], "profile.jpg", { type: "image/jpeg" });
+
+    // Create FormData
+    const formData = new FormData();
+    formData.append("files", file);
+
+    // Upload the image - Remove Content-Type header for FormData
+    const uploadResponse = await sendRequest({
+      url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/medias/upload`,
+      method: "POST",
+      headers: { 
+        Authorization: `Bearer ${user?.token}`
+      },
+      body: formData,
+    });
+
+    console.log("Upload response:", uploadResponse); // Debug log to see response structure
+
+
+    if ( uploadResponse?.status !== "success") {
+      console.error("Full upload response:", JSON.stringify(uploadResponse));
+      throw new Error("Failed to get image URL from upload response");
+    }
+
+    let imageUrl = uploadResponse.data.files[0]?.cloudinaryUrl; // Adjust this based on the actual response structure
+    console.log("Image URL:", imageUrl); // Debug log to see the image URL
+
+    // Update user profile with the new image URL
+    const updateProfileResponse = await sendRequest({
+      url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${user?.userId}`,
+      method: "PATCH",
+      headers: { 
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user?.token}`
+      },
+      body: JSON.stringify({
+        picture: imageUrl // Use the extracted URL
+      }),
+    });
+
+    
+    console.log("Update profile response:", updateProfileResponse); // Debug log to see response structure
+
+    if (updateProfileResponse?.status !== "success") {
+      //console.error("Profile update response:", updateProfileResponse);
+      setUser({
+        ...user,
+        picture: imageUrl,
+      } as User);
+      //throw new Error("Failed to update profile");
+    }
+
+   // Update local user state
+   /*setUser({
+    ...user,
+    picture: imageUrl,
+  } as User);*/
+
+    // Update local storage
+    const storedUser = localStorage.getItem("quiktis_user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      parsedUser.picture = imageUrl; // Update the picture property
+      localStorage.setItem("quiktis_user", JSON.stringify(parsedUser));
+    }
+
+    return imageUrl; // Return the URL for the ProfileImageUploader
+
+  } catch (error) {
+    console.error("Error uploading profile image:", error);
+    throw error;
+  }
+};
 
   return (
     <section className={containerClass}>
@@ -35,14 +116,15 @@ const ProfileCard: React.FC<ProfileCardProps> = (
         preview={profilePreview}
         setPreview={setProfilePreview}
         setImage={setProfile}
+        onSave={handleProfileSave}
       />
           <div className="h-fit my-auto">
           <div className="flex max-md:gap-3 gap-[3em] justify-between ">
           
           <div className="flex flex-col">
-            <h2 className="text-xl font-semibold w-fit">{/*Jaxson Siphron*/user.name}</h2>
+            <h2 className="text-xl font-semibold w-fit">{user.name}</h2>
             <p className="text-gray-300 text-xs sm:text-sm w-fit">
-              {/*Jaxsonsiphron@gmail.com*/ user.email}
+              {user.email}
             </p>
           </div>
           <div className="hidden justify-center gap-4 h-fit my-auto">

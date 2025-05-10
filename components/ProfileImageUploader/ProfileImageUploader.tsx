@@ -13,6 +13,7 @@ interface ProfileImageUploaderProps {
   setImage: React.Dispatch<React.SetStateAction<File | null>>;
   label?: string;
   containerClass?: string;
+  onSave: (croppedImage: string) => Promise<string | void>;
 }
 
 const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({
@@ -21,6 +22,7 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({
   setPreview,
   label = "Upload Profile Picture",
   containerClass = "",
+  onSave,
 }) => {
   const [error, setError] = useState<string>("");
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -28,6 +30,7 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
   const [isCropperVisible, setIsCropperVisible] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   // Generate a unique ID for each instance of the component
   const uniqueId = useMemo(() => 
@@ -93,6 +96,27 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({
     setIsCropperVisible(false);
   };
 
+  const handleCropAndSave = async () => {
+    if (!preview || !croppedAreaPixels) return;
+    
+    try {
+      setIsSaving(true);
+      const croppedImage = await getCroppedImg(preview, croppedAreaPixels) as string;
+      
+      // Call the onSave prop with the cropped image
+      await onSave(croppedImage);
+      
+      // Update the preview with the cropped image
+      setPreview(croppedImage);
+      setIsCropperVisible(false);
+    } catch (error) {
+      console.error('Error saving profile image:', error);
+      alert('Failed to save profile image. Please try again.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
     <div className={`relative flex flex-col md:w-[7em] md:h-[7em] w-[5em] h-[5em] z-[900]`}>
       {preview && !isCropperVisible ? (
@@ -118,10 +142,11 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({
               </div>
 
               <button
-            onClick={handleCrop}
+            onClick={handleCropAndSave}
+            disabled={isSaving}
             className="px-[1.5em] py-2 bg-primary rounded-md font-medium"
           >
-            Save
+            {isSaving ? 'Saving...' : 'Save'}
           </button>
               
             </div>

@@ -128,15 +128,15 @@ function CreateEventPage() {
       throw new Error("Base URL is not defined in the environment variables.");
     }
 
-    console.log("uploading image to:", `${baseUrl}/media/upload`);
+    console.log("uploading image to:", `${baseUrl}/medias/upload`);
     console.log(user?.token, "user token")
 
       // Make the POST request to upload the image
       const response = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/media/upload`,
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/medias/upload`,
         method: "POST",
         headers: { 
-          "Content-Type": "multipart/form-data", 
+          //"Content-Type": "multipart/form-data", 
           "Authorization": `Bearer ${user?.token}`
         },
         body: formData,

@@ -32,18 +32,17 @@ const socials = [
 ];
 
 
-function formatDateToText(dateString: string): string {
-  // Split the input date string into day, month, and year
-  const [day, month, year] = dateString.split("/").map(Number);
+function formatDateToText(date: Date): string {
+  // Get day, month, and year from the Date object
+  const day = date.getDate();
+  const month = date.getMonth(); // getMonth() returns 0-11
+  const year = date.getFullYear();
 
   // Define an array of month names
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
-
-  // Get the full year from the two-digit year
-  const fullYear = 2000 + year;
 
   // Add ordinal suffix to the day
   const ordinalSuffix = (n: number) => {
@@ -59,7 +58,7 @@ function formatDateToText(dateString: string): string {
   const dayWithSuffix = `${day}${ordinalSuffix(day)}`;
 
   // Return the formatted date
-  return `${dayWithSuffix} ${monthNames[month - 1]} ${fullYear}`;
+  return `${dayWithSuffix} ${monthNames[month]} ${year}`;
 }
 
 
@@ -129,7 +128,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({uploadImage, preview, even
               DATE & TIME
             </h1>
             <div className="flex gap-3 w-full max-sm:flex-wrap sm:flex-wrap">
-              <p className="text-gray-300">{formatDateToText(eventData?.startDate) || ""}, {eventData?.startTime || ""} - {eventData?.endTime || ""}</p>
+              <p className="text-gray-300">{eventData?.startDate ? formatDateToText(new Date(eventData.startDate)) : ""}, {eventData?.startTime || ""} - {eventData?.endTime || ""}</p>
               <button className="text-gray-300 mr-0 max-sm:ml-0 sm:ml-0  md:ml-auto flex  gap-1 text-primary">
                 <BsPlus size={24} className="m-auto" /> Add to Calender
               </button>
@@ -149,7 +148,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({uploadImage, preview, even
               ))}
             </div>
 
-            <h1 className="mt-6 max-md:text-[1.1em] text-[1.5em] lg:text-[30px] font-primary font-semibold max-w-[100%] lg:max-w-[80%]">
+            <h1 className="mt-6 max-md:text-[1.1em] text-[1.5em] lg:text-[25px] font-primary font-semibold max-w-[100%] lg:max-w-[80%]">
               Share with loved ones
             </h1>
             <div className="flex gap-4 flex-wrap">

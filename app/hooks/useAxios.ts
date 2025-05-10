@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 interface RequestParams {
   url: string;
-  method?: "GET" | "POST" | "PUT" | "DELETE";
+  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS";
   body?: any;
   headers?: Record<string, string>;
   retryCount?: number;
@@ -66,7 +66,10 @@ const useAxios = () => {
         method,
         data: body,
         headers: {
-          ...(body ? { "Content-Type": "application/json" } : {}),
+          // Only set Content-Type if body is not FormData
+          ...(!body || !(body instanceof FormData) 
+            ? { "Content-Type": "application/json" } 
+            : {}),
           ...headers,
         },
         withCredentials,

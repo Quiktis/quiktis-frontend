@@ -60,8 +60,15 @@ const GoogleCallbackPage = () => {
           token: authResponse.token,
         };
 
+        const userForStorage = {
+          userId: authResponse.data.id,
+          name: authResponse.data.name,
+          email: authResponse.data.email,
+        };
+
+
         // Save user data directly to localStorage
-        localStorage.setItem("quiktis_user", JSON.stringify(user));
+        localStorage.setItem("quiktis_user", JSON.stringify(userForStorage));
 
         // Update global state with user data
         setUser(user);

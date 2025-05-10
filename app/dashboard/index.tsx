@@ -64,55 +64,11 @@ const CreateEvent = () => {
       console.log(error);
     } finally {
       setLoading(false); // Reset loading state
-      router.push("/");
+      router.push("/signin");
     }
   };
 
-  const uploadImage = async (image: any) => {
-    if (!image) {
-      alert("Please select an image to upload.");
-      return;
-    }
-
-    try {
-      // Create a FormData object to send the image file
-      const formData = new FormData();
-      formData.append("file", image); // Assuming `image` is a File object
-
-      // Use the base URL from the environment variable
-    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-    if (!baseUrl) {
-      throw new Error("Base URL is not defined in the environment variables.");
-    }
-
-    console.log("uploading image to:", `${baseUrl}/media/upload`);
-    console.log(user?.token, "user token")
-
-      // Make the POST request to upload the image
-      const response = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/media/upload`,
-        method: "POST",
-        headers: { 
-          "Content-Type": "multipart/form-data", 
-          "Authorization": `Bearer ${user?.token}`
-        },
-        body: formData,
-      });
-
-      console.log(response, "response data")
-      // Extract the URL from the response
-      const imageUrl = response.url;
-
-      // Update the eventData state with the returned URL
-      setProfile(image);
-      
-
-      console.log("Image uploaded successfully:", imageUrl);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      alert("Failed to upload the image. Please try again.");
-    }
-  };
+ 
 
   return (
     <main className="flex flex-col gap-5 w-full relative min-h-screen sm:w-[88%] lg:w-[90%] mx-auto">
