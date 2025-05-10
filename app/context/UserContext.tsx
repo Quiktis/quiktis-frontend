@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { usePathname } from "next/navigation"; // Import usePathname from next/navigation
-import NewHeader from "@/components/NewHeader";
+//import NewHeader from "@/components/NewHeader";
 import Image from "next/image";
 import Link from "next/link"; 
 import useAxios from "../hooks/useAxios";
@@ -27,6 +27,10 @@ interface UserContextType {
   setUser: (user: User) => void;
   googleUser: GoogleUser;
   setGoogleUser: (googleUser: GoogleUser) => void;
+  profile?: File | null;
+  setProfile:  React.Dispatch<React.SetStateAction<File | null>>;
+  profilePreview: string | null;
+  setProfilePreview: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const menuItems = [
@@ -57,6 +61,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     location: null,
     token: null,
   });
+
+  const [profile, setProfile] = useState<File | null>(null);
+  const [profilePreview, setProfilePreview] = useState<string | null>(null);
 
   const { sendRequest } = useAxios(); // Custom hook for making API requests
 
@@ -208,7 +215,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, googleUser, setGoogleUser }}>
+    <UserContext.Provider value={{ user, setUser, googleUser, setGoogleUser, profile, setProfile, profilePreview, setProfilePreview }}>
       {children}
     </UserContext.Provider>
   );

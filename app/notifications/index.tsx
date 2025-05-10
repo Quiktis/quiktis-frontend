@@ -2,6 +2,8 @@
 import React from "react";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import NotificationItem from "@/components/dashboard/NotificationItem";
+import ProfileCard from "@/components/ProfileCard";
+import EventsOperations from "@/components/EventsOperations";
 
 interface Notification {
   id: number;
@@ -100,19 +102,19 @@ const notificationsData: Notification[] = [
 
 const NotificationsPage = () => {
   return (
-    <main className="bg-transparent text-white min-h-screen">
-      <div className="py-4">
-        <DashboardNav />
-      </div>
+    <main className="flex flex-col gap-5 w-full relative min-h-screen sm:w-[88%] lg:w-[90%] mx-auto">
+      
+        <EventsOperations />
+      
 
-      <div className="py-10">
+      <div className="">
         <h1 className="text-4xl font-bold mb-2">Notifications</h1>
         <p className="text-gray-400 mb-6">
           Discover events based on your interests. Food, Shows, Gigs...
         </p>
 
-        <ul className="space-y-2">
-          {notificationsData.map((notification) => (
+        <ul className=" w-full h-[30vh] space-y-2">
+          {/*notificationsData.map((notification) => (
             <NotificationItem
               key={notification.id}
               text={notification.text}
@@ -120,7 +122,8 @@ const NotificationsPage = () => {
               subText={notification.subText}
               time={notification.time}
             />
-          ))}
+          ))*/}
+         <hr className="border-gray-500 w-full"></hr>
         </ul>
       </div>
     </main>

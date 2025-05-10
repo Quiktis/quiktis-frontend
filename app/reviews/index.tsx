@@ -3,6 +3,7 @@ import React from "react";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import RatingOverview from "@/components/Reviews/RatingOverview";
 import ReviewsList from "@/components/Reviews/ReviewsList";
+import EventsOperations from "@/components/EventsOperations";
 
 const ReviewsPage = () => {
   const overallRating = 4.0;
@@ -74,10 +75,10 @@ const ReviewsPage = () => {
   ];
 
   return (
-    <main className="bg-transparent text-white min-h-screen py-10">
-      <DashboardNav />
+    <main className="flex flex-col gap-5 w-full relative min-h-screen sm:w-[88%] lg:w-[90%] mx-auto">
+      <EventsOperations />
 
-      <h1 className="text-2xl sm:text-3xl font-bold mt-8 mb-4">Reviews</h1>
+      <h1 className="text-2xl sm:text-3xl font-medium mb-6">Reviews and rating</h1>
 
       <RatingOverview
         overallRating={overallRating}

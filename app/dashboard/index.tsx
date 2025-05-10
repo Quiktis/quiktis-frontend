@@ -15,8 +15,8 @@ import useAxios from "../hooks/useAxios";
 import Dropdown from "@/components/ui/DropDown";
 import ImageUploader from "@/components/ImageUploader";
 import { useState } from "react";
-import { images } from "@/constant/images";
-import ProfileImageUploader from "@/components/ProfileImageUploader/ProfileImageUploader";
+//import { images } from "@/constant/images";
+
 
 const CreateEvent = () => {
   const { sendRequest, loading, setLoading } = useAxios();
@@ -26,9 +26,12 @@ const CreateEvent = () => {
   const [image2, setImage2] = useState<File | null>(null);
   const [preview1, setPreview1] = useState<string | null>(null);
   const [preview2, setPreview2] = useState<string | null>(null);
+  const { profilePreview, setProfile } = useUser();
 
-  const [profile, setProfile] = useState<File | null>(null);
-  const [profilePreview, setProfilePreview] = useState<string | null>(null);
+
+
+  //const [profile, setProfile] = useState<File | null>(null);
+  //const [profilePreview, setProfilePreview] = useState<string | null>(null);
 
 
   const handleLogout = async () => {
@@ -65,6 +68,52 @@ const CreateEvent = () => {
     }
   };
 
+  const uploadImage = async (image: any) => {
+    if (!image) {
+      alert("Please select an image to upload.");
+      return;
+    }
+
+    try {
+      // Create a FormData object to send the image file
+      const formData = new FormData();
+      formData.append("file", image); // Assuming `image` is a File object
+
+      // Use the base URL from the environment variable
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    if (!baseUrl) {
+      throw new Error("Base URL is not defined in the environment variables.");
+    }
+
+    console.log("uploading image to:", `${baseUrl}/media/upload`);
+    console.log(user?.token, "user token")
+
+      // Make the POST request to upload the image
+      const response = await sendRequest({
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/media/upload`,
+        method: "POST",
+        headers: { 
+          "Content-Type": "multipart/form-data", 
+          "Authorization": `Bearer ${user?.token}`
+        },
+        body: formData,
+      });
+
+      console.log(response, "response data")
+      // Extract the URL from the response
+      const imageUrl = response.url;
+
+      // Update the eventData state with the returned URL
+      setProfile(image);
+      
+
+      console.log("Image uploaded successfully:", imageUrl);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      alert("Failed to upload the image. Please try again.");
+    }
+  };
+
   return (
     <main className="flex flex-col gap-5 w-full relative min-h-screen sm:w-[88%] lg:w-[90%] mx-auto">
       <div className="flex md:flex-row flex-col gap-20 shrink-0 relative w-full justify-center items-center h-full">
@@ -78,14 +127,7 @@ const CreateEvent = () => {
         <div className="w-full">
           <EventsOperations />
 
-          <ProfileCard
-            name={user.name ?? ""}
-            email={user.email ?? ""}
-            age={user.age ?? ""}
-            preview={profilePreview}
-            setPreview={setProfilePreview}
-            setImage={setProfile}
-          />
+          <ProfileCard containerClass="mt-[1.78em]"/>
         
           <Button
             onClick={() => router.push(`/create-event`)}
