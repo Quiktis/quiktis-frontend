@@ -5,7 +5,7 @@ import React from "react";
 interface Stat {
   title: string;
   value: string;
-  color: string; // the brand color for this stat
+  color: string; 
 }
 
 const stats: Stat[] = [
@@ -19,7 +19,6 @@ const stats: Stat[] = [
 
 const StatCard: React.FC<Stat> = ({ title, value, color }) => (
   <div className="relative group cursor-pointer overflow-hidden bg-[#1B1B1B] rounded-lg h-56 shadow-lg">
-    {/* hover‐rising colored bar */}
     <div
       className="absolute bottom-0 left-0 w-full h-1 group-hover:h-[90%] transition-[height] duration-500 ease-in-out"
       style={{ backgroundColor: color, zIndex: 0 }}
