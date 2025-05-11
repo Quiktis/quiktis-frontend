@@ -38,6 +38,15 @@ export default function Footer() {
     "/about",
     "/checkout",
     "/stats",
+    "/payment-success",
+    "/live-chat",
+    "/manager-event-viewing",
+    "/event-viewing-square",
+    "/manage-event-viewing",
+    "/paid-event-viewing",
+    "/tickets",
+    "/concert-ticket",
+    "/attendees",
     "/write-review",
     "/auth/google/callback",
   ];
@@ -45,8 +54,13 @@ export default function Footer() {
 
   return (
     <>
-      {!hiddenPaths.includes(pathname) && <NewsLetter />}
-      <footer className="mt-8 text-white w-full px-6 sm:px-8 md:px-12 py-8">
+      {!hiddenPaths.includes(pathname) && (
+        <section className="relative w-full mb-[5em]">
+          <NewsLetter />
+        </section>
+      )}
+
+      <footer className="relative mt-8 text-white w-full px-6 sm:px-8 md:px-12 py-8">
         <div className="flex flex-col md:flex-row md:justify-between gap-4 md:gap-8 w-full">
           {/* Column 1 */}
           <div className="flex-shrink-0 md:w-1/5 flex justify-center md:justify-start">
@@ -59,7 +73,7 @@ export default function Footer() {
               <Link href="/" className="hover:text-[#FF4D2A]">
                 Home
               </Link>
-              <Link href="/reviews" className="hover:text-[#FF4D2A]">
+              <Link href="/my-events" className="hover:text-[#FF4D2A]">
                 Pages
               </Link>
               <Link href="/events" className="hover:text-[#FF4D2A]">
@@ -70,16 +84,18 @@ export default function Footer() {
               </Link>
             </div>
             <div className="flex flex-col space-y-2 text-center md:text-left">
-              <Link href="/event-viewing" className="hover:text-[#FF4D2A]">
+              <Link href="/checkout" className="hover:text-[#FF4D2A]">
                 Get Tickets
               </Link>
               <Link href="/faq" className="hover:text-[#FF4D2A]">
                 FAQs
               </Link>
-              <Link href="/search" className="hover:text-[#FF4D2A]">
+              <Link
+                href="/manage-event-viewing"
+                className="hover:text-[#FF4D2A]">
                 Genres
               </Link>
-              <Link href="/my-ticket" className="hover:text-[#FF4D2A]">
+              <Link href="/search" className="hover:text-[#FF4D2A]">
                 News
               </Link>
             </div>
@@ -127,6 +143,17 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        <div
+          className="
+          absolute pointer-events-none
+          w-[70%] sm:w-[75%] h-[26em]
+          top-[-3em]
+          left-0 md:right-0 md:left-auto
+          radial-gradient-purple
+          blur-3xl
+          opacity-50
+        "></div>
       </footer>
     </>
   );
