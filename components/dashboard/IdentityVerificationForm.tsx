@@ -1,4 +1,3 @@
-// components/dashboard/IdentityVerificationForm.tsx
 "use client";
 import React, { useState } from "react";
 
@@ -23,15 +22,12 @@ const IdentityVerificationForm: React.FC = () => {
 
   return (
     <section className="mt-12 w-full">
-      {/* Direct container with no padding to align left */}
       <div className="">
-        {/* Main Heading */}
         <h2 className="text-3xl font-bold mb-8 text-white">
           Complete profile to Create Events
           <span className="text-[#FF4D2A]">*</span>
         </h2>
 
-        {/* Card Type Selection */}
         <div className="mb-8">
           <label className="block text-[#FF4D2A] mb-2">Identity Card</label>
 
@@ -53,8 +49,8 @@ const IdentityVerificationForm: React.FC = () => {
         focus:text-white              /* open/focused text = white */
         ${
           cardType
-            ? "text-white" /* real selection = white */
-            : "text-[#AAAAAA]" /* placeholder = gray */
+            ? "text-white" 
+            : "text-[#AAAAAA]"
         }
       `}>
               <option value="" disabled>
@@ -64,7 +60,6 @@ const IdentityVerificationForm: React.FC = () => {
               <option value="business">Business Card</option>
             </select>
 
-            {/* custom down-arrow */}
             <div
               className={`
         pointer-events-none
@@ -73,8 +68,8 @@ const IdentityVerificationForm: React.FC = () => {
         pr-3
         ${
           cardType
-            ? "text-white" /* after select → white arrow */
-            : "text-[#AAAAAA]" /* placeholder → gray arrow */
+            ? "text-white" 
+            : "text-[#AAAAAA]" 
         }
       `}>
               <svg
@@ -94,9 +89,7 @@ const IdentityVerificationForm: React.FC = () => {
           </div>
         </div>
 
-        {/* Front & Back Upload Sections */}
         <div className="space-y-12">
-          {/* Front Picture */}
           <div>
             <h3 className="text-xl font-semibold text-white mb-4">
               Front Picture
@@ -132,7 +125,6 @@ const IdentityVerificationForm: React.FC = () => {
             </div>
           </div>
 
-          {/* Back Picture */}
           <div>
             <h3 className="text-xl font-semibold text-white mb-4">
               Back Picture
