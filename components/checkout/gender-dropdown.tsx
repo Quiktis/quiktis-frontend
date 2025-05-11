@@ -23,12 +23,6 @@ export default function GenderDropdown({
         <option className="bg-black text-white" value="female">
           Female
         </option>
-        <option className="bg-black text-white" value="non-binary">
-          Non-binary
-        </option>
-        <option className="bg-black text-white" value="other">
-          Other
-        </option>
         <option className="bg-black text-white" value="prefer-not-to-say">
           Prefer not to say
         </option>
