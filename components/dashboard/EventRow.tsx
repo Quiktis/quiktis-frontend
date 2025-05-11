@@ -1,4 +1,3 @@
-// components/dashboard/EventRow.tsx
 import React from "react";
 
 export type EventStatus = "Upcoming" | "Live" | "Ended" | "Canceled";
