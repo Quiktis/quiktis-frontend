@@ -27,12 +27,10 @@ const BioAndWithdrawalSettings: React.FC = () => {
   };
 
   const handleWithdraw = () => {
-    // withdrawal logic
   };
 
   return (
     <section className="mt-12 max-w-4xl mx-auto space-y-8">
-      {/* Bio */}
       <div className="py-6">
         <h3 className="text-3xl font-bold text-white mb-2">
           Bio<span className="text-[#FF4D2A]">*</span>
@@ -59,13 +57,11 @@ const BioAndWithdrawalSettings: React.FC = () => {
         )}
       </div>
 
-      {/* Withdrawal Settings */}
       <div className="px-4 py-6">
         <h3 className="text-3xl font-bold text-white mb-4">
           Withdrawal Settings
         </h3>
 
-        {/* Profile */}
         <div className="flex items-center mb-6">
           <div className="w-10 h-10 rounded-full bg-[#C4C4C4] flex items-center justify-center text-black font-bold mr-4">
             {selectedBank
@@ -87,9 +83,7 @@ const BioAndWithdrawalSettings: React.FC = () => {
           </div>
         </div>
 
-        {/* Input Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Bank Name */}
           <div>
             <label htmlFor="bank" className="block text-[#FF4D2A] mb-1">
               Bank Name
@@ -117,8 +111,8 @@ const BioAndWithdrawalSettings: React.FC = () => {
         focus:text-white              /* open/focused text = white */
         ${
           selectedBank
-            ? "text-white" /* real selection = white text */
-            : "text-[#AAAAAA]" /* placeholder = gray text */
+            ? "text-white"
+            : "text-[#AAAAAA]"
         }
       `}>
                 <option value="" disabled>
@@ -130,8 +124,6 @@ const BioAndWithdrawalSettings: React.FC = () => {
                   </option>
                 ))}
               </select>
-
-              {/* custom down-arrow */}
               <div
                 className={`
         pointer-events-none
@@ -140,8 +132,8 @@ const BioAndWithdrawalSettings: React.FC = () => {
         pr-3
         ${
           selectedBank
-            ? "text-white" /* after select → white arrow */
-            : "text-[#AAAAAA]" /* placeholder → gray arrow */
+            ? "text-white" 
+            : "text-[#AAAAAA]"
         }
       `}>
                 <svg
@@ -161,7 +153,6 @@ const BioAndWithdrawalSettings: React.FC = () => {
             </div>
           </div>
 
-          {/* Account Number */}
           <div>
             <label htmlFor="acct" className="block text-[#FF4D2A] mb-1">
               Account Number
@@ -178,7 +169,6 @@ const BioAndWithdrawalSettings: React.FC = () => {
             />
           </div>
 
-          {/* Account Name */}
           <div>
             <label htmlFor="acctName" className="block text-[#FF4D2A] mb-1">
               Account Name
@@ -193,7 +183,6 @@ const BioAndWithdrawalSettings: React.FC = () => {
             />
           </div>
 
-          {/* Amount */}
           <div>
             <label htmlFor="amt" className="block text-[#FF4D2A] mb-1">
               Amount
@@ -210,7 +199,6 @@ const BioAndWithdrawalSettings: React.FC = () => {
         </div>
       </div>
 
-      {/* Disconnect Wallet */}
       <div className="px-4 py-6">
         <h3 className="text-3xl font-bold text-white mb-2">
           Disconnect Wallet
