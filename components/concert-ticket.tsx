@@ -45,10 +45,8 @@ export default function ConcertTicket({
       className="relative w-full overflow-hidden -mt-12 md:-mt-30"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
-      {/* Background Gradient */}
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#0a0a0a] via-[#1c1c1c] to-[#2a2a2a] rounded-2xl" />
 
-      {/* Decorative Swooshes */}
       <Image
         src="/imgsvg/Vectortop.png"
         alt="Top swoosh"
@@ -63,21 +61,13 @@ export default function ConcertTicket({
         height={300}
         className="absolute bottom-0 right-0 z-1 pointer-events-none opacity-70"
       />
-
-      {/* Dashed Border */}
       <div className="absolute inset-0 border-2 border-dashed border-[#f68b61] rounded-2xl pointer-events-none z-10" />
-
-      {/* Main Content */}
       <div className="relative z-20 text-white p-6 md:p-10 rounded-2xl">
         <div className="flex flex-col md:flex-row gap-6">
-          {/* LEFT SIDE */}
           <div className="flex-1">
-            {/* Logo and Event Name + Extended Gradient Blur */}
             <div className="relative flex items-center gap-4 mb-16">
-              {/* Glow */}
               <div className="absolute -top-10 -left-10 w-80 h-80 bg-[#FF4D2A] opacity-40 rounded-full blur-[120px] z-0" />
 
-              {/* Logo */}
               <div className="w-16 h-16 md:w-20 md:h-20 relative z-10">
                 <Image
                   src={logoUrl}
@@ -95,7 +85,6 @@ export default function ConcertTicket({
               </div>
             </div>
 
-            {/* Ticket Info Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-10 mt-4">
               <div>
                 <h2 className="text-xs uppercase text-gray-300 mb-1">
@@ -128,7 +117,6 @@ export default function ConcertTicket({
                   <p className="font-semibold text-sm">{venue}</p>
                 </div>
               </div>
-
               <div>
                 <h2 className="text-xs uppercase text-gray-300 mb-1">
                   Ticket Number
@@ -136,8 +124,6 @@ export default function ConcertTicket({
                 <p className="font-semibold text-sm">#{ticketNumber}</p>
               </div>
             </div>
-
-            {/* Ticket Type */}
             <div className="mt-6">
               <h2 className="text-xs uppercase text-gray-300 mb-1">
                 Ticket Type
@@ -153,10 +139,7 @@ export default function ConcertTicket({
               </div>
             </div>
           </div>
-
-          {/* RIGHT SIDE — Clean QR Code + Buttons */}
           <div className="w-full md:w-[250px] flex flex-col items-center justify-between text-center gap-4">
-            {/* Label Text */}
             <div className="leading-tight mb-0">
               <p className="text-xs text-white font-medium">Scan at Entrance</p>
               <p className="text-[10px] text-white">
@@ -164,7 +147,6 @@ export default function ConcertTicket({
               </p>
             </div>
 
-            {/* QR Image - Full width to align with buttons */}
             <div className="w-full aspect-square relative mt-[-2px]">
               <Image
                 src={qrCodeUrl}
@@ -173,8 +155,6 @@ export default function ConcertTicket({
                 className="object-contain rounded-[10px]"
               />
             </div>
-
-            {/* Action Buttons */}
             <div className="flex w-full gap-3 mt-2">
               <button
                 onClick={handlePrint}
