@@ -82,7 +82,6 @@ export default function ChatInterface() {
 
   return (
     <div className="flex flex-col w-full h-[500px] sm:h-[600px] rounded-[20px] overflow-hidden bg-[#111111]">
-      {/* Message list */}
       <div className="flex-1 overflow-y-auto p-2 sm:p-3 space-y-3">
         {messages.map((m, i) => {
           const isUser = m.sender === "user";
@@ -139,7 +138,6 @@ export default function ChatInterface() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input area */}
       <div className="p-3 sm:p-4">
         <div className="flex items-center justify-center gap-2 sm:gap-3">
           <input
