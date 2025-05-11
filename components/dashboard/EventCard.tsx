@@ -36,7 +36,7 @@ const EventCard: React.FC<EventCardProps> = ({
           src={`/${image}`}
           alt={title}
           width={320}
-          height={280} // Reduced height from 320 to 280
+          height={280} 
           className="rounded-[15px] object-cover w-full h-[280px] md:w-[320px] md:h-[280px]"
         />
         <div className="absolute top-[8px] right-[8px] flex items-center justify-center w-[65px] h-[28px] p-[10px] rounded-[8px] bg-[#FFFFFF26] gap-[10px] text-white text-sm">
@@ -54,15 +54,12 @@ const EventCard: React.FC<EventCardProps> = ({
         </div>
       </div>
 
-      {/* Textual Content */}
       <div className="flex flex-col gap-2">
-        {/* Reduced title font size */}
         <h2 className="text-[14px] font-bold">{title}</h2>
         <h4 className="text-[#666666] text-[12px]">{subtitle}</h4>
         <p className="hidden text-[12px]">{description}</p>
       </div>
 
-      {/* Date and Location on a single row with space between */}
       <div className="flex justify-between items-center w-full">
         <p className="text-xs text-[#dcdcdc] md:text-sm">{date}</p>
         <p className="text-xs text-[#dcdcdc] md:text-sm">{location}</p>
