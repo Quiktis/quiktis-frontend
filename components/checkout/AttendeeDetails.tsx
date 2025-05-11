@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import GenderDropdown from "@/components/checkout/gender-dropdown"; // Make sure the path is correct
+import GenderDropdown from "@/components/checkout/gender-dropdown";
 
 export default function AttendeeDetails() {
   const [gender, setGender] = useState("");
@@ -43,7 +43,7 @@ export default function AttendeeDetails() {
         />
       </div>
 
-      {/* Gender Dropdown */}
+      {/* Gender */}
       <div>
         <label className="block text-gray-300 text-sm mb-2">Gender</label>
         <GenderDropdown value={gender} onChange={setGender} />
