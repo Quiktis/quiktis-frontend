@@ -60,7 +60,7 @@ export default function AboutPage() {
       <div className="py-10">
         {/* Top Section */}
         <div className="flex flex-col md:flex-row gap-8 items-start">
-          {/* Left Side: Title & Text */}
+          {/* Left Side*/}
           <div className="md:w-1/2 flex flex-col gap-4 md:mt-[380px] mt-0 px-4">
             <p className="text-lg max-w-md">
               We’re on a mission to simplify event creation and ticketing for
@@ -78,9 +78,7 @@ export default function AboutPage() {
             </h1>
           </div>
 
-          {/* Fragmented Layout using one image with object positioning */}
           <div className="md:w-1/2 w-full grid grid-cols-3 gap-3">
-            {/* Left Fragment */}
             <div className="relative h-45 md:h-[350px] overflow-hidden">
               <Image
                 src="/wedding.png"
@@ -90,7 +88,6 @@ export default function AboutPage() {
               />
             </div>
 
-            {/* Center Fragment */}
             <div className="relative h-72 md:h-[500px] overflow-hidden">
               <Image
                 src="/wedding.png"
@@ -100,7 +97,6 @@ export default function AboutPage() {
               />
             </div>
 
-            {/* Right Fragment with Caption */}
             <div className="flex flex-col gap-2">
               <div className="relative h-56 md:h-[380px] w-full overflow-hidden">
                 <Image
@@ -118,12 +114,9 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Spacer */}
         <div className="mt-16" />
-
-        {/* Content Section */}
+        
         <section className="py-16 px-4 relative overflow-visible">
-          {/* Blue Glow — Bottom-Left */}
           <div
             className="
       absolute 
@@ -136,8 +129,6 @@ export default function AboutPage() {
       z-0
     "
           />
-
-          {/* Reduced Orange-Red Glow — Bottom-Right */}
           <div
             className="
       absolute 
@@ -200,7 +191,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Team Section */}
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
             <Image
@@ -242,31 +232,22 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Stats Section */}
-        {/* Stats Section */}
         <section className="py-16 px-4">
-          {/* Keeping text-white on the container for overall text color */}
           <div className="max-w-5xl mx-auto text-center text-white">
-            {/* Reduced mb-2 to mb-1 to close the gap further below the headline */}
             <h2 className="text-[32px] sm:text-[36px] font-semibold mb-1 text-white">
               Unleash the full power of data
             </h2>
-            {/* Subtitle - Kept mb-12 for the gap below the subtitle */}
             <p className="text-[18px] sm:text-[20px] text-white mb-12">
               Everything you need to convert, engage, and retain more users.
             </p>
-            {/* Stats row */}
             <div className="flex flex-col sm:flex-row justify-center items-center gap-x-8 gap-y-8">
-              {/* First stat item */}
               <div className="px-4">
                 <p className="text-[48px] sm:text-[60px] font-extrabold text-[#FF4D2A]">
                   40+
                 </p>
                 <p className="mt-0.5 text-white">Event Managers</p>
               </div>
-
-              {/* Middle stat item - Increased font size for 600+ */}
-              {/* Increased text-[60px] to text-[72px] and sm:text-[80px] to sm:text-[96px] */}
+              
               <div className="px-4 border-l border-r border-gray-700">
                 <p className="text-[72px] sm:text-[96px] font-extrabold text-[#FF4D2A]">
                   600+
@@ -274,7 +255,6 @@ export default function AboutPage() {
                 <p className="mt-0.5 text-white">Events</p>
               </div>
 
-              {/* Last stat item */}
               <div className="px-4">
                 <p className="text-[48px] sm:text-[60px] font-extrabold text-[#FF4D2A]">
                   4k+
