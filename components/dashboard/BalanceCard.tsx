@@ -25,9 +25,7 @@ const BalanceCard: React.FC<BalanceCardProps> = ({
         text-white
         shadow-lg
       ">
-      {/* p-8 for overall padding, plus extra pt-12 to drop the top block down */}
       <div className="h-full flex flex-col justify-between p-8 pt-12">
-        {/* —— Top: balance + txn ID —— */}
         <div>
           <h2 className="text-4xl font-bold text-[#e3e3e3]">{balance}</h2>
           <p
@@ -43,7 +41,6 @@ const BalanceCard: React.FC<BalanceCardProps> = ({
           </p>
         </div>
 
-        {/* —— Bottom: buttons —— */}
         <div className="flex gap-4 mt-8">
           <Link
             href="/withdraw-bank"
