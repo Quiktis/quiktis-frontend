@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { AiOutlineCalendar } from "react-icons/ai"; // Import the calendar icon
+import { AiOutlineCalendar } from "react-icons/ai";
 
 const navItems = [
   { name: "My Profile", path: "/event-creator" },
@@ -92,7 +92,6 @@ const DashboardNav = () => {
         })}
       </nav>
 
-      {/* Create Event Button (push to far right with ml-auto if needed) */}
       <div className="hidden md:flex ml-auto">
         <Link href="/create-event">
           <button className="flex items-center gap-2 bg-primary text-white px-4 py-4 rounded-md shadow-[0_0_20px_#FF4D2A] hover:brightness-110 transition">
