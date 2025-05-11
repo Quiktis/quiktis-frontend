@@ -15,10 +15,8 @@ const NewsLetter = () => {
     <section className="w-full relative overflow-hidden">
       <div className="px-6 sm:px-10 py-20">
         <div className="relative w-full">
-          {/* Centered Blue Gradient Blur */}
           <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 opacity-40 blur-[150px] -translate-x-1/2 -translate-y-1/2 z-0" />
 
-          {/* Newsletter Card (shifted upward, original layout) */}
           <div className="relative z-10 -translate-y-10 flex justify-between items-center">
             <Image
               src={"/mask-fade.svg"}
@@ -44,8 +42,6 @@ const NewsLetter = () => {
                 Subscribe to our newsletter and be the first to get the latest
                 updates from <span className="text-primary">Quiktis</span>
               </p>
-
-              {/* Input & Button */}
               <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full max-w-[600px]">
                 <Input
                   value={email}
@@ -64,7 +60,6 @@ const NewsLetter = () => {
           </div>
         </div>
       </div>
-      {/* The gap below has been removed */}
     </section>
   );
 };
