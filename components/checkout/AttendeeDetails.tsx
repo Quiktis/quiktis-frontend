@@ -1,11 +1,16 @@
-import React from "react";
-import { IoIosArrowDown } from "react-icons/io";
+"use client";
+
+import React, { useState } from "react";
+import GenderDropdown from "@/components/checkout/gender-dropdown"; // Make sure the path is correct
 
 export default function AttendeeDetails() {
+  const [gender, setGender] = useState("");
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      {/* Full Name */}
       <div>
-        <label className="block text-gray-300 mb-2">Full Name</label>
+        <label className="block text-gray-300 text-sm mb-2">Full Name</label>
         <input
           type="text"
           placeholder="Enter your full name here"
@@ -13,13 +18,14 @@ export default function AttendeeDetails() {
         />
       </div>
 
+      {/* Email Address */}
       <div>
-        <label className="block text-gray-300 mb-1">
-          Email Address
-          <span className="text-gray-400 text-sm">
+        <div className="flex items-center gap-2 text-sm mb-2">
+          <label className="text-gray-300">Email Address</label>
+          <span className="text-gray-400 text-xs">
             (This mail would receive a copy of the event ticket)
           </span>
-        </label>
+        </div>
         <input
           type="email"
           placeholder="Enter your email address here"
@@ -27,8 +33,9 @@ export default function AttendeeDetails() {
         />
       </div>
 
+      {/* Location */}
       <div>
-        <label className="block text-gray-300 mb-2">Location</label>
+        <label className="block text-gray-300 text-sm mb-2">Location</label>
         <input
           type="text"
           placeholder="Input Location"
@@ -36,15 +43,10 @@ export default function AttendeeDetails() {
         />
       </div>
 
-      <div className="relative">
-        <label className="block text-gray-300 mb-2">Gender</label>
-        <select className="w-full appearance-none bg-transparent border border-gray-600 rounded p-3 text-white focus:outline-none">
-          <option className="bg-black text-white">Select</option>
-          <option className="bg-black text-white">Male</option>
-          <option className="bg-black text-white">Female</option>
-          <option className="bg-black text-white">Other</option>
-        </select>
-        <IoIosArrowDown className="absolute right-4 top-[52%] transform -translate-y-1/2 text-white pointer-events-none" />
+      {/* Gender Dropdown */}
+      <div>
+        <label className="block text-gray-300 text-sm mb-2">Gender</label>
+        <GenderDropdown value={gender} onChange={setGender} />
       </div>
     </div>
   );

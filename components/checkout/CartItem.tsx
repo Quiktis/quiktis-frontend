@@ -28,8 +28,8 @@ const CartItem: React.FC<CartItemProps> = ({
   onPlus,
 }) => {
   return (
-    <div className="w-full flex flex-col lg:flex-row justify-between items-start lg:items-center gap-y-6 lg:gap-x-20 px-4 sm:px-6 py-5 rounded-xl backdrop-blur-md bg-white/5 border border-white/10">
-      {/* Section 1 */}
+    <div className="w-full flex flex-col lg:flex-row justify-between items-start lg:items-center gap-y-6 lg:gap-x-20 px-4 sm:px-6 py-5 rounded-xl backdrop-blur-md bg-white/5 border border-white/5">
+      {/* Section 1: Event Image + Title + Location */}
       <div className="flex items-center space-x-4 sm:space-x-5 min-w-0 w-full lg:min-w-[260px]">
         <Image
           src={imageUrl}
@@ -47,7 +47,7 @@ const CartItem: React.FC<CartItemProps> = ({
         </div>
       </div>
 
-      {/* Section 2 */}
+      {/* Section 2: Organizer Info */}
       <div className="flex items-center space-x-3 w-full justify-start lg:justify-center lg:min-w-[220px]">
         <Image
           src={organizerAvatar}
@@ -59,7 +59,7 @@ const CartItem: React.FC<CartItemProps> = ({
         <span className="text-white text-base">{organizer}</span>
       </div>
 
-      {/* Section 3 */}
+      {/* Section 3: Ticket Type Dropdown */}
       <div className="w-full lg:w-auto lg:min-w-[170px] relative flex justify-start lg:justify-center items-center">
         <select className="appearance-none bg-transparent border border-white/20 rounded-md px-4 py-2 text-base text-white focus:outline-none w-full lg:w-[170px]">
           <option disabled selected>
@@ -74,11 +74,20 @@ const CartItem: React.FC<CartItemProps> = ({
         <IoIosArrowDown className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white pointer-events-none" />
       </div>
 
-      {/* Section 4 */}
+      {/* Section 4: Quantity Controls */}
+      {/* Section 4: Quantity Controls */}
       <div className="flex items-center justify-center lg:justify-end space-x-3 w-full lg:min-w-[140px] mt-2 lg:mt-0 mx-auto">
         <button
           onClick={onMinus}
-          className="w-10 h-10 rounded-full border border-white/30 text-white flex items-center justify-center bg-transparent text-xl">
+          // Conditionally apply classes based on quantity
+          className={`w-10 h-10 rounded-full border flex items-center justify-center bg-transparent text-xl
+      ${
+        quantity === 1
+          ? "border-gray-500/30 text-gray-500 cursor-not-allowed" // Styles when quantity is 1 (inactive)
+          : "border-white/30 text-white" // Styles when quantity is > 1 (active)
+      }`}
+          disabled={quantity === 1} // Disable the button when quantity is 1
+        >
           –
         </button>
         <div className="w-10 h-10 rounded-md bg-[#313131] text-white flex items-center justify-center text-base font-medium">
