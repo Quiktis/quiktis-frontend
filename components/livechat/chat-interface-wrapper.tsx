@@ -40,7 +40,7 @@ export default function ChatInterfaceWrapper() {
           </div>
         </div>
 
-        {/* Status & Stop chat */}
+        {/* Status */}
         <div
           className="
             flex items-center justify-between w-full
