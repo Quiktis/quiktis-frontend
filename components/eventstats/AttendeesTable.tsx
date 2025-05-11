@@ -1,5 +1,3 @@
-// File: components/eventstats/AttendeesTable.tsx
-
 import React from "react";
 import { FaFileAlt } from "react-icons/fa";
 import Image from "next/image";
@@ -19,11 +17,11 @@ const data = [
     date: "April 15, 2025 — 7:00 PM",
     amount: "₦3,000",
     payment: "Crypto",
-    ticket: "VIP", // 👈 This one is VIP
+    ticket: "VIP", 
     status: "Used",
     avatar: "/headphonegirl.png",
   },
-  // Rest are regular again
+
   ...Array(14).fill({
     name: "Rachael Adams",
     date: "April 15, 2025 — 7:00 PM",
@@ -38,7 +36,6 @@ const data = [
 export default function AttendeesTable() {
   return (
     <div className="w-full overflow-x-auto">
-      {/* Header Row */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-white text-xl font-semibold">Attendees</h2>
         <button className="flex items-center gap-2 bg-[#FF4D2A] text-white px-4 py-2 rounded-md text-sm hover:brightness-110 transition">
@@ -47,7 +44,6 @@ export default function AttendeesTable() {
         </button>
       </div>
 
-      {/* Table */}
       <table className="w-full table-auto text-sm text-left">
         <thead className="text-white border-b border-gray-600">
           <tr>
