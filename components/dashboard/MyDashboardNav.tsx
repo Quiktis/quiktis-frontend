@@ -3,17 +3,16 @@ import React, { useRef, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { AiOutlineCalendar } from "react-icons/ai"; // Import the calendar icon
+import { AiOutlineCalendar } from "react-icons/ai"; // Import calendar icon
 
-const navItems = [
-  { name: "My Profile", path: "/event-creator" },
-  { name: "My Events", path: "/my-events" },
-  { name: "Events Stats", path: "/stats" },
-  { name: "Notifications", path: "/notifications" },
-  { name: "Reviews", path: "/reviews" },
+const myNavItems = [
+  { name: "My Profile", path: "/userdashboard" },
+  { name: "My Tickets", path: "" },
+  { name: "Notifications", path: "/usernotifications" },
+  { name: "Reviews", path: "/userreviews" },
 ];
 
-const DashboardNav = () => {
+const MyDashboardNav = () => {
   const pathname = usePathname();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [disableLeft, setDisableLeft] = useState(true);
@@ -75,7 +74,7 @@ const DashboardNav = () => {
         ref={scrollRef}
         onScroll={updateArrows}
         className="flex gap-2 md:gap-4 overflow-x-auto scroll-smooth scrollbar-hide">
-        {navItems.map((item) => {
+        {myNavItems.map((item) => {
           const isActive = pathname === item.path;
           return (
             <Link key={item.name} href={item.path}>
@@ -92,7 +91,7 @@ const DashboardNav = () => {
         })}
       </nav>
 
-      {/* Create Event Button (push to far right with ml-auto if needed) */}
+      {/* Create Event Button (far right) */}
       <div className="hidden md:flex ml-auto">
         <Link href="/create-event">
           <button className="flex items-center gap-2 bg-primary text-white px-4 py-4 rounded-md shadow-[0_0_20px_#FF4D2A] hover:brightness-110 transition">
@@ -105,4 +104,4 @@ const DashboardNav = () => {
   );
 };
 
-export default DashboardNav;
+export default MyDashboardNav;

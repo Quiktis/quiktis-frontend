@@ -2,9 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { IoTicketSharp } from "react-icons/io5";
-import { FaLongArrowAltRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 interface EventCardProps {
@@ -16,7 +14,6 @@ interface EventCardProps {
   price: string;
   image: string;
   getTicketUrl?: string;
-  readMoreUrl?: string;
 }
 
 const EventCard: React.FC<EventCardProps> = ({
@@ -28,19 +25,19 @@ const EventCard: React.FC<EventCardProps> = ({
   price,
   image,
   getTicketUrl = "#",
-  readMoreUrl = "#",
 }) => {
   const router = useRouter();
 
   return (
     <div className="w-full md:max-w-[320px] h-auto flex flex-col gap-[15px]">
+      {/* Image Section */}
       <div className="relative">
         <Image
           src={`/${image}`}
           alt={title}
           width={320}
-          height={320}
-          className="rounded-[15px] object-cover w-full aspect-square md:w-[320px] md:h-[320px]"
+          height={280} // Reduced height from 320 to 280
+          className="rounded-[15px] object-cover w-full h-[280px] md:w-[320px] md:h-[280px]"
         />
         <div className="absolute top-[8px] right-[8px] flex items-center justify-center w-[65px] h-[28px] p-[10px] rounded-[8px] bg-[#FFFFFF26] gap-[10px] text-white text-sm">
           {price}
@@ -57,25 +54,18 @@ const EventCard: React.FC<EventCardProps> = ({
         </div>
       </div>
 
+      {/* Textual Content */}
       <div className="flex flex-col gap-2">
-        <h2 className="text-[16px] font-bold">{title}</h2>
+        {/* Reduced title font size */}
+        <h2 className="text-[14px] font-bold">{title}</h2>
         <h4 className="text-[#666666] text-[12px]">{subtitle}</h4>
-        <p className="text-[12px]">{description}</p>
+        <p className="hidden text-[12px]">{description}</p>
       </div>
 
-      <div className="flex flex-row justify-between items-center w-full gap-2">
-        <div className="text-xs text-left md:text-sm">
-          <p>{date.split(",")[0]},</p>
-          <p>{date.split(",")[1]}</p>
-        </div>
-        <h4 className="text-xs text-gray-400 text-center flex-1 md:text-sm">
-          {location}
-        </h4>
-        <Link
-          href={readMoreUrl}
-          className="text-xs flex items-center border border-gray-500 rounded-md px-2 py-1 transition-all hover:bg-gray-700 md:text-sm md:px-3 md:py-1">
-          Read more <FaLongArrowAltRight size={10} />
-        </Link>
+      {/* Date and Location on a single row with space between */}
+      <div className="flex justify-between items-center w-full">
+        <p className="text-xs text-[#dcdcdc] md:text-sm">{date}</p>
+        <p className="text-xs text-[#dcdcdc] md:text-sm">{location}</p>
       </div>
     </div>
   );
