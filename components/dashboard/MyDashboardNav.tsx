@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { AiOutlineCalendar } from "react-icons/ai"; // Import calendar icon
+import { AiOutlineCalendar } from "react-icons/ai"; 
 
 const myNavItems = [
   { name: "My Profile", path: "/userdashboard" },
@@ -69,7 +69,6 @@ const MyDashboardNav = () => {
         </button>
       </div>
 
-      {/* Nav links */}
       <nav
         ref={scrollRef}
         onScroll={updateArrows}
@@ -91,7 +90,6 @@ const MyDashboardNav = () => {
         })}
       </nav>
 
-      {/* Create Event Button (far right) */}
       <div className="hidden md:flex ml-auto">
         <Link href="/create-event">
           <button className="flex items-center gap-2 bg-primary text-white px-4 py-4 rounded-md shadow-[0_0_20px_#FF4D2A] hover:brightness-110 transition">
