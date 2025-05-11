@@ -20,8 +20,8 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "africa.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -32,8 +32,8 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "dj.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -44,8 +44,8 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "camera.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -56,8 +56,8 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "party1.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -68,8 +68,8 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "conf.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -80,8 +80,8 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "dance.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -92,8 +92,8 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "wed.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -104,8 +104,8 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "show.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing",
   },
 ];
 
@@ -116,8 +116,8 @@ const comingNext = [
     date: "May 23, 2024",
     time: "13:20",
     location: "Lagos, Nigeria",
-    readMoreUrl: "#",
-    getTicketUrl: "#",
+    readMoreUrl: "/event-viewing",
+    getTicketUrl: "/checkout",
   },
   {
     image: "party1.png",
@@ -125,8 +125,8 @@ const comingNext = [
     date: "May 23, 2024",
     time: "13:20",
     location: "Lagos, Nigeria",
-    readMoreUrl: "#",
-    getTicketUrl: "#",
+    readMoreUrl: "/event-viewing",
+    getTicketUrl: "/checkout",
   },
   {
     image: "party1.png",
@@ -134,8 +134,8 @@ const comingNext = [
     date: "May 23, 2024",
     time: "13:20",
     location: "Lagos, Nigeria",
-    readMoreUrl: "#",
-    getTicketUrl: "#",
+    readMoreUrl: "/event-viewing",
+    getTicketUrl: "/checkout",
   },
 ];
 
