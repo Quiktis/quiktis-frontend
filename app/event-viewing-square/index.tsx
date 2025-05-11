@@ -41,8 +41,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "africa.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "paid-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -53,8 +53,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "dj.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/paid-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -65,8 +65,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "camera.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/paid-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -77,8 +77,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "party1.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/paid-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -89,8 +89,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "conf.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/paid-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -101,8 +101,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "dance.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/paid-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -113,8 +113,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "wed.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/paid-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -125,8 +125,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "show.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/paid-event-viewing",
   },
 ];
 
@@ -152,18 +152,14 @@ export const EventViewingSquareComponent = () => {
         </div>
 
         <div className="md:w-1/2 flex flex-col items-start justify-start space-y-8">
-          {/* Title */}
           <h1 className="text-[40px] font-primary font-bold text-white">
             The Battle Of The Bots 2025
           </h1>
-
-          {/* Buy Ticket */}
           <Link href="/concert-ticket" passHref>
             <span className="text-[#FF4D2A] text-[2em] font-semibold flex items-center gap-2">
               Get Ticket $70 <IoTicketSharp size={24} />
             </span>
           </Link>
-
           <div className="flex flex-col space-y-6 text-white text-sm">
             <div className="flex items-center gap-2">
               <Image src="/icons/date.png" width={18} height={18} alt="Date" />
@@ -180,7 +176,8 @@ export const EventViewingSquareComponent = () => {
           </div>
         </div>
       </section>
-
+      
+      {/* MAIN PANEL */}
       <section className="relative">
         <div className="absolute w-[73%] h-[65em] top-[-12em] radial-gradient blur-3xl opacity-50"></div>
         <div className="relative flex flex-col gap-3 lg:grid grid-cols-[65%_32%] h-[max-content] w-full lg:gap-11">
@@ -207,7 +204,6 @@ export const EventViewingSquareComponent = () => {
                   "linear-gradient(to bottom, white 0%, transparent 100%)",
               }}
             />
-
             <div className="relative space-y-8">
               <div>
                 <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">
@@ -225,7 +221,6 @@ export const EventViewingSquareComponent = () => {
                   elit.
                 </p>
               </div>
-
               <div>
                 <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">
                   DATE &amp; TIME
@@ -246,7 +241,6 @@ export const EventViewingSquareComponent = () => {
                   </div>
                 </div>
               </div>
-
               <div>
                 <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">TAGS</h2>
                 <div className="flex flex-wrap gap-1 text-sm">
@@ -263,7 +257,6 @@ export const EventViewingSquareComponent = () => {
                   ))}
                 </div>
               </div>
-
               <div className="space-y-4">
                 <p className="text-white text-xl font-medium">
                   Share with loved ones
@@ -279,7 +272,6 @@ export const EventViewingSquareComponent = () => {
                   ))}
                 </div>
               </div>
-
               <div className="flex items-center gap-2 text-white text-sm">
                 <FaLocationDot size={18} className="text-[#FF4D2A]" />
                 <span>2118 Thornridge Cir, Syracuse, Connecticut 35624</span>
