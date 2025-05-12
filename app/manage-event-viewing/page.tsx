@@ -74,27 +74,28 @@ export default function ManageEventViewingPage() {
   const router = useRouter();
   const { user } = useUser();
 
-  const eventData = {
-    title: "Event Title ",
-    description: "Your event description here.",
-    startDate: "01/01/24",
-    endDate: "01/02/24",
-    startTime: "10:00 AM",
-    endTime: "12:00 PM",
-    eventType: "Conference",
-    accessType: "Public",
-    bannerImage: "/banner.png",
-    location: "Event Location",
-    categoryId: "music-123",
-    tickets: [
-      {
-        name: "General Admission",
-        price: 0,
-        quantity: 100,
-        description: "Free entry for all",
-      },
-    ],
-  };
+  const eventData: EventData = {
+  title: "Event Title ",
+  description: "Your event description here.",
+  startDate: "01/01/24",
+  endDate: "01/02/24",
+  startTime: "10:00 AM",
+  endTime: "12:00 PM",
+  eventType: "Conference",
+  accessType: "Public",
+  bannerImage: "/banner.png",
+  categoryId: "default-category",
+  location: "Event Location",
+  tickets: [
+    {
+      name: "General Admission",
+      price: 0,
+      quantity: 100,
+      description: "Free entry for all",
+    },
+  ],
+};
+
 
 
   return (
