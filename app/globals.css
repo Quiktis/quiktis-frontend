@@ -32,8 +32,8 @@
 
 :root {
   --background: #0a0a0a;
-    --foreground: #ededed;
-  --primary: #FF4D2A;
+  --foreground: #ededed;
+  --primary: #FF4D2A !important;
   --secondary-white: #ffffff;
   --secondary-brown: #401801;
   --accent-dark-gray: #181819;

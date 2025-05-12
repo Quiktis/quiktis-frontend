@@ -87,7 +87,7 @@ const CreateEvent = () => {
         
           <Button
             onClick={() => router.push(`/create-event`)}
-            className="flex justify-center gap-3 lg:hidden items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3 shadow-xl shadow-[#ff4e2a42]"
+            className="flex justify-center gap-3 lg:hidden items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3 shadow-xl shadow-[#ff4e2a42] bg-primary"
           >
             <Image src="/icons/event.svg" height={24} width={24} alt="icon" />
             <p className="my-auto">Create Event</p>
@@ -233,7 +233,7 @@ const CreateEvent = () => {
           <label className="text-[1.1em]">Show my birthday on my profile</label>
         </div>
         <div className="flex my-2 gap-3 w-fit md:mr-0 md:ml-auto">
-          <Button className="px-[3em]">Save</Button>
+          <Button className="px-[3em] bg-primary">Save</Button>
           <button className="px-[3em] border border-primary rounded-md">
             Cancel
           </button>
@@ -245,7 +245,7 @@ const CreateEvent = () => {
           onClick={handleLogout}
           className="flex justify-center gap-3 items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3 max-sm:w-fit"
         >
-          <p className="my-auto">Log out</p>
+          <p className="my-auto bg-primary">Log out</p>
           <FaArrowRight />
         </Button>
       </div>
