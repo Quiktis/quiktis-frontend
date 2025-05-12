@@ -1,4 +1,3 @@
-// File: app/paid-event-viewing/index.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -10,11 +9,9 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { RiFileCopy2Fill } from "react-icons/ri";
 import NewEventCard from "@/components/search/NewEventCard";
-
 import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
-// glass style CSS from your manage-event-viewing folder
 import manageStyles from "@/app/manage-event-viewing/page.module.css";
 
 const tags = [
@@ -43,8 +40,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "africa.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/manage-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -55,8 +52,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "dj.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/manage-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -67,8 +64,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "camera.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/manage-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -79,8 +76,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "party1.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/manage-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -91,8 +88,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "conf.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/manage-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -103,8 +100,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "dance.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/manage-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -115,8 +112,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "wed.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/manage-event-viewing",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -127,8 +124,8 @@ const relatedEvents = [
     location: "South Kenyatta",
     price: "$20",
     image: "show.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/manage-event-viewing",
   },
 ];
 
@@ -139,7 +136,6 @@ export const PaidEventViewingComponent = () => {
 
   return (
     <>
-      {/* HEADER IMAGE */}
       <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
         <div className="relative w-full h-full">
           <Image
@@ -153,7 +149,6 @@ export const PaidEventViewingComponent = () => {
         </div>
       </section>
 
-      {/* TITLE & TICKET */}
       <section>
         <div className="w-full flex max-sm:flex-wrap md:gap-[4em] h-[max-content]">
           <div className="h-full">
@@ -193,11 +188,9 @@ export const PaidEventViewingComponent = () => {
         </div>
       </section>
 
-      {/* MAIN PANEL */}
       <section className="relative">
         <div className="absolute w-[73%] h-[65em] top-[-12em] radial-gradient blur-3xl opacity-50"></div>
         <div className="relative flex flex-col gap-3 lg:grid grid-cols-[65%_32%] h-[max-content] w-full lg:gap-11">
-          {/* Glass Panel */}
           <div
             className={`
               relative z-10
@@ -222,7 +215,6 @@ export const PaidEventViewingComponent = () => {
               }}
             />
 
-            {/* DESCRIPTION */}
             <div className="relative space-y-8">
               <div>
                 <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">
@@ -241,7 +233,6 @@ export const PaidEventViewingComponent = () => {
                 </p>
               </div>
 
-              {/* DATE & TIME */}
               <div>
                 <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">
                   DATE &amp; TIME
@@ -263,7 +254,6 @@ export const PaidEventViewingComponent = () => {
                 </div>
               </div>
 
-              {/* TAGS */}
               <div>
                 <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">TAGS</h2>
                 <div className="flex flex-wrap gap-1 text-sm">
@@ -281,7 +271,6 @@ export const PaidEventViewingComponent = () => {
                 </div>
               </div>
 
-              {/* SHARE */}
               <div className="space-y-4">
                 <p className="text-white text-xl font-medium">
                   Share with loved ones
@@ -298,7 +287,6 @@ export const PaidEventViewingComponent = () => {
                 </div>
               </div>
 
-              {/* ADDRESS */}
               <div className="flex items-center gap-2 text-white text-sm">
                 <FaLocationDot size={18} className="text-[#FF4D2A]" />
                 <span>2118 Thornridge Cir, Syracuse, Connecticut 35624</span>
@@ -306,7 +294,6 @@ export const PaidEventViewingComponent = () => {
             </div>
           </div>
 
-          {/* MAP & LOCATE */}
           <div className="-mt-2 flex flex-col gap-7">
             <div className="relative w-full h-[25em] rounded-[30px] overflow-hidden">
               <Image
@@ -332,7 +319,6 @@ export const PaidEventViewingComponent = () => {
         </div>
       </section>
 
-      {/* BUY OPTIONS */}
       <section className="max-sm:flex flex-col grid grid-cols-2 gap-6 mt-3 relative z-10">
         <Link href="/checkout">
           <button className="font-secondary text-[1.2em] w-full py-4 bg-primary shadow-xl rounded-md hover:opacity-90 transition-all flex items-center justify-center gap-2">
@@ -352,7 +338,6 @@ export const PaidEventViewingComponent = () => {
         </Link>
       </section>
 
-      {/* UPCOMING EVENTS */}
       <section className="mt-16">
         <h1 className="text-3xl font-bold mb-6">Upcoming Events</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

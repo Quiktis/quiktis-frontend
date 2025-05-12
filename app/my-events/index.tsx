@@ -17,8 +17,7 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "africa.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -29,8 +28,7 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "dj.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -41,8 +39,7 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "camera.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -53,8 +50,7 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "party1.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -65,8 +61,7 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "conf.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -77,8 +72,7 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "dance.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -89,8 +83,7 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "wed.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
   },
   {
     title: "Africa's fashion industry is growing to meet global demand.",
@@ -101,8 +94,7 @@ const events = [
     location: "South Kenyatta",
     price: "$20",
     image: "show.png",
-    getTicketUrl: "#",
-    readMoreUrl: "#",
+    getTicketUrl: "/checkout",
   },
 ];
 
@@ -162,6 +154,60 @@ const tableEvents: TableEvent[] = [
     status: "Ended",
   },
   {
+    id: "evt-7",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-8",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-9",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-10",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-11",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
+    id: "evt-12",
+    name: "Afro Vibes Concert 2025",
+    dateTime: "April 15, 2025 — 7:00 PM",
+    location: "Lagos Convention Center",
+    revenue: "₦1,200,000",
+    ticketTypes: "Regular, VIP, Early Bird",
+    status: "Ended",
+  },
+  {
     id: "evt-5",
     name: "Afro Vibes Concert 2025",
     dateTime: "April 15, 2025 — 7:00 PM",
@@ -171,61 +217,7 @@ const tableEvents: TableEvent[] = [
     status: "Ended",
   },
   {
-    id: "evt-6",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-5",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-6",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-5",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-6",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-5",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-6",
+    id: "evt-13",
     name: "Afro Vibes Concert 2025",
     dateTime: "April 15, 2025 — 7:00 PM",
     location: "Lagos Convention Center",
@@ -259,7 +251,6 @@ const MyEvents = () => {
           }}>
           <h1 className="text-xs md:text-2xl font-bold">Manage Events</h1>
           <div className="flex flex-row items-center gap-4 w-full md:w-auto">
-           
           </div>
         </div>
         <p className="mt-2 text-gray-400 text-xs md:text-sm">
@@ -275,26 +266,33 @@ const MyEvents = () => {
         <hr className="border-gray-700 mt-1" />
       </div>
 
-      <div className="mt-16" />
+      <div className="mt-16 relative">
 
-      <h1 className="text-3xl font-bold mb-6">MY TICKETS</h1>
+        <div
+          className="absolute bottom-0 left-0 w-[350px] h-[350px] opacity-30 -z-10"
+          style={{ backgroundColor: "#FF4D2A", filter: "blur(100px)" }}></div>
+        <div
+          className="absolute top-0 right-0 w-[350px] h-[350px] opacity-30 -z-10"
+          style={{ backgroundColor: "#0072FF", filter: "blur(100px)" }}></div>
 
-      <section className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
-        {events.map((event, index) => (
-          <EventCard
-            key={index}
-            title={event.title}
-            subtitle={event.subtitle}
-            description={event.description}
-            date={event.date}
-            location={event.location}
-            price={event.price}
-            image={event.image}
-            getTicketUrl={event.getTicketUrl}
-            readMoreUrl={event.readMoreUrl}
-          />
-        ))}
-      </section>
+        <h1 className="text-3xl font-bold mb-6 relative z-10">MY TICKETS</h1>
+
+        <section className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto relative z-10">
+          {events.map((event, index) => (
+            <EventCard
+              key={index}
+              title={event.title}
+              subtitle={event.subtitle}
+              description={event.description}
+              date={event.date}
+              location={event.location}
+              price={event.price}
+              image={event.image}
+              getTicketUrl={event.getTicketUrl}
+            />
+          ))}
+        </section>
+      </div>
     </main>
   );
 };

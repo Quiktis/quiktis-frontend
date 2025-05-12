@@ -6,19 +6,31 @@
 .glowWrapper::before {
   content: "";
   position: absolute;
-  top: -60px;
-  left: -60px;
-  right: -60px;
-  bottom: -60px;
+  top: -80px; 
+  left: -80px;
+  right: -80px;
+  bottom: -80px;
   background: radial-gradient(
     circle at center,
     rgba(255, 77, 42, 0.8) 0%,
     rgba(255, 77, 42, 0.2) 50%,
     rgba(255, 77, 42, 0) 100%
   );
-  filter: blur(80px);
-  opacity: 0.9;
+  filter: blur(100px); 
+  opacity: 1; 
   z-index: -1;
   pointer-events: none;
-  border-radius: 9999px;
+  border-radius: 9999px; 
+  animation: pulseGlow 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 }

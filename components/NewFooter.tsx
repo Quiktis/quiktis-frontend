@@ -29,7 +29,20 @@ export default function Footer() {
     "/reviews",
     "/announcement",
     "/announcement",
-    "/create-events",
+    "/create-events","/my-events",
+    "/about",
+    "/checkout",
+    "/stats",
+    "/payment-success",
+    "/live-chat",
+    "/manager-event-viewing",
+    "/event-viewing-square",
+    "/manage-event-viewing",
+    "/paid-event-viewing",
+    "/tickets",
+    "/concert-ticket",
+    "/attendees",
+    "/write-review",
     "/dashboard"
   ];
   if (excludeFooterPaths.includes(pathname)) return null;
@@ -61,7 +74,7 @@ export default function Footer() {
               <Link href="/" className="hover:text-[#FF4D2A]">
                 Home
               </Link>
-              <Link href="/my-ticket" className="hover:text-[#FF4D2A]">
+              <Link href="/my-events" className="hover:text-[#FF4D2A]">
                 Pages
               </Link>
               <Link href="/events" className="hover:text-[#FF4D2A]">
@@ -72,7 +85,7 @@ export default function Footer() {
               </Link>
             </div>
             <div className="flex flex-col space-y-2 text-center md:text-left">
-              <Link href="/event-viewing" className="hover:text-[#FF4D2A]">
+              <Link href="/checkout" className="hover:text-[#FF4D2A]">
                 Get Tickets
               </Link>
               <Link href="/faq" className="hover:text-[#FF4D2A]">
@@ -81,7 +94,7 @@ export default function Footer() {
               <Link href="/search" className="hover:text-[#FF4D2A]">
                 Genres
               </Link>
-              <Link href="/history" className="hover:text-[#FF4D2A]">
+              <Link href="/manage-event-viewing" className="hover:text-[#FF4D2A]">
                 News
               </Link>
             </div>

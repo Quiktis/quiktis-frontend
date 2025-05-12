@@ -74,7 +74,7 @@ export default function ManageEventViewingPage() {
   const router = useRouter();
   const { user } = useUser();
 
-  const eventData: EventData = {
+  const eventData = {
     title: "Event Title ",
     description: "Your event description here.",
     startDate: "01/01/24",
@@ -85,6 +85,7 @@ export default function ManageEventViewingPage() {
     accessType: "Public",
     bannerImage: "/banner.png",
     location: "Event Location",
+    categoryId: "music-123",
     tickets: [
       {
         name: "General Admission",
@@ -94,6 +95,7 @@ export default function ManageEventViewingPage() {
       },
     ],
   };
+
 
 
   return (

@@ -51,7 +51,6 @@ export default function FAQPage() {
   return (
     <main className="bg-transparent text-white min-h-screen flex flex-col">
       <div className="container mx-auto py-10 px-6 flex-1 flex flex-col">
-        {/* Top Section */}
         <div className="flex justify-between items-start flex-wrap gap-8 flex-1 md:flex-none">
           <div>
             <h1 className="text-[80px] md:text-[100px] font-extrabold">
@@ -100,7 +99,6 @@ export default function FAQPage() {
           </div>
         </div>
 
-        {/* FAQ GRID SECTION */}
         <div className="relative mt-8 flex-1 md:flex-none">
           <Image
             height={250}
@@ -118,7 +116,6 @@ export default function FAQPage() {
             style={{ transform: "translate(-50%, -60%)" }}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
-            {/* Left column*/}
             <div className="flex flex-col gap-4 md:ml-[-20px]">
               {filteredFAQs.length === 0 && <p>No results found.</p>}
               {leftFAQs.map((faq, idx) => (
@@ -141,7 +138,6 @@ export default function FAQPage() {
               ))}
             </div>
 
-            {/* Right column */}
             <div className="flex flex-col gap-4 md:mr-[-20px]">
               {rightFAQs.map((faq, idx) => (
                 <div

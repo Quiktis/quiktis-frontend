@@ -1,67 +1,45 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 
-interface StatCardProps {
+interface Stat {
   title: string;
   value: string;
-  underlineColor: string;
+  color: string; 
 }
 
-const StatCard: React.FC<StatCardProps> = ({
-  title,
-  value,
-  underlineColor,
-}) => {
-  return (
+const stats: Stat[] = [
+  { title: "Total Events", value: "600", color: "#FF4D2A" },
+  { title: "Published", value: "400", color: "#3B82F6" },
+  { title: "Total Attendees", value: "782", color: "#EC4899" },
+  { title: "Revenue Earned", value: "$23,000", color: "#A855F7" },
+  { title: "Tickets Sold", value: "826", color: "#22C55E" },
+  { title: "Upcoming Events", value: "34", color: "#EC4899" },
+];
+
+const StatCard: React.FC<Stat> = ({ title, value, color }) => (
+  <div className="relative group cursor-pointer overflow-hidden bg-[#1B1B1B] rounded-lg h-56 shadow-lg">
     <div
-      className={`bg-[#1B1B1B] rounded-lg px-10 py-12 flex-1 text-center shadow-lg border-b-4 ${underlineColor}`}>
-      <p className="text-5xl font-bold text-white">{value}</p>
-      <p className="text-lg text-gray-400 mt-3">{title}</p>
+      className="absolute bottom-0 left-0 w-full h-1 group-hover:h-[90%] transition-[height] duration-500 ease-in-out"
+      style={{ backgroundColor: color, zIndex: 0 }}
+    />
+
+    {/* content */}
+    <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+      <p className="text-4xl md:text-5xl font-bold text-white">{value}</p>
+      <p className="mt-2 text-sm md:text-lg text-gray-400">{title}</p>
     </div>
-  );
-};
+  </div>
+);
 
-const EventStats: React.FC = () => {
-  const stats = [
-    {
-      title: "Total Events",
-      value: "600+",
-      underlineColor: "border-[#FF4D2A]",
-    },
-    { title: "Published", value: "400", underlineColor: "border-blue-500" },
-    { title: "In Progress", value: "100", underlineColor: "border-pink-500" },
-  ];
-
-  return (
-    <section className="relative w-full mt-12 flex flex-col items-center">
-      <div className="flex flex-col md:flex-row gap-10 w-full max-w-7xl text-center z-10">
-        {stats.map((stat, idx) => (
-          <StatCard
-            key={idx}
-            title={stat.title}
-            value={stat.value}
-            underlineColor={stat.underlineColor}
-          />
-        ))}
-      </div>
-
-      <div className="absolute left-0 bottom-[50px] z-0 md:left-[10px]">
-        <div className="w-[300px] h-[300px] md:w-[450px] md:h-[450px] bg-[#FF4D2A] opacity-30 blur-3xl rounded-full"></div>
-      </div>
-
-      <div className="w-full flex justify-center z-0 mt-[-100px]">
-        <Image
-          src="/semicircle.png"
-          alt="Semicircle Decoration"
-          width={1200}
-          height={600}
-          className="object-contain mb-30"
-        />
-      </div>
-    </section>
-  );
-};
+const EventStats: React.FC = () => (
+  <section className="w-full mt-12">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+      {stats.map((s, i) => (
+        <StatCard key={i} title={s.title} value={s.value} color={s.color} />
+      ))}
+    </div>
+  </section>
+);
 
 export default EventStats;

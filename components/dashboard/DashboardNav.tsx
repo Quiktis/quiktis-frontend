@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { AiOutlineCalendar } from "react-icons/ai";
 
 const navItems = [
   { name: "My Profile", path: "/event-creator" },
@@ -39,10 +40,13 @@ const DashboardNav = () => {
   };
 
   return (
-    <div className="relative mt-4">
+    <div className="relative mt-4 flex items-center w-full">
+      {/* Left scroll fade */}
       <div className="absolute top-0 left-0 h-full w-6 bg-gradient-to-r from-black to-transparent pointer-events-none block md:hidden" />
+      {/* Right scroll fade */}
       <div className="absolute top-0 right-0 h-full w-6 bg-gradient-to-l from-black to-transparent pointer-events-none block md:hidden" />
 
+      {/* Scroll buttons mobile */}
       <div className="md:hidden absolute left-0 top-1/2 transform -translate-y-1/2 z-10">
         <button
           onClick={() => scrollByAmount(-120)}
@@ -66,10 +70,11 @@ const DashboardNav = () => {
         </button>
       </div>
 
+      {/* Nav links */}
       <nav
         ref={scrollRef}
         onScroll={updateArrows}
-        className="flex gap-2 md:gap-4 overflow-x-auto scroll-smooth relative w-full scrollbar-hide">
+        className="flex gap-2 md:gap-4 overflow-x-auto scroll-smooth scrollbar-hide">
         {navItems.map((item) => {
           const isActive = pathname === item.path;
           return (
@@ -86,6 +91,15 @@ const DashboardNav = () => {
           );
         })}
       </nav>
+
+      <div className="hidden md:flex ml-auto">
+        <Link href="/create-event">
+          <button className="flex items-center gap-2 bg-primary text-white px-4 py-4 rounded-md shadow-[0_0_20px_#FF4D2A] hover:brightness-110 transition">
+            <AiOutlineCalendar className="w-5 h-5" />
+            <span>Create Event</span>
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
