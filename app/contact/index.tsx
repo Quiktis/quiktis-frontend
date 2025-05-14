@@ -2,14 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import {
-  FiMessageSquare,
-  FiMail,
-  FiLinkedin,
-  FiPhoneCall,
-  FiMapPin,
-  FiSend,
-} from "react-icons/fi";
+import { FiSend } from "react-icons/fi";
 
 const ContactPage = () => {
   const [name, setName] = useState("");
@@ -33,6 +26,7 @@ const ContactPage = () => {
       />
 
       <div className="relative z-10 pt-4 pb-10">
+        {/* Header Section */}
         <section className="flex flex-col md:flex-row items-center justify-between gap-6 mt-4">
           <div className="flex-1">
             <h1 className="text-5xl font-bold mb-2">Contact our team</h1>
@@ -65,36 +59,52 @@ const ContactPage = () => {
             </p>
             <ul className="space-y-2">
               <li className="flex items-center gap-2">
-                <FiMessageSquare className="text-primary" />
+                <Image
+                  src="/icons/message-icon.png"
+                  alt="Live Chat Icon"
+                  width={20}
+                  height={20}
+                />
                 <a
-                  href="https://your-live-chat-link.com"
+                  href="/live-chat"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline">
+                  className="hover:no-underline">
                   Start a live chat
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <FiMail className="text-primary" />
+                <Image
+                  src="/icons/chat-icon.png"
+                  alt="Email Icon"
+                  width={20}
+                  height={20}
+                />
                 <a
                   href="mailto:support@quiktis.com"
-                  className="hover:underline">
+                  className="hover:no-underline">
                   support@quiktis.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <FiLinkedin className="text-primary" />
+                <Image
+                  src="/icons/uncolored-linked.png"
+                  alt="LinkedIn Icon"
+                  width={20}
+                  height={20}
+                />
                 <a
                   href="https://www.linkedin.com/company/quiktisupport"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline">
+                  className="hover:no-underline">
                   QuiktisSupport
                 </a>
               </li>
             </ul>
           </div>
 
+          {/* Call Section */}
           <div className="p-6 bg-[#111111]/90 rounded-[20px] shadow-lg">
             <h2 className="text-[30px] font-semibold mb-2 text-[#F68B61]">
               Call us
@@ -104,20 +114,31 @@ const ContactPage = () => {
             </p>
             <ul className="space-y-2">
               <li className="flex items-center gap-2">
-                <FiPhoneCall className="text-primary" />
-                <a href="tel:12995560908" className="hover:underline">
+                <Image
+                  src="/icons/phone-call.png"
+                  alt="Phone Call Icon"
+                  width={20}
+                  height={20}
+                />
+                <a href="tel:12995560908" className="hover:no-underline">
                   1299 556-0908
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <FiPhoneCall className="text-primary" />
-                <a href="tel:12995560098" className="hover:underline">
+                <Image
+                  src="/icons/phone-call.png"
+                  alt="Phone Call Icon"
+                  width={20}
+                  height={20}
+                />
+                <a href="tel:12995560098" className="hover:no-underline">
                   1299 556-0098
                 </a>
               </li>
             </ul>
           </div>
 
+          {/* Visit Us Section */}
           <div className="p-6 bg-[#111111]/90 rounded-[20px] shadow-lg">
             <h2 className="text-[30px] font-semibold mb-2 text-[#F68B61]">
               Visit us
@@ -127,30 +148,45 @@ const ContactPage = () => {
             </p>
             <ul className="space-y-2">
               <li className="flex items-center gap-2">
-                <FiMapPin className="text-primary" />
+                <Image
+                  src="/icons/location.png"
+                  alt="Location Icon"
+                  width={20}
+                  height={20}
+                />
                 <a
                   href="https://maps.google.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline">
+                  className="hover:no-underline">
                   6301 Elgin St. Celina, Delaware
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <FiMail className="text-primary" />
+                <Image
+                  src="/icons/chat-icon.png"
+                  alt="Email Icon"
+                  width={20}
+                  height={20}
+                />
                 <a
                   href="mailto:support@quiktis.com"
-                  className="hover:underline">
+                  className="hover:no-underline">
                   support@quiktis.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <FiLinkedin className="text-primary" />
+                <Image
+                  src="/icons/colored-linkedin.png"
+                  alt="LinkedIn Icon"
+                  width={20}
+                  height={20}
+                />
                 <a
                   href="https://www.linkedin.com/company/quiktisupport"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline">
+                  className="hover:no-underline">
                   QuiktisSupport
                 </a>
               </li>
@@ -158,6 +194,7 @@ const ContactPage = () => {
           </div>
         </section>
 
+        {/* Message Us Section */}
         <section className="mt-10">
           <h2 className="text-left text-4xl font-bold mb-6">Message Us</h2>
           <form
@@ -206,6 +243,7 @@ const ContactPage = () => {
                   Message
                 </label>
               </div>
+
               <div className="flex justify-end mt-4">
                 <Button
                   type="submit"
