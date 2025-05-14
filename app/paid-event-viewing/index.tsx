@@ -150,38 +150,40 @@ export const PaidEventViewingComponent = () => {
       </section>
 
       <section>
-        <div className="w-full flex max-sm:flex-wrap md:gap-[4em] h-[max-content]">
-          <div className="h-full">
-            <h1 className="text-[40px] font-primary font-bold whitespace-nowrap">
+        <div className="w-full flex flex-wrap md:flex-nowrap md:gap-[4em] h-auto">
+          <div className="h-full text-center md:text-left">
+            <h1 className="text-[32px] sm:text-[36px] md:text-[40px] font-primary font-bold whitespace-normal">
               Event Title Lorem ipsum Dolor Sit Smet
             </h1>
-            <p className="text-gray-500 font-secondary">By mention Creator</p>
+            <p className="text-gray-500 font-secondary text-sm md:text-base">
+              By mention Creator
+            </p>
           </div>
-          <div className="grid h-full mr-0 md:ml-auto mt-4 md:mt-0 md:w-fit w-full">
+
+          <div className="grid h-full w-full md:w-fit mt-4 md:mt-0 md:ml-auto max-sm:place-items-center">
             <Link
               href="/concert-ticket"
               className="
-    inline-flex 
-    items-center 
-    gap-2 
-    bg-[#191919] 
-    text-[#FF4D2A] 
-    font-semibold 
-    px-6 
-    py-3 
-    rounded-[15px] 
-    shadow-lg 
+      inline-flex 
+      items-center 
+      gap-2 
+      bg-[#191919] 
+      text-[#FF4D2A] 
+      font-semibold 
+      px-6 
+      py-3 
+      rounded-[15px] 
+      shadow-lg 
 
-    /* enable transforms & smooth transition */
-    transform 
-    transition-transform 
-    duration-200 
-    ease-out
+      transform 
+      transition-transform 
+      duration-300 
+      ease-in-out 
+      will-change-transform
 
-    /* on hover: fade + lift */
-    hover:opacity-90 
-    hover:-translate-y-1
-  ">
+      hover:opacity-90 
+      hover:-translate-y-1
+    ">
               View Ticket <IoTicketSharp size={20} className="text-white" />
             </Link>
           </div>
