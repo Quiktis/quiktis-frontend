@@ -7,7 +7,6 @@ import { FcHome } from "react-icons/fc";
 export default function PaymentSuccessPage() {
   return (
     <div className="min-h-screen bg-transparent text-white">
-      {/* Wrapper to allow overlap */}
       <div className="relative w-full">
         {/* Header */}
         <div className="text-center py-8 relative z-20">
@@ -19,14 +18,12 @@ export default function PaymentSuccessPage() {
 
         {/* Main Content */}
         <div className="flex flex-col md:flex-row w-full">
-          {/* Left Side – Shift up, reduce size, keep flush left */}
+          {/* Left Side  */}
           <div
             className="w-full md:w-1/2 flex items-start justify-start z-10"
-            style={{ marginTop: "-14rem" }} // shifted up more
+            style={{ marginTop: "-14rem" }} 
           >
             <div className="relative w-[130%] h-[450px] md:h-[120%]">
-              {" "}
-              {/* reduced size */}
               <Image
                 src="/rocketman.png"
                 alt="Person riding a rocket"
@@ -36,7 +33,7 @@ export default function PaymentSuccessPage() {
             </div>
           </div>
 
-          {/* Right Side – Payment Details */}
+          {/* Right Side */}
           <div className="w-full md:w-1/2 flex flex-col justify-start pt-16 md:pt-14 px-4 md:px-12">
             <div className="space-y-6">
               <div className="grid grid-cols-2">
@@ -66,7 +63,6 @@ export default function PaymentSuccessPage() {
                 </span>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex flex-col md:flex-row gap-2 justify-start w-full">
                 <Link
                   href="/concert-ticket"
