@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
-import manageStyles from "@/app/manage-event-viewing/page.module.css"; 
+import manageStyles from "@/app/manage-event-viewing/page.module.css";
 
 const tags = [
   { tag: "Syracuse Events" },
@@ -138,7 +138,7 @@ export default function EventViewingPage() {
       <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
         <div className="relative w-full h-full">
           <Image
-            src={"/battle1.png"} 
+            src={"/battle1.png"}
             alt="Event header"
             layout="fill"
             objectFit="cover"
@@ -148,22 +148,26 @@ export default function EventViewingPage() {
         </div>
       </section>
       <section>
-        <div className="w-full flex max-sm:flex-wrap md:gap-[4em] h-[max-content]">
-          <div className="h-full">
-            <h1 className="text-[40px] font-primary font-bold whitespace-nowrap">
+        <div className="w-full flex flex-wrap md:flex-nowrap md:gap-[4em] h-auto">
+          <div className="h-full text-center md:text-left">
+            <h1 className="text-[32px] sm:text-[36px] md:text-[40px] font-primary font-bold whitespace-normal">
               The Battle Of The Bots 2025
             </h1>
-            <p className="text-gray-500 font-secondary">By mention Creator</p>
+            <p className="text-gray-500 font-secondary text-sm md:text-base">
+              By mention Creator
+            </p>
           </div>
-          <div className="grid h-full mr-0 md:ml-auto mt-4 md:mt-0 md:w-fit w-full">
+
+          <div className="grid h-full w-full md:w-fit mt-4 md:mt-0 md:ml-auto">
             <Link href="/concert-ticket" passHref>
-              <span className="text-[#FF4D2A] text-[1.3em] font-semibold flex items-center justify-center gap-2 cursor-pointer hover:no-underline">
+              <span className="text-[#FF4D2A] text-[1em] sm:text-[1.2em] md:text-[1.3em] font-semibold flex items-center justify-center gap-2 cursor-pointer hover:no-underline">
                 Get Ticket $70 <IoTicketSharp size={20} />
               </span>
             </Link>
           </div>
         </div>
       </section>
+
       <section className="relative">
         <div className="absolute w-[73%] h-[65em] top-[-12em] radial-gradient blur-3xl opacity-50"></div>
 
