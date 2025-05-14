@@ -39,6 +39,7 @@ export default function Footer() {
     "/checkout",
     "/stats",
     "/payment-success",
+    "/payment-failure",
     "/live-chat",
     "/manager-event-viewing",
     "/event-viewing-square",
