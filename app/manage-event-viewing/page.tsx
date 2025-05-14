@@ -96,8 +96,6 @@ export default function ManageEventViewingPage() {
     ],
   };
 
-
-
   return (
     <div className="flex flex-col gap-9 w-full mt-4">
       <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
@@ -126,10 +124,12 @@ export default function ManageEventViewingPage() {
 
           <div className="h-full my-auto md:w-fit max-sm:w-1/2">
             <div className="flex flex-col items-center justify-center text-[#FF4D2A]">
-              <div className="flex items-center gap-2 font-bold text-[1.6rem] max-sm:text-[1rem]">
-                <span>Get Ticket $70</span>
-                <IoTicket className="max-sm:w-5 max-sm:h-5 w-7 h-7" />
-              </div>
+              <Link href="/concert-ticket">
+                <div className="flex items-center gap-2 font-bold text-[1.6rem] max-sm:text-[1rem] cursor-pointer hover:no-underline">
+                  <span>Get Ticket $70</span>
+                  <IoTicket className="max-sm:w-5 max-sm:h-5 w-7 h-7" />
+                </div>
+              </Link>
 
               <span className="text-[1.1rem] font-medium text-center w-full max-sm:text-sm">
                 53 tickets sold
@@ -283,7 +283,7 @@ export default function ManageEventViewingPage() {
                   key={i}
                   src={src}
                   alt={`Attendee ${i + 1}`}
-                  width={30} 
+                  width={30}
                   height={30}
                   className="rounded-full ring-2 ring-black transition-transform duration-200 hover:-translate-y-1 max-sm:w-[28px] max-sm:h-[28px]"
                   unoptimized
@@ -292,7 +292,7 @@ export default function ManageEventViewingPage() {
             </div>
             <Link
               href="/attendees"
-              className="ml-2 text-base text-white hover:text-gray-300 max-sm:text-xs max-sm:ml-1">
+              className="block ml-2 text-base text-white hover:text-gray-300 max-sm:text-xs max-sm:ml-1">
               View all attendees
             </Link>
           </div>
