@@ -29,11 +29,13 @@ export default function Footer() {
     "/reviews",
     "/announcement",
     "/announcement",
-    "/create-events","/my-events",
+    "/create-events",
+    "/my-events",
     "/about",
     "/checkout",
     "/stats",
     "/payment-success",
+    "/payment-failure",
     "/live-chat",
     "/manager-event-viewing",
     "/event-viewing-square",
@@ -91,10 +93,10 @@ export default function Footer() {
               <Link href="/faq" className="hover:text-[#FF4D2A]">
                 FAQs
               </Link>
-              <Link href="/search" className="hover:text-[#FF4D2A]">
+              <Link href="/manage-event-viewing" className="hover:text-[#FF4D2A]">
                 Genres
               </Link>
-              <Link href="/manage-event-viewing" className="hover:text-[#FF4D2A]">
+              <Link href="/search" className="hover:text-[#FF4D2A]">
                 News
               </Link>
             </div>
