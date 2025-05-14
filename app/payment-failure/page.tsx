@@ -1,12 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IoReload } from "react-icons/io5"; // Retry icon
+import { IoReload } from "react-icons/io5"; 
 import { FcHome } from "react-icons/fc";
 
 export default function PaymentFailurePage() {
   return (
     <div className="min-h-screen bg-transparent text-white">
-      {/* Wrapper to allow overlap */}
       <div className="relative w-full">
         {/* Header */}
         <div className="text-center py-8 relative z-20">
@@ -19,13 +18,13 @@ export default function PaymentFailurePage() {
         {/* Main Content */}
         <div
           className="flex flex-col md:flex-row w-full"
-          style={{ marginTop: "1rem" }} // Slight shift down overall
+          style={{ marginTop: "1rem" }} 
         >
           {/* Left Side */}
           <div className="w-full md:w-1/2 flex items-start justify-start z-10">
             <div
               className="relative w-[140%] h-[500px] md:h-[130%]"
-              style={{ marginTop: "-5rem" }} // Shifted image up more
+              style={{ marginTop: "-5rem" }} 
             >
               <Image
                 src="/thinkingman.png"
@@ -36,7 +35,7 @@ export default function PaymentFailurePage() {
             </div>
           </div>
 
-          {/* Right Side – Payment Details */}
+          {/* Right Side */}
           <div className="w-full md:w-1/2 flex flex-col justify-start pt-16 md:pt-14 px-4 md:px-12">
             <div className="space-y-6">
               <div className="grid grid-cols-2">
@@ -66,7 +65,6 @@ export default function PaymentFailurePage() {
                 </span>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex flex-col md:flex-row gap-0 justify-start w-full">
                 <Link
                   href="/retry"
