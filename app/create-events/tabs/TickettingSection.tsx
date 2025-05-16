@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -20,6 +20,7 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
   handleEventDataChange,
 }) => {
   const router = useRouter();
+  
 
   const handleTicketChange = (
     index: number,
@@ -51,6 +52,21 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
     updated.splice(index, 1);
     handleEventDataChange("tickets", updated);
   };
+
+  useEffect(() => {
+    if (eventData.accessType !== "paid") {
+      
+      const needsReset = eventData.tickets.some(t => Number(t.price) !== 0);
+      if (needsReset) {
+        eventData.tickets.forEach((_, idx) =>
+          handleTicketChange(idx, "price", 0)
+        );
+      }
+    }
+  }, [eventData.accessType]);  
+  
+  
+
 
   return (
     <div className="relative flex flex-col gap-6 max-md:w-full w-fit">
@@ -109,7 +125,7 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
         </button>
       </section>
 
-      {eventData.accessType === "paid" && (
+
         <section className="flex flex-col gap-5 mb-5">
           <h1 className="text-[1.7em] max-md:text-[0.9em]">
             What tickets are you selling?
@@ -132,28 +148,82 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
                   className="max-md:w-[100%]"
                 />
               </div>
+              {eventData.accessType === "paid" && (
+                <div className="flex flex-col gap-3">
+                  <label className="text-[1.1em] font-semibold">Ticket Price</label>
+                  <div className="flex items-center">
+                    <input
+                      type="number"
+                      min="0"
+                      placeholder="₦0.00"
+                      className="p-3 border border-[#ffffff56] bg-transparent rounded-md w-full md:w-[12em] focus:ring-2 focus:outline-none"
+                      value={ticket.price}
+                      onChange={(e) =>
+                        handleTicketChange(index, "price", e.target.value)
+                      }
+                      onKeyDown={(e) => {
+                        const invalidKeys = ['e','E','+','-','.'];
+                        if (invalidKeys.includes(e.key)) e.preventDefault();
+                      }}
+                    />
+                    {index !== 0 && (
+                      <button
+                        type="button"
+                        onClick={() => deleteTicket(index)}
+                        className="hover:bg-[#ffffff17] md:hidden gap-1 text-white rounded-md p-4 grid place-items-center"
+                      >
+                        <AiOutlineDelete size={20} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
 
+
+              {index !== 0 && (
+                <button
+                  type="button"
+                  onClick={() => deleteTicket(index)}
+                  className="hover:bg-[#ffffff17] gap-1 text-white max-md:hidden rounded-md p-4 grid place-items-center w-fit mb-0 mt-auto"
+                >
+                  <AiOutlineDelete
+                    size={20}
+                    color="white"
+                    className="my-auto"
+                  />
+                </button>
+              )}
               <div className="flex flex-col gap-3">
                 <label className="text-[1.1em] font-semibold">
-                  Ticket Price
+                  Quantity
                 </label>
                 <div className="flex items-center">
-                  <CurrencySelector
-                    //value={ticket.currency}
-                    /*onChange={(currency) =>
-                      handleCurrencyChange(index, currency)
-                    }*/
-                    className="grid place-items-center rounded-l-md h-[2.7em] w-[2.7em]"
-                  />
-                  <input
-                    type="text"
-                    placeholder="0.00"
-                    className="p-3 border border-[#ffffff56] bg-transparent rounded-r-md w-full md:w-[12em] focus:ring-2 focus:outline-none"
-                    value={ticket.price}
-                    onChange={(e) =>
-                      handleTicketChange(index, "price", e.target.value)
+                 
+                <input
+                  type="number"
+                  min="1"
+                  placeholder="Enter quantity"
+                  className="p-3 border border-[#ffffff56] bg-transparent rounded-md w-full md:w-[12em] focus:ring-2 focus:outline-none"
+                  value={ticket.quantity}
+                  onChange={(e) => {
+                    // Allow user to clear field temporarily
+                    handleTicketChange(index, "quantity", e.target.value);
+                  }}
+                  onBlur={(e) => {
+                    // If input is empty on blur, reset to "1"
+                    if (e.target.value.trim() === "") {
+                      handleTicketChange(index, "quantity", 1);
                     }
-                  />
+                  }}
+                  onKeyDown={(e) => {
+                    const invalidKeys = ['e', 'E', '+', '-', '.'];
+                    if (invalidKeys.includes(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
+                />
+
+
 
                   {index !== 0 && (
                     <button
@@ -172,21 +242,6 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
                   
                 </div>
               </div>
-
-              {index !== 0 && (
-                <button
-                  type="button"
-                  onClick={() => deleteTicket(index)}
-                  className="hover:bg-[#ffffff17] gap-1 text-white max-md:hidden rounded-md p-4 grid place-items-center w-fit mb-0 mt-auto"
-                >
-                  <AiOutlineDelete
-                    size={20}
-                    color="white"
-                    className="my-auto"
-                  />
-                </button>
-              )}
-              <QuantityCounter />
               <hr className="border-[#ffffff27] border-[0.5px] md:hidden"></hr>
             </div>
           ))}
@@ -200,7 +255,7 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
             ticket
           </button>
         </section>
-      )}
+      
 
       <div className="flex gap-4 w-fit mr-0 md:ml-auto">
         <button
@@ -212,7 +267,7 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
         </button>
         <Button
           onClick={() => router.push(`?tab=review`)}
-          className="w-fit px-7 font-medium"
+          className="w-fit px-7 py-3 font-medium bg-primary"
         >Save & Continue</Button>
       </div>
     </div>

@@ -64,7 +64,7 @@ const EditSection: React.FC<EditSectionProps> = ({
   // Handle button click
   const handleNext = () => {
     if (isFormValid()) {
-      handleEventDataChange("categoryId", generateId());
+      handleEventDataChange("categoryId", "86443225-e1b9-454c-a080-787d014ae5ba");
       router.push(`?tab=banner`);
     } else {
       alert("Please fill in all required fields before proceeding.");
@@ -227,7 +227,7 @@ const EditSection: React.FC<EditSectionProps> = ({
           
         </section>
         <div className="grid w-[72.2%]  mt-[2em]">
-          <Button  onClick={handleNext}  className="w-fit mr-0 md:ml-auto">Save & Continue</Button>
+          <Button  onClick={handleNext}  className="w-fit mr-0 md:ml-auto bg-primary px-7 py-3">Save & Continue</Button>
           </div>
     </>
   )

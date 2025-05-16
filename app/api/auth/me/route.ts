@@ -7,7 +7,7 @@ export async function GET() {
     //return res.status(401).json({ authenticated: false, message: 'No token found' });
     return new Response(
         JSON.stringify({
-          authenticated: false,
+          tokenFound: false,
           message: "No token found",
         }),
         {
@@ -19,8 +19,9 @@ export async function GET() {
 
   return new Response(
     JSON.stringify({
-      authenticated: true,
+      tokenFound: true,
       message: "token found",
+      token: token,
     }),
     {
       status: 200,

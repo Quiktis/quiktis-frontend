@@ -18,7 +18,7 @@ const operations = [
 
 const navLinks = [
   { path: "/dashboard", label: "My Profile", roles: ["user", "organizer"] },
-  //{ path: "/my-events", label: "My Events", roles: ["organizer"] },
+  { path: "/my-events", label: "My Events", roles: ["organizer"] },
   { path: "/my-tickets", label: "My Tickets", roles: ["user", "organizer"] },
   { path: "/notifications", label: "Notification", roles: ["user", "organizer"] },
   { path: "/reviews", label: "Reviews", roles: ["user", "organizer"] },
@@ -35,7 +35,10 @@ const EventsOperations = () => {
     <div className="max-sm:hidden flex justify-between w-full mt-3 my-3">
       <ul className="flex gap-[2.5em] h-fit my-auto">
         {navLinks
-          .filter((link) => user.role && link.roles.includes(user.role)) // ✅ filter by user role with type guard
+          .filter((link) => {
+            console.log(user.role, link.roles);
+            return (user.role)}
+          ) // ✅ filter by user role with type guard
           .map((link) => (
             <li key={link.path}>
               <div className="group flex flex-col items-center">

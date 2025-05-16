@@ -1,13 +1,17 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import MyEventsTable from "@/components/dashboard/MyEventsTable";
 import type { Event as TableEvent } from "@/components/dashboard/EventRow";
 import EventCard from "@/components/dashboard/EventCard";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import useAxios from "../hooks/useAxios";
+import { useUser } from "../context/UserContext";
+import { Event } from "@/constant/customTypes";
+import EventsOperations from "@/components/EventsOperations";
 
-const events = [
+/*const events = [
   {
     title: "Africa's fashion industry is growing to meet global demand.",
     subtitle: "Africa Talks",
@@ -96,148 +100,50 @@ const events = [
     image: "show.png",
     getTicketUrl: "/checkout",
   },
-];
+];*/
 
-const tableEvents: TableEvent[] = [
-  {
-    id: "evt-1",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Upcoming",
-  },
-  {
-    id: "evt-2",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Live",
-  },
-  {
-    id: "evt-3",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-4",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Canceled",
-  },
-  {
-    id: "evt-5",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-6",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-7",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-8",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-9",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-10",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-11",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-12",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-5",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-  {
-    id: "evt-13",
-    name: "Afro Vibes Concert 2025",
-    dateTime: "April 15, 2025 — 7:00 PM",
-    location: "Lagos Convention Center",
-    revenue: "₦1,200,000",
-    ticketTypes: "Regular, VIP, Early Bird",
-    status: "Ended",
-  },
-];
+
 
 const MyEvents = () => {
   const selectRef = useRef<HTMLSelectElement>(null);
+  const [events, setEvents] = useState([]);
+  const { sendRequest } = useAxios();
+  const { user } = useUser();
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await sendRequest({
+          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        });
+
+        console.log("Events response:", response);
+
+        if (response.status === "success") {
+          setEvents(response.data.events);
+        } else {
+          console.error("Failed to fetch events:", response.message);
+        }
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   const handleArrowClick = () => {
     selectRef.current?.click();
   };
 
   return (
-    <main className="bg-transparent text-white min-h-screen py-10">
-      <div className="py-4">
-        <DashboardNav />
+    <main className="bg-transparent text-white min-h-screen flex flex-col gap-5 w-full relative sm:w-[88%] lg:w-[90%] mx-auto">
+      <div className="">
+        <EventsOperations />
       </div>
 
       <div className="mt-10">
@@ -262,7 +168,7 @@ const MyEvents = () => {
         <h1 className="text-2xl md:text-3xl font-bold">My Events</h1>
       </div>
       <div className="mt-8">
-        <MyEventsTable events={tableEvents} />
+        <MyEventsTable events={events} />
         <hr className="border-gray-700 mt-1" />
       </div>
 
@@ -277,20 +183,21 @@ const MyEvents = () => {
 
         <h1 className="text-3xl font-bold mb-6 relative z-10">MY TICKETS</h1>
 
-        <section className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto relative z-10">
-          {events.map((event, index) => (
+        <section className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[2.2em] max-w-7xl mx-auto relative z-10">
+            {events.map((event: Event, index: number) => (
             <EventCard
               key={index}
               title={event.title}
-              subtitle={event.subtitle}
+              //subtitle={event.subtitle}
               description={event.description}
-              date={event.date}
+              date={new Date(event.startDate)}
               location={event.location}
-              price={event.price}
-              image={event.image}
-              getTicketUrl={event.getTicketUrl}
+              price={event.tickets?.[0]?.price ?? 0}
+              image={event.bannerImage}
+              time={event.startTime}
+              //getTicketUrl={event.getTicketUrl}
             />
-          ))}
+            ))}
         </section>
       </div>
     </main>

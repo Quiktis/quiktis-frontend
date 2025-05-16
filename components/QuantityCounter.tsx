@@ -6,7 +6,7 @@ interface QuantityCounterProps {
   onChange?: (quantity: number) => void;
 }
 
-const QuantityCounter: React.FC<QuantityCounterProps> = ({ min = 1, max = 10, onChange }) => {
+const QuantityCounter: React.FC<QuantityCounterProps> = ({ min = 1, max = 50000, onChange }) => {
   const [quantity, setQuantity] = useState<number>(min);
 
   const increase = () => {
@@ -26,20 +26,20 @@ const QuantityCounter: React.FC<QuantityCounterProps> = ({ min = 1, max = 10, on
   };
 
   return (
-    <div className="flex items-center space-x-3">
+    <div className="grid grid-cols-[2em_2em_2em] place-items-center gap-[1em] h-fit">
       <button
       type='button'
         onClick={decrease}
-        className="border px-3 py-1 rounded disabled:opacity-50"
+        className="border px-3 py-1 rounded disabled:opacity-50 h-fit"
         disabled={quantity <= min}
       >
         -
       </button>
-      <span className="text-lg font-medium">{quantity}</span>
+      <span className="text-lg font-medium h-fit">{quantity}</span>
       <button
       type="button"
         onClick={increase}
-        className="border px-3 py-1 rounded disabled:opacity-50"
+        className="border px-3 py-1 rounded disabled:opacity-50 h-fit"
         disabled={quantity >= max}
       >
         +

@@ -44,7 +44,7 @@ function CreateEventPage() {
     startTime: "",
     endTime: "",
     location: "",
-    tickets: [{ name: "", price: 0, description: "", quantity: 0}],
+    tickets: [{ name: "", price: 0, description: "", quantity: 1}],
   });
 
   const [timeData, setTimeData] = useState<TimeData>({
@@ -120,7 +120,7 @@ function CreateEventPage() {
     try {
       // Create a FormData object to send the image file
       const formData = new FormData();
-      formData.append("file", image); // Assuming `image` is a File object
+      formData.append("files", image); // Assuming `image` is a File object
 
       // Use the base URL from the environment variable
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -129,6 +129,7 @@ function CreateEventPage() {
     }
 
     console.log("uploading image to:", `${baseUrl}/medias/upload`);
+    console.log(user, "user data")
     console.log(user?.token, "user token")
 
       // Make the POST request to upload the image
@@ -143,8 +144,12 @@ function CreateEventPage() {
       });
 
       console.log(response, "response data")
+      console.log(response.status, "status")
       // Extract the URL from the response
-      const imageUrl = response.url;
+
+      if (response.status !== "success") return alert("Failed to create event. Please try again.");
+      const imageUrl = response.data.files[0].cloudinaryUrl
+      ; // Adjust this based on the actual response structure
 
       // Update the eventData state with the returned URL
       setEventData((prev) => ({
@@ -152,10 +157,32 @@ function CreateEventPage() {
         bannerImage: imageUrl,
       }));
 
+      console.log(eventData, "event data that is being sent")
+
       console.log("Image uploaded successfully:", imageUrl);
+
+      console.log("uploading image to:", `${baseUrl}/events`);
+
+      const createEventResponse = await sendRequest({
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
+        method: "POST",
+        headers: { 
+          //"Content-Type": "multipart/form-data", 
+          "Authorization": `Bearer ${user?.token}`
+        },
+        body: eventData,
+      });
+
+      console.log(createEventResponse, "response data")
+
+      if (createEventResponse.status === "success") router.push("/my-events");
+
+      return;
+
     } catch (error) {
       console.error("Error uploading image:", error);
-      alert("Failed to upload the image. Please try again.");
+      alert("Failed to create event. Please try again.");
+      return;
     }
   };
 

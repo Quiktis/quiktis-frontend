@@ -205,7 +205,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({uploadImage, preview, even
 
       <div className='flex gap-4 w-fit mr-0 ml-auto mt-4'>
         <button onClick={() => router.push(`?tab=ticketting`)} type="button" className='py-2 px-4  font-medium'>Back</button>
-         <Button  onClick={handleClick} className="w-fit px-7 font-medium">Save & Continue</Button>
+         <Button  onClick={handleClick} className="w-fit px-7 py-3 font-medium bg-primary">Save & Continue</Button>
                   </div>
   
     </div>
