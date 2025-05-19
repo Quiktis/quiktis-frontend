@@ -43,6 +43,17 @@ export default function EventViewingPage() {
   const [event, setEvent] = useState<Event | null>(null);
 
   const eventId = pathname?.split("/event-viewing/")[1];
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_CURRENT_URL}/event-viewing/${eventId}`)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000) // Reset after 2 seconds
+    } catch (err) {
+      console.error('Failed to copy!', err)
+    }
+  }
 
   const shareUrl = `${process.env.NEXT_PUBLIC_CURRENT_URL}/events`;
 const redirectUri = `${process.env.NEXT_PUBLIC_CURRENT_URL}/events`
@@ -213,14 +224,20 @@ const redirectUri = `${process.env.NEXT_PUBLIC_CURRENT_URL}/events`
                   Share with loved ones
                 </p>
                 <div className="flex gap-4">
-                  {socials.map((s, i) => (
+                  {/*socials.map((s, i) => (
                     <Link
                       key={i}
                       href={s.href}
                       className="text-[#FF4D2A] hover:text-[#FF4D2A]/80 transition-colors">
                       {s.icon}
                     </Link>
-                  ))}
+                  ))*/}
+                  <button
+                    onClick={handleCopy}
+                      className="bg-primary flex gap-2 text-white px-4 py-3 rounded-md hover:bg-opacity-80 transition"
+                    >
+                      <FaLink className="my-auto"/> {copied ? 'Copied!' : 'Copy Link'}
+                    </button>
                 </div>
               </div>
 
