@@ -37,7 +37,7 @@ const EventsOperations = () => {
         {navLinks
           .filter((link) => {
             console.log(user.role, link.roles);
-            return (user.role)}
+            return (user.email)}
           ) // ✅ filter by user role with type guard
           .map((link) => (
             <li key={link.path}>

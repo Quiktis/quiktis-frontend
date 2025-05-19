@@ -11,101 +11,9 @@ import { useUser } from "../context/UserContext";
 import { Event } from "@/constant/customTypes";
 import EventsOperations from "@/components/EventsOperations";
 
-/*const events = [
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam. Lobortis nec diam tincidunt tincidunt sed. Ullamcorper nibh tellus posuere ullamcorper luctus. Ornare nulla ut eros maecenas nulla risus blandit est quis. Mi tincidunt sed",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "africa.png",
-    getTicketUrl: "/checkout",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam. Lobortis nec diam tincidunt tincidunt sed. Ullamcorper nibh tellus posuere ullamcorper luctus. Ornare nulla ut eros maecenas nulla risus blandit est quis. Mi tincidunt sed",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "dj.png",
-    getTicketUrl: "/checkout",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam. Lobortis nec diam tincidunt tincidunt sed. Ullamcorper nibh tellus posuere ullamcorper luctus. Ornare nulla ut eros maecenas nulla risus blandit est quis. Mi tincidunt sed",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "camera.png",
-    getTicketUrl: "/checkout",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam. Lobortis nec diam tincidunt tincidunt sed. Ullamcorper nibh tellus posuere ullamcorper luctus. Ornare nulla ut eros maecenas nulla risus blandit est quis. Mi tincidunt sed",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "party1.png",
-    getTicketUrl: "/checkout",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam. Lobortis nec diam tincidunt tincidunt sed. Ullamcorper nibh tellus posuere ullamcorper luctus. Ornare nulla ut eros maecenas nulla risus blandit est quis. Mi tincidunt sed",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "conf.png",
-    getTicketUrl: "/checkout",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam. Lobortis nec diam tincidunt tincidunt sed. Ullamcorper nibh tellus posuere ullamcorper luctus. Ornare nulla ut eros maecenas nulla risus blandit est quis. Mi tincidunt sed",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "dance.png",
-    getTicketUrl: "/checkout",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam. Lobortis nec diam tincidunt tincidunt sed. Ullamcorper nibh tellus posuere ullamcorper luctus. Ornare nulla ut eros maecenas nulla risus blandit est quis. Mi tincidunt sed",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "wed.png",
-    getTicketUrl: "/checkout",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam. Lobortis nec diam tincidunt tincidunt sed. Ullamcorper nibh tellus posuere ullamcorper luctus. Ornare nulla ut eros maecenas nulla risus blandit est quis. Mi tincidunt sed",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "show.png",
-    getTicketUrl: "/checkout",
-  },
-];*/
-
-
 
 const MyEvents = () => {
-  const selectRef = useRef<HTMLSelectElement>(null);
+  //const selectRef = useRef<HTMLSelectElement>(null);
   const [events, setEvents] = useState([]);
   const { sendRequest } = useAxios();
   const { user } = useUser();
@@ -136,9 +44,6 @@ const MyEvents = () => {
     fetchEvents();
   }, []);
 
-  const handleArrowClick = () => {
-    selectRef.current?.click();
-  };
 
   return (
     <main className="bg-transparent text-white min-h-screen flex flex-col gap-5 w-full relative sm:w-[88%] lg:w-[90%] mx-auto">

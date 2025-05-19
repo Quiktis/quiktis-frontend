@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 
 export type EventStatus = "Upcoming" | "Live" | "Ended" | "Canceled";
 
@@ -83,10 +84,18 @@ const statusStyles: Record<EventStatus, string> = {
   Canceled: "text-white",
 };
 
-const EventRow: React.FC<EventRowProps> = ({ event }) => (
-  <tr>
+const EventRow: React.FC<EventRowProps> = ({ event }) => {
+  const router = useRouter();
+  const handleRowClick = () => {
+    router.push(`/event-viewing/${event.id}`);
+  };
+
+  return(
+  
+ 
+  <tr onClick={handleRowClick} className=" hover:bg-[#ffffff13] transition duration-300 cursor-pointer">
     <td className="w-3/12 px-1 md:px-4 py-1 md:py-3 whitespace-nowrap">
-      {event.title}
+    {event.title}
     </td>
     <td className="w-2/12 px-1 md:px-4 py-1 md:py-3 whitespace-nowrap">
       {formatToHumanReadableDate(event.startDate, event.startTime)}
@@ -111,6 +120,6 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => (
       </span>
     </td>
   </tr>
-);
+)};
 
 export default EventRow;

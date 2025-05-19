@@ -33,6 +33,17 @@ export function getConcatenatedTicketNames(tickets: { name: string }[]): string 
 
   return concatenated.slice(0, 8) + "...";
 }
+
+export function getConcatenatedTicketPrices(tickets: { price: any }[]): string {
+  const concatenated = tickets.map(ticket => ticket.price).join(", ");
+  
+  if (concatenated.length <= 26) {
+    return concatenated;
+  }
+
+  return concatenated.slice(0, 8) + "...";
+}
+
 export function formatToHumanReadableDate(dateString: string, time?: string): string {
   const date = new Date(dateString);
 
@@ -52,4 +63,12 @@ export function formatToHumanReadableDate(dateString: string, time?: string): st
   }
 
   return formattedDate;
+}
+
+
+export function formatToHumanReadableTime(time: string): string {
+
+    // Remove leading zero from the hour part (e.g., "04:09 AM" => "4:09 AM")
+    const cleanedTime = time.replace(/^0/, "");
+    return `${cleanedTime}`;
 }

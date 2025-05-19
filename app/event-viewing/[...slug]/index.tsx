@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { IoTicketSharp } from "react-icons/io5";
 import { BsPlus } from "react-icons/bs";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaLink } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { RiFileCopy2Fill } from "react-icons/ri";
 import NewEventCard from "@/components/search/NewEventCard";
@@ -13,6 +15,12 @@ import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import manageStyles from "@/app/manage-event-viewing/page.module.css";
+import { relatedEvents } from "@/constant/relatedEvents";
+import { useUser } from "@/app/context/UserContext";
+import useAxios from "@/app/hooks/useAxios";
+import { usePathname } from "next/navigation";
+import { Event } from "@/constant/customTypes";
+import { formatToHumanReadableDate, formatToHumanReadableTime } from "@/app/utils/utilities";
 
 const tags = [
   { tag: "Syracuse Events" },
@@ -23,122 +31,64 @@ const tags = [
   { tag: "#thingsToDo" },
 ];
 
-const socials = [
-  { icon: <FaFacebook size={24} />, href: "" },
-  { icon: <FaInstagram size={24} />, href: "" },
-  { icon: <FaTwitter size={24} />, href: "" },
-  { icon: <FaLinkedin size={24} />, href: "" },
-];
 
-const relatedEvents = [
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "africa.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing-square",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "dj.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing-square",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "camera.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing-square",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "party1.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing-square",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "conf.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing-square",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "dance.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing-square",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "wed.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing-square",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "show.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing-square",
-  },
-];
+
 export default function EventViewingPage() {
   const [email, setEmail] = useState("");
   const icons = Array(5).fill(<FaStar className="text-yellow-500" />);
   const [rating, setRating] = useState(0);
+  const { user } = useUser();
+  const { sendRequest } = useAxios();
+  const pathname = usePathname();
+  const [event, setEvent] = useState<Event | null>(null);
+
+  const eventId = pathname?.split("/event-viewing/")[1];
+
+  const shareUrl = `${process.env.NEXT_PUBLIC_CURRENT_URL}/events`;
+const redirectUri = `${process.env.NEXT_PUBLIC_CURRENT_URL}/events`
+
+  const socials = [
+    { icon: <FaFacebook size={24} />, href: `https://www.facebook.com/dialog/share?app_id=1381213999628071&display=popup&href=${shareUrl}&redirect_uri=${redirectUri}` },
+    { icon: <FaInstagram size={24} />, href: "" },
+    { icon: <FaTwitter size={24} />, href: "" },
+    { icon: <FaLinkedin size={24} />, href: "" },
+    { icon: <FaLink size={24} />, href: `${process.env.NEXT_PUBLIC_CURRENT_URL}/event-viewing/${eventId}` },
+  ];
+
+  useEffect(() => {
+      const fetchEvents = async () => {
+        console.log(eventId);
+        try {
+          const response = await sendRequest({
+            url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${eventId}`,
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
+          });
+  
+          console.log("Events response:", response);
+  
+          if (response.status === "success") {
+            console.log("Event data:", response.data.event);
+            setEvent(response.data.event);
+          } else {
+            console.error("Failed to fetch event details:", response.message);
+          }
+        } catch (error) {
+          console.error("Error fetching event details", error);
+        }
+      };
+  
+      fetchEvents();
+    }, []);
 
   return (
-    <>
+    <div className="w-full space-y-5 lg:w-[90%] mx-auto">
       <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
         <div className="relative w-full h-full">
           <Image
-            src={"/battle1.png"}
+            src={event?.bannerImage || ""}
             alt="Event header"
             layout="fill"
             objectFit="cover"
@@ -151,17 +101,17 @@ export default function EventViewingPage() {
         <div className="w-full flex flex-wrap md:flex-nowrap md:gap-[4em] h-auto">
           <div className="h-full text-center md:text-left">
             <h1 className="text-[32px] sm:text-[36px] md:text-[40px] font-primary font-bold whitespace-normal">
-              The Battle Of The Bots 2025
+              {event?.title || "Event Title"}
             </h1>
             <p className="text-gray-500 font-secondary text-sm md:text-base">
-              By mention Creator
+              Organized by {event?.organiser?.name || "Event Organiser"}
             </p>
           </div>
 
           <div className="grid h-full w-full md:w-fit mt-4 md:mt-0 md:ml-auto">
             <Link href="/concert-ticket" passHref>
               <span className="text-[#FF4D2A] text-[1em] sm:text-[1.2em] md:text-[1.3em] font-semibold flex items-center justify-center gap-2 cursor-pointer hover:no-underline">
-                Get Ticket $70 <IoTicketSharp size={20} />
+                Get Ticket {event?.tickets?.[0]?.price ?? ""} <IoTicketSharp size={20} />
               </span>
             </Link>
           </div>
@@ -213,15 +163,7 @@ export default function EventViewingPage() {
                   DESCRIPTION
                 </h2>
                 <p className="text-white text-sm leading-relaxed">
-                  Lorem ipsum dolor sit amet consectetur. Odio praesent
-                  elementum vivamus aliquet est. Libero diam quisque elementum
-                  pharetra risus egestas at egestas. Vestibulum venenatis
-                  dignissim viverra est amet porta amet ipsum viverra. Lectus
-                  morbi egestas viverra sit blandit nulla odio semper. Quam
-                  hendrerit venenatis arcu urna cras tempus maecenas. Sed diam
-                  quam et volutpat enim mattis etiam diam pharetra. Gravida
-                  viverra ut elementum nunc urna donec. Purus a sit senectus
-                  elit.
+                  {event?.description || ""}
                 </p>
               </div>
 
@@ -238,11 +180,11 @@ export default function EventViewingPage() {
                       width={18}
                       height={18}
                     />
-                    <span>Friday, June 27th 2025</span>
+                    <span>{event && formatToHumanReadableDate(event?.startDate)}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <MdOutlineAccessTimeFilled size={18} />
-                    <span>9:00 AM - 4:00 PM UTC</span>
+                    <span>{event && `${formatToHumanReadableTime(event.startTime)} - ${formatToHumanReadableTime(event.startTime)}`}</span>
                   </div>
                 </div>
               </div>
@@ -285,7 +227,7 @@ export default function EventViewingPage() {
               {/* ADDRESS */}
               <div className="flex items-center gap-2 text-white text-sm">
                 <FaLocationDot size={18} className="text-[#FF4D2A]" />
-                <span>2118 Thornridge Cir, Syracuse, Connecticut 35624</span>
+                <span>{event?.location?? ""}</span>
               </div>
             </div>
           </div>
@@ -303,7 +245,7 @@ export default function EventViewingPage() {
             </div>
             <div className="bg-white rounded-[30px] px-8 py-6 text-black flex flex-col gap-3">
               <h2 className="text-[1.3em] font-semibold">Locate</h2>
-              <p className="text-black">Podium, Lagos</p>
+              <p className="text-black">{event?.location?? ""}</p>
               <button className="inline-flex items-center text-primary gap-2">
                 <RiFileCopy2Fill size={20} /> Copy Location
               </button>
@@ -318,15 +260,15 @@ export default function EventViewingPage() {
         </div>
       </section>
 
-      <section className="max-sm:flex flex-col grid grid-cols-2 gap-6 mt-3 relative z-10">
-        <Link href="/checkout">
+      <section className="max-sm:flex flex-col grid grid-cols-2 gap-[1.8em] mt-3 relative z-10">
+        <Link href={`/checkout/${eventId}`}>
           <div className="w-full">
             <button className="font-secondary text-[1.2em] w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-primary shadow-xl shadow-[#eeab8536] cursor-pointer rounded-md hover:opacity-90 transition-all">
               Buy with Card <IoTicketSharp size={20} />
             </button>
           </div>
         </Link>
-        <Link href="/checkout">
+        <Link href={`/checkout/${eventId}`}>
           <div className="w-full">
             <button className="font-secondary text-[1.2em] w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl shadow-[#85d5ee36] cursor-pointer rounded-md hover:opacity-90 transition-all">
               Buy with Crypto
@@ -360,6 +302,6 @@ export default function EventViewingPage() {
           ))}
         </div>
       </section>
-    </>
+    </div>
   );
 }
