@@ -211,7 +211,7 @@ function CreateEventPage() {
                 {/* Step Circle */}
                 <div className="grid place-items-center gap-2 md:mr-[-1.75em] z-30">
                   <button
-                  onClick={() => router.push(`?tab=${item.link}`)}
+                  //onClick={() => router.push(`?tab=${item.link}`)}
                     type="button"
                     className={`${
                       item.label === "blank"

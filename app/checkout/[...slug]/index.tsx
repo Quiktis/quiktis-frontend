@@ -87,6 +87,19 @@ export default function CheckoutPage() {
 
 
   const handleOrderInitiation = async () => {
+
+    const responseBody = {
+      eventId: event?.id,
+      items: [
+        {
+          ticketId: selectedTicketId,
+          quantity: quantity,
+        }
+      ],
+      totalAmount: total,
+      currency: "USD"
+    };
+    console.log("Response body for order initiation:", responseBody);
     try {
       console.log("Initiating order with details:", checkoutDetails);
       const response = await sendRequest({
@@ -95,17 +108,7 @@ export default function CheckoutPage() {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
-        body: {
-          "eventId": event?.id,
-          "items": [
-            {
-              "ticketId": selectedTicketId,
-              "quantity": quantity,
-            }
-          ],
-          "totalAmount": total,
-          "currency": "NGN"
-        }
+        body: responseBody,
       });
        
       if (response?.data?.status === "success") {

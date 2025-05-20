@@ -7,8 +7,8 @@ import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import CustomTimePicker from "@/components/ui/CustomTimePicker";
 import { useRouter } from 'next/navigation';
 import { EventData, TimeData } from '@/constant/customTypes';
-import { generateId } from '@/app/utils/utilities';
-
+//import { generateId } from '@/app/utils/utilities';
+import { categories } from '@/constant/categories';
 
 interface EditSectionProps {
   eventData: EventData;
@@ -43,7 +43,7 @@ const EditSection: React.FC<EditSectionProps> = ({
    // Validation function
    const isFormValid = () => {
     // Check if all required fields in eventData are filled
-    const requiredFields = ["title", "eventType", "location", "description"];
+    const requiredFields = ["title", "eventType", "location", "description", "categoryId"];
     const isEventDataValid = requiredFields.every((field) => eventData[field as keyof EventData]);
 
     // Check if startDate and endDate are set
@@ -64,12 +64,16 @@ const EditSection: React.FC<EditSectionProps> = ({
   // Handle button click
   const handleNext = () => {
     if (isFormValid()) {
-      handleEventDataChange("categoryId", "86443225-e1b9-454c-a080-787d014ae5ba");
       router.push(`?tab=banner`);
     } else {
       alert("Please fill in all required fields before proceeding.");
     }
   };
+
+
+  const handleDropdownChange = (value: string) => {
+    handleEventDataChange("categoryId", value);
+  }
     
          // Handle changes in input fields
           const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -96,15 +100,15 @@ const EditSection: React.FC<EditSectionProps> = ({
                 onChange={handleInputChange} />
             </div>
 
-            {/*<div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
+            <div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
               <label className="my-auto mr-0 md:ml-auto">Event Category</label>
               <Dropdown
-            options={["Category 1", "Category 2"]}
-            selected={eventData.category}
-            onChange={(value) => handleEventDataChange("category", value)}
+            options={categories}
+            //selected={eventData.category}
+            onChange={handleDropdownChange}
             placeholder="Please select one"
           />
-            </div>*/}
+            </div>
           </section>
         </section>
 

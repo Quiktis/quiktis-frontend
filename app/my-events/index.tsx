@@ -22,7 +22,7 @@ const MyEvents = () => {
     const fetchEvents = async () => {
       try {
         const response = await sendRequest({
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
+          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/organiser/${user.userId}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${user?.token}`,

@@ -44,6 +44,9 @@ export default function EventViewingPage() {
 
   const eventId = pathname?.split("/event-viewing/")[1];
   const [copied, setCopied] = useState(false)
+  
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const handleCopy = async () => {
     try {
@@ -94,18 +97,26 @@ const redirectUri = `${process.env.NEXT_PUBLIC_CURRENT_URL}/events`
       fetchEvents();
     }, []);
 
+    const bannerImageSrc = event?.bannerImage || "";
+
   return (
     <div className="w-full space-y-5 lg:w-[90%] mx-auto">
       <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
         <div className="relative w-full h-full">
-          <Image
-            src={event?.bannerImage || ""}
-            alt="Event header"
+          {/* Placeholder while loading or on error */}
+      {(!isImageLoaded || hasError) && (
+        <div className={`absolute inset-0 bg-[#1f1f1f] ${!hasError ? "animate-pulse" : ""} rounded-[30px] z-0`} />
+      )}
+       {bannerImageSrc && !hasError && ( <Image
+            src={bannerImageSrc}
+            alt="Banner Image"
             layout="fill"
             objectFit="cover"
             className="rounded-[30px]"
+            onLoad={() => setIsImageLoaded(true)}
+            onError={() => setHasError(true)}
             unoptimized
-          />
+          />)} 
         </div>
       </section>
       <section>
