@@ -107,7 +107,8 @@ const redirectUri = `${process.env.NEXT_PUBLIC_CURRENT_URL}/events`
       {(!isImageLoaded || hasError) && (
         <div className={`absolute inset-0 bg-[#1f1f1f] ${!hasError ? "animate-pulse" : ""} rounded-[30px] z-0`} />
       )}
-       {bannerImageSrc && !hasError && ( <Image
+       {bannerImageSrc && !hasError && ( 
+        <Image
             src={bannerImageSrc}
             alt="Banner Image"
             layout="fill"
@@ -116,6 +117,7 @@ const redirectUri = `${process.env.NEXT_PUBLIC_CURRENT_URL}/events`
             onLoad={() => setIsImageLoaded(true)}
             onError={() => setHasError(true)}
             unoptimized
+            priority
           />)} 
         </div>
       </section>

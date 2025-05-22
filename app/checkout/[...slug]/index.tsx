@@ -123,7 +123,7 @@ export default function CheckoutPage() {
   const debugClick = () => console.log("🛠️  Debug button click!");
 
   return (
-    <main className="min-h-screen bg-transparent text-white py-12  z-50">
+    <main className="min-h-screen bg-transparent text-white py-12  z-50 w-full lg:w-[90%] mx-auto">
       <div className="space-y-8">
         <div className="flex items-center space-x-4">
           <img

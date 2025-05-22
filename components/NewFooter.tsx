@@ -7,12 +7,38 @@ import NewsLetter2 from "./NewsLetter2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInstagram,
+  faDiscord,
   faFacebook,
   faTwitter,
   faYoutube,
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+
+
+const socials = [
+  {
+    icon: faInstagram,
+    link: "https://instagram.com/quiktis",
+  },
+  {
+    icon: faLinkedin,
+    link: "https://linkedin.com/company/quiktis", // Add your Discord link here
+  },
+  {
+    icon: faTwitter,
+    link: "https://x.com/QuiktisTik", // Add your Discord link here
+  },
+  {
+    icon: faDiscord,
+    link: "https://discord.gg/g4EkeZwP", // Add your Discord link here
+  },
+  {
+    icon: faFacebook,
+    link: "https://www.facebook.com/share/1BnfVxgh29/", // Add your Discord link here
+  },
+  
+]
 
 export default function Footer() {
   const pathname = usePathname();
@@ -107,27 +133,14 @@ export default function Footer() {
             <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
             <div className="flex flex-col gap-4">
               <div className="flex flex-row items-center justify-center md:justify-start gap-4">
-                <Link
-                  href="https://instagram.com/quiktis"
+               { socials.map((item, index) => <Link
+                  href={item.link}
+                  key={index}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-[#FF4D2A] flex items-center gap-2">
-                  <FontAwesomeIcon icon={faInstagram} size="lg" />
-                </Link>
-                <Link
-                  href="https://linkedin.com/company/quiktis"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#FF4D2A] flex items-center gap-2">
-                  <FontAwesomeIcon icon={faLinkedin} size="lg" />
-                </Link>
-                <Link
-                  href="https://x.com/QuiktisTik"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#FF4D2A] flex items-center gap-2">
-                  <FontAwesomeIcon icon={faTwitter} size="lg" />
-                </Link>
+                  <FontAwesomeIcon icon={item.icon} size="lg" />
+                </Link>) }
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2">
                 <Link
