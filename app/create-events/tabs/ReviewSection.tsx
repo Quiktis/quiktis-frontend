@@ -13,6 +13,7 @@ interface ReviewSectionProps {
   eventData: EventData;
   uploadImage: () => void;
   preview: string | null; 
+  loading?: boolean;
 }
 
 const tags = [
@@ -62,7 +63,7 @@ function formatDateToText(date: Date): string {
 }
 
 
-const ReviewSection: React.FC<ReviewSectionProps> = ({uploadImage, preview, eventData}) => {
+const ReviewSection: React.FC<ReviewSectionProps> = ({uploadImage, preview, eventData, loading}) => {
   const router = useRouter();
   const { user } = useUser();
 
@@ -205,7 +206,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({uploadImage, preview, even
 
       <div className='flex gap-4 w-fit mr-0 ml-auto mt-4'>
         <button onClick={() => router.push(`?tab=ticketting`)} type="button" className='py-2 px-4  font-medium'>Back</button>
-         <Button  onClick={handleClick} className="w-fit px-7 py-3 font-medium bg-primary">Save & Continue</Button>
+         <Button loading={loading} loaderClass='mt-1 ml-[-0.04em]' onClick={handleClick} className="w-fit px-7 py-3 font-medium bg-primary">Save & Continue</Button>
                   </div>
   
     </div>

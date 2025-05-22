@@ -31,7 +31,7 @@ const socials = [
   },
   {
     icon: faDiscord,
-    link: "https://discord.gg/g4EkeZwP", // Add your Discord link here
+    link: "https://discord.gg/TmavF8QCu5", // Add your Discord link here
   },
   {
     icon: faFacebook,

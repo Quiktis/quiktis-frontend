@@ -35,7 +35,7 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
   const addTicket = () => {
     const updatedTickets = [
       ...eventData.tickets,
-      { name: "", price: "", currency: "₦" },
+      { name: "", price: "", description: "", quantity: 1 },
     ];
     handleEventDataChange("tickets", updatedTickets);
   };
@@ -45,6 +45,55 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
     updated[index].currency = currency;
     handleEventDataChange("tickets", updated);
   };*/
+
+const validateTickets = (tickets: any[]): { isValid: boolean; error?: string } => {
+  // Check if access type is selected
+  if (!eventData.accessType) {
+    return { isValid: false, error: "Please select an event type (Free or Paid)" };
+  }
+
+  // Validate each ticket
+  for (let i = 0; i < tickets.length; i++) {
+    const ticket = tickets[i];
+    
+    // Check ticket name
+    if (!ticket.name?.trim()) {
+      return { 
+        isValid: false, 
+        error: `Ticket ${i + 1}: Name is required` 
+      };
+    }
+    
+    // Check quantity
+    if (ticket.quantity < 1) {
+      return { 
+        isValid: false, 
+        error: `Ticket ${i + 1}: Quantity must be at least 1` 
+      };
+    }
+
+    // Check price for paid events
+    if (eventData.accessType === "paid" && (!ticket.price || ticket.price <= 0)) {
+      return { 
+        isValid: false, 
+        error: `Ticket ${i + 1}: Price must be greater than 0` 
+      };
+    }
+  }
+
+  return { isValid: true };
+};
+
+const handleContinue = () => {
+  const validation = validateTickets(eventData.tickets);
+  
+  if (!validation.isValid) {
+    alert(validation.error);
+    return;
+  }
+
+  router.push(`?tab=review`);
+};
 
   const deleteTicket = (index: number) => {
     if (index === 0) return; // prevent deleting the first
@@ -69,8 +118,8 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
 
 
   return (
-    <div className="relative flex flex-col gap-6 max-md:w-full w-fit">
-      <div className="w-[50em] h-[50em] mt-[8em] ml-[-9em] left-0 -z-10 inset-0 radial-gradient-blue max-md:hidden blur-3xl opacity-30 absolute"></div>
+    <div className="relative flex flex-col gap-6 w-full lg:w-fit">
+      <div className="w-[30em] h-[30em] block max-sm:hidden lg:w-[50em] lg:h-[50em] mt-[8em] ml-[-9em] left-0 -z-10 inset-0 radial-gradient-blue max-md:hidden blur-3xl opacity-30 absolute"></div>
       <h1 className="max-md:text-[1.3em] text-[1.7em]">
         What type of event are you running?
       </h1>
@@ -134,12 +183,13 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
           {eventData.tickets.map((ticket, index) => (
             <div
               key={index}
-              className="flex flex-col md:grid grid-cols-[2fr_1fr_3em] gap-2 max-md:gap-6">
-              <div className="flex flex-col gap-3 md:w-[80%]">
+              className="flex flex-col md:grid grid-cols-[2fr_1fr_12em_1em] gap-2 max-md:gap-6">
+              <div className="flex flex-col gap-3 lg:w-[80%] w-full">
                 <label className="text-[1.1em] font-semibold">
                   Ticket Type
                 </label>
                 <InputField
+                required
                   placeholder="Ticket Name e.g. General Admission"
                   value={ticket.name}
                   onChange={(e) =>
@@ -153,46 +203,27 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
                   <label className="text-[1.1em] font-semibold">Ticket Price</label>
                   <div className="flex items-center">
                     <input
+                    required
                       type="number"
                       min="0"
                       placeholder="₦0.00"
                       className="p-3 border border-[#ffffff56] bg-transparent rounded-md w-full md:w-[12em] focus:ring-2 focus:outline-none"
                       value={ticket.price}
                       onChange={(e) =>
-                        handleTicketChange(index, "price", e.target.value)
+                        handleTicketChange(index, "price", parseInt(e.target.value))
                       }
                       onKeyDown={(e) => {
                         const invalidKeys = ['e','E','+','-','.'];
                         if (invalidKeys.includes(e.key)) e.preventDefault();
                       }}
                     />
-                    {index !== 0 && (
-                      <button
-                        type="button"
-                        onClick={() => deleteTicket(index)}
-                        className="hover:bg-[#ffffff17] md:hidden gap-1 text-white rounded-md p-4 grid place-items-center"
-                      >
-                        <AiOutlineDelete size={20} />
-                      </button>
-                    )}
+                   
                   </div>
                 </div>
               )}
 
 
-              {index !== 0 && (
-                <button
-                  type="button"
-                  onClick={() => deleteTicket(index)}
-                  className="hover:bg-[#ffffff17] gap-1 text-white max-md:hidden rounded-md p-4 grid place-items-center w-fit mb-0 mt-auto"
-                >
-                  <AiOutlineDelete
-                    size={20}
-                    color="white"
-                    className="my-auto"
-                  />
-                </button>
-              )}
+              
               <div className="flex flex-col gap-3">
                 <label className="text-[1.1em] font-semibold">
                   Quantity
@@ -200,6 +231,7 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
                 <div className="flex items-center">
                  
                 <input
+                required
                   type="number"
                   min="1"
                   placeholder="Enter quantity"
@@ -207,12 +239,12 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
                   value={ticket.quantity}
                   onChange={(e) => {
                     // Allow user to clear field temporarily
-                    handleTicketChange(index, "quantity", e.target.value);
+                    handleTicketChange(index, "quantity", parseInt(e.target.value));
                   }}
                   onBlur={(e) => {
                     // If input is empty on blur, reset to "1"
                     if (e.target.value.trim() === "") {
-                      handleTicketChange(index, "quantity", 1);
+                      handleTicketChange(index, "quantity", parseInt("1"));
                     }
                   }}
                   onKeyDown={(e) => {
@@ -242,9 +274,24 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
                   
                 </div>
               </div>
+              {index !== 0 && (
+                <button
+                  type="button"
+                  onClick={() => deleteTicket(index)}
+                  className="hover:bg-[#ffffff17] gap-1 text-white max-md:hidden rounded-md p-4 grid place-items-center w-fit mb-0 mt-auto"
+                >
+                  <AiOutlineDelete
+                    size={20}
+                    color="white"
+                    className="my-auto"
+                  />
+                </button>
+              )}
               <hr className="border-[#ffffff27] border-[0.5px] md:hidden"></hr>
             </div>
           ))}
+
+          
 
           <button
             type="button"
@@ -266,7 +313,7 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
           Back
         </button>
         <Button
-          onClick={() => router.push(`?tab=review`)}
+          onClick={handleContinue}
           className="w-fit px-7 py-3 font-medium bg-primary"
         >Save & Continue</Button>
       </div>

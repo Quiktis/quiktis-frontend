@@ -23,7 +23,7 @@ function CreateEventPage() {
   const [pageIndex, setPageIndex] = useState(0);
   const { user } = useUser();
   const router = useRouter();
-  const { sendRequest } = useAxios();
+  const { sendRequest, loading } = useAxios();
   const [image, setImage] = useState<File | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -112,6 +112,7 @@ function CreateEventPage() {
   const currentStepIndex = steps.findIndex((step) => step.link === tab);
 
   const uploadImage = async () => {
+    if (loading) return;
     if (!image) {
       alert("Please select an image to upload.");
       return;
@@ -177,6 +178,8 @@ function CreateEventPage() {
 
       if (createEventResponse.status === "success") router.push("/my-events");
 
+      if (createEventResponse.status !== "success") alert("Failed to create event. Please try again.");
+
       return;
 
     } catch (error) {
@@ -192,7 +195,7 @@ function CreateEventPage() {
         <div className="w-full h-[60em] inset-0 radial-gradient-custom blur-3xl opacity-50"></div>
       </div>
 
-      <form className="md:w-[80%] max-md:px-1 mb-8 md:mb-[14em] flex flex-col gap-2 md:gap-6 md:mx-auto">
+      <form className="w-full lg:w-[80%] max-md:px-1 mb-8 md:mb-[14em] flex flex-col gap-2 md:gap-6 md:mx-auto">
         <div className="text-[1.4em] font-medium">create a new event</div>
 
         <div className="grid max-md:grid-cols-[1fr_1fr_1fr_1fr_0.7fr]  grid-cols-5 place-items-center py-3 pb-10">
@@ -271,7 +274,7 @@ function CreateEventPage() {
             handleEventDataChange={handleEventDataChange}
           />
         )}
-        {tab === "review" && <ReviewSection preview={preview} eventData={eventData} uploadImage={uploadImage}/>}
+        {tab === "review" && <ReviewSection preview={preview} eventData={eventData} loading={loading} uploadImage={uploadImage}/>}
       </form>
     </>
   );

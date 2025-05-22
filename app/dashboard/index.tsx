@@ -148,7 +148,11 @@ const CreateEvent = () => {
             </Label>
             <Dropdown
               label="Identity Card"
-              options={["National ID (NIN)", "Driver's License", "International Passport"]}
+              options={[
+                { id: "nin", name: "National ID (NIN)", description: "" },
+                { id: "drivers_license", name: "Driver's License", description: "" },
+                { id: "passport", name: "International Passport", description: "" }
+              ]}
               placeholder="Card type"
             />
 
