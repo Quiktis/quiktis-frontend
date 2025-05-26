@@ -1,4 +1,3 @@
-// components/nfts-notifications/TicketCard.tsx
 "use client";
 
 import React from "react";
