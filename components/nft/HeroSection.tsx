@@ -1,4 +1,3 @@
-// components/nft/HeroSection.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -31,10 +30,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   nftImages,
   logos,
 }) => {
-  // Add state for search query
   const [query, setQuery] = useState("");
 
-  // Format title into three lines
   const formatTitle = (title: string) => {
     const words = title.split(" ");
     return (
@@ -48,11 +45,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     );
   };
 
-  // Handle search function
   const handleSearch = () => {
     console.log("Searching for:", query);
-    // You can add navigation to search page with the query as a parameter
-    // Example: router.push(`/search?q=${query}`);
   };
 
   return (
@@ -67,9 +61,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             }
           : {}
       }>
-      {/* MAIN HERO */}
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between py-6 md:py-4">
-        {/* Text Column */}
         <div className="w-full md:w-1/2 space-y-4">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
             {formatTitle(title)}
@@ -83,7 +75,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             </button>
           </Link>
           
-          {/* Search Component */}
           <div className="flex items-center gap-2 mt-4">
             <input
               type="text"
@@ -129,7 +120,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
         </div>
 
-        {/* Stacked NFT Images - Hidden on mobile, visible on md and larger screens */}
         <div className="hidden md:block w-full md:w-1/2 relative h-[220px] md:h-[280px] lg:h-[400px] mt-8 md:mt-0">
           {nftImages.slice(0, 3).map((src, idx) => (
             <div
@@ -146,7 +136,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
       </div>
 
-      {/* MARQUEE FOOTER */}
       <footer className="w-full px-4 mt-2">
         <NftLogoMarquee logos={logos} />
       </footer>
@@ -155,9 +144,5 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 };
 
 export default HeroSection;
-// Add a className prop to control spacing
 <section className="pt-4 pb-8">
-  {" "}
-  {/* Reduce top padding */}
-  {/* Hero content */}
 </section>;
