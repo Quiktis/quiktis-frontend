@@ -1,4 +1,3 @@
-// components/nfts-notifications/SearchBar.tsx
 "use client";
 
 import React from "react";
