@@ -1,4 +1,3 @@
-// components/nft/TransactionsSection.tsx
 "use client";
 
 import React from "react";
@@ -13,7 +12,6 @@ type Transaction = {
 };
 
 export default function TransactionsSection() {
-  // Mock data for transactions
   const transactions: Transaction[] = Array.from({ length: 9 }, (_, i) => ({
     id: `transaction-${i + 1}`,
     blockchainName: "Blockchain name",
@@ -21,7 +19,7 @@ export default function TransactionsSection() {
   }));
 
   return (
-    <section className="text-white py-6 px-4 overflow-hidden"> {/* Added overflow-hidden */}
+    <section className="text-white py-6 px-4 overflow-hidden"> 
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl font-bold mb-4">Transactions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
