@@ -1,4 +1,3 @@
-// components/nfts-notifications/StatsSection.tsx
 "use client";
 
 import React, { useRef, useEffect } from "react";
@@ -7,13 +6,11 @@ import Image from "next/image";
 export default function StatsSection() {
   const marqueeRef = useRef<HTMLDivElement>(null);
   
-  // Items to display in the marquee
   const items: ("stat" | { src: string; alt: string })[] = [
     { src: "/ladies.png", alt: "Ladies toasting" },
     "stat",
     { src: "/dance1.png", alt: "Dancer at party" },
     { src: "/africa.png", alt: "Group of friends" },
-    // Duplicate items for seamless loop
     { src: "/ladies.png", alt: "Ladies toasting" },
     "stat",
     { src: "/dance1.png", alt: "Dancer at party" },
@@ -25,22 +22,21 @@ export default function StatsSection() {
     if (!el) return;
     
     let pos = 0;
-    const speed = 0.5; // Moderate speed - not too fast, not too slow
+    const speed = 0.5;
     const containerWidth = el.scrollWidth / 2;
     
     const animate = () => {
-      pos += speed; // Move Right
-      if (pos >= containerWidth) { // Check if content has moved completely past the right edge
-        pos = 0; // Reset to the beginning seamlessly
+      pos += speed; 
+      if (pos >= containerWidth) {
+        pos = 0; 
       }
-      el.style.transform = `translateX(-${pos}px)`; // Standard transform for left-to-right
+      el.style.transform = `translateX(-${pos}px)`; 
       requestAnimationFrame(animate);
     };
     
     animate();
     
     return () => {
-      // Cleanup if needed
     };
   }, []);
 
