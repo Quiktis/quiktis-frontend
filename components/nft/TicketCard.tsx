@@ -1,4 +1,3 @@
-// components/nft/TicketCard.tsx
 "use client";
 
 import React from "react";
@@ -12,7 +11,6 @@ export default function TicketCard() {
 
   return (
     <div className="bg-[#111111] rounded-xl overflow-hidden shadow-lg flex flex-col">
-      {/* Ticket image */}
       <div className="relative p-3 pt-5">
         <div className="relative rounded-lg overflow-hidden">
           <Image
@@ -34,18 +32,15 @@ export default function TicketCard() {
         </div>
       </div>
 
-      {/* Ticket details */}
       <div className="p-3 flex-1 flex flex-col">
         <h3 className="font-bold text-lg mb-1">Christmas Concert</h3>
         <p className="text-sm text-white mb-3">Muson Center, Lagos</p>
 
-        {/* Price and date */}
         <div className="flex justify-between items-center mb-4">
           <span className="text-[#FF4D2A] font-bold text-lg">$500</span>
           <span className="text-sm text-[#F68B61]">31/12/2026 18:00</span>
         </div>
 
-        {/* View button */}
         <div className="mt-auto">
           <Link href="/concert-ticket" className="w-full block">
             <button className="w-full bg-transparent border border-transparent text-white px-4 py-2 rounded-md text-sm hover:bg-[#1a1a1a] transition cursor-pointer">
