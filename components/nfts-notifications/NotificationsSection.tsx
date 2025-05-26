@@ -1,4 +1,3 @@
-// components/nfts-notifications/NotificationsSection.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -9,7 +8,6 @@ const TABS = ["Ticket Update", "Event Changes", "Promotional Offers"];
 export default function NotificationsSection() {
   const [activeTab, setActiveTab] = useState(0);
 
-  // mock data
   const tickets = Array.from({ length: 8 }, (_, i) => ({
     id: i + 1,
     eventName: "Music Fest 2024",
