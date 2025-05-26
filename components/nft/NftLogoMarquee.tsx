@@ -1,4 +1,3 @@
-// components/nft/NftLogoMarquee.tsx
 "use client";
 
 import React, { useRef, useEffect } from "react";
@@ -11,15 +10,11 @@ interface NftLogoMarqueeProps {
 const NftLogoMarquee: React.FC<NftLogoMarqueeProps> = ({ logos }) => {
   const marqueeRef = useRef<HTMLDivElement>(null);
 
-  // Prepare items with name and src, duplicated for seamless loop
   const items = [...logos, ...logos].map((src) => {
-    // Extract name from path and format it nicely
     let name = src.split("/").pop()?.split(".")[0] || "";
     
-    // Determine if this is a logoipsum image
     const isLogoIpsum = name.toLowerCase().includes("logoipsum");
     
-    // Capitalize first letter and format specific names
     if (name.toLowerCase() === "metamask") {
       name = "MetaMask";
     } else if (name.toLowerCase() === "walletconnect") {
@@ -27,7 +22,7 @@ const NftLogoMarquee: React.FC<NftLogoMarqueeProps> = ({ logos }) => {
     } else if (name.toLowerCase() === "coinbase") {
       name = "Coinbase";
     } else if (isLogoIpsum) {
-      name = ""; // Empty name for logoipsum images
+      name = ""; 
     }
     
     return { src, name, isLogoIpsum };
