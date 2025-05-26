@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import useAxios from "@/app/hooks/useAxios";
 import { useUser } from "@/app/context/UserContext";
 import { Event } from "@/constant/customTypes";
+import { useRouter } from "next/navigation";
 
 export default function CheckoutPage() {
   const [quantity, setQuantity] = useState(1);
@@ -17,6 +18,7 @@ export default function CheckoutPage() {
   const eventId = pathname?.split("/checkout/")[1];
   const [event, setEvent] = useState<Event | null>(null);
   const [selectedTicketId, setSelectedTicketId] = useState("");
+  const router = useRouter()
 
   const selectedTicket = useMemo(() => {
     return event?.tickets?.find(t => t.id === selectedTicketId);
@@ -90,18 +92,11 @@ export default function CheckoutPage() {
 
     const responseBody = {
       eventId: event?.id,
-      items: [
-        {
-          ticketId: selectedTicketId,
-          quantity: quantity,
-        }
-      ],
-      totalAmount: total,
-      currency: "USD"
+     
     };
     console.log("Response body for order initiation:", responseBody);
     try {
-      console.log("Initiating order with details:", checkoutDetails);
+      console.log("Initiating order with details:", responseBody);
       const response = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/initiate`,
         method: "POST",
@@ -111,8 +106,27 @@ export default function CheckoutPage() {
         body: responseBody,
       });
        
-      if (response?.data?.status === "success") {
+      if (response?.status === "success") {
         console.log("Order initiated successfully:", response.data);
+        const orderCompletion = await sendRequest({
+          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/complete`,
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${user?.token}`
+          },
+          body: {
+            orderId: response.data.order.id
+          }
+        })
+
+        if (orderCompletion.status === "success") {
+          console.log("Order completed successful");
+          router.push(`/payment-success/${event?.id}/${orderCompletion.data.order.id}`)
+        }
+        
+        else {console.error("Failed to complete order:", response);
+          
+        }
       } else {
         console.error("Failed to initiate order:", response);
       }

@@ -59,7 +59,7 @@ export function formatToHumanReadableDate(dateString: string, time?: string): st
   if (time) {
     // Remove leading zero from the hour part (e.g., "04:09 AM" => "4:09 AM")
     const cleanedTime = time.replace(/^0/, "");
-    return `${formattedDate} — ${cleanedTime}`;
+    return `${formattedDate} - ${cleanedTime}`;
   }
 
   return formattedDate;

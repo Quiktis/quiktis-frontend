@@ -1,19 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { FaFileAlt } from "react-icons/fa";
 import { IoMdPrint } from "react-icons/io";
+import { toPng } from "html-to-image";
+
+// @ts-ignore
+import download from "downloadjs";
 
 interface ConcertTicketProps {
   eventName: string;
-  eventCreator: string;
+  eventCreator: string | any;
   date: string;
   time: string;
   venue: string;
   ticketType: string;
   ticketHolder: string;
-  ticketNumber: string;
+  ticketNumber?: string;
   logoUrl?: string;
   qrCodeUrl?: string;
 }
@@ -31,20 +35,34 @@ export default function ConcertTicket({
   qrCodeUrl = "/qrcode.png",
 }: ConcertTicketProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const ticketRef = useRef<HTMLDivElement>(null);
 
   const handlePrint = () => {
     if (typeof window !== "undefined") window.print();
   };
 
-  const handleDownload = () => {
-    alert("PDF download ");
+  const handleDownload = async () => {
+    if (ticketRef.current) {
+      try {
+        const dataUrl = await toPng(ticketRef.current, {
+          cacheBust: true,
+          quality: 1,
+          pixelRatio: 2,
+        });
+        download(dataUrl, "e-ticket.png");
+      } catch (error) {
+        console.error("Download failed", error);
+      }
+    }
   };
 
   return (
     <div
+      
       className="relative w-full overflow-hidden -mt-12 md:-mt-30"
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}>
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#0a0a0a] via-[#1c1c1c] to-[#2a2a2a] rounded-2xl" />
 
       <Image
@@ -62,7 +80,8 @@ export default function ConcertTicket({
         className="absolute bottom-0 right-0 z-1 pointer-events-none opacity-70"
       />
       <div className="absolute inset-0 border-2 border-dashed border-[#f68b61] rounded-2xl pointer-events-none z-10" />
-      <div className="relative z-20 text-white p-6 md:p-10 rounded-2xl">
+
+      <div className="relative z-20 text-white p-6 md:p-10 rounded-2xl" ref={ticketRef}>
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-1">
             <div className="relative flex items-center gap-4 mb-16">
@@ -81,7 +100,9 @@ export default function ConcertTicket({
                 <h1 className="text-2xl md:text-4xl font-bold tracking-wide">
                   {eventName}
                 </h1>
-                <p className="text-sm text-gray-400">{eventCreator}</p>
+                <p className="text-sm text-gray-400">
+                  {eventCreator && `Organized by ${eventCreator}`}
+                </p>
               </div>
             </div>
 
@@ -139,6 +160,7 @@ export default function ConcertTicket({
               </div>
             </div>
           </div>
+
           <div className="w-full md:w-[250px] flex flex-col items-center justify-between text-center gap-4">
             <div className="leading-tight mb-0">
               <p className="text-xs text-white font-medium">Scan at Entrance</p>
@@ -155,18 +177,21 @@ export default function ConcertTicket({
                 className="object-contain rounded-[10px]"
               />
             </div>
+
             <div className="flex w-full gap-3 mt-2">
               <button
                 onClick={handlePrint}
-                className="w-1/2 flex items-center justify-center gap-2 py-3 px-2 rounded-[10px] border border-gray-600 text-gray-300 hover:bg-gray-800 transition-colors">
+                className="w-1/2 flex items-center justify-center gap-2 py-3 px-2 rounded-[10px] border border-gray-600 text-gray-300 hover:bg-gray-800 transition-colors"
+              >
                 <span className="text-xs">Print Ticket</span>
                 <IoMdPrint size={18} />
               </button>
 
               <button
                 onClick={handleDownload}
-                className="w-1/2 flex items-center justify-center gap-2 py-3 px-2 rounded-[10px] bg-[#FF4D2A] text-white hover:bg-[#E03A1A] transition-colors">
-                <span className="text-xs">Download PDF</span>
+                className="w-1/2 flex items-center justify-center gap-2 py-3 px-2 rounded-[10px] bg-[#FF4D2A] text-white hover:bg-[#E03A1A] transition-colors"
+              >
+                <span className="text-xs">Download PNG</span>
                 <FaFileAlt size={18} />
               </button>
             </div>
