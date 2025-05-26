@@ -1,4 +1,3 @@
-// app/nfts-notification/page.tsx
 "use client";
 
 import React from "react";
