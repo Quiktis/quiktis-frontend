@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-// switch to react-icons instead of Heroicons
 import { AiFillHeart } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 
@@ -23,7 +22,6 @@ const NftEventCard: React.FC<NftEventCardProps> = ({
   image,
 }) => (
   <div className="bg-[#1A1A1A] rounded-2xl overflow-hidden shadow-lg">
-    {/* Image + Heart */}
     <div className="relative">
       <Image
         src={image}
@@ -37,7 +35,6 @@ const NftEventCard: React.FC<NftEventCardProps> = ({
       </button>
     </div>
 
-    {/* Content */}
     <div className="p-4 space-y-2">
       <h3 className="text-white text-lg font-semibold">{title}</h3>
       <p className="text-gray-400 text-sm">{category}</p>
