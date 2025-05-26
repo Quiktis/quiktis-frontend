@@ -119,7 +119,7 @@ export default function Footer() {
               <Link href="/faq" className="hover:text-[#FF4D2A]">
                 FAQs
               </Link>
-              <Link href="/manage-event-viewing" className="hover:text-[#FF4D2A]">
+              <Link href="/nfts" className="hover:text-[#FF4D2A]">
                 Genres
               </Link>
               <Link href="/search" className="hover:text-[#FF4D2A]">
