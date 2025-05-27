@@ -59,6 +59,10 @@ export default function Footer() {
     "/my-events",
     "/about",
     "/checkout",
+        "/blog",
+    "/blogview",
+    "/nfts",
+    "/nfts-notification",
     "/stats",
     "/payment-success",
     "/payment-failure",
@@ -122,7 +126,7 @@ export default function Footer() {
               <Link href="/nfts" className="hover:text-[#FF4D2A]">
                 Genres
               </Link>
-              <Link href="/search" className="hover:text-[#FF4D2A]">
+              <Link href="/blog" className="hover:text-[#FF4D2A]">
                 News
               </Link>
             </div>
