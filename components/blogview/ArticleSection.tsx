@@ -32,7 +32,7 @@ const articles: Article[] = [
   },
   {
     id: 3,
-    title: "", // no text, image-only
+    title: "", 
     excerpt: "",
     date: "",
     image: "/blog/closeup-female-typing.png",
@@ -81,7 +81,7 @@ export default function ArticleSection() {
                       src={article.image}
                       alt=""
                       width={100}
-                      height={20} // reduced vertical size
+                      height={20} 
                       className="object-cover rounded-md"
                     />
                   </Link>
