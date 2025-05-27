@@ -1,4 +1,3 @@
-// components/blog/FeatureBlock.tsx
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,7 +26,6 @@ export default function FeatureBlock({
   return (
     <section className="w-full">
       <div className={`flex flex-col ${flexDir} w-full`}>
-        {/* Left: Image (55% width, a bit taller) */}
         <div className="w-full md:w-[55%]">
           <Image
             src={imageSrc}
@@ -37,8 +35,6 @@ export default function FeatureBlock({
             className="object-cover w-full h-[320px]"
           />
         </div>
-
-        {/* Right: Text (45% width, tighter gutter) */}
         <div className="w-full md:w-[45%] flex flex-col justify-center px-4">
           <span className="text-xs uppercase text-gray-400 mb-1">
             {dateLabel}
