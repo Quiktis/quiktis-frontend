@@ -15,7 +15,6 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
     <section
       className="relative flex items-center justify-center text-center h-[60vh] md:h-[80vh] bg-cover bg-center"
       style={{ backgroundImage: `url(${backgroundImage})` }}>
-      {/* Dark overlay for contrast */}
       <div className="absolute inset-0 bg-black/50"></div>
 
       <div className="relative px-4 max-w-3xl">
