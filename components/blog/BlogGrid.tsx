@@ -4,7 +4,7 @@ import BlogCard from "./BlogCard";
 
 interface BlogGridProps {
   posts: BlogPost[];
-  columns?: number; // defaults to 3
+  columns?: number; 
 }
 
 const BlogGrid: React.FC<BlogGridProps> = ({ posts, columns = 3 }) => {
