@@ -1,4 +1,3 @@
-// components/SectionHeader.tsx
 import React from "react";
 
 interface SectionHeaderProps {
@@ -8,7 +7,6 @@ interface SectionHeaderProps {
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle }) => (
   <div className="relative max-w-4xl mb-12 overflow-hidden md:overflow-visible">
-    {/* Blue gradient background */}
     <div
       className="
         absolute
