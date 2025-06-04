@@ -142,7 +142,7 @@ export default function ConcertTicket({
                 <h2 className="text-xs uppercase text-gray-300 mb-1">
                   Ticket Number
                 </h2>
-                <p className="font-semibold text-sm">#{ticketNumber}</p>
+                <p className="font-semibold text-sm">{ticketNumber}</p>
               </div>
             </div>
             <div className="mt-6">

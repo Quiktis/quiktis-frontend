@@ -4,16 +4,18 @@ import useAxios from "@/app/hooks/useAxios";
 import {useUser} from "@/app/context/UserContext";
 import ConcertTicket from "@/components/concert-ticket";
 import { Event } from "@/constant/customTypes";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { formatToHumanReadableDate, formatToHumanReadableTime} from "@/app/utils/utilities";
 
  function Home() {
   const { sendRequest } = useAxios();
   const { user } = useUser();
   const params = useParams();
+  const searchParams = useSearchParams();
   const [event, setEvent] = useState<Event | null>(null);
   const slug = params.slug as string[];
   const eventId = slug[0]; // First parameter
+  const trxref = searchParams.get("trxref");
 
   useEffect(() => {
 
@@ -57,7 +59,7 @@ import { formatToHumanReadableDate, formatToHumanReadableTime} from "@/app/utils
         venue={event?.location ?? ""}
         ticketType={event?.tickets?.[0]?.name ?? ""}
         ticketHolder={`${user.name?? ""}`}
-        //ticketNumber="ETK-2049-AFRO"
+        ticketNumber={`#TXN-${trxref}`}
       />
     </main>
   );

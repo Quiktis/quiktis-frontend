@@ -25,6 +25,7 @@ function PaymentSuccessPage() {
   const searchParams = useSearchParams();
   const [isApproved, setIsAprproved] = useState<Boolean | null>(null);
   const [event, setEvent] = useState<Event | null>(null) 
+  const [totalPaid, setTotalPaid] = useState(null)
   const slug = params.slug as string[];
   const orderId = slug[0]; // First parameter
   const trxref = searchParams.get("trxref");
@@ -52,11 +53,12 @@ function PaymentSuccessPage() {
           }
 
           setEventId(orderDetailsResponse.data.order.event.id)
+          setTotalPaid(orderDetailsResponse.data.order.totalPrice)
           setIsAprproved(true)
           
 
           const eventDetailsResponse = await sendRequest({
-            url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${eventId}`,
+            url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${orderDetailsResponse.data.order.event.id}`,
             method: "GET",
             headers: {
               Authorization: `Bearer ${user?.token}`,
@@ -146,19 +148,19 @@ function PaymentSuccessPage() {
                 <span className="font-medium">{event?.location?? ""}</span>
               </div>
               <div className="grid grid-cols-2">
-                <span>Order ID</span>
-                <span className="font-medium">{orderId}</span>
+                <span>Ticket ID</span>
+                <span className="font-medium">#TXN-{trxref}</span>
               </div>
               {/*<div className="grid grid-cols-2">
                 <span>Number of Tickets</span>
                 <span className="font-medium">General Admission</span>
-              </div>
+              </div>*/}
               <div className="grid grid-cols-2">
                 <span>Total Paid</span>
                 <span className="font-medium">
-                  ₦10,000 <span className="text-green-500">(Successful)</span>
+                  ₦{totalPaid} <span className="text-green-500">(Successful)</span>
                 </span>
-              </div>*/}
+              </div>
 
               <div className="flex flex-col md:flex-row gap-2 justify-start w-full">
                 <Link
