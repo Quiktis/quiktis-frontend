@@ -2,142 +2,154 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import CartItem from "@/components/checkout/CartItem";
-import AttendeeDetails from "@/components/checkout/AttendeeDetails";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import useAxios from "@/app/hooks/useAxios";
 import { useUser } from "@/app/context/UserContext";
+import CartItem from "@/components/checkout/CartItem";
+import AttendeeDetails from "@/components/checkout/AttendeeDetails";
+import TicketCard from "@/components/nft/TicketCard";
 import { Event } from "@/constant/customTypes";
-import { useRouter } from "next/navigation";
 
 export default function CheckoutPage() {
   const [quantity, setQuantity] = useState(1);
+  const [event, setEvent] = useState<Event | null>(null);
+  const [selectedTicketId, setSelectedTicketId] = useState("");
+
   const { sendRequest } = useAxios();
   const { user } = useUser();
   const pathname = usePathname();
-  const eventId = pathname?.split("/checkout/")[1];
-  const [event, setEvent] = useState<Event | null>(null);
-  const [selectedTicketId, setSelectedTicketId] = useState("");
-  const router = useRouter()
+  const router = useRouter();
+
+  const eventId = useMemo(() => pathname?.split("/checkout/")[1] ?? "", [pathname]);
 
   const selectedTicket = useMemo(() => {
-    return event?.tickets?.find(t => t.id === selectedTicketId);
+    return event?.tickets?.find((t) => t.id === selectedTicketId);
   }, [event, selectedTicketId]);
-  
+
   const total = useMemo(() => {
     return (selectedTicket?.price ?? 0) * quantity;
   }, [selectedTicket, quantity]);
-  
+
   const [checkoutDetails, setCheckoutDetails] = useState({
     eventId: "",
     ticketType: "",
     quantity: 1,
-    attendeeDetails: {
-      name: "",
-      email: "",
-      phone: "",
-    },
+    attendeeDetails: { name: "", email: "", phone: "" },
     totalPrice: 0,
   });
 
+  const authHeader = {
+    Authorization: `Bearer ${user?.token}`,
+  };
+
   const handleQuantityChange = (newQty: number) => {
-    if (newQty < 1) return;
-    setQuantity(newQty);
+    if (newQty > 0) setQuantity(newQty);
   };
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchEvent = async () => {
       try {
         const response = await sendRequest({
           url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${eventId}`,
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
+          headers: authHeader,
         });
 
         if (response.status === "success") {
           const eventData = response.data.event;
-  setEvent(eventData);
-
-  // Ensure the first ticket exists before setting
-  if (eventData.tickets.length > 0) {
-    setSelectedTicketId(eventData.tickets[0].id);
-  }
+          setEvent(eventData);
+          if (eventData.tickets?.length > 0) {
+            setSelectedTicketId(eventData.tickets[0].id);
+          }
         } else {
-          console.error("Failed to fetch event details:", response.message);
+          console.error("Failed to fetch event:", response.message);
         }
       } catch (error) {
-        console.error("Error fetching event details", error);
+        console.error("Error fetching event:", error);
       }
     };
 
-    fetchEvents();
-  }, []);
+    fetchEvent();
+  }, [eventId]);
 
-  // Keep checkout details in sync with changes
   useEffect(() => {
-    setCheckoutDetails(prev => ({
+    setCheckoutDetails((prev) => ({
       ...prev,
-      eventId: eventId ?? "",
+      eventId,
       ticketType: selectedTicketId,
-      quantity: quantity,
+      quantity,
       totalPrice: total,
     }));
-  }, [selectedTicketId, quantity, total, eventId]);
-
-
+  }, [eventId, selectedTicketId, quantity, total]);
 
   const handleOrderInitiation = async () => {
-
-    const responseBody = {
-      eventId: event?.id,
-     
-    };
-    console.log("Response body for order initiation:", responseBody);
     try {
-      console.log("Initiating order with details:", responseBody);
-      const response = await sendRequest({
+      const orderResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/initiate`,
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-        body: responseBody,
+        headers: authHeader,
+        body: { eventId: eventId },
       });
-       
-      if (response?.status === "success") {
-        console.log("Order initiated successfully:", response.data);
-        const orderCompletion = await sendRequest({
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/complete`,
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${user?.token}`
-          },
-          body: {
-            orderId: response.data.order.id
-          }
-        })
 
-        if (orderCompletion.status === "success") {
-          console.log("Order completed successful");
-          router.push(`/payment-success/${event?.id}/${orderCompletion.data.order.id}`)
-        }
-        
-        else {console.error("Failed to complete order:", response);
-          
-        }
+      if (orderResponse?.status !== "success") {
+        console.error("Failed to initiate order:", orderResponse);
+        return;
+      }
+
+      console.log(orderResponse)
+      const orderId = orderResponse.data.order.id;
+      console.log(orderId, " - Order ID")
+      console.log(selectedTicket?.id, " - ticketId")
+      console.log(quantity, " - quantity")
+
+      const itemResponse = await sendRequest({
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/order-items`,
+        method: "POST",
+        headers: authHeader,
+        body: {
+          orderId: orderId,
+          ticketId: selectedTicket?.id,
+          quantity: quantity
+        },
+      });
+
+      if (itemResponse?.status !== "success") {
+        console.log("Failed to create order items:", itemResponse);
+        return;
+      }
+
+      const completeResponse = await sendRequest({
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/complete`,
+        method: "POST",
+        headers: authHeader,
+        body: { orderId },
+      });
+
+      if (completeResponse?.status !== "success") {
+        console.error("Failed to complete order:", completeResponse);
+        return;
+      }
+
+      const paymentResponse = await sendRequest({
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment/initialize`,
+        method: "POST",
+        headers: authHeader,
+        body: { orderId },
+      });
+
+      const paymentUrl = paymentResponse?.data?.url;
+      if (paymentResponse.success && paymentUrl) {
+        window.location.href = paymentUrl;
       } else {
-        console.error("Failed to initiate order:", response);
+        console.error("Payment initialization failed:", paymentResponse);
       }
     } catch (error) {
-      console.error("Error initiating order:", error);
+      console.log("Error processing order:", error);
     }
-  }
-  const debugClick = () => console.log("🛠️  Debug button click!");
+  };
 
   return (
-    <main className="min-h-screen bg-transparent text-white py-12  z-50 w-full lg:w-[90%] mx-auto">
+    <main className="min-h-screen bg-transparent text-white py-12 z-50 w-full lg:w-[90%] mx-auto">
       <div className="space-y-8">
         <div className="flex items-center space-x-4">
           <img
@@ -151,7 +163,7 @@ export default function CheckoutPage() {
         <CartItem
           event={event}
           selectedTicketId={selectedTicketId}
-          onTicketChange={(id) => setSelectedTicketId(id)}
+          onTicketChange={setSelectedTicketId}
           organizerAvatar="/pp.png"
           ticketTypes={event?.tickets ?? []}
           quantity={quantity}
@@ -168,26 +180,22 @@ export default function CheckoutPage() {
 
         <div className="w-full md:w-[80%]">
           <div className="pt-8">
-            <h2 className="font-semibold text-white mb-2">
-              <span className="text-4xl">Attendee Details</span>{" "}
-              <span className="text-4xl text-white font-normal">(Optional)</span>
+            <h2 className="font-semibold text-white mb-2 text-4xl">
+              Attendee Details <span className="font-normal">(Optional)</span>
             </h2>
             <p className="text-white mb-6">Confirm recipient details</p>
             <AttendeeDetails />
           </div>
 
           <div className="mt-8 flex justify-end">
-            
-              <button 
+            <button
               type="button"
               onClick={handleOrderInitiation}
-              className="px-8 py-4 bg-[#FF4D2A] text-white rounded-lg hover:bg-[#e6391a] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]">
-                Pay NGN {total}
-              </button>
-           
+              className="px-8 py-4 bg-[#FF4D2A] text-white rounded-lg hover:bg-[#e6391a] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]"
+            >
+              Pay NGN {total}
+            </button>
           </div>
-
-          
         </div>
       </div>
     </main>

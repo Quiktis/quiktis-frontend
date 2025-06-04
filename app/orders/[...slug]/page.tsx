@@ -4,7 +4,7 @@ import Link from "next/link";
 import { IoTicketSharp } from "react-icons/io5";
 import { FaFileAlt } from "react-icons/fa";
 import { FcHome } from "react-icons/fc";
-import { usePathname, useRouter, useParams } from "next/navigation";
+import { usePathname, useRouter, useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import useAxios from "@/app/hooks/useAxios";
 import { useUser } from "@/app/context/UserContext";
@@ -19,35 +19,59 @@ function PaymentSuccessPage() {
   const { sendRequest } = useAxios();
   const { user } = useUser();
   const params = useParams();
-  const [event, setEvent] = useState<Event | null>(null);
+  //const [event, setEvent] = useState<Event | null>(null);
+  const [eventId, setEventId] = useState();
   const [orderDetails, setOrderDetails] = useState<OrderResponse | null>();
-
+  const searchParams = useSearchParams();
+  const [isApproved, setIsAprproved] = useState<Boolean | null>(null);
+  const [event, setEvent] = useState<Event | null>(null) 
   const slug = params.slug as string[];
-  const eventId = slug[0]; // First parameter
-  const orderId = slug[1]; // Second parameter
+  const orderId = slug[0]; // First parameter
+  const trxref = searchParams.get("trxref");
+  const reference = searchParams.get("reference");
+  //const orderId = slug[1]; // Second parameter
 
 
   useEffect(() => {
 
       const fetchEvents = async () => {
         try {
-          console.log("Fetching event details for eventId:", eventId);
-          console.log("fetching order details for orderId:", orderId);
-          const response = await sendRequest({
+          console.log("Fetching order details for orderId:", orderId);
+          //console.log("fetching order details for orderId:", orderId);
+          const orderDetailsResponse = await sendRequest({
+            url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/${orderId}`,
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
+          });
+
+          if (orderDetailsResponse.status !== "success") {
+            console.error("Failed to fetch order details:", orderDetailsResponse.message);
+            return;
+          }
+
+          setEventId(orderDetailsResponse.data.order.event.id)
+          setIsAprproved(true)
+          
+
+          const eventDetailsResponse = await sendRequest({
             url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${eventId}`,
             method: "GET",
             headers: {
               Authorization: `Bearer ${user?.token}`,
             },
           });
-  
-          if (response.status === "success") {
-            const eventData = response.data.event;
-            setEvent(eventData);
-  
-          } else {
-            console.error("Failed to fetch event details:", response.message);
+
+          if (eventDetailsResponse.status !== "success") {
+            console.error("failed to fetch event details")
           }
+         
+          setEvent(eventDetailsResponse.data.event)
+
+          console.log(event)
+
+
         } catch (error) {
           console.error("Error fetching event details", error);
         }
