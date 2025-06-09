@@ -113,7 +113,6 @@ const events = [
   },
 ];
 
-
 const EventsPage = () => {
   return (
     <main className="min-h-screen relative overflow-hidden">
