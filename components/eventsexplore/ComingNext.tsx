@@ -1,4 +1,3 @@
-// components/eventsexplore/ComingNext.tsx
 "use client";
 
 import React from "react";
@@ -46,7 +45,6 @@ export default function ComingNext(): JSX.Element {
 
   return (
     <div className="w-full">
-      {/* MOBILE: horizontal scroll, cards fill ~90vw, buttons stacked */}
       <div className="md:hidden flex overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide px-4">
         {events.map((event) => (
           <Card
@@ -80,23 +78,19 @@ export default function ComingNext(): JSX.Element {
                 {event.title}
               </h3>
 
-              {/* DATE on its own line */}
               <p className="text-white/70 text-base mb-1">{event.date}</p>
 
-              {/* TIME (left) and LOCATION (right) on same line */}
               <div className="flex justify-between items-center text-white/70 text-base mb-4">
                 <p>{event.time}</p>
                 <p>{event.location}</p>
               </div>
 
-              {/* BUTTONS (stacked vertically on mobile) */}
               <div className="flex flex-col gap-2">
-                {/* Read more → /event-viewing */}
                 <Button
                   href="/event-viewing"
                   className="
                     flex items-center justify-center
-                    w-full              /* Full width */
+                    w-full          
                     px-3 py-1.5
                     bg-transparent
                     border border-white
@@ -112,12 +106,11 @@ export default function ComingNext(): JSX.Element {
                   <IoArrowForward className="ml-2 h-4 w-4" />
                 </Button>
 
-                {/* Get Ticket → /concert-ticket */}
                 <Button
                   href="/concert-ticket"
                   className="
                     flex items-center justify-center
-                    w-full              /* Full width */
+                    w-full            
                     px-3 py-1.5
                     bg-[#FF4D2A]
                     hover:bg-[#e6441f]
@@ -137,7 +130,6 @@ export default function ComingNext(): JSX.Element {
         ))}
       </div>
 
-      {/* DESKTOP: three-column grid (unchanged) */}
       <div className="hidden md:grid md:grid-cols-3 gap-6 px-4 py-8">
         {events.map((event) => (
           <Card
@@ -168,18 +160,14 @@ export default function ComingNext(): JSX.Element {
                 {event.title}
               </h3>
 
-              {/* DATE on its own line */}
               <p className="text-white/70 text-base mb-1">{event.date}</p>
 
-              {/* TIME (left) and LOCATION (right) */}
               <div className="flex justify-between items-center text-white/70 text-base mb-4">
                 <p>{event.time}</p>
                 <p>{event.location}</p>
               </div>
 
-              {/* BUTTONS (horizontal on desktop) */}
               <div className="flex justify-between items-center">
-                {/* Read more → /event-viewing */}
                 <Button
                   href="/event-viewing"
                   className="
@@ -199,7 +187,6 @@ export default function ComingNext(): JSX.Element {
                   <IoArrowForward className="ml-2 h-4 w-4" />
                 </Button>
 
-                {/* Get Ticket → /concert-ticket */}
                 <Button
                   href="/concert-ticket"
                   className="
