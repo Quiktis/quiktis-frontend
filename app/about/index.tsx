@@ -62,24 +62,24 @@ export default function AboutPage() {
         <div className="flex flex-col md:flex-row gap-8 items-start">
           {/* Left Side*/}
           <div className="md:w-1/2 flex flex-col gap-4 md:mt-[380px] mt-0 px-4">
-            <p className="text-lg max-w-md">
+            <p className="text-lg max-w-md sm:text-lg text-base max-w-full md:max-w-md">
               We’re on a mission to simplify event creation and ticketing for
               everyone — from indie organizers to large-scale producers.
             </p>
             <h1
               className="font-extrabold leading-tight"
               style={{ fontSize: "100px", lineHeight: 1 }}>
-              <span className="bg-gradient-to-r from-white to-[#111111] bg-clip-text text-transparent block">
+              <span className="bg-gradient-to-r from-white to-[#111111] bg-clip-text text-transparent block text-[60px] xs:text-[80px] sm:text-[100px] leading-[1.1] sm:leading-[1]">
                 About
               </span>
-              <span className="bg-gradient-to-r from-white to-[#111111] bg-clip-text text-transparent block ml-[50px]">
+              <span className="bg-gradient-to-r from-white to-[#111111] bg-clip-text text-transparent block ml-0 sm:ml-[50px] text-[60px] xs:text-[80px] sm:text-[100px] leading-[1.1] sm:leading-[1]">
                 Quiktis
               </span>
             </h1>
           </div>
 
           <div className="md:w-1/2 w-full grid grid-cols-3 gap-3">
-            <div className="relative h-45 md:h-[350px] overflow-hidden">
+            <div className="relative h-40 xs:h-52 sm:h-45 md:h-[350px] overflow-hidden">
               <Image
                 src="/wedding.png"
                 alt="Left Fragment"
@@ -88,7 +88,7 @@ export default function AboutPage() {
               />
             </div>
 
-            <div className="relative h-72 md:h-[500px] overflow-hidden">
+            <div className="relative h-48 xs:h-60 sm:h-72 md:h-[500px] overflow-hidden">
               <Image
                 src="/wedding.png"
                 alt="Center Fragment"
@@ -98,7 +98,7 @@ export default function AboutPage() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <div className="relative h-56 md:h-[380px] w-full overflow-hidden">
+              <div className="relative h-36 xs:h-44 sm:h-56 md:h-[380px] w-full overflow-hidden">
                 <Image
                   src="/wedding.png"
                   alt="Right Fragment"
@@ -115,7 +115,7 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-16" />
-        
+
         <section className="py-16 px-4 relative overflow-visible">
           <div
             className="
@@ -127,19 +127,24 @@ export default function AboutPage() {
       opacity-50 
       pointer-events-none 
       z-0
-    "
+    sm:w-[500px] sm:h-[500px] sm:-bottom-32 sm:-left-32
+    w-[220px] h-[220px] -bottom-10 -left-10
+  "
           />
           <div
             className="
-      absolute 
-      -bottom-32 -right-32 
-      w-[400px] h-[400px]  /* reduced size */
-      bg-gradient-to-tl from-[#FF4D2A] to-transparent 
-      filter blur-[140px]  /* softened blur */
-      opacity-50 
-      pointer-events-none 
-      z-0
-    "
+              absolute 
+              -bottom-32 -right-32 
+              w-[400px] h-[400px]  
+              bg-gradient-to-tl from-[#FF4D2A] to-transparent 
+              filter blur-[140px]  
+              opacity-50 
+              pointer-events-none 
+              z-0
+              sm:w-[400px] sm:h-[400px] sm:-bottom-32 sm:-right-32
+              sm:opacity-50 sm:left-auto sm:right-32
+              w-[200px] h-[200px] -bottom-10 left-0 right-auto opacity-30
+            "
           />
 
           <div className="max-w-5xl mx-auto text-gray-200 space-y-6 leading-loose text-sm sm:text-base relative z-10">
@@ -247,7 +252,7 @@ export default function AboutPage() {
                 </p>
                 <p className="mt-0.5 text-white">Event Managers</p>
               </div>
-              
+
               <div className="px-4 border-l border-r border-gray-700">
                 <p className="text-[72px] sm:text-[96px] font-extrabold text-[#FF4D2A]">
                   600+
