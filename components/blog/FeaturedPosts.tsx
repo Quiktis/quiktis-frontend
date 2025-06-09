@@ -3,18 +3,18 @@ import React from "react";
 import Link from "next/link";
 
 export interface FeaturedPost {
-  title: string; // Used for alt text
+  title: string; 
   image: string;
-  date: string; // e.g., "1 Month Ago"
-  excerpt: string; // e.g., "Tick one more destination..."
-  description: string; // paragraph below the prominent line
+  date: string; 
+  excerpt: string; 
+  description: string; 
 }
 
 export interface RecentPost {
   id: number;
   title: string;
   image: string;
-  date: string; // e.g., "21 March 2021"
+  date: string; 
   excerpt: string;
 }
 
@@ -25,10 +25,6 @@ interface FeaturedPostsProps {
 
 const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ featured, recent }) => (
   <div className="w-full">
-    {/* 
-      Mobile-first: single-column.
-      At sm and up: two columns (60%/40%).
-    */}
     <div className="grid grid-cols-1 gap-4 w-full sm:grid-cols-[3fr_2fr]">
       {/* Featured Post */}
       <div className="flex flex-col w-full">
