@@ -11,6 +11,7 @@ import {
   faTwitter,
   faYoutube,
   faLinkedin,
+  faDiscord,
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -37,8 +38,13 @@ export default function Footer() {
     "/my-events",
     "/about",
     "/checkout",
+    "/blog",
+    "/blogview",
     "/stats",
+    "/nfts",
+    "/nfts-notification",
     "/payment-success",
+    "/payment-failure",
     "/live-chat",
     "/manager-event-viewing",
     "/event-viewing-square",
@@ -50,6 +56,9 @@ export default function Footer() {
     "/write-review",
     "/auth/google/callback",
   ];
+
+  const extraPaddingPaths = ["/nfts-notification", "/contact", "/search"];
+
   if (excludeFooterPaths.includes(pathname)) return null;
 
   return (
@@ -60,7 +69,12 @@ export default function Footer() {
         </section>
       )}
 
-      <footer className="relative mt-8 text-white w-full px-6 sm:px-8 md:px-12 py-8">
+      <footer
+        className={`relative mt-8 text-white w-full ${
+          extraPaddingPaths.includes(pathname)
+            ? "px-32 max-md:px-13"
+            : "max-sm:px-6 max-md:px-8 px-12 py-8"
+        }`}>
         <div className="flex flex-col md:flex-row md:justify-between gap-4 md:gap-8 w-full">
           {/* Column 1 */}
           <div className="flex-shrink-0 md:w-1/5 flex justify-center md:justify-start">
@@ -90,13 +104,11 @@ export default function Footer() {
               <Link href="/faq" className="hover:text-[#FF4D2A]">
                 FAQs
               </Link>
-              <Link
-                href="/manage-event-viewing"
-                className="hover:text-[#FF4D2A]">
+              <Link href="/nfts" className="hover:text-[#FF4D2A]">
                 Genres
               </Link>
-              <Link href="/search" className="hover:text-[#FF4D2A]">
-                News
+              <Link href="/blog" className="hover:text-[#FF4D2A]">
+                Blog
               </Link>
             </div>
           </div>
@@ -127,6 +139,20 @@ export default function Footer() {
                   className="hover:text-[#FF4D2A] flex items-center gap-2">
                   <FontAwesomeIcon icon={faTwitter} size="lg" />
                 </Link>
+                <Link
+                  href="https://discord.gg/TmavF8QCu5"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#FF4D2A] flex items-center gap-2">
+                  <FontAwesomeIcon icon={faDiscord} size="lg" />
+                </Link>
+                <Link
+                  href="https://www.facebook.com/share/1BnfVxgh29/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#FF4D2A] flex items-center gap-2">
+                  <FontAwesomeIcon icon={faFacebook} size="lg" />
+                </Link>
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2">
                 <Link
@@ -136,9 +162,13 @@ export default function Footer() {
                   <span>support@quiktis.com</span>
                 </Link>
               </div>
-              <div className="flex items-center justify-center md:justify-start gap-2">
-                <FontAwesomeIcon icon={faMapMarkerAlt} />
-                <span>Lagos, Nigeria</span>
+              {/* Glassmorphism Powered By The BlockChain */}
+              <div className="flex items-center justify-center md:justify-start mt-1">
+                <div
+                  className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-1 shadow-lg text-white text-sm font-semibold whitespace-nowrap cursor-pointer transition-all duration-200 hover:backdrop-blur-xl"
+                  style={{ WebkitBackdropFilter: "blur(12px)" }}>
+                  Powered By BlockChain
+                </div>
               </div>
             </div>
           </div>

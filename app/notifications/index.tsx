@@ -103,9 +103,10 @@ const notificationsData: Notification[] = [
 const NotificationsPage = () => {
   return (
     <main className="flex flex-col gap-5 w-full relative min-h-screen sm:w-[88%] lg:w-[90%] mx-auto">
-      
-        <EventsOperations />
-      
+      <div className="py-4">
+        <DashboardNav />
+      </div>
+      <EventsOperations />
 
       <div className="">
         <h1 className="text-4xl font-bold mb-2">Notifications</h1>
@@ -123,7 +124,7 @@ const NotificationsPage = () => {
               time={notification.time}
             />
           ))*/}
-         <hr className="border-gray-500 w-full"></hr>
+          <hr className="border-gray-500 w-full"></hr>
         </ul>
       </div>
     </main>

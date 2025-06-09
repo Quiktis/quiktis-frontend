@@ -28,7 +28,6 @@ export default function EventsStatsPage() {
 
   return (
     <main className="relative bg-transparent text-white min-h-screen py-12">
-      <div className="absolute top-0 left-0 w-full h-full -z-10 gradient-blur" />
       <div className="py-4 mb-8">
         <DashboardNav />
       </div>
@@ -103,4 +102,3 @@ export default function EventsStatsPage() {
     </main>
   );
 }
-

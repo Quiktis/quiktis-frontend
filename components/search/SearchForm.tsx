@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,7 +13,15 @@ export default function SearchForm() {
   };
 
   return (
-    <div className="flex flex-col gap-3 w-full max-w-[600px]">
+    <div className="flex flex-col gap-3 w-full max-w-[600px] ">
+      {/* <Image
+        src="/gradient.png"
+        alt="Background Gradient"
+        fill
+        className="object-cover z-0"
+        style={{ filter: "brightness(0.8)" }}
+        priority
+      /> */}
       <div className="flex flex-col">
         <label className="text-xs sm:text-sm text-gray-300 mb-1"></label>
         <select

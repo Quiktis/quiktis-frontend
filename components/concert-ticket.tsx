@@ -14,6 +14,8 @@ interface ConcertTicketProps {
   ticketType: string;
   ticketHolder: string;
   ticketNumber: string;
+  /** New optional prop for seat number */
+  seatNumber?: string;
   logoUrl?: string;
   qrCodeUrl?: string;
 }
@@ -27,6 +29,7 @@ export default function ConcertTicket({
   ticketType,
   ticketHolder,
   ticketNumber,
+  seatNumber,
   logoUrl = "/authImage.png",
   qrCodeUrl = "/qrcode.png",
 }: ConcertTicketProps) {
@@ -61,9 +64,12 @@ export default function ConcertTicket({
         height={300}
         className="absolute bottom-0 right-0 z-1 pointer-events-none opacity-70"
       />
+
       <div className="absolute inset-0 border-2 border-dashed border-[#f68b61] rounded-2xl pointer-events-none z-10" />
+
       <div className="relative z-20 text-white p-6 md:p-10 rounded-2xl">
         <div className="flex flex-col md:flex-row gap-6">
+          {/* LEFT SIDE: Logo + Event Info */}
           <div className="flex-1">
             <div className="relative flex items-center gap-4 mb-16">
               <div className="absolute -top-10 -left-10 w-80 h-80 bg-[#FF4D2A] opacity-40 rounded-full blur-[120px] z-0" />
@@ -85,7 +91,14 @@ export default function ConcertTicket({
               </div>
             </div>
 
+            {/**
+             * We now place Date & Time, Ticket Holder, Venue, Ticket Number,
+             * Ticket Type, and Seat Number all inside one 2-column grid.
+             * That way, "Ticket Type" (left column) and "Seat Number" (right column)
+             * live on the same row.
+             */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-10 mt-4">
+              {/* 1) Date & Time */}
               <div>
                 <h2 className="text-xs uppercase text-gray-300 mb-1">
                   Date & Time
@@ -103,6 +116,7 @@ export default function ConcertTicket({
                 </div>
               </div>
 
+              {/* 2) Ticket Holder */}
               <div>
                 <h2 className="text-xs uppercase text-gray-300 mb-1">
                   Ticket Holder
@@ -110,6 +124,7 @@ export default function ConcertTicket({
                 <p className="font-semibold text-sm">{ticketHolder}</p>
               </div>
 
+              {/* 3) Venue */}
               <div>
                 <h2 className="text-xs uppercase text-gray-300 mb-1">Venue</h2>
                 <div className="flex items-center gap-2">
@@ -117,28 +132,44 @@ export default function ConcertTicket({
                   <p className="font-semibold text-sm">{venue}</p>
                 </div>
               </div>
+
+              {/* 4) Ticket Number */}
               <div>
                 <h2 className="text-xs uppercase text-gray-300 mb-1">
                   Ticket Number
                 </h2>
                 <p className="font-semibold text-sm">#{ticketNumber}</p>
               </div>
-            </div>
-            <div className="mt-6">
-              <h2 className="text-xs uppercase text-gray-300 mb-1">
-                Ticket Type
-              </h2>
-              <div className="flex items-center gap-2">
-                <Image
-                  src="/icons/ticket.png"
-                  alt="Ticket icon"
-                  width={16}
-                  height={16}
-                />
-                <p className="font-semibold text-sm">{ticketType}</p>
+
+              {/* 5) Ticket Type (this will sit under Venue on the left column) */}
+              <div>
+                <h2 className="text-xs uppercase text-gray-300 mb-1">
+                  Ticket Type
+                </h2>
+                <div className="flex items-center gap-2">
+                  <Image
+                    src="/icons/ticket.png"
+                    alt="Ticket icon"
+                    width={16}
+                    height={16}
+                  />
+                  <p className="font-semibold text-sm">{ticketType}</p>
+                </div>
               </div>
+
+              {/* 6) Seat Number (this will sit under Ticket Number on the right column) */}
+              {seatNumber && (
+                <div>
+                  <h2 className="text-xs uppercase text-gray-300 mb-1">
+                    Seat Number
+                  </h2>
+                  <p className="font-semibold text-sm">#{seatNumber}</p>
+                </div>
+              )}
             </div>
           </div>
+
+          {/* RIGHT SIDE: QR + Buttons */}
           <div className="w-full md:w-[250px] flex flex-col items-center justify-between text-center gap-4">
             <div className="leading-tight mb-0">
               <p className="text-xs text-white font-medium">Scan at Entrance</p>
@@ -155,6 +186,7 @@ export default function ConcertTicket({
                 className="object-contain rounded-[10px]"
               />
             </div>
+
             <div className="flex w-full gap-3 mt-2">
               <button
                 onClick={handlePrint}

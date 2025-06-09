@@ -236,7 +236,7 @@ const MyEvents = () => {
 
   return (
     <main className="bg-transparent text-white min-h-screen py-10">
-      <div className="py-4">
+      <div className="py-4 mb-8">
         <DashboardNav />
       </div>
 
@@ -250,8 +250,7 @@ const MyEvents = () => {
             backgroundColor: "#191919",
           }}>
           <h1 className="text-xs md:text-2xl font-bold">Manage Events</h1>
-          <div className="flex flex-row items-center gap-4 w-full md:w-auto">
-          </div>
+          <div className="flex flex-row items-center gap-4 w-full md:w-auto"></div>
         </div>
         <p className="mt-2 text-gray-400 text-xs md:text-sm">
           This section lets you view, explore, create, and manage tickets.
@@ -267,7 +266,6 @@ const MyEvents = () => {
       </div>
 
       <div className="mt-16 relative">
-
         <div
           className="absolute bottom-0 left-0 w-[350px] h-[350px] opacity-30 -z-10"
           style={{ backgroundColor: "#FF4D2A", filter: "blur(100px)" }}></div>

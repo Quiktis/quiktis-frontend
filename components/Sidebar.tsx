@@ -15,7 +15,7 @@ const authTabs = [
   { label: "Dashboard", link: "/dashboard" },
   { label: "Explore Events", link: "/events" },
   { label: "Contact us", link: "/contact" },
-  { label: "Newsletter", link: "/faq" },
+  { label: "Faq", link: "/faq" },
 ];
 
 const guestTabs = [
@@ -24,7 +24,7 @@ const guestTabs = [
   { label: "Sign in", link: "/signin" },
   { label: "Explore Events", link: "/events" },
   { label: "Contact us", link: "/contact" },
-  { label: "Newsletter", link: "/faq" },
+  { label: "Faq", link: "/faq" },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {

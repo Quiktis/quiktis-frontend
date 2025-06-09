@@ -1,3 +1,4 @@
+// app/events/page.jsx
 "use client";
 
 import React from "react";
@@ -9,6 +10,9 @@ import NewEventCard from "@/components/search/NewEventCard";
 import Button from "@/components/ui/Button";
 import SearchBar from "@/components/ui/SearchBar";
 import GlowStyles from "@/components/eventsexplore/GlowWrapper.module.css";
+
+// ← Import the new AI‐tool "Coming Next" component
+import ComingNext from "@/components/eventsexplore/ComingNext";
 
 const events = [
   {
@@ -109,35 +113,6 @@ const events = [
   },
 ];
 
-const comingNext = [
-  {
-    image: "party1.png",
-    title: "Africa’s fashion industry.",
-    date: "May 23, 2024",
-    time: "13:20",
-    location: "Lagos, Nigeria",
-    readMoreUrl: "/event-viewing",
-    getTicketUrl: "/checkout",
-  },
-  {
-    image: "party1.png",
-    title: "Africa’s fashion industry.",
-    date: "May 23, 2024",
-    time: "13:20",
-    location: "Lagos, Nigeria",
-    readMoreUrl: "/event-viewing",
-    getTicketUrl: "/checkout",
-  },
-  {
-    image: "party1.png",
-    title: "Africa’s fashion industry.",
-    date: "May 23, 2024",
-    time: "13:20",
-    location: "Lagos, Nigeria",
-    readMoreUrl: "/event-viewing",
-    getTicketUrl: "/checkout",
-  },
-];
 
 const EventsPage = () => {
   return (
@@ -169,8 +144,11 @@ const EventsPage = () => {
           />
         </div>
       </div>
+
       <div className="w-full h-[2px] bg-[#FF4D2A] my-16" />
+
       <NewHappeningSection />
+
       <div className="flex flex-col gap-5 mt-10">
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {events.map((event, index) => (
@@ -189,93 +167,12 @@ const EventsPage = () => {
           ))}
         </div>
       </div>
-      <div className="flex flex-col gap-5 mt-10">
-        <h1 className="uppercase text-[30px] font-bold">Coming Next</h1>
 
-        <div className="md:hidden overflow-x-auto scrollbar-hide">
-          <div className="flex gap-5">
-            {comingNext.map((evt, idx) => (
-              <div
-                key={idx}
-                className={`${GlowStyles.glowWrapper} w-[320px] sm:w-[420px] flex-shrink-0`}>
-                <div className="relative z-10 p-4 border-[6px] border-[#FF4D2A] bg-black rounded-[30px] flex flex-col gap-3">
-                  <Image
-                    src={`/${evt.image}`}
-                    alt={evt.title}
-                    width={420}
-                    height={300}
-                    className="rounded-[30px]"
-                  />
-                  <h1 className="text-[20px] font-semibold text-white">
-                    {evt.title}
-                  </h1>
-                  <div className="flex justify-between text-sm text-gray-400">
-                    <div>
-                      {evt.date}
-                      <br />
-                      {evt.time}
-                    </div>
-                    <div>{evt.location}</div>
-                  </div>
-                  <div className="mt-4 flex items-center gap-2">
-                    <button
-                      onClick={() => (window.location.href = evt.readMoreUrl)}
-                      className="px-4 py-2 text-sm border border-white text-white rounded-[15px] flex items-center gap-1">
-                      Read more <FaLongArrowAltRight size={10} />
-                    </button>
-                    <div className="w-4" />
-                    <button
-                      onClick={() => (window.location.href = evt.getTicketUrl)}
-                      className="px-4 py-2 text-sm bg-[#FF4D2A] text-white rounded-[10px] flex items-center gap-1 ml-auto">
-                      Get Ticket <IoTicketSharp size={12} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="hidden md:flex gap-5">
-          {comingNext.map((evt, idx) => (
-            <div key={idx} className={`${GlowStyles.glowWrapper} w-[420px]`}>
-              <div className="relative z-10 p-4 border-[6px] border-[#FF4D2A] bg-black rounded-[30px] flex flex-col gap-3">
-                <Image
-                  src={`/${evt.image}`}
-                  alt={evt.title}
-                  width={420}
-                  height={300}
-                  className="rounded-[30px]"
-                />
-                <h1 className="text-[20px] font-semibold text-white">
-                  {evt.title}
-                </h1>
-                <div className="flex justify-between text-sm text-gray-400">
-                  <div>
-                    {evt.date}
-                    <br />
-                    {evt.time}
-                  </div>
-                  <div>{evt.location}</div>
-                </div>
-                <div className="mt-4 flex items-center gap-2">
-                  <button
-                    onClick={() => (window.location.href = evt.readMoreUrl)}
-                    className="px-4 py-2 text-sm border border-white text-white rounded-[15px] flex items-center gap-1">
-                    Read more <FaLongArrowAltRight size={10} />
-                  </button>
-                  <div className="w-4" />
-                  <button
-                    onClick={() => (window.location.href = evt.getTicketUrl)}
-                    className="px-4 py-2 text-sm bg-[#FF4D2A] text-white rounded-[10px] flex items-center gap-1 ml-auto">
-                    Get Ticket <IoTicketSharp size={12} />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* ← Replace the old inline Coming Next JSX with this single component: */}
+      <h1 className="text-white text-4xl font-bold pb-2 pt-6 pl-0 pr-4 uppercase tracking-wide">
+        COMING NEXT
+      </h1>
+      <ComingNext />
     </main>
   );
 };

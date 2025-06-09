@@ -93,7 +93,7 @@ const DashboardNav = () => {
       </nav>
 
       <div className="hidden md:flex ml-auto">
-        <Link href="/create-event">
+        <Link href="/create-events">
           <button className="flex items-center gap-2 bg-primary text-white px-4 py-4 rounded-md shadow-[0_0_20px_#FF4D2A] hover:brightness-110 transition">
             <AiOutlineCalendar className="w-5 h-5" />
             <span>Create Event</span>

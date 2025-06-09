@@ -7,12 +7,36 @@ import NewsLetter2 from "./NewsLetter2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInstagram,
+  faDiscord,
   faFacebook,
   faTwitter,
   faYoutube,
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+
+const socials = [
+  {
+    icon: faInstagram,
+    link: "https://instagram.com/quiktis",
+  },
+  {
+    icon: faLinkedin,
+    link: "https://linkedin.com/company/quiktis", // Add your Discord link here
+  },
+  {
+    icon: faTwitter,
+    link: "https://x.com/QuiktisTik", // Add your Discord link here
+  },
+  {
+    icon: faDiscord,
+    link: "https://discord.gg/TmavF8QCu5", // Add your Discord link here
+  },
+  {
+    icon: faFacebook,
+    link: "https://www.facebook.com/share/1BnfVxgh29/", // Add your Discord link here
+  },
+];
 
 export default function Footer() {
   const pathname = usePathname();
@@ -29,11 +53,17 @@ export default function Footer() {
     "/reviews",
     "/announcement",
     "/announcement",
-    "/create-events","/my-events",
+    "/create-events",
+    "/my-events",
+    "/blog",
+    "/blogview",
+    "/nfts",
+    "/nfts-notification",
     "/about",
     "/checkout",
     "/stats",
     "/payment-success",
+    "/payment-failure",
     "/live-chat",
     "/manager-event-viewing",
     "/event-viewing-square",
@@ -43,7 +73,7 @@ export default function Footer() {
     "/concert-ticket",
     "/attendees",
     "/write-review",
-    "/dashboard"
+    "/dashboard",
   ];
   if (excludeFooterPaths.includes(pathname)) return null;
 
@@ -55,10 +85,7 @@ export default function Footer() {
             <div></div>
             {/*<div className=" h-full w-full  translate-x-0  radial-gradient-blue blur-[18px] md:blur-3xl opacity-50"></div>*/}
           </div>
-          <NewsLetter2 
-  containerClass="relative w-full md:px-[8em] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]" 
-/>
-
+          <NewsLetter2 containerClass="relative w-full md:px-[8em] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]" />
         </section>
       )}
       <footer className="relative mt-8 text-white max-md:w-full w-[80%] mx-auto px-6 sm:px-8 md:px-12 py-8">
@@ -88,14 +115,14 @@ export default function Footer() {
               <Link href="/checkout" className="hover:text-[#FF4D2A]">
                 Get Tickets
               </Link>
-              <Link href="/faq" className="hover:text-[#FF4D2A]">
+              <Link href="/concert-ticket" className="hover:text-[#FF4D2A]">
                 FAQs
               </Link>
-              <Link href="/search" className="hover:text-[#FF4D2A]">
+              <Link href="/nfts" className="hover:text-[#FF4D2A]">
                 Genres
               </Link>
-              <Link href="/manage-event-viewing" className="hover:text-[#FF4D2A]">
-                News
+              <Link href="/blog" className="hover:text-[#FF4D2A]">
+                Blog
               </Link>
             </div>
           </div>
@@ -105,27 +132,16 @@ export default function Footer() {
             <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
             <div className="flex flex-col gap-4">
               <div className="flex flex-row items-center justify-center md:justify-start gap-4">
-                <Link
-                  href="https://instagram.com/quiktis"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#FF4D2A] flex items-center gap-2">
-                  <FontAwesomeIcon icon={faInstagram} size="lg" />
-                </Link>
-                <Link
-                  href="https://linkedin.com/company/quiktis"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#FF4D2A] flex items-center gap-2">
-                  <FontAwesomeIcon icon={faLinkedin} size="lg" />
-                </Link>
-                <Link
-                  href="https://x.com/QuiktisTik"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#FF4D2A] flex items-center gap-2">
-                  <FontAwesomeIcon icon={faTwitter} size="lg" />
-                </Link>
+                {socials.map((item, index) => (
+                  <Link
+                    href={item.link}
+                    key={index}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#FF4D2A] flex items-center gap-2">
+                    <FontAwesomeIcon icon={item.icon} size="lg" />
+                  </Link>
+                ))}
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2">
                 <Link
@@ -135,9 +151,13 @@ export default function Footer() {
                   <span>support@quiktis.com</span>
                 </Link>
               </div>
-              <div className="flex items-center justify-center md:justify-start gap-2">
-                <FontAwesomeIcon icon={faMapMarkerAlt} />
-                <span>Lagos, Nigeria</span>
+              {/* Glassmorphism Powered By The BlockChain */}
+              <div className="flex items-center justify-center md:justify-start mt-1">
+                <div
+                  className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-1 shadow-lg text-white text-sm font-semibold whitespace-nowrap cursor-pointer transition-all duration-200 hover:backdrop-blur-xl"
+                  style={{ WebkitBackdropFilter: "blur(12px)" }}>
+                  Powered By BlockChain
+                </div>
               </div>
             </div>
           </div>

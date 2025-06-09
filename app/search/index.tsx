@@ -117,8 +117,9 @@ const events = [
 
 export default function SearchPage() {
   return (
-    <div className="relative min-h-screen flex flex-col text-white bg-transparent overflow-hidden">
+    <div className="relative min-h-screen flex flex-col text-white bg-transparent overflow-hidden px-20 max-md:px-5">
       <main className="container mx-auto px-6 md:px-12 py-1 md:py-10 flex-grow">
+        
         <div className="mb-6">
           <h1 className="text-5xl md:text-7xl font-bold">SEARCH...</h1>
           <p className="text-base md:text-lg mt-2">
