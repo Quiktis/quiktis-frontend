@@ -26,6 +26,7 @@ interface FeaturedPostsProps {
 const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ featured, recent }) => (
   <div className="w-full">
     <div className="grid grid-cols-1 gap-4 w-full sm:grid-cols-[3fr_2fr]">
+      {/* Featured Post */}
       <div className="flex flex-col w-full">
         <div className="relative w-full h-[200px] overflow-hidden sm:h-[400px]">
           <Image
@@ -44,6 +45,7 @@ const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ featured, recent }) => (
         </div>
       </div>
 
+      {/* Recent Posts */}
       <div
         className={`
           grid gap-4 w-full
@@ -53,7 +55,7 @@ const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ featured, recent }) => (
         {recent.map((post) => (
           <Link
             key={post.id}
-            href={`/blog/${post.id}`}
+            href="/blogview"
             className={`
               flex flex-col gap-4
               sm:flex-row sm:gap-4 sm:items-center
