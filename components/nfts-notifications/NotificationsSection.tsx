@@ -1,3 +1,4 @@
+// components/nfts-notifications/NotificationsSection.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -8,6 +9,7 @@ const TABS = ["Ticket Update", "Event Changes", "Promotional Offers"];
 export default function NotificationsSection() {
   const [activeTab, setActiveTab] = useState(0);
 
+  // mock data
   const tickets = Array.from({ length: 8 }, (_, i) => ({
     id: i + 1,
     eventName: "Music Fest 2024",
@@ -17,7 +19,7 @@ export default function NotificationsSection() {
   }));
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 px-20 max-md:px-5">
       <h2 className="text-xl font-bold mb-4">Notifications</h2>
       <div className="flex mb-6 overflow-x-auto">
         {TABS.map((tab, i) => (

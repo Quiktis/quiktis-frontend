@@ -1,3 +1,4 @@
+// components/nfts-notifications/SearchBar.tsx
 "use client";
 
 import React from "react";
@@ -5,7 +6,7 @@ import { FaSearch } from "react-icons/fa";
 
 export default function SearchBar() {
   return (
-    <div className="mb-8">
+    <div className="mb-8 px-20 max-md:px-5">
       <div className="flex items-center border border-[#F68B61] bg-[#111111] p-2 rounded-lg">
         <input
           type="text"
