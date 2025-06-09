@@ -1,9 +1,10 @@
+// components/layout/BlogFooter.tsx
 "use client";
-import { usePathname } from "next/navigation";
-import Logo from "../Logo";
-import Link from "next/link";
-import NewsLetter from "../NewsLetter";
 
+import { usePathname } from "next/navigation";
+import Logo from "@/components/Logo";
+import Link from "next/link";
+import BlogNewsletter from "@/components/BlogNewsletter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInstagram,
@@ -15,8 +16,9 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
-export default function Footer() {
+export default function BlogFooter(): JSX.Element {
   const pathname = usePathname();
+
   const excludeFooterPaths = [
     "/login",
     "/register",
@@ -37,9 +39,8 @@ export default function Footer() {
     "/announcement",
     "/my-events",
     "/about",
-    "/checkout",
-    "/blog",
     "/blogview",
+    "/checkout",
     "/stats",
     "/nfts",
     "/nfts-notification",
@@ -57,15 +58,14 @@ export default function Footer() {
     "/auth/google/callback",
   ];
 
-  const extraPaddingPaths = ["/nfts-notification", "/contact", "/search"];
-
-  if (excludeFooterPaths.includes(pathname)) return null;
+  const extraPaddingPaths = ["/blog"];
+  if (excludeFooterPaths.includes(pathname)) return <></>;
 
   return (
     <>
       {!hiddenPaths.includes(pathname) && (
         <section className="relative w-full mb-[5em]">
-          <NewsLetter />
+          <BlogNewsletter />
         </section>
       )}
 
@@ -162,7 +162,6 @@ export default function Footer() {
                   <span>support@quiktis.com</span>
                 </Link>
               </div>
-              {/* Glassmorphism Powered By The BlockChain */}
               <div className="flex items-center justify-center md:justify-start mt-1">
                 <div
                   className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-1 shadow-lg text-white text-sm font-semibold whitespace-nowrap cursor-pointer transition-all duration-200 hover:backdrop-blur-xl"
@@ -176,14 +175,14 @@ export default function Footer() {
 
         <div
           className="
-          absolute pointer-events-none
-          w-[70%] sm:w-[75%] h-[26em]
-          top-[-3em]
-          left-0 md:right-0 md:left-auto
-          radial-gradient-purple
-          blur-3xl
-          opacity-50
-        "></div>
+            absolute pointer-events-none
+            w-[70%] sm:w-[75%] h-[26em]
+            top-[-3em]
+            left-0 md:right-0 md:left-auto
+            radial-gradient-purple
+            blur-3xl
+            opacity-50
+          "></div>
       </footer>
     </>
   );
