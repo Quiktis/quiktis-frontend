@@ -182,7 +182,6 @@ const BlogViewContent: React.FC = () => {
         </article>
       </section>
 
-<<<<<<< HEAD
       {/* ── Other Blogs Grid ── */}
       <section className="py-8 px-6 max-w-7xl mx-auto">
         <div className="max-w-4xl mb-12">
@@ -194,11 +193,6 @@ const BlogViewContent: React.FC = () => {
             what our valued users have to say about their experience with
             EmailGigga!
           </p> */}
-=======
-      <section className="py-8 px-6 max-w-7xl mx-auto">
-        <div className="max-w-4xl mb-12">
-          <h1 className="text-5xl font-bold mb-4 text-white">Other Blogs</h1>
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
         </div>
         <BlogGrid posts={blogPosts} columns={3} />
       </section>

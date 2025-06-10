@@ -1,144 +1,38 @@
 // app/events/page.jsx
 "use client";
+
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { IoTicketSharp } from "react-icons/io5";
 import { FaLongArrowAltRight } from "react-icons/fa";
+
 import NewHappeningSection from "@/components/eventsexplore/NewHappeningSection";
 import NewEventCard from "@/components/search/NewEventCard";
 import Button from "@/components/ui/Button";
 import SearchBar from "@/components/ui/SearchBar";
 import GlowStyles from "@/components/eventsexplore/GlowWrapper.module.css";
+import ComingNext from "@/components/eventsexplore/ComingNext";
 
-const events = [
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "africa.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "dj.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "camera.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "party1.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "conf.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "dance.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "wed.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "show.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-];
+import { relatedEvents as events } from "@/constant/relatedEvents";
+import { Event } from "@/constant/customTypes";
 
-const comingNext = [
-  {
-    image: "party1.png",
-    title: "Africa’s fashion industry.",
-    date: "May 23, 2024",
-    time: "13:20",
-    location: "Lagos, Nigeria",
-    readMoreUrl: "/event-viewing",
-    getTicketUrl: "/checkout",
-  },
-  {
-    image: "party1.png",
-    title: "Africa’s fashion industry.",
-    date: "May 23, 2024",
-    time: "13:20",
-    location: "Lagos, Nigeria",
-    readMoreUrl: "/event-viewing",
-    getTicketUrl: "/checkout",
-  },
-  {
-    image: "party1.png",
-    title: "Africa’s fashion industry.",
-    date: "May 23, 2024",
-    time: "13:20",
-    location: "Lagos, Nigeria",
-    readMoreUrl: "/event-viewing",
-    getTicketUrl: "/checkout",
-  },
-];
+// // Uncomment this block to use your own hardcoded events for local testing:
+// // const events: Event[] = [
+// //   {
+// //     title: "Africa's fashion industry is growing to meet global demand.",
+// //     subtitle: "Africa Talks",
+// //     description:
+// //       "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi...",
+// //     date: "May 23, 2024",
+// //     location: "South Kenyatta",
+// //     price: "$20",
+// //     image: "africa.png",
+// //     getTicketUrl: "/checkout",
+// //     readMoreUrl: "/event-viewing",
+// //   },
+// //   /* …other hardcoded items… */
+// // ];
 
 const EventsPage = () => {
   const [query, setQuery] = useState("");
@@ -158,7 +52,7 @@ const EventsPage = () => {
     return () => clearTimeout(delayDebounce);
   }, [query]);
 
-  const fetchEvents = async (searchTerm: any) => {
+  const fetchEvents = async (searchTerm: string) => {
     try {
       setLoading(true);
       const response = await fetch(
@@ -192,16 +86,16 @@ const EventsPage = () => {
               placeholder="Search Event"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              onBlur={(e) => setLoading(false)}
+              onBlur={() => setLoading(false)}
             />
             {query.trim() && (
-              <div className="mt-6 space-y-[0.4em] text-left w-full lg:max-w-[32em] h-fit  bg-[#202020] p-2 rounded-md shadow-lg">
+              <div className="mt-6 space-y-[0.4em] text-left w-full lg:max-w-[32em] h-fit bg-[#202020] p-2 rounded-md shadow-lg">
                 {loading && <p className="text-white p-4">Searching...</p>}
                 {!loading && results.length > 0 && (
                   <div className="grid gap-4">
                     {results.slice(0, 4).map((event) => (
                       <Link key={event.id} href={`/event-viewing/${event.id}`}>
-                        <div className=" p-3 rounded-lg cursor-pointer transition hover:bg-[#ffffff0e]">
+                        <div className="p-3 rounded-lg cursor-pointer transition hover:bg-[#ffffff0e]">
                           <h3 className="text-white font-semibold">
                             {event.title}
                           </h3>
@@ -213,7 +107,7 @@ const EventsPage = () => {
                     ))}
                   </div>
                 )}
-                {!loading && query.trim() && results.length === 0 && (
+                {!loading && results.length === 0 && (
                   <p className="text-gray-400 p-4">No events found.</p>
                 )}
               </div>
@@ -238,25 +132,24 @@ const EventsPage = () => {
 
       <div className="flex flex-col gap-5 mt-10">
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {events.map((event, index) => (
+          {events.map((ev, idx) => (
             <NewEventCard
-              key={index}
-              title={event.title}
-              subtitle={event.subtitle}
-              description={event.description}
-              date={event.date}
-              location={event.location}
-              price={event.price}
-              image={event.image}
-              getTicketUrl={event.getTicketUrl}
-              readMoreUrl={event.readMoreUrl}
+              key={idx}
+              title={ev.title}
+              subtitle={ev.subtitle}
+              description={ev.description}
+              date={ev.date}
+              location={ev.location}
+              price={ev.price}
+              image={ev.image}
+              getTicketUrl={ev.getTicketUrl}
+              readMoreUrl={ev.readMoreUrl}
             />
           ))}
         </div>
       </div>
 
-      {/* ← Replace the old inline Coming Next JSX with this single component: */}
-      <h1 className="text-white text-4xl font-bold pb-2 pt-6 pl-0 pr-4 uppercase tracking-wide">
+      <h1 className="text-white text-4xl font-bold pb-2 pt-6 uppercase tracking-wide">
         COMING NEXT
       </h1>
       <ComingNext />
