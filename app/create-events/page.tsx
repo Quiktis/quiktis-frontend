@@ -23,7 +23,7 @@ function CreateEventPage() {
   const [pageIndex, setPageIndex] = useState(0);
   const { user } = useUser();
   const router = useRouter();
-  const { sendRequest } = useAxios();
+  const { sendRequest, loading } = useAxios();
   const [image, setImage] = useState<File | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -44,7 +44,7 @@ function CreateEventPage() {
     startTime: "",
     endTime: "",
     location: "",
-    tickets: [{ name: "", price: 0, description: "", quantity: 0}],
+    tickets: [{ name: "", price: 0, description: "", quantity: 1}],
   });
 
   const [timeData, setTimeData] = useState<TimeData>({
@@ -112,6 +112,7 @@ function CreateEventPage() {
   const currentStepIndex = steps.findIndex((step) => step.link === tab);
 
   const uploadImage = async () => {
+    if (loading) return;
     if (!image) {
       alert("Please select an image to upload.");
       return;
@@ -120,7 +121,7 @@ function CreateEventPage() {
     try {
       // Create a FormData object to send the image file
       const formData = new FormData();
-      formData.append("file", image); // Assuming `image` is a File object
+      formData.append("files", image); // Assuming `image` is a File object
 
       // Use the base URL from the environment variable
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -129,6 +130,7 @@ function CreateEventPage() {
     }
 
     console.log("uploading image to:", `${baseUrl}/medias/upload`);
+    console.log(user, "user data")
     console.log(user?.token, "user token")
 
       // Make the POST request to upload the image
@@ -143,8 +145,12 @@ function CreateEventPage() {
       });
 
       console.log(response, "response data")
+      console.log(response.status, "status")
       // Extract the URL from the response
-      const imageUrl = response.url;
+
+      if (response.status !== "success") return alert("Failed to create event. Please try again.");
+      const imageUrl = response.data.files[0].cloudinaryUrl
+      ; // Adjust this based on the actual response structure
 
       // Update the eventData state with the returned URL
       setEventData((prev) => ({
@@ -152,10 +158,34 @@ function CreateEventPage() {
         bannerImage: imageUrl,
       }));
 
+      console.log(eventData, "event data that is being sent")
+
       console.log("Image uploaded successfully:", imageUrl);
+
+      console.log("uploading image to:", `${baseUrl}/events`);
+
+      const createEventResponse = await sendRequest({
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
+        method: "POST",
+        headers: { 
+          //"Content-Type": "multipart/form-data", 
+          "Authorization": `Bearer ${user?.token}`
+        },
+        body: eventData,
+      });
+
+      console.log(createEventResponse, "response data")
+
+      if (createEventResponse.status === "success") router.push("/my-events");
+
+      if (createEventResponse.status !== "success") alert("Failed to create event. Please try again.");
+
+      return;
+
     } catch (error) {
       console.error("Error uploading image:", error);
-      alert("Failed to upload the image. Please try again.");
+      alert("Failed to create event. Please try again.");
+      return;
     }
   };
 
@@ -165,7 +195,7 @@ function CreateEventPage() {
         <div className="w-full h-[60em] inset-0 radial-gradient-custom blur-3xl opacity-50"></div>
       </div>
 
-      <form className="md:w-[80%] max-md:px-1 mb-8 md:mb-[14em] flex flex-col gap-2 md:gap-6 md:mx-auto">
+      <form className="w-full lg:w-[80%] max-md:px-1 mb-8 md:mb-[14em] flex flex-col gap-2 md:gap-6 md:mx-auto">
         <div className="text-[1.4em] font-medium">create a new event</div>
 
         <div className="grid max-md:grid-cols-[1fr_1fr_1fr_1fr_0.7fr]  grid-cols-5 place-items-center py-3 pb-10">
@@ -184,7 +214,7 @@ function CreateEventPage() {
                 {/* Step Circle */}
                 <div className="grid place-items-center gap-2 md:mr-[-1.75em] z-30">
                   <button
-                  onClick={() => router.push(`?tab=${item.link}`)}
+                  //onClick={() => router.push(`?tab=${item.link}`)}
                     type="button"
                     className={`${
                       item.label === "blank"
@@ -244,7 +274,7 @@ function CreateEventPage() {
             handleEventDataChange={handleEventDataChange}
           />
         )}
-        {tab === "review" && <ReviewSection preview={preview} eventData={eventData} uploadImage={uploadImage}/>}
+        {tab === "review" && <ReviewSection preview={preview} eventData={eventData} loading={loading} uploadImage={uploadImage}/>}
       </form>
     </>
   );

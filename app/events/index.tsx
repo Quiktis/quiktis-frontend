@@ -1,7 +1,7 @@
 // app/events/page.jsx
 "use client";
-
-import React from "react";
+import Link from "next/link";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { IoTicketSharp } from "react-icons/io5";
 import { FaLongArrowAltRight } from "react-icons/fa";
@@ -10,9 +10,6 @@ import NewEventCard from "@/components/search/NewEventCard";
 import Button from "@/components/ui/Button";
 import SearchBar from "@/components/ui/SearchBar";
 import GlowStyles from "@/components/eventsexplore/GlowWrapper.module.css";
-
-// ← Import the new AI‐tool "Coming Next" component
-import ComingNext from "@/components/eventsexplore/ComingNext";
 
 const events = [
   {
@@ -113,7 +110,73 @@ const events = [
   },
 ];
 
+const comingNext = [
+  {
+    image: "party1.png",
+    title: "Africa’s fashion industry.",
+    date: "May 23, 2024",
+    time: "13:20",
+    location: "Lagos, Nigeria",
+    readMoreUrl: "/event-viewing",
+    getTicketUrl: "/checkout",
+  },
+  {
+    image: "party1.png",
+    title: "Africa’s fashion industry.",
+    date: "May 23, 2024",
+    time: "13:20",
+    location: "Lagos, Nigeria",
+    readMoreUrl: "/event-viewing",
+    getTicketUrl: "/checkout",
+  },
+  {
+    image: "party1.png",
+    title: "Africa’s fashion industry.",
+    date: "May 23, 2024",
+    time: "13:20",
+    location: "Lagos, Nigeria",
+    readMoreUrl: "/event-viewing",
+    getTicketUrl: "/checkout",
+  },
+];
+
 const EventsPage = () => {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Debounced search effect
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      if (query.trim()) {
+        fetchEvents(query);
+      } else {
+        setResults([]);
+      }
+    }, 500); // 500ms debounce
+
+    return () => clearTimeout(delayDebounce);
+  }, [query]);
+
+  const fetchEvents = async (searchTerm: any) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_API_BASE_URL
+        }/events/search?q=${encodeURIComponent(searchTerm)}`
+      );
+      const data = await response.json();
+      if (data?.status === "success") {
+        setResults(data.data.events || []);
+      }
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className="min-h-screen relative overflow-hidden">
       <div className="flex flex-col md:flex-row gap-20 justify-center items-center w-full px-6">
@@ -127,9 +190,34 @@ const EventsPage = () => {
             <p>Search any event</p>
             <SearchBar
               placeholder="Search Event"
-              value=""
-              onChange={() => {}}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onBlur={(e) => setLoading(false)}
             />
+            {query.trim() && (
+              <div className="mt-6 space-y-[0.4em] text-left w-full lg:max-w-[32em] h-fit  bg-[#202020] p-2 rounded-md shadow-lg">
+                {loading && <p className="text-white p-4">Searching...</p>}
+                {!loading && results.length > 0 && (
+                  <div className="grid gap-4">
+                    {results.slice(0, 4).map((event) => (
+                      <Link key={event.id} href={`/event-viewing/${event.id}`}>
+                        <div className=" p-3 rounded-lg cursor-pointer transition hover:bg-[#ffffff0e]">
+                          <h3 className="text-white font-semibold">
+                            {event.title}
+                          </h3>
+                          <p className="text-gray-300 text-sm">
+                            {event.location}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+                {!loading && query.trim() && results.length === 0 && (
+                  <p className="text-gray-400 p-4">No events found.</p>
+                )}
+              </div>
+            )}
           </div>
         </div>
 

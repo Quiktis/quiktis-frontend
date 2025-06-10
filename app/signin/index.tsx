@@ -72,14 +72,15 @@ const LoginPage: React.FC = () => {
           token: response.data.token,
         };
 
-        const userForStorage = {
+        /*const userForStorage = {
           userId: response.data.user.id,
           name: response.data.user.name,
           email: response.data.user.email,
-        };
+          const: response.data.user.role,
+        };*/
 
         setUser(user);
-        localStorage.setItem("quiktis_user", JSON.stringify(userForStorage));
+        /*localStorage.setItem("quiktis_user", JSON.stringify(userForStorage));*/
         router.push("/dashboard");
       }
     } catch (error) {
@@ -117,7 +118,7 @@ const LoginPage: React.FC = () => {
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            type="email"
+            type="Email"
             label='Email Address'
             required={true}
             placeholder="Enter your email address here"

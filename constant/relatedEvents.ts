@@ -1,0 +1,98 @@
+export const relatedEvents = [
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "africa.png",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing-square",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "dj.png",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing-square",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "camera.png",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing-square",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "party1.png",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing-square",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "conf.png",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing-square",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "dance.png",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing-square",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "wed.png",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing-square",
+  },
+  {
+    title: "Africa's fashion industry is growing to meet global demand.",
+    subtitle: "Africa Talks",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
+    date: "May 23, 2024",
+    location: "South Kenyatta",
+    price: "$20",
+    image: "show.png",
+    getTicketUrl: "/checkout",
+    readMoreUrl: "/event-viewing-square",
+  },
+];

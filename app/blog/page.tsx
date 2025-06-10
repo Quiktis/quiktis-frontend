@@ -16,7 +16,7 @@ export default function BlogPage() {
   // Separate images for background and featured post
   const backgroundImage = "/blog/family-boat-scenery.jpg"; // New background image
   const featuredPostImage = "/blog/blogroad.jpg"; // Keep original for featured post
-  
+
   const heroTitle = "INSIGHTS, TIPS & STORIES FROM THE WORLD OF EVENTS";
   const heroSubtitle =
     "Discover expert advice, platform updates, and behind-the-scenes stories to help you plan, promote, and sell out your next event.";
@@ -86,17 +86,15 @@ export default function BlogPage() {
           backgroundImage: `url('${backgroundImage}')`, // Use new background image
           backgroundSize: "cover",
           backgroundPosition: "center",
-        }}
-      >
+        }}>
         {/* Dark overlay for desktop */}
         <div className="absolute inset-0 bg-black bg-opacity-60 z-20"></div>
-        
+
         <div className="relative z-40 flex flex-col items-center justify-center h-full text-center px-5 pt-12 md:pt-20 lg:pt-28">
           <h1
             className="text-[2em] max-sm:text-[1.5em] md:text-[2.3em]
                        lg:text-[2.7em] xl:text-[3em] leading-[1.2em]
-                       font-bold text-white"
-          >
+                       font-bold text-white">
             {heroTitle}
           </h1>
           <p className="mt-2 text-[1.2em] lg:w-[80%] mx-auto text-white/90">

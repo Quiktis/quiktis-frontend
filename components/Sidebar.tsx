@@ -10,7 +10,6 @@ interface SidebarProps {
 }
 
 const authTabs = [
-  
   { label: "Home", link: "/" },
   { label: "Dashboard", link: "/dashboard" },
   { label: "Explore Events", link: "/events" },
@@ -46,20 +45,17 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
             <li className="w-full grid">
               <button
                 onClick={onSidebarClose}
-                className="w-fit hover:bg-[#ffffff27] mr-2 ml-auto rounded-md"
-              >
+                className="w-fit hover:bg-[#ffffff27] mr-2 ml-auto rounded-md">
                 <IoMdClose size={23} />
               </button>
             </li>
             {tabsToRender.map((item, index) => (
               <li
                 key={index}
-                className="hover:bg-[#ffffff1c] grid w-full rounded-md"
-              >
+                className="hover:bg-[#ffffff1c] grid w-full rounded-md">
                 <button
                   onClick={() => handleClick(item.link)}
-                  className="w-full text-gray-200 flex justify-center py-3"
-                >
+                  className="w-full text-gray-200 flex justify-center py-3">
                   {item.label}
                 </button>
               </li>

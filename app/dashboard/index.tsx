@@ -131,11 +131,11 @@ const CreateEvent = () => {
           </div>
           <div className="flex flex-col lg:grid grid-cols-[auto_16em] max-sm:gap-8 gap-5">
             <InputField label="Email" />
-            <Button className="grid items-center">Update Email Address </Button>
+            <Button className="grid items-center bg-primary">Update Email Address </Button>
           </div>
           <div className="flex flex-col lg:grid grid-cols-[auto_16em] max-sm:gap-8 gap-5">
             <InputField label="Wallet address" />
-            <Button className="grid items-center">Connect Wallet </Button>
+            <Button className="grid items-center bg-primary">Connect Wallet </Button>
           </div>
         </div>
       </section>
@@ -148,7 +148,11 @@ const CreateEvent = () => {
             </Label>
             <Dropdown
               label="Identity Card"
-              options={["National ID (NIN)", "Driver's License", "International Passport"]}
+              options={[
+                { id: "nin", name: "National ID (NIN)", description: "" },
+                { id: "drivers_license", name: "Driver's License", description: "" },
+                { id: "passport", name: "International Passport", description: "" }
+              ]}
               placeholder="Card type"
             />
 
@@ -243,9 +247,9 @@ const CreateEvent = () => {
       <div className="my-[2em]">
         <Button
           onClick={handleLogout}
-          className="flex justify-center gap-3 items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3 max-sm:w-fit"
+          className="flex justify-center gap-3 items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3 max-sm:w-fit bg-primary"
         >
-          <p className="my-auto bg-primary">Log out</p>
+          <p className="my-auto ">Log out</p>
           <FaArrowRight />
         </Button>
       </div>

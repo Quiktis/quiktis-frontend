@@ -133,18 +133,15 @@ export default function AboutPage() {
           />
           <div
             className="
-              absolute 
-              -bottom-32 -right-32 
-              w-[400px] h-[400px]  /* desktop */
-              bg-gradient-to-tl from-[#FF4D2A] to-transparent 
-              filter blur-[140px]  /* softened blur */
-              opacity-50 
-              pointer-events-none 
-              z-0
-              sm:w-[400px] sm:h-[400px] sm:-bottom-32 sm:-right-32
-              sm:opacity-50 sm:left-auto sm:right-32
-              w-[200px] h-[200px] -bottom-10 left-0 right-auto opacity-30
-            "
+      absolute 
+      -bottom-32 -right-32 
+      w-[400px] h-[400px]  /* reduced size */
+      bg-gradient-to-tl from-[#FF4D2A] to-transparent 
+      filter blur-[140px]  /* softened blur */
+      opacity-50 
+      pointer-events-none 
+      z-0
+    "
           />
 
           <div className="max-w-5xl mx-auto text-gray-200 space-y-6 leading-loose text-sm sm:text-base relative z-10">

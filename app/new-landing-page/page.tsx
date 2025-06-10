@@ -32,7 +32,7 @@ export default function NewLandingPage() {
 
       </div>
 
-      <ExploreEventSection containerClass="px-[3em]"/>
+      <ExploreEventSection containerClass="px-[3em] max-md:px-[0em]"/>
 
       <ComingUpNext containerClass="mt-[6em] w-full mx-auto px-[8em] max-md:px-5" />
 

@@ -1,10 +1,9 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { usePathname } from "next/navigation"; // Import usePathname from next/navigation
-//import NewHeader from "@/components/NewHeader";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link"; 
+import Link from "next/link";
 import useAxios from "../hooks/useAxios";
 
 export interface User {
@@ -27,20 +26,17 @@ interface UserContextType {
   setUser: (user: User) => void;
   googleUser: GoogleUser;
   setGoogleUser: (googleUser: GoogleUser) => void;
-  profile?: File | null;
-  setProfile:  React.Dispatch<React.SetStateAction<File | null>>;
+  profile: File | null;
+  setProfile: React.Dispatch<React.SetStateAction<File | null>>;
   profilePreview: string | null;
   setProfilePreview: React.Dispatch<React.SetStateAction<string | null>>;
 }
-
-
 
 const menuItems = [
   { name: "Home", path: "/" },
   { name: "Explore Events", path: "/events" },
   { name: "About Us", path: "/about" },
   { name: "Contact Us", path: "/contact" },
-  // { name: "Newsletter", path: "/reviews" },
 ];
 
 function getFirstName(fullName: string): string {
@@ -48,10 +44,11 @@ function getFirstName(fullName: string): string {
   return fullName.trim().split(" ")[0];
 }
 
-// Create the context with default values
+
+
+
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-// Create a provider component
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User>({
     userId: null,
@@ -66,199 +63,203 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const [profile, setProfile] = useState<File | null>(null);
   const [profilePreview, setProfilePreview] = useState<string | null>(null);
-
-  const { sendRequest } = useAxios(); // Custom hook for making API requests
-
+  const { sendRequest } = useAxios();
   const [googleUser, setGoogleUser] = useState<GoogleUser>({ token: null });
-  const [loading, setLoading] = useState(true); // Loading state to track when user data is ready
-  const pathname = usePathname(); // Get current route path
+  const [loading, setLoading] = useState(true);
+  const pathname = usePathname();
 
-  
-    const clearLocalStorage = () => {
-      
-        console.log("Clearing local storage...");
-        localStorage.removeItem("quiktis_user");
-        // Remove the cookie after processing
-      
-    };
-  
-    const checkTokenPresence = async (): Promise<boolean> => {
+  const logout = async () => {
+    try {
+      sendRequest({
+        url: `/api/auth/logout`,
+        method: "POST",
+      });
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
+
+
+  const checkTokenPresence = async (): Promise<boolean> => {
     try {
       const data = await sendRequest({
         url: "/api/auth/me",
         method: "GET",
-        withCredentials: true
-      })
+        withCredentials: true,
+      });
 
-  
       console.log("Token presence check response:", data);
-      return data?.authenticated === true;
-      } catch (error) {
-        console.error("Error checking token:", error);
+
+      if (!data?.tokenFound) {
+        console.log("Token not found");
+        setUser({
+          userId: null,
+          name: null,
+          email: null,
+          role: null,
+          picture: null,
+          age: null,
+          location: null,
+          token: null,
+        });
         return false;
       }
-    };
-  
-    const fetchUserFromLocalStorage = () => {
-      try {
-        const storedUser = localStorage.getItem("quiktis_user");
-        if (storedUser) {
-          const parsedUser = JSON.parse(storedUser);
-          if (parsedUser?.name && parsedUser?.email && parsedUser?.userId) {
-            setUser(parsedUser); // Set user in the global state
-          }
-        }
-      } catch (err) {
-        console.error("Failed to load user from localStorage:", err);
-      }
-    };
 
-    const fetchUserProfile = async () => {
-      try {
-        const response = await sendRequest({
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/profile`,
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${user.token}`
-          }
+
+      const profileRequest = await sendRequest({
+        url: "https://api-quiktis.onrender.com/users/me",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      });
+
+      if (profileRequest?.error === "Token expired") {
+        setUser({
+          userId: null,
+          name: null,
+          email: null,
+          role: null,
+          picture: null,
+          age: null,
+          location: null,
+          token: null,
         });
-  
-        if (response?.data?.picture) {
-          // Update user state with the fetched profile picture
-          setUser(prev => ({
-            ...prev,
-            picture: response.data.picture
-          }));
-          // Update profile preview with the fetched picture
-          setProfilePreview(response.data.picture);
-          
-          // Update local storage
-          const storedUser = localStorage.getItem("quiktis_user");
-          if (storedUser) {
-            const parsedUser = JSON.parse(storedUser);
-            parsedUser.picture = response.data.picture;
-            localStorage.setItem("quiktis_user", JSON.stringify(parsedUser));
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching user profile:", error);
+        
+        console.error("Error fetching user profile:", data);
+        logout(); 
+        return false;
       }
-    };
 
-    useEffect(() => {
-  
+      console.log("Profile request response:", profileRequest);
+
+      if (profileRequest?.data?.email) {
+        console.log("Token found:", data.token);
+        setUser({
+          userId: profileRequest.data.id,
+          name: profileRequest.data.name,
+          email: profileRequest.data.email,
+          role: profileRequest.data.role,
+          picture: profileRequest.data.picture,
+          age: profileRequest.data.age,
+          location: profileRequest.data.location,
+          token: data.token
+        });
+      }
+      return true;
+
+    } catch (error) {
+      console.error("Error checking token:", error);
+      return false;
+    }
+  };
+
+
+
+
+
+  useEffect(() => {
     const initializeUser = async () => {
-      //clearLocalStorage();
-      const tokenExists = await checkTokenPresence();
-  
-      if (!tokenExists) {
-        clearLocalStorage(); 
-      }
+      try {
 
-      if (tokenExists) {
-        fetchUserFromLocalStorage(); 
-        await fetchUserProfile();
+        await checkTokenPresence();
+        setLoading(false);
+
+      } catch (error) {
+        console.error("Error initializing user:", error);
+        setLoading(false);
       }
-  
-      setLoading(false);
     };
-  
+
     initializeUser();
   }, []);
-  
 
-  // Check if the current route is one where we want to exclude the loading state
-  const shouldExcludeLoading = pathname === "/" || pathname === "/some-other-page"; // Add conditions for other pages
+  const shouldExcludeLoading = pathname === "/" || pathname === "/some-other-page";
 
   if (loading && !shouldExcludeLoading) {
-    return <>
+    return (
+      <>
+        <header className="h-[4.5em] relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] shadow-2xl border border-[#ffffff10]">
+          <div className="my-auto lg:px-8">
+            <Image src="/new_logo.svg" className="w-[80px]" alt="Logo" width={120} height={60} unoptimized />
+          </div>
+          <ul className="relative z-20 gap-9 my-auto hidden md:flex tablet-hidden">
+            {menuItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  href={item.path}
+                  className={`transition-colors duration-300 ${
+                    pathname === item.path ? "text-red-500 font-bold" : "text-white hover:text-primary"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {user.name ? (
+            <div className="hidden mr-1 my-auto lg:flex gap-3 items-center">
+              Hi, {getFirstName(user.name)}{" "}
+              <div className="bg-gray-400 h-[2.8em] w-[2.8em] rounded-full"></div>
+            </div>
+          ) : (
+            <Link
+              href="/register"
+              className="lg:block cursor-pointer bg-primary px-6 py-3 rounded-[1em] btn-3d border-1 border-[#eb4b3c] hidden icon"
+            >
+              Get Started
+            </Link>
+          )}
+          <div className="relative h-[30px] w-[30px] my-auto block md:hidden tablet-block">
+            <button>
+              <Image src="/ep_menu.svg" alt="menu" fill className="object-fit" unoptimized />
+            </button>
+          </div>
+        </header>
 
-  <header className={`h-[4.5em] relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] shadow-2xl border border-[#ffffff10]`}>
-        <div className="my-auto lg:px-8">
-          <Image
-            unoptimized={true}
-            src="/new_logo.svg"
-            className="w-[80px]"
-            alt="Logo"
-            width={120}
-            height={60}
-          />
+        <div className="min-h-screen w-full md:w-[80%] mx-auto flex flex-col items-center justify-center space-y-2 md:space-y-[2em] px-4 mt-[-5em]">
+          <div className="w-full flex flex-col md:grid grid-cols-[1.3fr_0.7fr_0.9fr] h-full md:h-[8em] gap-3 md:gap-6">
+            {[1, 2, 3].map((_, i) => (
+              <div
+                key={i}
+                className="w-full max-sm:h-[15vh] h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"
+              ></div>
+            ))}
+            <div className="hidden max-sm:block w-full max-sm:h-[19vh] h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
+          </div>
+
+          <div className="max-sm:hidden w-full grid grid-cols-[1fr_0.8fr_4fr_1.3fr] h-[10vh] md:h-[3em] gap-3 md:gap-6">
+            {[1, 2, 3, 4].map((_, i) => (
+              <div
+                key={i}
+                className="w-full h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"
+              ></div>
+            ))}
+          </div>
+
+          <div className="max-sm:hidden w-full grid grid-cols-2 h-[4em] md:h-[20vh] gap-3 md:gap-6">
+            {[1, 2].map((_, i) => (
+              <div
+                key={i}
+                className="w-full h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"
+              ></div>
+            ))}
+          </div>
         </div>
-  
-        <ul className="relative z-20 gap-9 my-auto hidden md:flex tablet-hidden">
-          {menuItems.map((item) => (
-            <li key={item.path}>
-              <Link
-                href={item.path}
-                className={`transition-colors duration-300 ${
-                  pathname === item.path
-                    ? "text-red-500 font-bold"
-                    : "text-white hover:text-primary"
-                }`}>
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-  
-        {user.name ? <div className="hidden mr-1 my-auto lg:flex gap-3 items-center">Hi, {getFirstName(user.name)} <div className="bg-gray-400 h-[2.8em] w-[2.8em] rounded-full"></div> </div> : <Link
-          href="/register"
-          className="lg:block cursor-pointer bg-primary px-6 py-3 rounded-[1em] btn-3d border-1 border-[#eb4b3c] hidden icon">
-          Get Started
-        </Link>}
-  
-        <div className="relative h-[30px] w-[30px] my-auto block md:hidden tablet-block">
-          <button>
-            <Image
-              unoptimized={true}
-              src="/ep_menu.svg"
-              alt="menu"
-              fill={true}
-              className="object-fit"
-            />
-          </button>
-        </div>
-      </header>
-
-
-
-
-     <div className="min-h-screen w-full md:w-[80%] mx-auto flex flex-col items-center justify-center space-y-2 md:space-y-[2em] px-4 mt-[-5em]">
-      <div className="w-full flex flex-col md:grid grid-cols-[1.3fr_0.7fr_0.9fr] h-full md:h-[8em] gap-3 md:gap-6">
-        <div className="w-full max-sm:h-[15vh] h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
-        <div className="w-full max-sm:h-[15vh] h-full  bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
-        <div className="w-full max-sm:h-[15vh] h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
-        <div className="hidden max-sm:block w-full max-sm:h-[19vh] h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
-      </div>
-
-      <div className="max-sm:hidden w-full grid grid-cols-[1fr_0.8fr_4fr_1.3fr] h-[10vh] md:h-[3em] gap-3 md:gap-6">
-        <div className="w-full h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
-        <div className="w-full h-full  bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
-        <div className="w-full h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
-        <div className="w-full h-full  bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
-        
-      </div>
-
-      <div className="max-sm:hidden w-full grid grid-cols-2 h-[4em] md:h-[20vh] gap-3 md:gap-6">
-        <div className="w-full h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
-        <div className="w-full h-full  bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
-      </div>
-      
-      
-      
-     
-    </div>
-    </>; // You can show a loading spinner or something else
+      </>
+    );
   }
 
+  console.log("[UserProvider] Rendering children with user context:", user);
   return (
-    <UserContext.Provider value={{ user, setUser, googleUser, setGoogleUser, profile, setProfile, profilePreview, setProfilePreview }}>
+    <UserContext.Provider
+      value={{ user, setUser, googleUser, setGoogleUser, profile, setProfile, profilePreview, setProfilePreview }}
+    >
       {children}
     </UserContext.Provider>
   );
 };
 
-// Custom hook for using the context
 export const useUser = (): UserContextType => {
   const context = useContext(UserContext);
   if (!context) {

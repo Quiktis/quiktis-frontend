@@ -18,7 +18,7 @@ export default function middleware(req) {
 }
 
 function isProtectedRoute(pathname) {
-  return ["/my-tickets", "/dashboard", "/create-events", "/notificatons"].includes(pathname);
+  return ["/my-tickets", "/dashboard", "/create-events", "/notificatons", "/my-events"].includes(pathname);
 }
 
 function isAuthRoute(pathname) {
