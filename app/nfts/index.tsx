@@ -1,4 +1,3 @@
-// app/nft/index.tsx
 "use client";
 
 import React from "react";
@@ -29,7 +28,6 @@ const NftPage: React.FC = () => {
       <section className="w-full px-4 py-4 md:py-6">
         <NftAuctionCard />
       </section>
-      {/* Removed TicketResaleSection since we now have the tickets in NftAuctionCard */}
       <TicketResaleSection />
       {/* <TransactionsSection /> */}
     </div>
