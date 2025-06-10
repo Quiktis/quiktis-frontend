@@ -83,6 +83,7 @@ export default function Footer() {
         <section className="relative w-full mb-[5em]">
           <div className="grid grid-cols-[1fr_1.6fr] w-full absolute h-[70em] top-[-10em]">
             <div></div>
+            {/*<div className=" h-full w-full  translate-x-0  radial-gradient-blue blur-[18px] md:blur-3xl opacity-50"></div>*/}
           </div>
           <NewsLetter2 containerClass="relative w-full md:px-[8em] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]" />
         </section>
@@ -150,6 +151,7 @@ export default function Footer() {
                   <span>support@quiktis.com</span>
                 </Link>
               </div>
+              {/* Glassmorphism Powered By The BlockChain */}
               <div className="flex items-center justify-center md:justify-start mt-1">
                 <div
                   className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-1 shadow-lg text-white text-sm font-semibold whitespace-nowrap cursor-pointer transition-all duration-200 hover:backdrop-blur-xl"

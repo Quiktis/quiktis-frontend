@@ -1,5 +1,3 @@
-// components/BlogNewsletter.tsx
-
 "use client";
 
 import React, { useState } from "react";
@@ -17,14 +15,12 @@ const BlogNewsletter: React.FC = () => {
         backgroundImage: "url(/blog/blognewletter.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
-      }}
-    >
+      }}>
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-40 z-0" />
 
       {/* Content wrapper */}
       <div className="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-4 sm:px-10 py-20">
-        {/* 1. Heading on the left */}
         <h2
           className="
             text-white
@@ -34,49 +30,45 @@ const BlogNewsletter: React.FC = () => {
             text-center max-sm:text-center md:text-left
             mb-6 md:mb-0
             md:max-w-[50%]
-          "
-        >
+          ">
           Subscribe to our newsletter to
           <br />
           get latest news on your inbox.
         </h2>
 
-        {/* 2. Form (input + subscribe) on the right */}
         <form
           className="
-            flex flex-col gap-4 w-full       /* full width on mobile */
-            md:flex-row md:gap-2 md:w-auto   /* revert to auto on desktop */
+            flex flex-col gap-4 w-full       
+            md:flex-row md:gap-2 md:w-auto   
             items-center
-          "
-        >
+          ">
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             placeholder="Enter your email"
             className="
-              w-full                         /* full-width on mobile */
+              w-full                         
               py-3 px-4
               bg-white bg-opacity-90
               text-black placeholder-gray-600
               border border-gray-300 rounded-md
               text-base
-              md:w-[240px]                   /* original desktop width */
+              md:w-[240px]                   
             "
           />
 
           <Button
             className="
-              w-[230px] mx-auto              /* matched width on mobile, centered */
+              w-[230px] mx-auto              
               py-3 px-4
               bg-[#FF4D2A] hover:bg-opacity-90
               text-white rounded-md
               flex items-center justify-center gap-1
               text-base min-w-[120px]
-              md:w-auto                      /* back to auto on desktop */
+              md:w-auto                     
             "
-            onClick={() => console.log(email)}
-          >
+            onClick={() => console.log(email)}>
             Subscribe <FiArrowRight className="text-lg" />
           </Button>
         </form>

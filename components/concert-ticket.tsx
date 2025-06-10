@@ -14,7 +14,6 @@ interface ConcertTicketProps {
   ticketType: string;
   ticketHolder: string;
   ticketNumber: string;
-  /** New optional prop for seat number */
   seatNumber?: string;
   logoUrl?: string;
   qrCodeUrl?: string;
@@ -69,7 +68,7 @@ export default function ConcertTicket({
 
       <div className="relative z-20 text-white p-6 md:p-10 rounded-2xl">
         <div className="flex flex-col md:flex-row gap-6">
-          {/* LEFT SIDE: Logo + Event Info */}
+          {/* LEFT SIDE*/}
           <div className="flex-1">
             <div className="relative flex items-center gap-4 mb-16">
               <div className="absolute -top-10 -left-10 w-80 h-80 bg-[#FF4D2A] opacity-40 rounded-full blur-[120px] z-0" />
@@ -91,14 +90,8 @@ export default function ConcertTicket({
               </div>
             </div>
 
-            {/**
-             * We now place Date & Time, Ticket Holder, Venue, Ticket Number,
-             * Ticket Type, and Seat Number all inside one 2-column grid.
-             * That way, "Ticket Type" (left column) and "Seat Number" (right column)
-             * live on the same row.
-             */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-10 mt-4">
-              {/* 1) Date & Time */}
+              {/* Date & Time */}
               <div>
                 <h2 className="text-xs uppercase text-gray-300 mb-1">
                   Date & Time
@@ -116,7 +109,7 @@ export default function ConcertTicket({
                 </div>
               </div>
 
-              {/* 2) Ticket Holder */}
+              {/* Ticket Holder */}
               <div>
                 <h2 className="text-xs uppercase text-gray-300 mb-1">
                   Ticket Holder
@@ -124,7 +117,7 @@ export default function ConcertTicket({
                 <p className="font-semibold text-sm">{ticketHolder}</p>
               </div>
 
-              {/* 3) Venue */}
+              {/*  Venue */}
               <div>
                 <h2 className="text-xs uppercase text-gray-300 mb-1">Venue</h2>
                 <div className="flex items-center gap-2">
@@ -133,7 +126,7 @@ export default function ConcertTicket({
                 </div>
               </div>
 
-              {/* 4) Ticket Number */}
+              {/*  Ticket Number */}
               <div>
                 <h2 className="text-xs uppercase text-gray-300 mb-1">
                   Ticket Number
@@ -141,7 +134,7 @@ export default function ConcertTicket({
                 <p className="font-semibold text-sm">#{ticketNumber}</p>
               </div>
 
-              {/* 5) Ticket Type (this will sit under Venue on the left column) */}
+              {/*  Ticket Type */}
               <div>
                 <h2 className="text-xs uppercase text-gray-300 mb-1">
                   Ticket Type
@@ -157,7 +150,7 @@ export default function ConcertTicket({
                 </div>
               </div>
 
-              {/* 6) Seat Number (this will sit under Ticket Number on the right column) */}
+              {/*  Seat Number */}
               {seatNumber && (
                 <div>
                   <h2 className="text-xs uppercase text-gray-300 mb-1">
@@ -169,7 +162,7 @@ export default function ConcertTicket({
             </div>
           </div>
 
-          {/* RIGHT SIDE: QR + Buttons */}
+          {/* RIGHT SIDE*/}
           <div className="w-full md:w-[250px] flex flex-col items-center justify-between text-center gap-4">
             <div className="leading-tight mb-0">
               <p className="text-xs text-white font-medium">Scan at Entrance</p>
