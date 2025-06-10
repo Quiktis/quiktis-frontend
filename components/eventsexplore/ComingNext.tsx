@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-// components/eventsexplore/ComingNext.tsx
-=======
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
 "use client";
 
 import React from "react";
@@ -49,10 +45,7 @@ export default function ComingNext(): JSX.Element {
 
   return (
     <div className="w-full">
-<<<<<<< HEAD
-      {/* MOBILE: horizontal scroll, cards fill ~90vw, buttons stacked */}
-=======
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
+      {/* MOBILE*/}
       <div className="md:hidden flex overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide px-4">
         {events.map((event) => (
           <Card
@@ -86,36 +79,19 @@ export default function ComingNext(): JSX.Element {
                 {event.title}
               </h3>
 
-<<<<<<< HEAD
-              {/* DATE on its own line */}
               <p className="text-white/70 text-base mb-1">{event.date}</p>
 
-              {/* TIME (left) and LOCATION (right) on same line */}
-=======
-              <p className="text-white/70 text-base mb-1">{event.date}</p>
-
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
               <div className="flex justify-between items-center text-white/70 text-base mb-4">
                 <p>{event.time}</p>
                 <p>{event.location}</p>
               </div>
 
-<<<<<<< HEAD
-              {/* BUTTONS (stacked vertically on mobile) */}
               <div className="flex flex-col gap-2">
-                {/* Read more → /event-viewing */}
-=======
-              <div className="flex flex-col gap-2">
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
                 <Button
                   href="/event-viewing"
                   className="
                     flex items-center justify-center
-<<<<<<< HEAD
-                    w-full              /* Full width */
-=======
                     w-full          
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
                     px-3 py-1.5
                     bg-transparent
                     border border-white
@@ -131,19 +107,11 @@ export default function ComingNext(): JSX.Element {
                   <IoArrowForward className="ml-2 h-4 w-4" />
                 </Button>
 
-<<<<<<< HEAD
-                {/* Get Ticket → /concert-ticket */}
-=======
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
                 <Button
                   href="/concert-ticket"
                   className="
                     flex items-center justify-center
-<<<<<<< HEAD
-                    w-full              /* Full width */
-=======
                     w-full            
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
                     px-3 py-1.5
                     bg-[#FF4D2A]
                     hover:bg-[#e6441f]
@@ -163,10 +131,6 @@ export default function ComingNext(): JSX.Element {
         ))}
       </div>
 
-<<<<<<< HEAD
-      {/* DESKTOP: three-column grid (unchanged) */}
-=======
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
       <div className="hidden md:grid md:grid-cols-3 gap-6 px-4 py-8">
         {events.map((event) => (
           <Card
@@ -197,27 +161,14 @@ export default function ComingNext(): JSX.Element {
                 {event.title}
               </h3>
 
-<<<<<<< HEAD
-              {/* DATE on its own line */}
               <p className="text-white/70 text-base mb-1">{event.date}</p>
 
-              {/* TIME (left) and LOCATION (right) */}
-=======
-              <p className="text-white/70 text-base mb-1">{event.date}</p>
-
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
               <div className="flex justify-between items-center text-white/70 text-base mb-4">
                 <p>{event.time}</p>
                 <p>{event.location}</p>
               </div>
 
-<<<<<<< HEAD
-              {/* BUTTONS (horizontal on desktop) */}
               <div className="flex justify-between items-center">
-                {/* Read more → /event-viewing */}
-=======
-              <div className="flex justify-between items-center">
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
                 <Button
                   href="/event-viewing"
                   className="
@@ -237,10 +188,6 @@ export default function ComingNext(): JSX.Element {
                   <IoArrowForward className="ml-2 h-4 w-4" />
                 </Button>
 
-<<<<<<< HEAD
-                {/* Get Ticket → /concert-ticket */}
-=======
->>>>>>> 1c28eb03d8b868877cdffd66f40c2c7f3ac069fc
                 <Button
                   href="/concert-ticket"
                   className="
