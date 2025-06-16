@@ -1,29 +1,24 @@
 export const strongPoints = [
   {
-    title: "Security Built on the Blockchain",
+    title: "Blockchain-Powered Ticket Security",
     description:
-      "Blockchain-powered security for tamper-proof transactions and total transparency—no middlemen, no compromises.",
+      "Every ticket is tamper-proof and verifiable on chain-no fakes, no scams, no middlemen.",
     iconUrl: "/strong_point1.png",
   },
   {
-    title: "Decentralized Identity",
-    description: "No third parties, no data breaches—just you, in control.",
+    title: "Decentralized Identity & Ownership",
+    description: "Your ticket, your identity. Fully owned by you, with no risk of centralized data breaches.",
     iconUrl: "/strong_point2.png",
   },
   {
     title: "Smart Contract Automation",
-    description: "Streamline operations with automated smart contracts.",
+    description: "Seamlessly manage ticket sales, transfer funds and royalties with automated smart contracts.",
     iconUrl: "/strong_point3.png",
-  },
-  {
-    title: "Community Governance",
-    description: "Participate in decentralized decision-making through voting.",
-    iconUrl: "/strong_point6.png",
   },
   {
     title: "Asset Tokenization",
     description:
-      "Digitally tokenize real-world assets for efficient management.",
+      "Turn tickets into digital collectibles or unlock exclusive perks-VIP access, merch and more",
     iconUrl: "/strong_point5.png",
   },
   {
