@@ -30,6 +30,7 @@ interface UserContextType {
   setProfile: React.Dispatch<React.SetStateAction<File | null>>;
   profilePreview: string | null;
   setProfilePreview: React.Dispatch<React.SetStateAction<string | null>>;
+  setRole: (role: string) => void;
 }
 
 const menuItems = [
@@ -67,6 +68,13 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [googleUser, setGoogleUser] = useState<GoogleUser>({ token: null });
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
+
+  const setRole = (role: string) => {
+  setUser((prevUser) => ({
+    ...prevUser,
+    role: role,
+  }));
+};
 
   const logout = async () => {
     try {
@@ -253,7 +261,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   console.log("[UserProvider] Rendering children with user context:", user);
   return (
     <UserContext.Provider
-      value={{ user, setUser, googleUser, setGoogleUser, profile, setProfile, profilePreview, setProfilePreview }}
+      value={{ user, setUser, googleUser, setGoogleUser, profile, setProfile, profilePreview, setProfilePreview, setRole }}
     >
       {children}
     </UserContext.Provider>

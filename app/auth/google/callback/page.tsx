@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 import useAxios from "@/app/hooks/useAxios";
 import { useUser } from "@/app/context/UserContext"; // Import User Context
+import { routeModule } from "next/dist/build/templates/app-page";
 
 const GoogleCallbackPage = () => {
   const { setUser, setGoogleUser } = useUser(); // Access global state
@@ -58,6 +59,7 @@ const GoogleCallbackPage = () => {
           name: authResponse.data.name,
           email: authResponse.data.email,
           token: authResponse.token,
+          role: authResponse.data.role
         };
 
         const userForStorage = {
