@@ -1,4 +1,3 @@
-// components/SectionHeader.tsx
 import React from "react";
 
 interface SectionHeaderProps {
@@ -21,12 +20,12 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle }) => (
         md:w-[50em] md:h-[30em]
       "></div>
 
-    {/* Left-aligned title, larger size */}
+    {/* Left-aligned*/}
     <h1 className="text-6xl md:text-7xl font-bold mb-4 text-white text-left">
       {title}
     </h1>
 
-    {/* Left-aligned paragraph, full width on all screen sizes */}
+    {/* Left-aligned paragraph*/}
     {subtitle && (
       <p className="text-gray-300 text-base text-left w-full">{subtitle}</p>
     )}

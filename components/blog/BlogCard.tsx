@@ -25,7 +25,6 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => (
       rounded-[12px] overflow-hidden
       shadow-md
 
-      /* 2px white border at 30% opacity */
       border-2 border-white/30
 
       transition-transform hover:scale-[1.02]

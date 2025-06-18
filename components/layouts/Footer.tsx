@@ -1,4 +1,5 @@
 "use client";
+
 import { usePathname } from "next/navigation";
 import Logo from "../Logo";
 import Link from "next/link";
@@ -17,6 +18,7 @@ import { faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function Footer() {
   const pathname = usePathname();
+
   const excludeFooterPaths = [
     "/login",
     "/register",
@@ -72,17 +74,17 @@ export default function Footer() {
       <footer
         className={`relative mt-8 text-white w-full ${
           extraPaddingPaths.includes(pathname)
-            ? "px-32 max-md:px-13"
+            ? "px-32 max-md:px-4"
             : "max-sm:px-6 max-md:px-8 px-12 py-8"
         }`}>
-        <div className="flex flex-col md:flex-row md:justify-between gap-4 md:gap-8 w-full">
+        <div className="flex flex-wrap md:flex-nowrap md:justify-between gap-4 md:gap-8 w-full">
           {/* Column 1 */}
-          <div className="flex-shrink-0 md:w-1/5 flex justify-center md:justify-start">
+          <div className="w-full sm:w-1/2 md:w-1/5 flex justify-center md:justify-start">
             <Logo />
           </div>
 
           {/* Column 2 */}
-          <div className="md:w-2/5 flex flex-wrap gap-4 md:gap-12 justify-center md:justify-start">
+          <div className="w-full sm:w-1/2 md:w-2/5 flex flex-wrap gap-4 md:gap-12 justify-center md:justify-start">
             <div className="flex flex-col space-y-2 text-center md:text-left">
               <Link href="/" className="hover:text-[#FF4D2A]">
                 Home
@@ -114,7 +116,7 @@ export default function Footer() {
           </div>
 
           {/* Column 3 */}
-          <div className="md:w-1/3 flex flex-col text-center md:text-left">
+          <div className="w-full sm:w-1/2 md:w-1/3 flex flex-col text-center md:text-left">
             <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
             <div className="flex flex-col gap-4">
               <div className="flex flex-row items-center justify-center md:justify-start gap-4">
@@ -175,14 +177,14 @@ export default function Footer() {
 
         <div
           className="
-          absolute pointer-events-none
-          w-[70%] sm:w-[75%] h-[26em]
-          top-[-3em]
-          left-0 md:right-0 md:left-auto
-          radial-gradient-purple
-          blur-3xl
-          opacity-50
-        "></div>
+            absolute pointer-events-none
+            w-[70%] sm:w-[75%] h-[26em]
+            top-[-3em]
+            left-0 md:right-0 md:left-auto
+            radial-gradient-purple
+            blur-3xl
+            opacity-50
+          "></div>
       </footer>
     </>
   );

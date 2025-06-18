@@ -45,7 +45,7 @@ function Home() {
 
     fetchEvents();
   }, []);
-
+  // Tickets
   return (
     <main className="flex min-h-screen flex-col items-center justify-start pt-16 px-5">
       <ConcertTicket

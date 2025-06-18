@@ -1,4 +1,3 @@
-// app/events/page.jsx
 "use client";
 
 import Link from "next/link";
@@ -17,7 +16,6 @@ import ComingNext from "@/components/eventsexplore/ComingNext";
 import { relatedEvents as events } from "@/constant/relatedEvents";
 import { Event } from "@/constant/customTypes";
 
-// // Uncomment this block to use your own hardcoded events for local testing:
 // // const events: Event[] = [
 // //   {
 // //     title: "Africa's fashion industry is growing to meet global demand.",
