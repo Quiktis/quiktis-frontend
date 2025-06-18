@@ -55,7 +55,7 @@ const EventsOperations = () => {
           ))}
       </ul>
 
-      {operations.map((op, index) => (
+      {user.role === "organizer" && operations.map((op, index) => (
         <Button
           key={index}
           onClick={() => router.push(op.href)}
@@ -65,6 +65,17 @@ const EventsOperations = () => {
           <span className="text-lg font-medium">{op.title}</span>
         </Button>
       ))}
+
+      {user.role === "user" ? operations.map((op, index) => (
+        <Link href={"#verify"}
+          key={index}
+          //onClick={() => router.push(op.href)}
+          className="hidden px-[2em] py-4 w-fit h-fit rounded-[20px] bg-primary lg:flex leading-none items-center justify-center gap-3 icon transition-all text-[16px] duration-300 shadow-xl shadow-[#ff4e2a42]"
+        >
+          <Image src="/icons/event.svg" height={24} width={24} alt="icon" />
+          <span className="text-lg font-medium">{op.title}</span>
+        </Link>
+      )): null}
     </div>
   );
 };

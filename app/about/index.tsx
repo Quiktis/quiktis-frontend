@@ -121,9 +121,9 @@ export default function AboutPage() {
             className="
       absolute 
       -bottom-32 -left-32 
-      w-[500px] h-[500px]  /* desktop */
+      w-[500px] h-[500px] 
       bg-gradient-to-tr from-blue-700 to-transparent 
-      filter blur-[160px]  /* softened blur */
+      filter blur-[160px]  
       opacity-50 
       pointer-events-none 
       z-0
@@ -135,9 +135,9 @@ export default function AboutPage() {
             className="
       absolute 
       -bottom-32 -right-32 
-      w-[400px] h-[400px]  /* reduced size */
+      w-[400px] h-[400px] 
       bg-gradient-to-tl from-[#FF4D2A] to-transparent 
-      filter blur-[140px]  /* softened blur */
+      filter blur-[140px]  
       opacity-50 
       pointer-events-none 
       z-0

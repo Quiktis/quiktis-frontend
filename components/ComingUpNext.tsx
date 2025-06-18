@@ -74,7 +74,7 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({ containerClass }) => {
     <section className={`relative py-10  ${containerClass}`}>
       <div className="grid grid-cols-[1fr_2.2fr] w-full absolute h-[50em]">
             <div></div>
-            <div className=" h-full w-full  translate-x-0  radial-gradient-red-light blur-[18px] md:blur-3xl opacity-50"></div>
+            <div className=" h-full w-full  translate-x-0  radial-gradient-red-light blur-[18px] md:blur-3xl opacity-50 max-sm:hidden"></div>
           </div>
       <div className="relative z-10 container mx-auto text-white">
       

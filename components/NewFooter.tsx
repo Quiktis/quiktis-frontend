@@ -88,7 +88,7 @@ export default function Footer() {
           <NewsLetter2 containerClass="relative w-full md:px-[8em] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]" />
         </section>
       )}
-      <footer className="relative mt-8 text-white max-md:w-full w-[80%] mx-auto px-6 sm:px-8 md:px-12 py-8">
+      <footer className="z-10 relative mt-8 text-white max-md:w-full w-[80%] mx-auto px-6 sm:px-8 md:px-12 py-8">
         <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-8 w-full">
           {/* Column 1 */}
           <div className="flex-shrink-0 md:w-1/5 flex justify-center md:justify-start">

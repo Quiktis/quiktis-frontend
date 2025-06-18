@@ -39,13 +39,14 @@
   --font-primary: "Space Grotesk";
   --font-secondary: "Montserrat";
   font-family: "Space Grotesk";
+  overflow-x: hidden;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: "Space Grotesk";
-  overflow-x: hidden;
+  
 }
 
 .newsletter-bg {

@@ -14,7 +14,6 @@ const authTabs = [
   { label: "Dashboard", link: "/dashboard" },
   { label: "Explore Events", link: "/events" },
   { label: "Contact us", link: "/contact" },
-  { label: "Faq", link: "/faq" },
 ];
 
 const guestTabs = [

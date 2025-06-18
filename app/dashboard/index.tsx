@@ -14,25 +14,200 @@ import { FaArrowRight } from "react-icons/fa6";
 import useAxios from "../hooks/useAxios";
 import Dropdown from "@/components/ui/DropDown";
 import ImageUploader from "@/components/ImageUploader";
+import { TiTick } from "react-icons/ti";
 import { useState } from "react";
 //import { images } from "@/constant/images";
-
 
 const CreateEvent = () => {
   const { sendRequest, loading, setLoading } = useAxios();
   const router = useRouter();
-  const { user, setUser } = useUser();
+  const { user, setUser, setRole } = useUser();
+
   const [image1, setImage1] = useState<File | null>(null);
   const [image2, setImage2] = useState<File | null>(null);
+
+  const [info1, setInfo1] = useState<string | null>(null);
+  const [info2, setInfo2] = useState<string | null>(null);
+
+
   const [preview1, setPreview1] = useState<string | null>(null);
   const [preview2, setPreview2] = useState<string | null>(null);
   const { profilePreview, setProfile } = useUser();
 
 
 
+  const updateUser = async () => {
+  if (loading) return;
+
+  if (!image1) {
+    alert("Please upload the front image of your identity card");
+    return;
+  }
+
+  if (!image2) {
+    alert("Please upload the back image of your identity card");
+    return;
+  }
+
+  console.log("Updating user role to organizer...");
+
+  try {
+    const response = await sendRequest({
+      url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${user.userId}`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+      body: {
+        role: "organizer",
+      },
+    });
+
+    if (response.status !== "success") {
+      alert("An error occurred while updating your profile. Please try again.");
+      return;
+    }
+
+    // Update role in context
+    setRole("organizer");
+
+    // Show success messages
+    setInfo1("Upload successful!");
+    setInfo2("You can now create events");
+
+    // Clear messages after 5 seconds
+    setTimeout(() => {
+      setInfo1(null);
+      setInfo2(null);
+    }, 10000);
+
+    console.log("User updated successfully:", response.data);
+
+    // Optionally redirect the user after delay
+    // setTimeout(() => {
+    //   router.push("/create-events");
+    // }, 5500);
+
+    return;
+  } catch (error) {
+    console.error("Error updating user:", error);
+    alert("An error occurred while updating your profile. Please try again.");
+    return;
+  }
+};
+
+
+
+
+  const uploadImage = async () => {
+    if (loading) return;
+    if (!image1) {
+      alert("Please upload the front image of your identity card");
+      return;
+    }
+
+    if (!image2) {
+      alert("Please upload the back image of your identity card");
+      return;
+    }
+
+    // Rename the image before uploading
+    const renamedImage1 = new File([image1], `front-id-${user.userId}.${image1.name.split('.').pop()}`, {
+      type: image1.type,
+    });
+
+    // Rename the image before uploading
+    const renamedImage2 = new File([image2], `back-id-${user.userId}.${image2.name.split('.').pop()}`, {
+      type: image2.type,
+    });
+
+    try {
+      // Create a FormData object to send the image file
+      const formData1 = new FormData();
+      formData1.append("files", renamedImage1); // Assuming `image` is a File object
+
+      const formData2 = new FormData();
+      formData1.append("files", renamedImage2);
+
+      // Use the base URL from the environment variable
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    if (!baseUrl) {
+      throw new Error("Base URL is not defined in the environment variables.");
+    }
+
+    console.log("uploading image to:", `${baseUrl}/medias/upload`);
+    console.log(user, "user data")
+    console.log(user?.token, "user token")
+
+      // Make the POST request to upload the image
+      const response = await sendRequest({
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/medias/upload`,
+        method: "POST",
+        headers: { 
+          //"Content-Type": "multipart/form-data", 
+          "Authorization": `Bearer ${user?.token}`
+        },
+        body: formData1,
+      });
+
+      console.log(response, "response data")
+      console.log(response.status, "status")
+      // Extract the URL from the response
+
+      if (response.status !== "success") return alert("Failed to create event. Please try again.");
+      const imageUrl = response.data.files[0].cloudinaryUrl
+      ; // Adjust this based on the actual response structure
+
+
+      console.log("Image uploaded successfully:", imageUrl);
+
+      // Make the POST request to upload the image
+      const response2 = await sendRequest({
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/medias/upload`,
+        method: "POST",
+        headers: { 
+          //"Content-Type": "multipart/form-data", 
+          "Authorization": `Bearer ${user?.token}`
+        },
+        body: formData2,
+      });
+
+       if (response2.status !== "success") return alert("Failed to create event. Please try again.");
+      const imageUrl2 = response.data.files[0].cloudinaryUrl
+
+      console.log("Image2 uploaded successfully:", imageUrl2);
+
+      return;
+
+    } catch (error) {
+      console.error("Error verifying ID:", error);
+      //alert("Failed to verify ID. Please try again.");
+      return;
+    }
+  };
+
+
+  async function handleDocumentUpload() {
+    try {
+      // Wait for the image to be uploaded
+      await uploadImage();
+  
+      // Navigate to the next page after the image is uploaded
+      //router.push(`/my-events`);
+    } catch (error) {
+      console.error("An error occurred while uploading your document. Please try again.", error);
+      alert("An error occurred while uploading your document. Please try again.");
+    }
+  }
+
+
+
+
+
+  
+
   //const [profile, setProfile] = useState<File | null>(null);
   //const [profilePreview, setProfilePreview] = useState<string | null>(null);
-
 
   const handleLogout = async () => {
     if (loading) return; // Prevent multiple clicks
@@ -68,8 +243,6 @@ const CreateEvent = () => {
     }
   };
 
- 
-
   return (
     <main className="flex flex-col gap-5 w-full relative min-h-screen sm:w-[88%] lg:w-[90%] mx-auto">
       <div className="flex md:flex-row flex-col gap-20 shrink-0 relative w-full justify-center items-center h-full">
@@ -83,10 +256,10 @@ const CreateEvent = () => {
         <div className="w-full">
           <EventsOperations />
 
-          <ProfileCard containerClass="mt-[1.78em]"/>
-        
+          <ProfileCard containerClass="mt-[1.78em]" />
+
           <Button
-            onClick={() => router.push(`/create-event`)}
+            onClick={() => router.push(`/create-events`)}
             className="flex justify-center gap-3 lg:hidden items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3 shadow-xl shadow-[#ff4e2a42] bg-primary"
           >
             <Image src="/icons/event.svg" height={24} width={24} alt="icon" />
@@ -99,14 +272,20 @@ const CreateEvent = () => {
           Profile Settings
         </h2>
         <div className="grid max-sm:grid-cols-[3.5em_auto] grid-cols-[6em_auto] my-auto gap-[0.8em] w-fit h-fit z-0">
-          <div style={{zIndex: "-10 !important"}} className={`grid place-items-center border-2 border-white rounded-full max-sm:w-[3em] max-md:h-[3em] w-[5em] h-[5em] mx-auto sm:mx-0 overflow-hidden`}>
+          <div
+            style={{ zIndex: "-10 !important" }}
+            className={`grid place-items-center border-2 border-white rounded-full max-sm:w-[3em] max-md:h-[3em] w-[5em] h-[5em] mx-auto sm:mx-0 overflow-hidden`}
+          >
             <Image
-              src={profilePreview ?? '/person.svg'}
+              src={profilePreview ?? "/person.svg"}
               alt="profile picture"
               width={100}
               height={100}
-              className={`rounded-full  object-cover max-md:w-[3em] max-md:h-[3em]   text-white ${profilePreview ? ' w-[5em] h-[5em]' : 'w-[2.5em] h-[2.5em]  max-md:w-[1.5em] max-md:h-[1.5em]'}`}
-              
+              className={`rounded-full  object-cover max-md:w-[3em] max-md:h-[3em]   text-white ${
+                profilePreview
+                  ? " w-[5em] h-[5em]"
+                  : "w-[2.5em] h-[2.5em]  max-md:w-[1.5em] max-md:h-[1.5em]"
+              }`}
             />
           </div>
           <div className="h-fit my-auto">
@@ -131,27 +310,41 @@ const CreateEvent = () => {
           </div>
           <div className="flex flex-col lg:grid grid-cols-[auto_16em] max-sm:gap-8 gap-5">
             <InputField label="Email" />
-            <Button className="grid items-center bg-primary">Update Email Address </Button>
+            <Button className="grid items-center bg-primary">
+              Update Email Address{" "}
+            </Button>
           </div>
           <div className="flex flex-col lg:grid grid-cols-[auto_16em] max-sm:gap-8 gap-5">
             <InputField label="Wallet address" />
-            <Button className="grid items-center bg-primary">Connect Wallet </Button>
+            <Button className="grid items-center bg-primary">
+              Connect Wallet{" "}
+            </Button>
           </div>
         </div>
       </section>
 
-      <section className="space-y-[5em] my-[2em]">
+      <section id="verify" className="pb-5"></section>
+
+      {user.role === "user" && <section className="space-y-[5em] my-[2em]">
         <div className="max-md:w-full w-[65%]">
           <div className="space-y-10">
             <Label className="mb-[2.4em]" required={true}>
-              Complete profile to create an event
+              Complete your profile to create an event
             </Label>
             <Dropdown
               label="Identity Card"
               options={[
                 { id: "nin", name: "National ID (NIN)", description: "" },
-                { id: "drivers_license", name: "Driver's License", description: "" },
-                { id: "passport", name: "International Passport", description: "" }
+                {
+                  id: "drivers_license",
+                  name: "Driver's License",
+                  description: "",
+                },
+                {
+                  id: "passport",
+                  name: "International Passport",
+                  description: "",
+                },
               ]}
               placeholder="Card type"
             />
@@ -159,49 +352,67 @@ const CreateEvent = () => {
             <div className="space-y-2 mb-[4em]">
               <Label>Front Picture</Label>
               <ImageUploader
-        containerClass="py-[3.5em] border-primary rounded-[1.4em] hover:border-white"
-        label={
-          <div className="space-y-6 grid items-center">
-            <div className="w-fit mx-auto px-4 py-2 bg-primary rounded-md shadow-md">Browse Files</div>
-            <div className="text-center">
-              <p className="max-sm:text-sm max-sm:w-[70%] mx-auto">🗂 Drag & drop identity card or Business Card here</p>
-              <p className="text-sm text-gray-500 mx-auto max-sm:mt-[1.4em]">
-                Supported format: JPEG, JPG, PNG, Max size: 50MB
-              </p>
-            </div>
-          </div>
-        }
-        preview={preview1}
-        setPreview={setPreview1}
-        setImage={setImage1}  // Add the correct image setter
-      />
+                containerClass="py-[3.5em] border-primary rounded-[1.4em] hover:border-white"
+                label={
+                  <div className="space-y-6 grid items-center">
+                    <div className="w-fit mx-auto px-4 py-2 bg-primary rounded-md shadow-md">
+                      Browse Files
+                    </div>
+                    <div className="text-center">
+                      <p className="max-sm:text-sm max-sm:w-[70%] mx-auto">
+                        🗂 Drag & drop identity card or Business Card here
+                      </p>
+                      <p className="text-sm text-gray-500 mx-auto max-sm:mt-[1.4em]">
+                        Supported format: JPEG, JPG, PNG, Max size: 50MB
+                      </p>
+                    </div>
+                  </div>
+                }
+                preview={preview1}
+                setPreview={setPreview1}
+                setImage={setImage1} // Add the correct image setter
+              />
             </div>
 
             <div className="space-y-2">
               <Label>Back Picture</Label>
               <ImageUploader
-        containerClass="py-[3.5em] border-primary rounded-[1.4em] hover:border-white"
-        label={
-          <div className="space-y-6 grid items-center">
-            <div className="w-fit mx-auto px-4 py-2 bg-primary rounded-md shadow-md">Browse Files</div>
-            <div className="text-center">
-              <p className="max-sm:text-sm max-sm:w-[70%] mx-auto ">🗂 Drag & drop identity card or Business Card here</p>
-              <p className="text-sm text-gray-500 max-sm:mt-[1.4em]">
-                Supported format: JPEG, JPG, PNG, Max size: 50MB
-              </p>
+                containerClass="py-[3.5em] border-primary rounded-[1.4em] hover:border-white"
+                label={
+                  <div className="space-y-6 grid items-center">
+                    <div className="w-fit mx-auto px-4 py-2 bg-primary rounded-md shadow-md">
+                      Browse Files
+                    </div>
+                    <div className="text-center">
+                      <p className="max-sm:text-sm max-sm:w-[70%] mx-auto ">
+                        🗂 Drag & drop identity card or Business Card here
+                      </p>
+                      <p className="text-sm text-gray-500 max-sm:mt-[1.4em]">
+                        Supported format: JPEG, JPG, PNG, Max size: 50MB
+                      </p>
+                    </div>
+                  </div>
+                }
+                preview={preview2}
+                setPreview={setPreview2}
+                setImage={setImage2} // Add the correct image setter
+              />
             </div>
-          </div>
-        }
-        preview={preview2}
-        setPreview={setPreview2}
-        setImage={setImage2}  // Add the correct image setter
-      />
-            </div>
+
+            <div className="my-[2em]">
+        <Button
+          onClick={updateUser}
+          className="flex justify-center gap-3 items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3 max-sm:w-fit bg-primary"
+        >
+          <p className="my-auto ">Submit</p>
+          <FaArrowRight />
+        </Button>
+      </div>
           </div>
         </div>
 
         <hr className=" border-gray-600"></hr>
-      </section>
+      </section>}
 
       <section>
         <div>
@@ -275,6 +486,16 @@ const CreateEvent = () => {
             height={600}
             className='mt-10'
             />*/}
+
+        
+        <div className="fixed flex flex-col gap-4 right-[2em] bottom-[2em] z-[1000]">
+          {info1 && <div className="flex gap-2 z-[1000] bg-[#181818]  border rounded-md  border-primary w-[20em] h-fit py-4 px-7 ">
+            <span className="bg-primary h-[24px] w-[24px] rounded-full grid place-items-center my-auto"><TiTick className="my-auto" color="black" size={20}/></span> <span className="my-auto">{info1}</span></div>}
+          {info2 && <div className="flex gap-2 z-[1000] bg-[#181818]  border rounded-md  border-primary w-[20em] h-fit py-4 px-7 ">
+            <span className="bg-primary h-[24px] w-[24px] rounded-full grid place-items-center my-auto"><TiTick className="my-auto" color="black" size={20}/></span> <span className="my-auto">{info2}</span></div>}
+        </div>
+      
+    
     </main>
   );
 };
