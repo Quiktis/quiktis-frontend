@@ -96,34 +96,44 @@ export default function Footer() {
           </div>
 
           {/* Column 2 */}
-          <div className="md:w-2/5 flex flex-wrap gap-4 md:gap-12 justify-center md:justify-start">
-            <div className="flex flex-col space-y-2 text-center md:text-left">
-              <Link href="/" className="hover:text-[#FF4D2A]">
-                Home
-              </Link>
-              <Link href="/my-events" className="hover:text-[#FF4D2A]">
-                Pages
-              </Link>
-              <Link href="/events" className="hover:text-[#FF4D2A]">
-                Event
-              </Link>
-              <Link href="/contact" className="hover:text-[#FF4D2A]">
-                Help
-              </Link>
+          <div className="md:w-2/5 flex flex-col">
+            <div className="flex flex-wrap gap-4 md:gap-12 justify-center md:justify-start">
+              <div className="flex flex-col space-y-2 text-center md:text-left">
+                <Link href="/" className="hover:text-[#FF4D2A]">
+                  Home
+                </Link>
+                <Link href="/my-events" className="hover:text-[#FF4D2A]">
+                  Pages
+                </Link>
+                <Link href="/events" className="hover:text-[#FF4D2A]">
+                  Event
+                </Link>
+                <Link href="/contact" className="hover:text-[#FF4D2A]">
+                  Help
+                </Link>
+              </div>
+              <div className="flex flex-col space-y-2 text-center md:text-left">
+                <Link href="/checkout" className="hover:text-[#FF4D2A]">
+                  Get Tickets
+                </Link>
+                <Link href="/concert-ticket" className="hover:text-[#FF4D2A]">
+                  FAQs
+                </Link>
+                <Link href="/nfts" className="hover:text-[#FF4D2A]">
+                  Genres
+                </Link>
+                <Link href="/blog" className="hover:text-[#FF4D2A]">
+                  Blog
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-col space-y-2 text-center md:text-left">
-              <Link href="/checkout" className="hover:text-[#FF4D2A]">
-                Get Tickets
-              </Link>
-              <Link href="/concert-ticket" className="hover:text-[#FF4D2A]">
-                FAQs
-              </Link>
-              <Link href="/nfts" className="hover:text-[#FF4D2A]">
-                Genres
-              </Link>
-              <Link href="/blog" className="hover:text-[#FF4D2A]">
-                Blog
-              </Link>
+            {/* Powered By BlockChain - visible only on desktop */}
+            <div className="hidden md:flex justify-center mt-6">
+              <div
+                className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-1 shadow-lg text-white text-sm font-semibold whitespace-nowrap cursor-pointer transition-all duration-200 hover:backdrop-blur-xl"
+                style={{ WebkitBackdropFilter: "blur(12px)" }}>
+                Powered By BlockChain
+              </div>
             </div>
           </div>
 
@@ -151,8 +161,8 @@ export default function Footer() {
                   <span>support@quiktis.com</span>
                 </Link>
               </div>
-              {/* Glassmorphism Powered By The BlockChain */}
-              <div className="flex items-center justify-center md:justify-start mt-1">
+              {/* Glassmorphism Powered By The BlockChain - visible only on mobile */}
+              <div className="flex md:hidden items-center justify-center md:justify-start mt-1">
                 <div
                   className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-1 shadow-lg text-white text-sm font-semibold whitespace-nowrap cursor-pointer transition-all duration-200 hover:backdrop-blur-xl"
                   style={{ WebkitBackdropFilter: "blur(12px)" }}>
