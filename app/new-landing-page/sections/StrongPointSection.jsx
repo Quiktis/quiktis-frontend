@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { strongPoints } from '@/constant/strongPoints';
 
 export default function StrongPointsSection() {
-  // Function to determine if an item should have full opacity
   const isHighlighted = (title) => {
     return title === "Smart Contract Automation" || title === "Get Refund on Unused Ticket";
   };
@@ -25,7 +24,7 @@ export default function StrongPointsSection() {
                     height={80}
                   />
                   <p className='text-xl font-medium'>{item.title}</p>
-                  <p className={`text-[#adadad]`}>
+                  <p className={`${isHighlighted(item.title) ? 'text-white font-medium' : 'text-[#adadad]'}`}>
                     {item.description}
                   </p>
                 </div>
