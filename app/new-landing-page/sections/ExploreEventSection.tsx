@@ -148,7 +148,7 @@ export default function ExploreEventSection({ containerClass }: { containerClass
         </div>
         <div className="mt-6 md:mx-20 mx-auto">
           <button className="bg-primary hover:bg-red-600 text-black font-semibold py-3 px-6 rounded-[10px] flex justify-center gap-1">
-            Get Started
+            See More
             <FiArrowUpRight size={24} />
           </button>
         </div>

@@ -1,11 +1,16 @@
-// components/layout/FooterSelector.tsx
 "use client";
 
 import { usePathname } from "next/navigation";
 
+<<<<<<< HEAD
 import Footer from "./Footer"; // “original” footer –
 import NewFooter from "../NewFooter"; // “landing‐page” footer 
 import BlogFooter from "./BlogFooter"; // “blog” footer 
+=======
+import Footer from "./Footer";
+import NewFooter from "../NewFooter";
+import BlogFooter from "./BlogFooter";
+>>>>>>> ade50ccfe9fa68b1e783f07ef19b27e399cc5307
 
 const FooterSelector: React.FC = () => {
   const pathname = usePathname();

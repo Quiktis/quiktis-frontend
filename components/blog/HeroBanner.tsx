@@ -42,13 +42,15 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
         <h1
           className={`
             /* Base mobile */
-            text-2xl
+            text-xl
             /* Small phones */
-            sm:text-3xl
+            sm:text-2xl
             /* Tablet+ */
             md:text-5xl lg:text-6xl
-            /* Extra-small phones: shrink title */
-            max-[375px]:text-xl
+            /* Extra-small phones: shrink title further */
+            max-[375px]:text-lg
+            /* iPhone 12 Pro and similar devices */
+            max-[390px]:text-lg
 
             font-bold text-white leading-tight
           `}>

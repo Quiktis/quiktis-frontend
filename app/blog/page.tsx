@@ -88,7 +88,7 @@ export default function BlogPage() {
 
         <div className="relative z-40 flex flex-col items-center justify-center h-full text-center px-5 pt-12 md:pt-20 lg:pt-28">
           <h1
-            className="text-[2em] max-sm:text-[1.5em] md:text-[2.3em]
+            className="text-[1.8em] max-sm:text-[1.3em] max-[390px]:text-[1.1em] md:text-[2.3em]
                        lg:text-[2.7em] xl:text-[3em] leading-[1.2em]
                        font-bold text-white">
             {heroTitle}

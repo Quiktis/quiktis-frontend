@@ -12,7 +12,7 @@ export const strongPoints = [
   },
   {
     title: "Smart Contract Automation",
-    description: "Seamlessly manage ticket sales, transfer funds and royalties with automated smart contracts.",
+    description: "Seamlessly Manage Ticket Sales, Transfer Funds and Royalties with Automated Smart Contracts.",
     iconUrl: "/strong_point3.png",
   },
   {
@@ -22,9 +22,9 @@ export const strongPoints = [
     iconUrl: "/strong_point5.png",
   },
   {
-    title: "Get Refund on Unsed Ticket",
+    title: "Get Refund on Unused Ticket",
     description:
-      "Unused ticket? No worries. Easily request a refund—fast, secure, and hassle-free.",
+      "Unused Ticket? No Worries. Easily Request a Refund—Fast, Secure, and Hassle-Free.",
     iconUrl: "/strong_point6.png",
   },
 ];
