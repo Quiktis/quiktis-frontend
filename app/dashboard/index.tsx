@@ -33,6 +33,8 @@ const CreateEvent = () => {
   const [payoutError, setPayoutError] = useState("");
   const [deletePopup, setDeletePopup] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [withdrawalAmount, setWithdrawalAmount] = useState <number | null>(null);
+  const [isWithdrawing, setIsWithdrawing] = useState(false);
 
   const [bankList, setBankList] = useState([]);
   const [updatingWitdrawalDetails, setUpdatingWithdrwalDetails] =
@@ -469,6 +471,41 @@ useEffect(() => {
     }
   }
 
+
+  const approveWithdrawal = async () => {
+
+    if (isWithdrawing) return;
+    if (withdrawalAmount === null || withdrawalAmount <= 0) {
+      alert("Please enter a valid withdrawal amount");
+      return;
+    }
+        try {
+          setIsWithdrawing(true);
+
+          const response = await sendRequest({
+            url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment/withdraw`,
+            method: "POST",
+            headers: { Authorization: `Bearer ${user?.token}` },
+            body: { amount: withdrawalAmount }
+          });
+
+          if (response?.success) {
+            setInfo1("Transaction Successful!")
+
+            setTimeout(() => {setInfo1(null)
+      }, 5000);
+
+          } else {
+            console.log(response, " - withdrawl error")
+            alert("Withdrawal failed, please try again")
+          }
+        } catch (error) {
+          console.error("withdrawal failed: ", error);
+          
+        } finally {
+          setIsWithdrawing(false);
+        }
+      };
   //const [profile, setProfile] = useState<File | null>(null);
   //const [profilePreview, setProfilePreview] = useState<string | null>(null);
 
@@ -698,44 +735,49 @@ useEffect(() => {
         </div>
       </section>
 
-      <section className="mt-[3em]">
+      
+      {user.payoutDetails?.account_number && <section className="mt-[3em]">
+        <h2 className="max-md:text-[1.3em] text-[2em] font-medium">
+          Withdrawal
+        </h2>
+
+
+        <div className="max-md:w-full my-4 mt-[2em] w-[65%] flex flex-col max-sm:gap-8 gap-[3em]">
+          
+          <div className="flex flex-col lg:grid grid-cols-[auto_18em] max-sm:gap-8 gap-5">
+            <div>
+              <InputField
+                label="Ammount"
+                value={withdrawalAmount || null}
+                type="number"
+                onChange={(e) => e.target.value ? setWithdrawalAmount(Number(e.target.value)) : setWithdrawalAmount(null)}
+                placeholder="Enter amount to withdraw"
+              />
+              {payoutError && (
+                <p className="mt-2 text-[0.95em] text-red-500">{payoutError}</p>
+              )}
+            </div>
+
+              
+            <Button
+              className=" bg-primary h-fit py-3"
+              onClick={approveWithdrawal}
+              loading={isWithdrawing}
+              loaderClass="mt-[0.16em] ml-[-0.005em]"
+            >
+              Approve{" "}
+            </Button>
+          </div>
+        </div>
+      </section>}
+
+      {user.role === "organizer" && <section className="mt-[3em]">
         <h2 className="max-md:text-[1.3em] text-[2em] font-medium">
           Withdrawal Settings
         </h2>
-        <div className="grid max-sm:grid-cols-[3.5em_auto] grid-cols-[6em_auto] my-auto gap-[0.8em] w-fit h-fit z-0">
-          {/*<div
-            style={{ zIndex: "-10 !important" }}
-            className={`grid place-items-center border-2 border-white rounded-full max-sm:w-[3em] max-md:h-[3em] w-[5em] h-[5em] mx-auto sm:mx-0 overflow-hidden`}
-          >
-            <Image
-              src={profilePreview ?? "/person.svg"}
-              alt="profile picture"
-              width={100}
-              height={100}
-              className={`rounded-full  object-cover max-md:w-[3em] max-md:h-[3em]   text-white ${
-                profilePreview
-                  ? " w-[5em] h-[5em]"
-                  : "w-[2.5em] h-[2.5em]  max-md:w-[1.5em] max-md:h-[1.5em]"
-              }`}
-            />
-          </div>*/}
 
-          {/*<div className="h-fit my-auto">
-            <div className="flex max-md:gap-3 gap-[3em] justify-between ">
-              <div className="flex flex-col">
-                <h2 className="text-xl font-semibold w-fit">
-                  {/*Jaxson Siphron user.name}
-                </h2>
-                <p className="text-gray-300 text-xs sm:text-sm w-fit">
-                  {/*Jaxsonsiphron@gmail.com user.email}
-                </p>
-              </div>
-              <hr className="my-4 border-gray-400 mt-3"></hr>
-            </div>
-          </div>*/}
-        </div>
 
-        <div className="max-md:w-full my-4 mt-[3em] w-[65%] flex flex-col max-sm:gap-8 gap-[3em]">
+        <div className="max-md:w-full my-4 mt-[2em] w-[65%] flex flex-col max-sm:gap-8 gap-[3em]">
           <div className="flex flex-col lg:grid grid-cols-2 max-sm:gap-8 gap-5">
             <Dropdown
               options={bankList}
@@ -779,7 +821,8 @@ useEffect(() => {
           </div>
           <button className="py-3 border gap-1 border-gray-400 text-gray-400 px-6 h-fit w-fit md:mt-[-1.5em] rounded-md hover:border-primary transition hover:text-primary flex justify-center items-center" onClick={() => setDeletePopup(true)}><MdClear size={20}/>Delete</button>
         </div>
-      </section>
+      </section>}
+      
 
       <div className="max-md:w-full space-y-7 w-[65%] mt-[1.5em]">
         <h2 className="max-md:text-[1.3em] text-[2em] font-medium">
