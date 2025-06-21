@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { FaChevronDown } from "react-icons/fa"; 
+import React, { useEffect, useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 
 interface DropdownProps {
   options?: { id: string; name: string; description: string }[];
   selected?: string;
+  defaultValue?: string;
   onChange?: (value: string) => void;
+  onOpen?: () => void;
   label?: string;
   className?: string;
   placeholder?: string;
@@ -12,19 +14,61 @@ interface DropdownProps {
 
 const Dropdown: React.FC<DropdownProps> = ({
   options = [],
+  selected: controlledSelected,
+  defaultValue,
   onChange = () => {},
+  onOpen,
   label,
   className,
-  placeholder = "Select an option", 
+  placeholder = "Select an option",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(
+    controlledSelected ?? defaultValue ?? null
+  );
+
+  // Sync controlled selected from parent
+  useEffect(() => {
+    if (controlledSelected !== undefined) {
+      setSelected(controlledSelected);
+    }
+  }, [controlledSelected]);
+
+  useEffect(() => {
+  if (controlledSelected === undefined && defaultValue) {
+    setSelected(defaultValue);
+  }
+}, [defaultValue, controlledSelected]);
+
+  // Re-run when options are updated — helps in async load
+  useEffect(() => {
+    if (!options.length) return;
+
+    const isSelectedStillValid = options.some((opt) => opt.id === selected);
+
+    if (!isSelectedStillValid) {
+      if (defaultValue && options.some((opt) => opt.id === defaultValue)) {
+        setSelected(defaultValue);
+        onChange(defaultValue); // optional: sync up with parent
+      } else {
+        setSelected(null); // or let it keep old one? your call
+      }
+    }
+  }, [options]);
 
   const handleSelect = (id: string) => {
-    setSelected(id);        // Manage it locally
-    onChange(id);           // Let parent know if it wants to listen
+    setSelected(id);
+    onChange(id);
     setIsOpen(false);
   };
+
+  const toggleDropdown = () => {
+    const nextState = !isOpen;
+    setIsOpen(nextState);
+    if (nextState && onOpen) onOpen();
+  };
+
+  const selectedOption = options.find((opt) => opt.id === selected);
 
   return (
     <div className="flex flex-col gap-2 relative">
@@ -34,11 +78,18 @@ const Dropdown: React.FC<DropdownProps> = ({
         </label>
       )}
       <div
-        className={`relative text-[0.95em] border border-[#ffffff56] text-gray-400 px-[1.15em] py-3 rounded-md cursor-pointer flex items-center justify-between ${className}`}
-        onClick={() => setIsOpen(!isOpen)}
+        className={`relative text-[0.95em] border border-[#ffffff56] text-gray-400 px-[1.15em] py-[0.85em] rounded-md cursor-pointer flex items-center justify-between ${className}`}
+        onClick={toggleDropdown}
       >
-        {options.find((opt) => opt.id === selected)?.name || placeholder}
-        <FaChevronDown className={`ml-2 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+        <span
+          className="truncate block w-full pr-4"
+          title={selectedOption?.name || placeholder}
+        >
+          {selectedOption?.name || placeholder}
+        </span>
+        <FaChevronDown
+          className={`ml-2 flex-shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`}
+        />
       </div>
 
       {isOpen && (

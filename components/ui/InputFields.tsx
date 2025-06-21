@@ -9,6 +9,7 @@ interface InputFieldProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
   className?: string;
+  isDisabled?: boolean;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -19,7 +20,8 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   required = false,
   onChange,
-  className
+  className,
+  isDisabled=false
 }) => {
   return (
     <div className={`relative flex flex-col gap-1 ${className}`}>
@@ -34,6 +36,7 @@ const InputField: React.FC<InputFieldProps> = ({
         className="p-3 border bg-inherit border-[#ffffff56] rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
         required={required}
         onChange={onChange}
+        disabled={isDisabled}
       />
     </div>
   );

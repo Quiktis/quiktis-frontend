@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +21,13 @@ export interface User {
   age?: any | null;
   location?: string | null;
   token?: string | null;
+  payoutDetails?: {
+    id: string;
+    account_number: string;
+    account_name: string;
+    bank_name: string;
+    recipient_code: string;
+  };
 }
 
 interface GoogleUser {
@@ -45,9 +58,6 @@ function getFirstName(fullName: string): string {
   return fullName.trim().split(" ")[0];
 }
 
-
-
-
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
@@ -60,6 +70,13 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     age: null,
     location: null,
     token: null,
+    payoutDetails: {
+      id: "",
+    account_number: "",
+    account_name: "",
+    bank_name: "",
+    recipient_code: ""
+    }
   });
 
   const [profile, setProfile] = useState<File | null>(null);
@@ -70,11 +87,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
 
   const setRole = (role: string) => {
-  setUser((prevUser) => ({
-    ...prevUser,
-    role: role,
-  }));
-};
+    setUser((prevUser) => ({
+      ...prevUser,
+      role: role,
+    }));
+  };
 
   const logout = async () => {
     try {
@@ -86,7 +103,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       console.error("Logout failed:", err);
     }
   };
-
 
   const checkTokenPresence = async (): Promise<boolean> => {
     try {
@@ -113,66 +129,92 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         return false;
       }
 
-
-      const profileRequest = await sendRequest({
-        url: "https://api-quiktis.onrender.com/users/me",
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${data.token}`,
-        },
-      });
-
-      if (profileRequest?.error === "Token expired") {
-        setUser({
-          userId: null,
-          name: null,
-          email: null,
-          role: null,
-          picture: null,
-          age: null,
-          location: null,
-          token: null,
+      const fetchProfile = async () => {
+        const profileRequest = await sendRequest({
+          url: "https://api-quiktis.onrender.com/users/me",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
         });
-        
-        console.error("Error fetching user profile:", data);
-        logout(); 
-        return false;
-      }
 
-      console.log("Profile request response:", profileRequest);
+        if (profileRequest?.error === "Token expired") {
+          setUser({
+            userId: null,
+            name: null,
+            email: null,
+            role: null,
+            picture: null,
+            age: null,
+            location: null,
+            token: null,
+          });
 
-      if (profileRequest?.data?.email) {
-        console.log("Token found:", data.token);
-        setUser({
-          userId: profileRequest.data.id,
-          name: profileRequest.data.name,
-          email: profileRequest.data.email,
-          role: profileRequest.data.role,
-          picture: profileRequest.data.picture,
-          age: profileRequest.data.age,
-          location: profileRequest.data.location,
-          token: data.token
+          console.error("Error fetching user profile:", data);
+          logout();
+          return false;
+        }
+
+        console.log("Profile request response:", profileRequest);
+
+        if (profileRequest?.data?.email) {
+          console.log("Token found:", data.token);
+          setUser({
+            userId: profileRequest.data.id,
+            name: profileRequest.data.name,
+            email: profileRequest.data.email,
+            role: profileRequest.data.role,
+            picture: profileRequest.data.picture,
+            age: profileRequest.data.age,
+            location: profileRequest.data.location,
+            token: data.token,
+          });
+        }
+
+        return true;
+      };
+
+      const fetchPayoutDetails = async () => {
+        const response = await sendRequest({
+          url: "https://api-quiktis.onrender.com/payment/payouts",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
         });
-      }
-      return true;
 
+        if (response?.status === "success") {
+          setUser((prev) => ({
+            ...prev,
+            payoutDetails: response.data,
+          }));
+
+          console.log("Payout details updated:", user);
+          return true;
+        } else {
+          console.log(response, "Error response")
+        }
+
+        return false
+      };
+
+      const profileResult = await fetchProfile();
+      const payoutResult = await fetchPayoutDetails();
+
+      if (profileResult && payoutResult) return true;
+
+      return false;
     } catch (error) {
       console.error("Error checking token:", error);
       return false;
     }
   };
 
-
-
-
-
   useEffect(() => {
     const initializeUser = async () => {
       try {
-
         await checkTokenPresence();
         setLoading(false);
-
       } catch (error) {
         console.error("Error initializing user:", error);
         setLoading(false);
@@ -182,14 +224,22 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     initializeUser();
   }, []);
 
-  const shouldExcludeLoading = pathname === "/" || pathname === "/some-other-page";
+  const shouldExcludeLoading =
+    pathname === "/" || pathname === "/some-other-page";
 
   if (loading && !shouldExcludeLoading) {
     return (
       <>
         <header className="h-[4.5em] relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] shadow-2xl border border-[#ffffff10]">
           <div className="my-auto lg:px-8">
-            <Image src="/new_logo.svg" className="w-[80px]" alt="Logo" width={120} height={60} unoptimized />
+            <Image
+              src="/new_logo.svg"
+              className="w-[80px]"
+              alt="Logo"
+              width={120}
+              height={60}
+              unoptimized
+            />
           </div>
           <ul className="relative z-20 gap-9 my-auto hidden md:flex tablet-hidden">
             {menuItems.map((item) => (
@@ -197,7 +247,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
                 <Link
                   href={item.path}
                   className={`transition-colors duration-300 ${
-                    pathname === item.path ? "text-red-500 font-bold" : "text-white hover:text-primary"
+                    pathname === item.path
+                      ? "text-red-500 font-bold"
+                      : "text-white hover:text-primary"
                   }`}
                 >
                   {item.name}
@@ -220,7 +272,13 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
           )}
           <div className="relative h-[30px] w-[30px] my-auto block md:hidden tablet-block">
             <button>
-              <Image src="/ep_menu.svg" alt="menu" fill className="object-fit" unoptimized />
+              <Image
+                src="/ep_menu.svg"
+                alt="menu"
+                fill
+                className="object-fit"
+                unoptimized
+              />
             </button>
           </div>
         </header>
@@ -261,7 +319,17 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   console.log("[UserProvider] Rendering children with user context:", user);
   return (
     <UserContext.Provider
-      value={{ user, setUser, googleUser, setGoogleUser, profile, setProfile, profilePreview, setProfilePreview, setRole }}
+      value={{
+        user,
+        setUser,
+        googleUser,
+        setGoogleUser,
+        profile,
+        setProfile,
+        profilePreview,
+        setProfilePreview,
+        setRole,
+      }}
     >
       {children}
     </UserContext.Provider>

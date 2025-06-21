@@ -62,18 +62,18 @@ const useAxios = () => {
 
     try {
       const config: AxiosRequestConfig = {
-        url,
-        method,
-        data: body,
-        headers: {
-          // Only set Content-Type if body is not FormData
-          ...(!body || !(body instanceof FormData) 
-            ? { "Content-Type": "application/json" } 
-            : {}),
-          ...headers,
-        },
-        withCredentials,
-      };
+  url,
+  method,
+  ...(body ? { data: body } : {}),
+  headers: {
+    ...(!body || !(body instanceof FormData)
+      ? { "Content-Type": "application/json" }
+      : {}),
+    ...headers,
+  },
+  withCredentials,
+};
+
 
       const response: AxiosResponse = await axios(config);
       setData(response.data);

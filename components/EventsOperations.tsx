@@ -36,7 +36,7 @@ const EventsOperations = () => {
       <ul className="flex gap-[2.5em] h-fit my-auto">
         {navLinks
           .filter((link) => {
-            console.log(user.role, link.roles);
+            //console.log(user.role, link.roles);
             return (user.email)}
           ) // ✅ filter by user role with type guard
           .map((link) => (

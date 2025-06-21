@@ -3,9 +3,9 @@
 
 import { usePathname } from "next/navigation";
 
-import Footer from "./Footer"; // “original” footer – imports NewsLetter.tsx
-import NewFooter from "../NewFooter"; // “landing‐page” footer – imports NewsLetter2.tsx
-import BlogFooter from "./BlogFooter"; // “blog” footer – imports BlogNewsletter.tsx
+import Footer from "./Footer"; // “original” footer –
+import NewFooter from "../NewFooter"; // “landing‐page” footer 
+import BlogFooter from "./BlogFooter"; // “blog” footer 
 
 const FooterSelector: React.FC = () => {
   const pathname = usePathname();

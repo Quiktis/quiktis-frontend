@@ -69,7 +69,7 @@ function CreateEventPage() {
   };
 
   useEffect(() => {
-    console.log("Event Data Updated:", eventData);
+    //console.log("Event Data Updated:", eventData);
   }, [eventData]); // This runs whenever eventData changes
 
   useEffect(() => {
