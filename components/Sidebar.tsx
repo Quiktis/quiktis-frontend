@@ -3,6 +3,7 @@ import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/app/context/UserContext";
+import { link } from "fs";
 
 interface SidebarProps {
   isOpen?: boolean;
@@ -13,6 +14,7 @@ const authTabs = [
   { label: "Home", link: "/" },
   { label: "Dashboard", link: "/dashboard" },
   { label: "Explore Events", link: "/events" },
+  {label: "About us", link: "/about"},
   { label: "Contact us", link: "/contact" },
 ];
 
@@ -21,6 +23,7 @@ const guestTabs = [
   { label: "Sign up", link: "/register" },
   { label: "Sign in", link: "/signin" },
   { label: "Explore Events", link: "/events" },
+  {label: "About us", link: "/about"},
   { label: "Contact us", link: "/contact" },
   { label: "Faq", link: "/faq" },
 ];
