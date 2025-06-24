@@ -207,6 +207,7 @@ export default function CheckoutPage() {
           </div>
 
           <div className="mt-8 flex justify-end">
+            {user.token ? 
             <Button
               type="button"
               onClick={handleOrderInitiation}
@@ -214,8 +215,16 @@ export default function CheckoutPage() {
               loaderClass='mt-[0.08em] ml-[-0.005em]'
               className="px-8 py-4 bg-[#FF4D2A] text-white rounded-lg hover:bg-[#e6391a] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]"
             >
-              Pay NGN {total}
-            </Button>
+             Pay NGN {total} 
+            </Button> : 
+            <Link
+              href={"/register"}
+              className="px-8 py-4 bg-[#FF4D2A] text-white rounded-lg hover:bg-[#e6391a] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]"
+            >
+             Login to Pay 
+            </Link>
+            } 
+            
           </div>
         </div>
       </div>

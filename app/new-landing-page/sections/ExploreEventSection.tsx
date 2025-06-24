@@ -5,6 +5,7 @@ import Button from "@/components/ui/Button";
 import Image from "next/image";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { FiArrowUpRight } from "react-icons/fi";
+import Link from "next/link";
 
 import { HappeningNow } from "@/constant/happeningNow";
 
@@ -147,10 +148,10 @@ export default function ExploreEventSection({ containerClass }: { containerClass
           </div>
         </div>
         <div className="mt-6 md:mx-20 mx-auto">
-          <button className="bg-primary hover:bg-red-600 text-black font-semibold py-3 px-6 rounded-[10px] flex justify-center gap-1">
+          <Link href="/events" className="bg-primary hover:bg-red-600 text-black font-semibold py-3 px-6 rounded-[10px] flex justify-center gap-1 w-fit">
             See More
             <FiArrowUpRight size={24} />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

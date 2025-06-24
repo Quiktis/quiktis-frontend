@@ -46,8 +46,8 @@ const MyEvents = () => {
   return (
     <main className="bg-transparent text-white min-h-screen flex flex-col gap-5 w-full relative sm:w-[88%] lg:w-[90%] mx-auto py-10">
       <div className="py-4 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <DashboardNav />
-        {/*<EventsOperations />*/}
+        {/*<DashboardNav />*/}
+        {<EventsOperations />}
       </div>
 
       <div className="mt-10">

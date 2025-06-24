@@ -71,7 +71,7 @@ export default function Footer(): JSX.Element | null {
                 <Link href="/contact" className="hover:text-[#FF4D2A]">Help</Link>
               </div>
               <div className="flex flex-col space-y-2 text-center md:text-left">
-                <Link href="/checkout" className="hover:text-[#FF4D2A]">Get Tickets</Link>
+                <Link href="/about" className="hover:text-[#FF4D2A]">About Us</Link>
                 <Link href="/concert-ticket" className="hover:text-[#FF4D2A]">FAQs</Link>
                 <Link href="/nfts" className="hover:text-[#FF4D2A]">Genres</Link>
                 <Link href="/blog" className="hover:text-[#FF4D2A]">Blog</Link>
