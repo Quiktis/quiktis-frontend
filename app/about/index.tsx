@@ -147,15 +147,15 @@ export default function AboutPage() {
 
           <div className="max-w-5xl mx-auto text-gray-200 space-y-6   sm:text-base relative z-10">
             <p>
-              {`At Quiktis, we're revolutionizing event ticketing through the power of Web3. Our platform combines the accessibility of traditional ticketing with the transparency, ownership, and security enabled by blockchain technology. Whether it's a music concert, tech conference, or community meetup, Quiktis empowers organizers and attendees with a seamless, trustless experience — from ticket creation to check-in. `}<br></br><br></br>{`
+              {`At Quiktis, we’re building the future of event ticketing — combining the accessibility of traditional platforms with the power of emerging technologies like blockchain. Our mission is to make event access simpler, safer, and fairer for everyone.
+ `}<br></br><br></br>{`
 
-Born from the need for a smarter, more secure way to manage event access, Quiktis was built to eliminate fraud, simplify transactions, and return control to users. Event organizers can easily create and customize ticket types, manage sales with real-time analytics, and verify attendance using on-chain or off-chain scanning methods. Attendees benefit from true ownership of their tickets as digital assets — transferable, verifiable, and secure in their own wallets.`}<br></br><br></br>{`
+Quiktis gives organizers easy-to-use tools to create, customize, and manage tickets, with real-time insights to help their events succeed. For attendees, we provide a reliable, smooth ticketing experience — no hassles, no worries about fakes.`}<br></br><br></br>{`
 
-Our mission is to make event access decentralized, transparent, and user-first. We envision a future where digital ticketing is powered by open protocols, not platforms that lock users in. By integrating blockchain infrastructure into the core of our system, we ensure that every ticket is authentic, traceable, and tamper-proof — putting an end to counterfeits and shady resales.`}<br></br><br></br>{`
+We’re working towards a future where ticketing is decentralized, transparent, and user-first — with true ownership of tickets as digital assets, secure and verifiable.
+`}<br></br><br></br>{`
 
-Behind Quiktis is a passionate team of developers, designers, and builders who believe in the power of events to bring people together — and in the power of Web3 to do it better. Whether you're hosting an IRL event or experimenting with token-gated virtual gatherings, Quiktis offers the tools to make it happen, securely and at scale.`}<br></br><br></br>{`
-
-At Quiktis, we’re not just upgrading ticketing — we’re building a new standard for digital access in the decentralized world.`}
+Behind Quiktis is a passionate team dedicated to transforming how people connect through events. Whether you’re planning a local meetup or a large festival, Quiktis is here to help you make it happen — securely and at scale.`}
             </p>
           </div>
         </section>
