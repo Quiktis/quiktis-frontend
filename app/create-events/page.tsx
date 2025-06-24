@@ -69,7 +69,7 @@ function CreateEventPage() {
   };
 
   useEffect(() => {
-    //console.log("Event Data Updated:", eventData);
+    console.log("Event Data Updated:", eventData);
   }, [eventData]); // This runs whenever eventData changes
 
   useEffect(() => {
@@ -148,7 +148,9 @@ function CreateEventPage() {
       console.log(response.status, "status")
       // Extract the URL from the response
 
-      if (response.status !== "success") return alert("Failed to create event. Please try again.");
+      if (response.status !== "success") { 
+        console.log(response, "- Event creation failed response")
+        return alert("Failed to create event. Please try again.");}
       const imageUrl = response.data.files[0].cloudinaryUrl
       ; // Adjust this based on the actual response structure
 
@@ -168,7 +170,7 @@ function CreateEventPage() {
         url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
         method: "POST",
         headers: { 
-          //"Content-Type": "multipart/form-data", 
+          "Content-Type": "application/json", 
           "Authorization": `Bearer ${user?.token}`
         },
         body: eventData,

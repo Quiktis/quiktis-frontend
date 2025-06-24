@@ -66,11 +66,11 @@ const useAxios = () => {
   method,
   ...(body ? { data: body } : {}),
   headers: {
-    ...(!body || !(body instanceof FormData)
-      ? { "Content-Type": "application/json" }
-      : {}),
-    ...headers,
-  },
+  ...(body && typeof body === "object" && !(body instanceof FormData)
+    ? { "Content-Type": "application/json" }
+    : {}),
+  ...headers,
+},
   withCredentials,
 };
 

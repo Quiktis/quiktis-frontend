@@ -147,7 +147,7 @@ export default function EventViewingPage() {
           </div>
 
           <div className="grid h-full w-full md:w-fit mt-4 md:mt-0 md:ml-auto">
-            <Link href="/concert-ticket" passHref>
+            <Link href={`/checkout/${eventId}`}>
               <span className="text-[#FF4D2A] text-[1em] sm:text-[1.2em] md:text-[1.3em] font-semibold flex items-center justify-center gap-2 cursor-pointer hover:no-underline">
                 Get Ticket {event?.tickets?.[0]?.price ?? ""}{" "}
                 <IoTicketSharp size={20} />

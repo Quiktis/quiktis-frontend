@@ -9,13 +9,14 @@ import CartItem from "@/components/checkout/CartItem";
 import AttendeeDetails from "@/components/checkout/AttendeeDetails";
 import TicketCard from "@/components/nft/TicketCard";
 import { Event } from "@/constant/customTypes";
+import Button from "@/components/ui/Button";
 
 export default function CheckoutPage() {
   const [quantity, setQuantity] = useState(1);
   const [event, setEvent] = useState<Event | null>(null);
   const [selectedTicketId, setSelectedTicketId] = useState("");
 
-  const { sendRequest } = useAxios();
+  const { sendRequest, loading, setLoading } = useAxios();
   const { user } = useUser();
   const pathname = usePathname();
   const router = useRouter();
@@ -83,11 +84,18 @@ export default function CheckoutPage() {
   }, [eventId, selectedTicketId, quantity, total]);
 
   const handleOrderInitiation = async () => {
+
+    if (loading) return;
+    setLoading(true);
+
     try {
       const orderResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/initiate`,
         method: "POST",
-        headers: authHeader,
+        headers: { 
+          "Content-Type": "application/json", 
+          "Authorization": `Bearer ${user?.token}`
+        },
         body: { eventId: eventId },
       });
 
@@ -105,7 +113,10 @@ export default function CheckoutPage() {
       const itemResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/order-items`,
         method: "POST",
-        headers: authHeader,
+        headers: { 
+          "Content-Type": "application/json", 
+          "Authorization": `Bearer ${user?.token}`
+        },
         body: {
           orderId: orderId,
           ticketId: selectedTicket?.id,
@@ -121,7 +132,10 @@ export default function CheckoutPage() {
       const completeResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/complete`,
         method: "POST",
-        headers: authHeader,
+        headers: { 
+          "Content-Type": "application/json", 
+          "Authorization": `Bearer ${user?.token}`
+        },
         body: { orderId },
       });
 
@@ -133,7 +147,10 @@ export default function CheckoutPage() {
       const paymentResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment/initialize`,
         method: "POST",
-        headers: authHeader,
+        headers: { 
+          "Content-Type": "application/json", 
+          "Authorization": `Bearer ${user?.token}`
+        },
         body: { orderId },
       });
 
@@ -146,6 +163,8 @@ export default function CheckoutPage() {
     } catch (error) {
       console.log("Error processing order:", error);
     }
+
+    setLoading
   };
 
   return (
@@ -188,13 +207,15 @@ export default function CheckoutPage() {
           </div>
 
           <div className="mt-8 flex justify-end">
-            <button
+            <Button
               type="button"
               onClick={handleOrderInitiation}
+              loading={loading}
+              loaderClass='mt-[0.08em] ml-[-0.005em]'
               className="px-8 py-4 bg-[#FF4D2A] text-white rounded-lg hover:bg-[#e6391a] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]"
             >
               Pay NGN {total}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
