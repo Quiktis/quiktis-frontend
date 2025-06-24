@@ -164,7 +164,7 @@ function PaymentSuccessPage() {
 
               <div className="flex flex-col md:flex-row gap-2 justify-start w-full">
                 <Link
-                  href={`/concert-ticket/${eventId}`}
+                  href={`/concert-ticket/${orderId}`}
                   className="flex items-center justify-center gap-1 bg-[#FF4D2A] text-white md:text-sm text-[10px] py-4 px-3 rounded-md font-medium shadow-[0_0_25px_rgba(255,77,42,0.8)] hover:shadow-[0_0_30px_rgba(255,77,42,1)] transition-shadow w-full">
                   View E-Ticket
                   <IoTicketSharp className="h-3 w-3" />
