@@ -4,7 +4,14 @@ import { usePathname } from "next/navigation";
 const PageWrapper = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
-  const paddingRemovedPath = ["/", "/blog", "/nfts-notification", "/contact", "/search"];
+  const paddingRemovedPath = [
+    "/",
+    "/blog",
+    "/nfts-notification",
+    "/contact",
+    "/search",
+    "/404",
+  ];
 
   //px-20 max-md:px-5
 

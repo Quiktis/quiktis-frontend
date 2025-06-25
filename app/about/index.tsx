@@ -25,32 +25,8 @@ const teamMembers = [
   {
     name: "Temiloluwa Osundosumu",
     role: "Frontend Developer",
-    img: "/profile2.png",
+    img: "/frontend-dev2.jpg",
     bg: "#AA9C75",
-  },
-  {
-    name: "Candice Wu",
-    role: "Backend Developer",
-    img: "/profile8.png",
-    bg: "#A2A8CD",
-  },
-  {
-    name: "Natali Craig",
-    role: "Product Designer",
-    img: "/profile7.png",
-    bg: "#D1BAA9",
-  },
-  {
-    name: "Drew Cano",
-    role: "UX Researcher",
-    img: "/profile6.png",
-    bg: "#CFC3A7",
-  },
-  {
-    name: "Orlando Diggs",
-    role: "Customer Success",
-    img: "/profile5.png",
-    bg: "#D1DFC3",
   },
 ];
 
@@ -142,6 +118,8 @@ export default function AboutPage() {
       opacity-50 
       pointer-events-none 
       z-0
+      sm:w-[400px] sm:h-[400px] sm:-bottom-32 sm:-right-32
+      w-[120px] h-[120px] -bottom-8 -right-8
     "
           />
 

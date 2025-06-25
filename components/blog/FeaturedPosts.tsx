@@ -55,7 +55,7 @@ const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ featured, recent }) => (
         {recent.map((post) => (
           <Link
             key={post.id}
-            href="/blogview"
+            href="/404"
             className={`
               flex flex-col gap-4
               sm:flex-row sm:gap-4 sm:items-center

@@ -18,10 +18,10 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const socials = [
   { icon: faInstagram, link: "https://instagram.com/quiktis" },
-  { icon: faLinkedin,  link: "https://linkedin.com/company/quiktis" },
-  { icon: faTwitter,   link: "https://x.com/QuiktisTik" },
-  { icon: faDiscord,   link: "https://discord.gg/TmavF8QCu5" },
-  { icon: faFacebook,  link: "https://www.facebook.com/share/1BnfVxgh29/" },
+  { icon: faLinkedin, link: "https://linkedin.com/company/quiktis" },
+  { icon: faTwitter, link: "https://x.com/QuiktisTik" },
+  { icon: faDiscord, link: "https://discord.gg/TmavF8QCu5" },
+  { icon: faFacebook, link: "https://www.facebook.com/share/1BnfVxgh29/" },
 ] as const;
 
 export default function Footer(): JSX.Element | null {
@@ -29,13 +29,38 @@ export default function Footer(): JSX.Element | null {
 
   const excludeFooterPaths = ["/signin", "/register"];
   const hiddenPaths = [
-    "/event-viewing","/faq","/history","/my-tickets","/search","/contact",
-    "/event-creator","/notifications","/reviews","/announcement","/create-events",
-    "/my-events","/blog","/blogview","/nfts","/nfts-notification","/about",
-    "/checkout","/stats","/payment-success","/payment-failure","/live-chat",
-    "/manager-event-viewing","/event-viewing-square","/manage-event-viewing",
-    "/paid-event-viewing","/tickets","/concert-ticket","/attendees",
-    "/write-review","/dashboard",
+    "/event-viewing",
+    "/faq",
+    "/history",
+    "/my-tickets",
+    "/search",
+    "/contact",
+    "/event-creator",
+    "/notifications",
+    "/reviews",
+    "/announcement",
+    "/create-events",
+    "/my-events",
+    "/blog",
+    "/blogview",
+    "/nfts",
+    "/nfts-notification",
+    "/about",
+    "/checkout",
+    "/stats",
+    "/payment-success",
+    "/payment-failure",
+    "/live-chat",
+    "/manager-event-viewing",
+    "/event-viewing-square",
+    "/manage-event-viewing",
+    "/paid-event-viewing",
+    "/tickets",
+    "/concert-ticket",
+    "/attendees",
+    "/write-review",
+    "/dashboard",
+    "/404",
   ];
 
   if (excludeFooterPaths.includes(pathname)) return null;
@@ -47,9 +72,7 @@ export default function Footer(): JSX.Element | null {
           <div className="grid grid-cols-[1fr_1.6fr] w-full absolute h-[70em] top-[-10em]">
             <div />
           </div>
-          <NewsLetter2
-            containerClass="relative w-full md:px-[8em] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]"
-          />
+          <NewsLetter2 containerClass="relative w-full md:px-[8em] mx-auto px-0 md:px-6 sm:px-10 md:py-20 mt-[5em]" />
         </section>
       )}
 
@@ -65,16 +88,32 @@ export default function Footer(): JSX.Element | null {
           <div className="md:w-2/5 flex flex-col">
             <div className="flex flex-wrap gap-4 md:gap-12 justify-center md:justify-start">
               <div className="flex flex-col space-y-2 text-center md:text-left">
-                <Link href="/" className="hover:text-[#FF4D2A]">Home</Link>
-                <Link href="/my-events" className="hover:text-[#FF4D2A]">Pages</Link>
-                <Link href="/events" className="hover:text-[#FF4D2A]">Event</Link>
-                <Link href="/contact" className="hover:text-[#FF4D2A]">Help</Link>
+                <Link href="/" className="hover:text-[#FF4D2A]">
+                  Home
+                </Link>
+                <Link href="/my-events" className="hover:text-[#FF4D2A]">
+                  Pages
+                </Link>
+                <Link href="/events" className="hover:text-[#FF4D2A]">
+                  Event
+                </Link>
+                <Link href="/contact" className="hover:text-[#FF4D2A]">
+                  Help
+                </Link>
               </div>
               <div className="flex flex-col space-y-2 text-center md:text-left">
-                <Link href="/about" className="hover:text-[#FF4D2A]">About Us</Link>
-                <Link href="/concert-ticket" className="hover:text-[#FF4D2A]">FAQs</Link>
-                <Link href="/nfts" className="hover:text-[#FF4D2A]">Genres</Link>
-                <Link href="/blog" className="hover:text-[#FF4D2A]">Blog</Link>
+                <Link href="/about" className="hover:text-[#FF4D2A]">
+                  About Us
+                </Link>
+                <Link href="/concert-ticket" className="hover:text-[#FF4D2A]">
+                  FAQs
+                </Link>
+                <Link href="/nfts" className="hover:text-[#FF4D2A]">
+                  Genres
+                </Link>
+                <Link href="/blog" className="hover:text-[#FF4D2A]">
+                  Blog
+                </Link>
               </div>
             </div>
           </div>
@@ -90,46 +129,51 @@ export default function Footer(): JSX.Element | null {
                     key={idx}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[#FF4D2A] flex items-center gap-2"
-                  >
+                    className="hover:text-[#FF4D2A] flex items-center gap-2">
                     <FontAwesomeIcon icon={icon} size="lg" />
                   </Link>
                 ))}
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2">
-                <Link href="mailto:support@quiktis.com" className="hover:text-[#FF4D2A] flex items-center gap-2">
+                <Link
+                  href="mailto:support@quiktis.com"
+                  className="hover:text-[#FF4D2A] flex items-center gap-2">
                   <FontAwesomeIcon icon={faEnvelope} />
                   <span>support@quiktis.com</span>
                 </Link>
               </div>
 
-              <div className="flex md:hidden items-center justify-center mt-4">
+              {/* <div className="flex md:hidden items-center justify-center mt-4">
                 <div
                   className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-1 shadow-lg text-white text-sm font-semibold whitespace-nowrap transition-all duration-200 hover:backdrop-blur-xl"
                   style={{ WebkitBackdropFilter: "blur(12px)" }}
                 >
                   Powered By BlockChain
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
 
-        <div className="hidden md:flex justify-center mt-6">
+        {/* <div className="hidden md:flex justify-center mt-6">
           <div
             className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-1 shadow-lg text-white text-sm font-semibold whitespace-nowrap transition-all duration-200 hover:backdrop-blur-xl"
             style={{ WebkitBackdropFilter: "blur(12px)" }}
           >
             Powered By BlockChain
           </div>
-        </div>
+        </div> */}
 
         <div className="flex justify-center items-center space-x-2 mt-4 text-base">
-          <Link href="/terms" className="hover:text-[#FF4D2A] transition-colors">
+          <Link
+            href="/terms"
+            className="hover:text-[#FF4D2A] transition-colors">
             Terms of Service
           </Link>
           <span className="text-white/50">|</span>
-          <Link href="/privacy" className="hover:text-[#FF4D2A] transition-colors">
+          <Link
+            href="/privacy"
+            className="hover:text-[#FF4D2A] transition-colors">
             Privacy Policy
           </Link>
         </div>

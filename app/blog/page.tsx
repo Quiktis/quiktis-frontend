@@ -12,8 +12,8 @@ import type { BlogPost } from "@/components/blog/BlogCard";
 import type { FeaturedPost, RecentPost } from "@/components/blog/FeaturedPosts";
 
 export default function BlogPage() {
-  const backgroundImage = "/blog/family-boat-scenery.jpg"; 
-  const featuredPostImage = "/blog/blogroad.jpg"; 
+  const backgroundImage = "/blog/family-boat-scenery.jpg";
+  const featuredPostImage = "/blog/blogroad.jpg";
 
   const heroTitle = "INSIGHTS, TIPS & STORIES FROM THE WORLD OF EVENTS";
   const heroSubtitle =
@@ -30,7 +30,7 @@ export default function BlogPage() {
 
   const featuredPost: FeaturedPost = {
     title: "Integer Maecenas Eget Viverra",
-    image: featuredPostImage, 
+    image: featuredPostImage,
     date: "13 March 2021",
     excerpt:
       "Tick one more destination off of your bucket list with one of our most popular vacations in 2023",
@@ -101,7 +101,7 @@ export default function BlogPage() {
 
       <div className="hidden md:block h-[30vh] sm:h-[40vh] md:h-[60vh] lg:h-[95vh]"></div>
 
-      <div className="block md:hidden">
+      <div className="block md:hidden mt-0 bg-[#0a0a0a]">
         <HeroBanner
           backgroundImage={backgroundImage}
           title={heroTitle}
@@ -127,8 +127,8 @@ export default function BlogPage() {
 
       <div className="mt-8 md:mt-16 px-20 max-md:px-5">
         <CTABanner
-          primaryAction={{ text: "Browse Cases", href: "#" }}
-          secondaryAction={{ text: "Create Lead", href: "#" }}
+          primaryAction={{ text: "Browse Cases", href: "/404" }}
+          secondaryAction={{ text: "Create Lead", href: "/404" }}
         />
       </div>
 
@@ -138,7 +138,7 @@ export default function BlogPage() {
           dateLabel="1 Month Ago"
           heading="Tick one more destination off of your bucket list with one of our most popular vacations in 2022"
           copy="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porta ex at sapien a consequat. Fusce felis consequat, ultricies nec, molestie nulla. Morbi sed erat vitae magna consequat."
-          readMoreHref="#"
+          readMoreHref="/blogview"
         />
       </div>
 

@@ -122,8 +122,8 @@ const ContactPage = () => {
                   width={20}
                   height={20}
                 />
-                <a href="tel:12995560908" className="hover:no-underline">
-                  1299 556-0908
+                <a href="tel:08160728736" className="hover:no-underline">
+                08160728736
                 </a>
               </li>
               <li className="flex items-center gap-2">
@@ -133,8 +133,8 @@ const ContactPage = () => {
                   width={20}
                   height={20}
                 />
-                <a href="tel:12995560098" className="hover:no-underline">
-                  1299 556-0098
+                <a href="tel:09052029197" className="hover:no-underline">
+                09052029197
                 </a>
               </li>
             </ul>
@@ -161,7 +161,7 @@ const ContactPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:no-underline">
-                  6301 Elgin St. Celina, Delaware
+                  Lagos , Nigeria
                 </a>
               </li>
               <li className="flex items-center gap-2">

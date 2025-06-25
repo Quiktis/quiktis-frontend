@@ -19,38 +19,38 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
         /* Small phones landscape → slightly less pull, keeps text below nav */
         sm:-mt-24
         /* Extra-small phones (≤375px) override to minimal pull */
-        max-[375px]:-mt-24
+        max-[375px]:-mt-12
         md:mt-0
-        h-[30vh] sm:h-[40vh] md:h-[60vh] lg:h-[80vh]
+        h-[45vh] sm:h-[45vh] md:h-[60vh] lg:h-[80vh]
         overflow-hidden bg-cover bg-center
       `}
       style={{ backgroundImage: `url(${backgroundImage})` }}>
-      {/* Dark overlay*/}
-      <div className="absolute inset-0 bg-black bg-opacity-60 z-0"></div>
+      {/* Dark overlay - reduced opacity on mobile */}
+      <div className="absolute inset-0 bg-black md:bg-opacity-60 bg-opacity-30 z-0"></div>
 
       <div
         className={`
           relative px-4 max-w-3xl mx-auto text-center z-10
-          pt-8
+          pt-16
           /* Small phones */
-          sm:pt-12
+          sm:pt-20
           /* Tablet+ */
           md:pt-24
           /* Extra-small phones (≤375px): push down more so text clears nav */
-          max-[375px]:pt-16
+          max-[375px]:pt-24
         `}>
         <h1
           className={`
             /* Base mobile */
-            text-xl
+            text-lg
             /* Small phones */
             sm:text-2xl
             /* Tablet+ */
             md:text-5xl lg:text-6xl
             /* Extra-small phones: shrink title further */
-            max-[375px]:text-lg
+            max-[375px]:text-base
             /* iPhone 12 Pro and similar devices */
-            max-[390px]:text-lg
+            max-[390px]:text-base
 
             font-bold text-white leading-tight
           `}>
@@ -61,13 +61,13 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
             className={`
               mt-2
               /* Base mobile */
-              text-sm
+              text-xs
               /* Small phones */
               sm:text-base
               /* Tablet+ */
               md:text-xl
               /* Extra-small phones: shrink subtitle */
-              max-[375px]:text-xs
+              max-[375px]:text-[0.65rem]
               text-white
             `}>
             {subtitle}
