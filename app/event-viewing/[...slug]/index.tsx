@@ -124,7 +124,7 @@ export default function EventViewingPage() {
             <Image
               src={bannerImageSrc}
               alt="Banner Image"
-              layout="fill"
+              fill
               objectFit="cover"
               className="rounded-[30px]"
               onLoad={() => setIsImageLoaded(true)}
@@ -289,7 +289,7 @@ export default function EventViewingPage() {
               <Image
                 src="/map.png"
                 alt="Map view"
-                layout="fill"
+                fill
                 objectFit="cover"
                 objectPosition="50% 80%"
                 unoptimized

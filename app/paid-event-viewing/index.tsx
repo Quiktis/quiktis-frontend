@@ -141,7 +141,7 @@ export const PaidEventViewingComponent = () => {
           <Image
             src={"/party1.png"}
             alt="Event header"
-            layout="fill"
+            fill
             objectFit="cover"
             className="rounded-[30px]"
             unoptimized
@@ -301,7 +301,7 @@ export const PaidEventViewingComponent = () => {
               <Image
                 src="/map.png"
                 alt="Map view"
-                layout="fill"
+                fill
                 objectFit="cover"
                 objectPosition="50% 80%"
                 unoptimized

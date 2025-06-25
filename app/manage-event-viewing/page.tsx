@@ -251,7 +251,7 @@ export default function ManageEventViewingPage() {
               <Image
                 src="/map.png"
                 alt="party 1"
-                layout="fill"
+                fill
                 objectFit="cover"
                 className="rounded-[30px]"
                 objectPosition="50% 80%"

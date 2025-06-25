@@ -87,7 +87,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({uploadImage, preview, even
                  <Image
                   src={preview}
                   alt="Event header"
-                  layout="fill"
+                  fill
                   objectFit="cover"
                   className="rounded-[30px]"
                   unoptimized
@@ -179,7 +179,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({uploadImage, preview, even
               <Image
                 src={"/map.png"}
                 alt="party 1"
-                layout="fill"
+                fill
                 objectFit="cover"
                 className="rounded-[30px]"
                 objectPosition="50% 80%"

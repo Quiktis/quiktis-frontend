@@ -28,11 +28,11 @@ export default function NewLandingPage() {
             method: "GET",
           });
   
-          console.log("Events response:", response);
+          //console.log("Events response:", response);
   
           if (response.status === "success") {
             setComingUpNext(response.data.events);
-            console.log("Upcoming events - ", comingUpNext)
+            //console.log("Upcoming events - ", comingUpNext)
           } else {
             console.error("Failed to fetch events:", response.message);
           }
@@ -45,7 +45,7 @@ export default function NewLandingPage() {
     }, []);
 
     useEffect(() => {
-  console.log("Updated upcoming events:", comingUpNext);
+  //console.log("Updated upcoming events:", comingUpNext);
 }, [comingUpNext]);
 
 

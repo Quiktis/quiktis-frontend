@@ -283,7 +283,7 @@ export const EventViewingSquareComponent = () => {
               <Image
                 src="/map.png"
                 alt="Map view"
-                layout="fill"
+                fill
                 objectFit="cover"
                 objectPosition="50% 80%"
                 unoptimized

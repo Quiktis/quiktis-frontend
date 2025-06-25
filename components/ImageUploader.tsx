@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { IoCloseSharp } from "react-icons/io5";
+import Image from "next/image";
 //import { FaPlus } from "react-icons/fa";
 //import Image from "next/image";
 
@@ -95,9 +96,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       >
         {preview ? (
           <div className="relative w-[7em] h-[7em] grid overflow-hidden rounded-lg">
-            <img
+            <Image
               src={preview}
               alt="Uploaded Preview"
+              fill
               className="w-full h-full rounded-lg object-cover"
             />
           </div>

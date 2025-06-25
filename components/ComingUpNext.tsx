@@ -95,12 +95,12 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({ containerClass, events }) =
               {/* Left */}
               <div className="flex gap-3 w-fit">
                 <div className="relative w-[7.5em] h-[7.5em] rounded-[5px] overflow-hidden flex-shrink-0">
-                  <Image
+                  {event?.bannerImage && <Image
                     src={event?.bannerImage ?? ""}
                     alt={event?.title ?? ""}
                     fill
                     className="object-cover"
-                  />
+                  />}
                 </div>
                 <div className="my-auto">
                   <h3 className="text-[#FF1400] font-bold text-sm md:text-base lg:text-[1.4em] max-w-[10em] leading-2">

@@ -26,7 +26,7 @@ export default function NotFoundPage() {
 
         {/* Error Message */}
         <p className="text-gray-300 text-lg font-medium tracking-wide">
-          It looks like you've hit a dead end.
+         { `It looks like you've hit a dead end.`}
         </p>
 
         {/* Back to Home Button */}

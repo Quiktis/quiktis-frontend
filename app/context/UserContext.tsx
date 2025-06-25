@@ -112,7 +112,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         withCredentials: true,
       });
 
-      console.log("Token presence check response:", data);
+      //console.log("Token presence check response:", data);
 
       if (!data?.tokenFound) {
         console.log("Token not found");
@@ -155,10 +155,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
           return false;
         }
 
-        console.log("Profile request response:", profileRequest);
+        //console.log("Profile request response:", profileRequest);
 
         if (profileRequest?.data?.email) {
-          console.log("Token found:", data.token);
+          //console.log("Token found:", data.token);
           setUser({
             userId: profileRequest.data.id,
             name: profileRequest.data.name,
@@ -189,10 +189,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
             payoutDetails: response.data,
           }));
 
-          console.log("Payout details updated:", user);
+          //console.log("Payout details updated:", user);
           return true;
         } else {
-          console.log(response, "Error response")
+          //console.log(response, "Error response")
         }
 
         return false
@@ -316,7 +316,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     );
   }
 
-  console.log("[UserProvider] Rendering children with user context:", user);
+  //console.log("[UserProvider] Rendering children with user context:", user);
   return (
     <UserContext.Provider
       value={{
