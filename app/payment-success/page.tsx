@@ -16,10 +16,23 @@ export default function PaymentSuccessPage() {
           </p>
         </div>
 
+        {/* Mobile Image - Only visible on mobile */}
+        <div className="md:hidden flex justify-center items-center w-full my-4">
+          <div className="relative w-[80%] h-[220px]">
+            <Image
+              src="/rocketman.png"
+              alt="Person riding a rocket"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+
         {/* Main Content */}
         <div className="flex flex-col md:flex-row w-full">
+          {/* Desktop Image - Only visible on desktop */}
           <div
-            className="w-full md:w-1/2 flex items-start justify-start z-10"
+            className="hidden md:flex w-full md:w-1/2 items-start justify-start z-10"
             style={{ marginTop: "-14rem" }}>
             <div className="relative w-[130%] h-[450px] md:h-[120%]">
               <Image
@@ -31,8 +44,8 @@ export default function PaymentSuccessPage() {
             </div>
           </div>
 
-          <div className="w-full md:w-1/2 flex flex-col justify-start pt-16 md:pt-14 px-4 md:px-12">
-            <div className="space-y-6">
+          <div className="w-full md:w-1/2 flex flex-col justify-start pt-2 md:pt-14 px-4 md:px-12">
+            <div className="space-y-3 md:space-y-6">
               <div className="grid grid-cols-2">
                 <span>Event Name</span>
                 <span className="font-medium">Afro Vibes Concert 2025</span>
@@ -61,16 +74,16 @@ export default function PaymentSuccessPage() {
               </div>
 
               {/* Buttons */}
-              <div className="flex flex-col md:flex-row gap-2 justify-start w-full">
+              <div className="flex flex-col md:flex-row gap-2 justify-start w-full mt-6">
                 <Link
                   href="/concert-ticket"
-                  className="flex items-center justify-center gap-1 bg-[#FF4D2A] text-white md:text-sm text-[10px] py-4 px-3 rounded-md font-medium shadow-[0_0_25px_rgba(255,77,42,0.8)] hover:shadow-[0_0_30px_rgba(255,77,42,1)] transition-shadow w-full">
+                  className="flex items-center justify-center gap-1 bg-[#FF4D2A] text-white md:text-sm text-[10px] py-3 md:py-4 px-3 rounded-md font-medium shadow-[0_0_25px_rgba(255,77,42,0.8)] hover:shadow-[0_0_30px_rgba(255,77,42,1)] transition-shadow w-full">
                   View E-Ticket
                   <IoTicketSharp className="h-3 w-3" />
                 </Link>
                 <Link
                   href="/download-pdf"
-                  className="flex items-center justify-center gap-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white md:text-sm text-[10px] py-4 px-3 rounded-md font-medium shadow-[0_0_25px_rgba(37,99,235,0.8)] hover:shadow-[0_0_30px_rgba(37,99,235,1)] transition-shadow w-full">
+                  className="flex items-center justify-center gap-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white md:text-sm text-[10px] py-3 md:py-4 px-3 rounded-md font-medium shadow-[0_0_25px_rgba(37,99,235,0.8)] hover:shadow-[0_0_30px_rgba(37,99,235,1)] transition-shadow w-full">
                   Download PDF
                   <FaFileAlt className="h-3 w-3" />
                 </Link>

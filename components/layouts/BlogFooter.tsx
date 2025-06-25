@@ -189,13 +189,13 @@ export default function BlogFooter(): JSX.Element {
 
         <div className="flex justify-center items-center space-x-2 mt-4 text-base">
           <Link
-            href="/terms"
+            href="/404"
             className="hover:text-[#FF4D2A] transition-colors">
             Terms of Service
           </Link>
           <span className="text-white/50">|</span>
           <Link
-            href="/privacy"
+            href="/404"
             className="hover:text-[#FF4D2A] transition-colors">
             Privacy Policy
           </Link>
