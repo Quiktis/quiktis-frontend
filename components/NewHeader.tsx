@@ -39,7 +39,7 @@ const NewHeader: React.FC<HeaderProps> = ({ containerClass }) => {
   return (
     <>
       {allowedPaths.includes(pathname) && (
-        <div className="overlay background-div z-10 absolute max-sm:top-[107vw] sm:top-[36vw] md:top-[50vh] lg:top-[23vw] xl:top-[7.9vw] right-0 left-0"></div>
+        <div className="overlay background-div z-10 absolute max-sm:top-[107vw] sm:top-[36vw] md:top-[50vh] lg:top-[23vw] xl:top-[9vw] right-0 left-0"></div>
       )}
 
       <header

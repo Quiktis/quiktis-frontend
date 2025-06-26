@@ -34,10 +34,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
 
   const tabsToRender = user?.email ? authTabs : guestTabs;
 
-  function handleClick(link: string) {
-    onSidebarClose();
-    router.push(link);
-  }
 
   return (
     <>
@@ -55,11 +51,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
               <li
                 key={index}
                 className="hover:bg-[#ffffff1c] grid w-full rounded-md">
-                <button
-                  onClick={() => handleClick(item.link)}
+                <Link
+                  href={item.link}
+                  onClick={() => onSidebarClose()}
                   className="w-full text-gray-200 flex justify-center py-3">
                   {item.label}
-                </button>
+                </Link>
               </li>
             ))}
           </ul>

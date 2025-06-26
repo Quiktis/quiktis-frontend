@@ -76,9 +76,9 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({ containerClass, events }) =
 
   return (
     <section className={`relative py-10  ${containerClass}`}>
-      <div className="grid grid-cols-[1fr_2.2fr] w-full absolute h-[50em]">
+      <div className="grid grid-cols-[1fr_2.2fr] w-[80%] absolute h-[50em]">
             <div></div>
-            <div className=" h-full w-full  translate-x-0  radial-gradient-red-light blur-[18px] md:blur-3xl opacity-50 max-sm:hidden"></div>
+            <div className="block max-md:hidden  h-full w-full md:w-[40%] lg:w-full translate-x-0  radial-gradient-red-light blur-[18px] md:blur-3xl opacity-50 max-sm:hidden"></div>
           </div>
           {events.length > 0 && 
       <div className="relative z-10 container mx-auto text-white">
@@ -87,7 +87,7 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({ containerClass, events }) =
       
         <h2 className="md:text-[1.8em] lg:text-[2.2em] mb-8">Coming Up Next</h2>
 
-        <div className="md:grid grid-cols-1 lg:grid-cols-1 gap-4">
+        <div className="md:grid grid-cols-1 lg:grid-cols-1 gap-4 max-sm:space-y-[2em]">
           {events.map((event: Event) => (
             <div
               key={event?.id ?? ""}

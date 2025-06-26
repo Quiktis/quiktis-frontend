@@ -42,7 +42,7 @@ export default function SearchEventSection() {
 
       <section className="relative z-40 mt-[2em] md:mt-[5em] text-center px-20 max-md:px-5">
         <div className="gradient-text flex justify-center flex-col gap-6">
-          <div className="bg-[#acabab21] max-sm:text-[0.9em] max-sm:w-[90%] w-fit mx-auto p-2 shadow-md px-6 rounded-[2em] border border-[#69696948]">
+          <div className="bg-[#acabab21] max-sm:text-[0.9em] max-sm:w-full w-fit mx-auto p-2 shadow-md px-6 rounded-[2em] border border-[#69696948]">
             Join a growing community building the future of event ticketing
           </div>
           <h1 className="flex justify-center text-[2.8em] md:max-w-[76%] sm:max-w-[76%] mx-auto max-sm:text-[2.5em] md:text-[3.4em] lg:text-[4em] xl:text-[4.4em] leading-[1.2em] text-center font-bold">
@@ -53,7 +53,7 @@ export default function SearchEventSection() {
           Quiktis makes ticketing easy, secure, and seamless for organizers and attendees alike.
         </p>
 
-        <form className="mt-[3.5em] relative grid mx-auto place-items-center w-full md:w-[68%] lg:w-[50%] lg:max-w-[40em]">
+        <form className="xl:mt-[3.5em] mt-[2.5em] relative grid mx-auto place-items-center w-full md:w-[68%] lg:w-[50%] lg:max-w-[40em]">
           <input
             placeholder="Search for any event"
             type="text"

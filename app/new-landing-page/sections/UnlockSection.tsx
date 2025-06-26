@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function UnlockSection() {
   return (
@@ -14,11 +15,11 @@ export default function UnlockSection() {
           <p>Join us on the journey to the decentralized future.</p>
         </div>
         <div className="w-full grid place-items-center">
-          <button
-            type="button"
+          <Link
+            href="/register"
             className="md:mr-0 md:ml-auto bg-primary w-full md:w-fit py-3 px-4 h-fit text-black rounded-xl">
             Sign Up
-          </button>
+          </Link>
         </div>
       </div>
 

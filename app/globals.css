@@ -278,9 +278,15 @@ body {
   );
 }
 
-@media (min-width: 356px) and (max-width: 380px) {
+@media (min-width: 356px) and (max-width: 390px) {
   .background-div {
     top: 115vw !important;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 380px) {
+  .background-div {
+    top: 107vw !important;
   }
 }
 
