@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 export type EventStatus = "Upcoming" | "Live" | "Ended" | "Canceled";
 
 
+
 // Define the Ticket type
 type Ticket = {
   id: string;
@@ -64,6 +65,7 @@ export interface Event {
   title: string;
   id: string;
   name: string;
+  slug: string;
   startDate: string;
   startTime: string;
   location: string;
@@ -87,7 +89,7 @@ const statusStyles: Record<EventStatus, string> = {
 const EventRow: React.FC<EventRowProps> = ({ event }) => {
   const router = useRouter();
   const handleRowClick = () => {
-    router.push(`/event-viewing/${event.id}`);
+    router.push(`/event-viewing/${event.slug}`);
   };
 
   return(

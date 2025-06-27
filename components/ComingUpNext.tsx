@@ -124,7 +124,7 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({ containerClass, events }) =
               {/* Right */}
               <div className="flex justify-center gap-4 md:grid grid-cols-2 max-sm:flex-col sm:flex-col">
                 <a
-                  href={`/event-viewing/${event?.id ?? ""}`}
+                  href={`/event-viewing/${event?.slug ?? ""}`}
                   className="lg:w-fit border border-gray-700 text-gray-400 hover:text-white rounded-[5px] text-xs md:text-sm py-4 px-8 flex justify-center">
                   Read more <FiArrowRight className="h-4 w-4 ml-1 mt-[0.2em]" />
                 </a>

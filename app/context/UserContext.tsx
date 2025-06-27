@@ -316,7 +316,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     );
   }
 
-  //console.log("[UserProvider] Rendering children with user context:", user);
+  console.log("[UserProvider] Rendering children with user context:", user);
   return (
     <UserContext.Provider
       value={{

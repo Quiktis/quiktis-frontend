@@ -77,7 +77,7 @@ export default function SearchEventSection() {
           {!loading && results.length > 0 && (
             <div className="grid gap-4">
               {results.slice(0, 4).map((event) => (
-                <Link key={event.id} href={`/event-viewing/${event.id}`}>
+                <Link key={event.slug} href={`/event-viewing/${event.slug}`}>
                   <div className=" p-3 rounded-lg cursor-pointer transition hover:bg-[#ffffff0e]">
                     <h3 className="text-white font-semibold">{event.title}</h3>
                     <p className="text-gray-300 text-sm">{event.location}</p>
