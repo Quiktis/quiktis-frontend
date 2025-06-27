@@ -131,7 +131,7 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({ containerClass, events }) =
 
                 <div>
                   <a
-                    href={`/checkout/${event?.slug ?? ""}`}
+                    href={`/checkout/${event?.id ?? ""}`}
                     className="bg-[#ff4d2a] lg:w-fit hover:bg-[#ff4d2a]/90 text-white font-semibold rounded-[5px] text-xs md:text-sm py-4 px-8 flex justify-center lg:mr-0 lg:ml-auto">
                     GET TICKET{" "}
                     <FiArrowRight className="h-4 w-4 ml-1 transform rotate-45" />
