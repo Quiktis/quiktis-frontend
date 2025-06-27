@@ -4,118 +4,44 @@ import Image from "next/image";
 import SearchForm from "@/components/search/SearchForm";
 import NewEventCard from "@/components/search/NewEventCard";
 import Filters from "@/components/search/Filters";
-const events = [
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "africa.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "dj.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "camera.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "party1.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "conf.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "dance.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "wed.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "show.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-  {
-    title: "Africa's fashion industry is growing to meet global demand.",
-    subtitle: "Africa Talks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi. Dolor turpis varius aliquam euismod cras. Ultrices purus sed et morbi neque iaculis nam...",
-    date: "May 23, 2024",
-    location: "South Kenyatta",
-    price: "$20",
-    image: "show.png",
-    getTicketUrl: "/checkout",
-    readMoreUrl: "/event-viewing",
-  },
-];
+import { Event } from "@/constant/customTypes";
+import { useEffect, useState } from "react"; 
+import useAxios from "../hooks/useAxios";
 
 export default function SearchPage() {
+  const [events, setEvents] = useState<Event[]>([]);
+  const { sendRequest } = useAxios();
+
+
+   useEffect(() => {
+        const fetchAllEvents = async () => {
+          try {
+            const response = await sendRequest({
+              url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
+              method: "GET",
+            });
+    
+            //console.log("Events response:", response);
+    
+            if (response.status === "success") {
+              setEvents(response.data.events);
+              //console.log("Upcoming events - ", comingUpNext)
+            } else {
+              console.error("Failed to fetch events:", response.message);
+            }
+          } catch (error) {
+            console.error("Error fetching events:", error);
+          }
+        };
+    
+        fetchAllEvents();
+      }, []);
+  
+        useEffect(() => {
+        console.log("Updated upcoming events:", events);
+      }, [events]);
+
+
   return (
     <div className="relative min-h-screen flex flex-col text-white bg-transparent overflow-hidden px-20 max-md:px-5">
       <main className="container mx-auto px-6 md:px-12 py-1 md:py-10 flex-grow">
@@ -155,15 +81,7 @@ export default function SearchPage() {
               {events.map((event, idx) => (
                 <NewEventCard
                   key={idx}
-                  title={event.title}
-                  subtitle={event.subtitle}
-                  description={event.description}
-                  date={event.date}
-                  location={event.location}
-                  price={event.price}
-                  image={event.image}
-                  getTicketUrl={event.getTicketUrl}
-                  readMoreUrl={event.readMoreUrl}
+                  event={event}
                 />
               ))}
             </div>
