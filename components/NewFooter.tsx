@@ -64,6 +64,7 @@ export default function Footer(): JSX.Element | null {
   ];
 
   if (excludeFooterPaths.includes(pathname)) return null;
+  const year = new Date().getFullYear();
 
   return (
     <>
@@ -180,6 +181,8 @@ export default function Footer(): JSX.Element | null {
 
         {/* Radial gradient background */}
         <div className="absolute pointer-events-none w-[70%] sm:w-[75%] h-[26em] top-[-3em] left-0 md:right-0 md:left-auto radial-gradient-purple blur-3xl opacity-50" />
+
+        <p>&copy; {year} Your Company Name</p>
       </footer>
     </>
   );

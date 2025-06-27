@@ -68,6 +68,8 @@ export default function Footer(): JSX.Element | null {
 
   if (excludeFooterPaths.includes(pathname)) return null;
 
+  const year = new Date().getFullYear();
+
   return (
     <>
       {!hiddenPaths.includes(pathname) && (
@@ -213,6 +215,9 @@ export default function Footer(): JSX.Element | null {
                      top-[-3em] left-0 md:right-0 md:left-auto
                      radial-gradient-purple blur-3xl opacity-50"
         />
+
+        <p className="mx-auto text-center text-gray-300 mt-10 text-sm">&copy; {year} Quiktis</p>
+        <p className="mx-auto text-center text-gray-300 text-sm">All rights reserved</p>
       </footer>
     </>
   );

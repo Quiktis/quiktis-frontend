@@ -46,7 +46,7 @@ const NewHappeningSection = () => {
   const displayCountries = getDisplayCountries();
 
   return (
-    <section className="w-full bg-transparent text-white max-w-7xl mx-auto mt-20 px-4 sm:px-6 md:px-10 py-10">
+    <section className="w-full bg-transparent text-white max-w-7xl mx-auto mt-20 px-4 sm:px-6 md:px-10 py-10 mb-6">
       <div className="flex flex-col items-center mb-6 gap-6 md:flex-row md:justify-between md:items-start md:mb-2 md:gap-10">
         <h1 className="text-[24px] sm:text-[28px] md:text-[50px] font-bold whitespace-nowrap text-center md:text-left">
           HAPPENING IN

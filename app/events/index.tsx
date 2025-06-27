@@ -15,6 +15,7 @@ import ComingNext from "@/components/eventsexplore/ComingNext";
 
 import { relatedEvents as events } from "@/constant/relatedEvents";
 import { Event } from "@/constant/customTypes";
+import useAxios from "../hooks/useAxios";
 
 // // const events: Event[] = [
 // //   {
@@ -36,6 +37,8 @@ const EventsPage = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Event[]>([]);
   const [loading, setLoading] = useState(false);
+  const [events, setEvents] = useState<Event[]>([]);
+  const { sendRequest } = useAxios();
 
   // Debounced search effect
   useEffect(() => {
@@ -68,6 +71,34 @@ const EventsPage = () => {
       setLoading(false);
     }
   };
+
+   useEffect(() => {
+        const fetchAllEvents = async () => {
+          try {
+            const response = await sendRequest({
+              url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
+              method: "GET",
+            });
+    
+            //console.log("Events response:", response);
+    
+            if (response.status === "success") {
+              setEvents(response.data.events);
+              //console.log("Upcoming events - ", comingUpNext)
+            } else {
+              console.error("Failed to fetch events:", response.message);
+            }
+          } catch (error) {
+            console.error("Error fetching events:", error);
+          }
+        };
+    
+        fetchAllEvents();
+      }, []);
+  
+        useEffect(() => {
+        console.log("Updated upcoming events:", events);
+      }, [events]);
 
   return (
     <main className="min-h-screen relative overflow-hidden">
@@ -128,29 +159,21 @@ const EventsPage = () => {
 
       <NewHappeningSection />
 
-      <div className="flex flex-col gap-5 mt-10">
+      <div className="flex flex-col gap-5 mt-10 mb-10">
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {events.map((ev, idx) => (
             <NewEventCard
               key={idx}
-              title={ev.title}
-              subtitle={ev.subtitle}
-              description={ev.description}
-              date={ev.date}
-              location={ev.location}
-              price={ev.price}
-              image={ev.image}
-              getTicketUrl={ev.getTicketUrl}
-              readMoreUrl={ev.readMoreUrl}
-            />
+              event={ev}
+              />
           ))}
         </div>
       </div>
 
-      <h1 className="text-white text-4xl font-bold pb-2 pt-6 uppercase tracking-wide">
+      {/*<h1 className="text-white text-4xl font-bold pb-2 pt-6 uppercase tracking-wide">
         COMING NEXT
       </h1>
-      <ComingNext />
+      <ComingNext />*/}
     </main>
   );
 };
