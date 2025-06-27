@@ -35,7 +35,7 @@ const socials = [
 
 
 
-export const EventViewingSquareComponent = () => {
+export default function EventViewingPage() {
   const [email, setEmail] = useState("");
   const icons = Array(5).fill(<FaStar className="text-yellow-500" />);
   const [rating, setRating] = useState(0);
