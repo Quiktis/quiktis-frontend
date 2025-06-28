@@ -146,7 +146,7 @@ export default function EventViewingPage() {
 
           <div className="grid h-full w-full md:w-fit mt-4 md:mt-0 md:ml-auto">
             <Link href={`/checkout/${eventId}`}>
-              <span className="text-[#FF4D2A] text-[1em] sm:text-[1.2em] md:text-[1.3em] font-semibold flex items-center justify-center gap-2 cursor-pointer hover:no-underline">
+              <span className="text-[#FF4D2A] max-sm:hidden text-[1em] sm:text-[1.2em] md:text-[1.3em] font-semibold flex items-center justify-center gap-2 cursor-pointer hover:no-underline">
                 Get Ticket {event?.tickets?.[0]?.price ?? ""}{" "}
                 <IoTicketSharp size={20} />
               </span>
@@ -155,12 +155,13 @@ export default function EventViewingPage() {
         </div>
       </section>
 
-      <section className="relative">
+      <section className="relative ">
         <div className="absolute w-[73%] h-[65em] top-[-12em] radial-gradient blur-3xl opacity-50"></div>
 
         <div className="relative flex flex-col gap-3 lg:grid grid-cols-[65%_32%] h-[max-content] w-full lg:gap-11">
           <div
             className={`
+              max-sm:mb-[1.5em]
               relative z-10
               h-fit w-fit
               max-md:px-4 md:px-9 lg:px-16
@@ -177,6 +178,7 @@ export default function EventViewingPage() {
                 top-1/2 left-1/2
                 transform -translate-x-1/2 -translate-y-1/2
                 pointer-events-none
+                
               "
             />
             <div

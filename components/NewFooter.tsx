@@ -180,9 +180,8 @@ export default function Footer(): JSX.Element | null {
         </div>
 
         {/* Radial gradient background */}
-        <div className="absolute pointer-events-none w-[70%] sm:w-[75%] h-[26em] top-[-3em] left-0 md:right-0 md:left-auto radial-gradient-purple blur-3xl opacity-50" />
-
-        <p>&copy; {year} Your Company Name</p>
+        <p className="mx-auto text-center text-gray-300 mt-10 text-sm">&copy; {year} Quiktis</p>
+        <p className="mx-auto text-center text-gray-300 text-sm">All rights reserved</p>
       </footer>
     </>
   );
