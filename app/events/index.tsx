@@ -3,35 +3,12 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { IoTicketSharp } from "react-icons/io5";
-import { FaLongArrowAltRight } from "react-icons/fa";
-
 import NewHappeningSection from "@/components/eventsexplore/NewHappeningSection";
 import NewEventCard from "@/components/search/NewEventCard";
-import Button from "@/components/ui/Button";
 import SearchBar from "@/components/ui/SearchBar";
-import GlowStyles from "@/components/eventsexplore/GlowWrapper.module.css";
-import ComingNext from "@/components/eventsexplore/ComingNext";
-
-import { relatedEvents as events } from "@/constant/relatedEvents";
 import { Event } from "@/constant/customTypes";
 import useAxios from "../hooks/useAxios";
 
-// // const events: Event[] = [
-// //   {
-// //     title: "Africa's fashion industry is growing to meet global demand.",
-// //     subtitle: "Africa Talks",
-// //     description:
-// //       "Lorem ipsum dolor sit amet consectetur. Massa tempor sed purus nisi facilisis tortor pretium nisi...",
-// //     date: "May 23, 2024",
-// //     location: "South Kenyatta",
-// //     price: "$20",
-// //     image: "africa.png",
-// //     getTicketUrl: "/checkout",
-// //     readMoreUrl: "/event-viewing",
-// //   },
-// //   /* …other hardcoded items… */
-// // ];
 
 const EventsPage = () => {
   const [query, setQuery] = useState("");
