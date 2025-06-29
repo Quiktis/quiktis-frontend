@@ -43,10 +43,19 @@ export default function UpcomingEvents() {
     <section className="py-[3.5em]">
         <h1 className="text-3xl font-bold mb-6">Upcoming Events</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {events.map((event, index) => (
+          {events.length > 0 && events.map((event, index) => (
             <NewEventCard
               key={index}
+              image={event.bannerImage ?? ""}
+              title={event.title} 
               event={event}
+              description={event.description ?? ""}
+              price={event.tickets?.[0]?.price ?? ""}
+              eventId={event.id ?? ""}
+              startDate={event.startDate ?? ""}
+              startTime={event.startTime ?? ""}
+              eventSlug={event.slug ?? ""}
+              location={event.location ?? ""}
             />
           ))}
         </div>
