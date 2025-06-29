@@ -13,6 +13,9 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@react-oauth/google": "^0.12.1",
+    "@tanstack/react-query": "^5.81.5",
+    "@vercel/analytics": "^1.5.0",
+    "@web3modal/wagmi": "^5.1.11",
     "axios": "^1.8.3",
     "chart.js": "^4.4.9",
     "downloadjs": "^1.4.7",
@@ -26,7 +29,9 @@
     "react-easy-crop": "^5.4.1",
     "react-icons": "^5.4.0",
     "react-infinite-logo-slider": "^1.1.4",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "viem": "^2.31.4",
+    "wagmi": "^2.15.6"
   },
   "devDependencies": {
     "@types/node": "^20",
