@@ -21,6 +21,7 @@ const NewEventCard: React.FC<NewEventCardProps> = ({
     <div className="w-full md:max-w-[300px] h-auto flex flex-col gap-[15px]">
       <div className="relative">
         <Image
+          key={event?.id ?? ""}
           src={`${event?.bannerImage?? ""}`}
           alt={event?.title?? ""}
           width={300}

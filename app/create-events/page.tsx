@@ -151,11 +151,39 @@ function CreateEventPage() {
       if (response.status !== "success") { 
         console.log(response, "- Event creation failed response")
         return alert("Failed to create event. Please try again.");}
-      const imageUrl = response.data.files[0].cloudinaryUrl
+      //const imageUrl = response.data.files[0].cloudinaryUrl
+
+
+      // after uploading the image
+const imageUrl = response.data.files[0].cloudinaryUrl;
+
+// update state for future use (fine)
+setEventData((prev) => ({
+  ...prev,
+  bannerImage: imageUrl,
+}));
+
+// but ALSO use a local object *immediately*:
+const eventPayload = {
+  ...eventData,
+  bannerImage: imageUrl,
+};
+
+console.log("event payload that is being sent:", eventPayload);
+
+const createEventResponse = await sendRequest({
+  url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
+  method: "POST",
+  headers: { 
+    "Content-Type": "application/json", 
+    "Authorization": `Bearer ${user?.token}`
+  },
+  body: eventPayload, // use the variable
+});
       ; // Adjust this based on the actual response structure
 
       // Update the eventData state with the returned URL
-      setEventData((prev) => ({
+      /*setEventData((prev) => ({
         ...prev,
         bannerImage: imageUrl,
       }));
@@ -176,11 +204,13 @@ function CreateEventPage() {
         body: eventData,
       });
 
-      console.log(createEventResponse, "response data")
+      */console.log(createEventResponse, "response data")
 
       if (createEventResponse.status === "success") router.push("/my-events");
 
-      if (createEventResponse.status !== "success") alert("Failed to create event. Please try again.");
+      if (createEventResponse.status !== "success") { 
+        console.log(createEventResponse, "- Event creation failed response")
+        alert("Failed to create event. Please try again.");}
 
       return;
 

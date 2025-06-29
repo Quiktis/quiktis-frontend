@@ -66,7 +66,7 @@ export default function NewLandingPage() {
 
       <ExploreEventSection containerClass="px-[3em] max-md:px-[0em]"/>
 
-      <ComingUpNext events={[...comingUpNext.slice(1), comingUpNext[0]].slice(0, 4)} containerClass="mt-[6em] w-full mx-auto px-[8em] max-md:px-5" />
+      <ComingUpNext events={[...comingUpNext.slice(1), comingUpNext[0]].slice(0, 8)} containerClass="mt-[6em] w-full mx-auto px-[8em] max-md:px-5" />
 
       <TakeYourEventManagementSection />
       
