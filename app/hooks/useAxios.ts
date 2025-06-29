@@ -7,7 +7,7 @@ interface RequestParams {
   body?: any;
   headers?: Record<string, string>;
   retryCount?: number;
-  withCredentials?: boolean; // NEW: for handling credentials
+  withCredentials?: boolean;
 }
 
 const customErrors = [
@@ -49,11 +49,11 @@ const useAxios = () => {
     body = null,
     headers = {},
     retryCount = 0,
-    withCredentials = false, // default to false
+    withCredentials = false,
   }: RequestParams): Promise<any> => {
     if (retryCount > 3) {
       console.error("Max retry attempts reached. Request failed.");
-      setError("Authentication error, please log in again.");
+      setError("Request failed after retries. Please try again later.");
       return null;
     }
 
@@ -62,18 +62,17 @@ const useAxios = () => {
 
     try {
       const config: AxiosRequestConfig = {
-  url,
-  method,
-  ...(body ? { data: body } : {}),
-  headers: {
-  ...(body && typeof body === "object" && !(body instanceof FormData)
-    ? { "Content-Type": "application/json" }
-    : {}),
-  ...headers,
-},
-  withCredentials,
-};
-
+        url,
+        method,
+        data: body, // always put body in data
+        headers: {
+          ...(body && typeof body === "object" && !(body instanceof FormData)
+            ? { "Content-Type": "application/json" }
+            : {}),
+          ...headers,
+        },
+        withCredentials,
+      };
 
       const response: AxiosResponse = await axios(config);
       setData(response.data);
@@ -88,6 +87,19 @@ const useAxios = () => {
 
       console.error("Error sending request:", rawError);
       setError(friendlyMessage);
+
+      // retry automatically if you want:
+      if (retryCount < 3) {
+        console.log(`Retrying request (${retryCount + 1})...`);
+        return sendRequest({
+          url,
+          method,
+          body,
+          headers,
+          retryCount: retryCount + 1,
+          withCredentials,
+        });
+      }
 
       return {
         status: "error",

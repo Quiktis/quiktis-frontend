@@ -90,7 +90,7 @@ export default function CheckoutPage() {
 
     try {
       const orderResponse = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/initiate`,
+        url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/orders/initiate`,
         method: "POST",
         headers: { 
           "Content-Type": "application/json", 
@@ -111,7 +111,7 @@ export default function CheckoutPage() {
       console.log(quantity, " - quantity")
 
       const itemResponse = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/order-items`,
+        url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/order-items`,
         method: "POST",
         headers: { 
           "Content-Type": "application/json", 
@@ -130,7 +130,7 @@ export default function CheckoutPage() {
       }
 
       const completeResponse = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/complete`,
+        url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/orders/complete`,
         method: "POST",
         headers: { 
           "Content-Type": "application/json", 
@@ -145,7 +145,7 @@ export default function CheckoutPage() {
       }
 
       const paymentResponse = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment/initialize`,
+        url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/payment/initialize`,
         method: "POST",
         headers: { 
           "Content-Type": "application/json", 

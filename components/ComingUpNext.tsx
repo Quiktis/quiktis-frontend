@@ -5,7 +5,7 @@ import { FiArrowRight } from "react-icons/fi";
 import { Event } from "@/constant/customTypes";
 import { formatToHumanReadableTime } from "@/app/utils/utilities";
 import { formatToHumanReadableDate } from "@/app/utils/utilities";
-
+//import DynamicImagefrom "./DynamicImage";
 interface ComingUpNextProps {
   containerClass?: string;
   events: Event[];
@@ -39,7 +39,7 @@ const ComingUpNext: React.FC<ComingUpNextProps> = ({ containerClass, events }) =
               >
                 {/* Left */}
                 <div className="flex gap-3 w-fit">
-                  <div className="relative w-[7.5em] h-[7.5em] rounded-[5px] overflow-hidden flex-shrink-0">
+                  <div className="relative max-w-[7.5em] max-h-[7.5em] rounded-[5px] overflow-hidden flex-shrink-0">
                     {event?.bannerImage && (
                       <Image
                         src={event.bannerImage}
