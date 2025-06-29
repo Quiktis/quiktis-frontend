@@ -78,10 +78,19 @@ export default function SearchPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {events.map((event, idx) => (
+              {events.map((event, index) => (
                 <NewEventCard
-                  key={idx}
-                  event={event}
+                  key={index}
+              image={event.bannerImage ?? ""}
+              title={event.title} 
+              event={event}
+              description={event.description ?? ""}
+              price={event.tickets?.[0]?.price ?? ""}
+              eventId={event.id ?? ""}
+              startDate={event.startDate ?? ""}
+              startTime={event.startTime ?? ""}
+              eventSlug={event.slug ?? ""}
+              location={event.location ?? ""}
                 />
               ))}
             </div>
