@@ -138,10 +138,19 @@ const EventsPage = () => {
 
       <div className="flex flex-col gap-5 mt-10 mb-10">
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {events.map((ev, idx) => (
+          {events.map((event, index) => (
             <NewEventCard
-              key={idx}
-              event={ev}
+              key={index}
+              image={event.bannerImage ?? ""}
+              title={event.title} 
+              event={event}
+              description={event.description ?? ""}
+              price={event.tickets?.[0]?.price ?? ""}
+              eventId={event.id ?? ""}
+              startDate={event.startDate ?? ""}
+              startTime={event.startTime ?? ""}
+              eventSlug={event.slug ?? ""}
+              location={event.location ?? ""}
               />
           ))}
         </div>
