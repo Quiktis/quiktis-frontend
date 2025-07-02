@@ -112,9 +112,9 @@ export default function Footer(): JSX.Element | null {
                 <Link href="/nfts" className="hover:text-[#FF4D2A]">
                   Genres
                 </Link>
-                {/*<Link href="/blog" className="hover:text-[#FF4D2A]">
+                <Link href="/blog" className="hover:text-[#FF4D2A]">
                   Blog
-                </Link>*/}
+                </Link>
               </div>
             </div>
           </div>

@@ -77,14 +77,14 @@ export default function BlogFooter(): JSX.Element {
             : "max-sm:px-6 max-md:px-8 px-12 py-8"
         }`}>
         {/* three columns */}
-        <div className="flex flex-wrap md:flex-nowrap md:justify-between gap-4 md:gap-8 w-full">
+        <div className="grid place-items-center md:flex flex-wrap max-md:flex-wrap md:flex-nowrap  gap-4 w-full">
           {/* Column 1 */}
           <div className="w-full sm:w-1/2 md:w-1/5 flex justify-center md:justify-start">
             <Logo />
           </div>
 
           {/* Column 2 */}
-          <div className="w-full sm:w-1/2 md:w-2/5 flex flex-col">
+          <div className="w-full sm:w-1/2 max-ms:w-full md:w-2/5 flex flex-col">
             <div className="flex flex-wrap gap-4 md:gap-12 justify-center md:justify-start">
               <div className="flex flex-col space-y-2 text-center md:text-left">
                 <Link href="/" className="hover:text-[#FF4D2A]">

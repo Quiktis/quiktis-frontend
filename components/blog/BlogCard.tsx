@@ -8,15 +8,17 @@ export interface BlogPost {
   excerpt: string;
   image: string;
   date: string;
+  blogLink?: string;
 }
 
 interface BlogCardProps {
   post: BlogPost;
+  blogLink?: string;
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({ post }) => (
+const BlogCard: React.FC<BlogCardProps> = ({ post, blogLink="/blogview" }) => (
   <Link
-    href="/blogview"
+    href={blogLink}
     className={`
       group block
       h-80

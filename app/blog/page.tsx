@@ -19,14 +19,15 @@ export default function BlogPage() {
   const heroSubtitle =
     "Discover expert advice, platform updates, and behind-the-scenes stories to help you plan, promote, and sell out your next event.";
 
-  const blogPosts: BlogPost[] = Array.from({ length: 9 }, (_, i) => ({
-    id: i + 1,
-    title: "Integer Maecenas Eget Viverra",
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: `/blog/blogimage${i + 1}.jpg`,
-    date: "7 days ago",
-  }));
+  const blogPosts: BlogPost[] = [{
+    id: 1,
+    title: "Quiktis Launch Story",
+    excerpt: `We’re Live!
+Today marks a major milestone for Quiktis as we officially launch the first version of our platform. Fans can now buy and sell tickets seamlessly for their favourite events, with an experience as easy as any traditional platform.`,
+    image: `/quiktis-live.jpg`,
+    date: "4 days ago",
+    blogLink: "/blog/launch-story"
+}]
 
   const featuredPost: FeaturedPost = {
     title: "Integer Maecenas Eget Viverra",
@@ -55,22 +56,7 @@ export default function BlogPage() {
       excerpt:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.",
     },
-    {
-      id: 3,
-      title: "Integer Maecenas Eget Viverra",
-      image: "/blog/blog-woman1.jpg",
-      date: "13 March 2023",
-      excerpt:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.",
-    },
-    {
-      id: 4,
-      title: "Integer Maecenas Eget Viverra",
-      image: "/blog/blog-woman2.jpg",
-      date: "13 March 2023",
-      excerpt:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.",
-    },
+    
   ];
 
   return (
@@ -112,39 +98,41 @@ export default function BlogPage() {
       <div className="mt-4 md:-mt-8 px-20 max-md:px-5">
         <SectionHeader
           title="Our Blog"
-          subtitle="At EmailGigga, we take immense pride in providing a cutting-edge email marketing solution that empowers businesses to achieve unparalleled success. But don't just take our word for it - listen to what our valued users have to say about their experience with EmailGigga!"
+          subtitle={`At Quiktis, we’re building the future of event ticketing — combining the accessibility of traditional platforms with the power of emerging technologies like blockchain. Our mission is to make event access simpler, safer, and fairer for everyone.
+`}
         />
-        <BlogGrid posts={blogPosts} columns={3} />
+        <BlogGrid posts={blogPosts} columns={3}/>
       </div>
 
-      <div className="mt-8 md:mt-16 px-20 max-md:px-5">
+      {/*<div className="mt-8 md:mt-16 px-20 max-md:px-5">
         <FeaturedPosts featured={featuredPost} recent={recentPosts} />
-      </div>
+      </div>*/}
 
-      <div className="mt-8 md:mt-16 px-20 max-md:px-5">
+      {/*<div className="mt-8 md:mt-16 px-20 max-md:px-5">
         <BlogGrid posts={blogPosts} columns={3} />
-      </div>
+      </div>*/}
 
       <div className="mt-8 md:mt-16 px-20 max-md:px-5">
         <CTABanner
-          primaryAction={{ text: "Browse Cases", href: "/404" }}
-          secondaryAction={{ text: "Create Lead", href: "/404" }}
+          primaryAction={{ text: "Browse Cases", href: "#" }}
+          secondaryAction={{ text: "Create Lead", href: "#" }}
         />
       </div>
 
-      <div className="mt-8 md:mt-16 px-20 max-md:px-5">
+      <div className="mt-8 md:mt-16 px-20 max-md:px-5 mb-[3em]">
         <FeatureBlock
-          imageSrc="/blog/blog-typing.jpg"
-          dateLabel="1 Month Ago"
-          heading="Tick one more destination off of your bucket list with one of our most popular vacations in 2022"
-          copy="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porta ex at sapien a consequat. Fusce felis consequat, ultricies nec, molestie nulla. Morbi sed erat vitae magna consequat."
-          readMoreHref="/blogview"
+          imageSrc="/quiktis-live.jpg"
+          dateLabel="4 days ago"
+          heading="Quiktis Launch Story"
+          copy={`We’re Live!
+Today marks a major milestone for Quiktis as we officially launch the first version of our platform. Fans can now buy and sell tickets seamlessly for their favourite events, with an experience as easy as any traditional platform.`}
+          readMoreHref="/blog/launch-story"
         />
       </div>
 
-      <div className="mt-8 md:mt-16 px-20 max-md:px-5">
+      {/*<div className="mt-8 md:mt-16 px-20 max-md:px-5">
         <BlogGridSmall posts={blogPosts} />
-      </div>
+      </div>*/}
     </>
   );
 }

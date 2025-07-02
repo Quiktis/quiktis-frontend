@@ -17,7 +17,7 @@ export default function UnlockSection() {
         <div className="w-full grid place-items-center">
           <Link
             href="/register"
-            className="md:mr-0 md:ml-auto bg-primary w-full md:w-fit py-3 px-4 h-fit text-black rounded-xl">
+            className="font-medium max-sm:text-center md:mr-0 md:ml-auto bg-primary w-full md:w-fit py-3 px-4 h-fit text-black rounded-xl">
             Sign Up
           </Link>
         </div>

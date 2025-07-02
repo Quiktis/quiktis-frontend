@@ -282,6 +282,7 @@ body {
   .background-div {
     top: 115vw !important;
   }
+
 }
 
 @media (min-width: 400px) and (max-width: 380px) {

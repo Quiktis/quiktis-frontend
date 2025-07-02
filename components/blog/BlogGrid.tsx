@@ -17,7 +17,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({ posts, columns = 3 }) => {
   return (
     <div className={`grid gap-6 grid-cols-1 ${colsClass}`}>
       {posts.map((post) => (
-        <BlogCard key={post.id} post={post} />
+        <BlogCard key={post.id} post={post} blogLink={post.blogLink}/>
       ))}
     </div>
   );

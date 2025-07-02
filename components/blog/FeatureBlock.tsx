@@ -36,7 +36,7 @@ export default function FeatureBlock({
           />
         </div>
         <div className="w-full md:w-[45%] flex flex-col justify-center px-4">
-          <span className="text-xs uppercase text-gray-400 mb-1">
+          <span className="text-xs uppercase text-gray-400 mb-1 max-sm:mt-[2em]">
             {dateLabel}
           </span>
           <h2 className="text-base md:text-lg font-medium text-white leading-snug mb-2">
