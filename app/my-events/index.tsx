@@ -32,6 +32,7 @@ const MyEvents = () => {
 
         if (response.status === "success") {
           setEvents(response.data.events);
+          console.log(response.data.events);
         } else {
           console.error("Failed to fetch events:", response.message);
         }
@@ -97,6 +98,7 @@ const MyEvents = () => {
               price={event.tickets?.[0]?.price ?? 0}
               image={event.bannerImage}
               time={event.startTime}
+              eventId={event.id}
               //getTicketUrl={event.getTicketUrl}
             />
           ))}
