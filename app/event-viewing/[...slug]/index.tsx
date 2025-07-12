@@ -33,7 +33,7 @@ const tags = [
 ];
 
 // Helper function to render text with line breaks
-const renderTextWithLineBreaks = (text) => {
+const renderTextWithLineBreaks = (text: string | null | undefined): React.ReactNode => {
   if (!text) return "";
   
   return text.split('\n').map((line, index) => (
