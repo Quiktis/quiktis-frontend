@@ -23,14 +23,7 @@ import {
   formatToHumanReadableTime,
 } from "@/app/utils/utilities";
 
-const tags = [
-  { tag: "Syracuse Events" },
-  { tag: "Syracuse Events" },
-  { tag: "Things To Do in Syracuse" },
-  { tag: "#tech" },
-  { tag: "#trending" },
-  { tag: "#thingsToDo" },
-];
+// Remove the hardcoded tags array since we'll use dynamic tags from the event data
 
 // Helper function to render text with line breaks
 const renderTextWithLineBreaks = (text: string | null | undefined): React.ReactNode => {
@@ -251,19 +244,23 @@ export default function EventViewingPage() {
               <div>
                 <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">TAGS</h2>
                 <div className="flex flex-wrap gap-1 text-sm">
-                  {tags.map((item, idx) => (
-                    <Link
-                      key={idx}
-                      href="#"
-                      className="
-                        px-2 py-1
-                        bg-white/10 backdrop-blur-sm
-                        rounded-xl mb-1
-                        hover:bg-white/20 transition
-                      ">
-                      <span className="text-body-txt">{item.tag}</span>
-                    </Link>
-                  ))}
+                  {event?.tags && event.tags.length > 0 ? (
+                    event.tags.map((tag, idx) => (
+                      <Link
+                        key={idx}
+                        href="#"
+                        className="
+                          px-2 py-1
+                          bg-white/10 backdrop-blur-sm
+                          rounded-xl mb-1
+                          hover:bg-white/20 transition
+                        ">
+                        <span className="text-body-txt">{tag}</span>
+                      </Link>
+                    ))
+                  ) : (
+                    <span className="text-white/60 text-sm">No tags added</span>
+                  )}
                 </div>
               </div>
               <div className="space-y-4">
