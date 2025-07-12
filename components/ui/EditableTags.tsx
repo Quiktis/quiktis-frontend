@@ -70,7 +70,7 @@ const EditableTags: React.FC<EditableTagsProps> = ({
             className="opacity-0 group-hover:opacity-100 transition-opacity ml-1 hover:text-red-400"
             aria-label={`Remove ${tag} tag`}
           >
-            <X size={14} />
+           <IoClose size={14} />
           </button>
         </div>
       ))}
@@ -93,7 +93,7 @@ const EditableTags: React.FC<EditableTagsProps> = ({
             onClick={() => setIsInputVisible(true)}
             className="flex items-center gap-1 px-3 py-1 bg-white/10 backdrop-blur-sm rounded-xl text-sm text-white/60 hover:text-white hover:bg-white/20 transition-colors border border-dashed border-white/30"
           >
-            <Plus size={14} />
+            <IoAdd size={14} />
             Add tag
           </button>
         )
