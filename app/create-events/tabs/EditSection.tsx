@@ -80,6 +80,13 @@ const EditSection: React.FC<EditSectionProps> = ({
             handleEventDataChange(e.target.name, e.target.value)
           };
 
+          // Special handler for textarea to ensure newlines are preserved
+          const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            // Preserve the raw value including newlines
+            const value = e.target.value;
+            handleEventDataChange(e.target.name, value);
+          };
+
           const formatDate = (date: Date) =>
             `${String(date.getDate()).padStart(2, "0")}/${String(
               date.getMonth() + 1
@@ -217,13 +224,15 @@ const EditSection: React.FC<EditSectionProps> = ({
               <textarea
                 name="description"
                 value={eventData.description}
-                onChange={handleInputChange}
-                placeholder="Describe your event"
+                onChange={handleTextareaChange}
+                placeholder="Describe your event&#10;&#10;You can use multiple lines&#10;to format your description"
                 rows={6}
-                className="p-3 bg-inherit border border-[#ffffff4f] rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none resize-none"
-                //value={eventData.description}
-                //onChange={handleInputChange}
-                //required
+                wrap="soft"
+                className="p-3 bg-inherit border border-[#ffffff4f] rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none resize-none whitespace-pre-wrap"
+                style={{ 
+                  lineHeight: '1.5',
+                  whiteSpace: 'pre-wrap'
+                }}
               />
             </div>
           </div>
