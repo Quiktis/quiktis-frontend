@@ -32,6 +32,18 @@ const tags = [
   { tag: "#thingsToDo" },
 ];
 
+// Helper function to render text with line breaks
+const renderTextWithLineBreaks = (text) => {
+  if (!text) return "";
+  
+  return text.split('\n').map((line, index) => (
+    <React.Fragment key={index}>
+      {line}
+      {index < text.split('\n').length - 1 && <br />}
+    </React.Fragment>
+  ));
+};
+
 export default function EventViewingPage() {
   const [email, setEmail] = useState("");
   const icons = Array(5).fill(<FaStar className="text-yellow-500" />);
@@ -201,8 +213,8 @@ export default function EventViewingPage() {
                 <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">
                   DESCRIPTION
                 </h2>
-                <p className="text-white text-sm leading-relaxed">
-                  {event?.description || ""}
+                <p className="text-white text-sm leading-relaxed whitespace-pre-wrap">
+                  {renderTextWithLineBreaks(event?.description || "")}
                 </p>
               </div>
 
