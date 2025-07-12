@@ -5,6 +5,7 @@ import Dropdown from "@/components/ui/DropDown";
 import Button from "@/components/ui/Button";
 import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import CustomTimePicker from "@/components/ui/CustomTimePicker";
+import EditableTags from "@/components/ui/EditableTags"; // Add this import
 import { useRouter } from 'next/navigation';
 import { EventData, TimeData } from '@/constant/customTypes';
 //import { generateId } from '@/app/utils/utilities';
@@ -85,6 +86,11 @@ const EditSection: React.FC<EditSectionProps> = ({
             // Preserve the raw value including newlines
             const value = e.target.value;
             handleEventDataChange(e.target.name, value);
+          };
+
+          // Handler for tags changes
+          const handleTagsChange = (newTags: string[]) => {
+            handleEventDataChange("tags", newTags);
           };
 
           const formatDate = (date: Date) =>
@@ -234,6 +240,21 @@ const EditSection: React.FC<EditSectionProps> = ({
                   whiteSpace: 'pre-wrap'
                 }}
               />
+            </div>
+
+            <div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
+              <label className="my-auto mr-0 md:ml-auto md:text-right mt-0 mb-auto">
+                Tags
+              </label>
+              <div className="p-3 bg-inherit border border-[#ffffff4f] rounded-md min-h-[50px] flex items-start">
+                <EditableTags
+                  tags={eventData.tags || []}
+                  onTagsChange={handleTagsChange}
+                  placeholder="Add event tags..."
+                  maxTags={8}
+                  className="w-full"
+                />
+              </div>
             </div>
           </div>
           
