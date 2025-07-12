@@ -1,5 +1,5 @@
 import React, { useState, KeyboardEvent } from 'react';
-import { X, Plus } from 'lucide-react';
+import { IoClose, IoAdd } from 'react-icons/io5';
 
 interface EditableTagsProps {
   tags: string[];
