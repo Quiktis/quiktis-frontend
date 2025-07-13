@@ -89,6 +89,7 @@ export default function CheckoutPage() {
     setLoading(true);
 
     try {
+      console.log("initiating order...")
       const orderResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/orders/initiate`,
         method: "POST",
@@ -110,6 +111,7 @@ export default function CheckoutPage() {
       console.log(selectedTicket?.id, " - ticketId")
       console.log(quantity, " - quantity")
 
+      console.log("sending order items...")
       const itemResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/order-items`,
         method: "POST",
@@ -129,6 +131,7 @@ export default function CheckoutPage() {
         return;
       }
 
+      console.log("completeing order...")
       const completeResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/orders/complete`,
         method: "POST",
@@ -144,6 +147,7 @@ export default function CheckoutPage() {
         return;
       }
 
+      console.log("initializing payment...")
       const paymentResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/payment/initialize`,
         method: "POST",
@@ -207,7 +211,7 @@ export default function CheckoutPage() {
           </div>
 
           <div className="mt-8 flex justify-end">
-            {user.token ? 
+          
             <Button
               type="button"
               onClick={handleOrderInitiation}
@@ -216,14 +220,8 @@ export default function CheckoutPage() {
               className="px-8 py-4 bg-[#FF4D2A] text-white rounded-lg hover:bg-[#e6391a] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]"
             >
              Pay NGN {total} 
-            </Button> : 
-            <Link
-              href={"/register"}
-              className="px-8 py-4 bg-[#FF4D2A] text-white rounded-lg hover:bg-[#e6391a] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]"
-            >
-             Login to Pay 
-            </Link>
-            } 
+            </Button> 
+            
             
           </div>
         </div>
