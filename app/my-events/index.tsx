@@ -18,6 +18,7 @@ const MyEvents = () => {
   const { user } = useUser();
 
   useEffect(() => {
+    
     const fetchEvents = async () => {
       try {
         const response = await sendRequest({
@@ -95,7 +96,11 @@ const MyEvents = () => {
               description={event.description}
               date={new Date(event.startDate)}
               location={event.location}
-              price={event.tickets?.[0]?.price ?? 0}
+              price={
+  event.tickets && event.tickets.length > 0
+    ? Math.min(...event.tickets.map((ticket) => ticket.price))
+    : 0
+}
               image={event.bannerImage}
               time={event.startTime}
               eventId={event.id}

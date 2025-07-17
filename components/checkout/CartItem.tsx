@@ -36,11 +36,11 @@ const CartItem: React.FC<CartItemProps> = ({
           className="rounded-md object-cover"
         />
         <div className="flex-1">
-          <h3 className="font-semibold text-[#FF4D2A] text-lg whitespace-nowrap">
+          <h3 className="font-semibold break-words max-sm:max-w-[80%] text-[#FF4D2A] text-lg ">
             {event?.title?? ""}
           </h3>
           {/*<p className="text-gray-300 text-base leading-tight">{category}</p>*/}
-          <p className="text-gray-300 text-base leading-tight">{event?.location?? ""}</p>
+          <p className="text-gray-300 text-base leading-tight ">{event?.location?? ""}</p>
         </div>
       </div>
 

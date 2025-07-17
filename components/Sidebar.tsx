@@ -38,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
   return (
     <>
       {isOpen && (
-        <aside className="md:hidden fixed px-2 py-6 bg-[#1b1b1b] rounded-xl grid w-[15em] right-4 z-50 top-5 shadow">
+        <aside className="md:hidden fixed px-2 py-6 bg-[#1b1b1b] rounded-xl grid w-[15em] right-4 z-[2000] top-5 shadow">
           <ul className="grid w-[90%] gap-2 place-items-center mx-auto">
             <li className="w-full grid">
               <button

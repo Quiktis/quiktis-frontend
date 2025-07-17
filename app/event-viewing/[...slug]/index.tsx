@@ -152,7 +152,9 @@ export default function EventViewingPage() {
           <div className="grid h-full w-full md:w-fit mt-4 md:mt-0 md:ml-auto">
             <Link href={`/checkout/${eventId}`}>
               <span className="text-[#FF4D2A] max-sm:hidden text-[1em] sm:text-[1.2em] md:text-[1.3em] font-semibold flex items-center justify-center gap-2 cursor-pointer hover:no-underline">
-                Get Ticket {event?.tickets?.[0]?.price ?? ""}{" "}
+                Get Ticket {event?.tickets && event.tickets.length > 0
+    ? Math.min(...event.tickets.map((ticket) => ticket.price))
+    : 0}{" "}
                 <IoTicketSharp size={20} />
               </span>
             </Link>

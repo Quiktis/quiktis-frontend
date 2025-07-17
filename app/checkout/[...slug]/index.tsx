@@ -21,7 +21,7 @@ export default function CheckoutPage() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const eventId = useMemo(() => pathname?.split("/checkout/")[1] ?? "", [pathname]);
+  const slug = useMemo(() => pathname?.split("/checkout/")[1] ?? "", [pathname]);
 
   const selectedTicket = useMemo(() => {
     return event?.tickets?.find((t) => t.id === selectedTicketId);
@@ -51,7 +51,7 @@ export default function CheckoutPage() {
     const fetchEvent = async () => {
       try {
         const response = await sendRequest({
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${eventId}`,
+          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${slug}`,
           method: "GET",
           headers: authHeader,
         });
@@ -59,9 +59,13 @@ export default function CheckoutPage() {
         if (response.status === "success") {
           const eventData = response.data.event;
           setEvent(eventData);
-          if (eventData.tickets?.length > 0) {
-            setSelectedTicketId(eventData.tickets[0].id);
-          }
+          if (Array.isArray(eventData.tickets) && eventData.tickets.length > 0) {
+  const cheapestTicket = eventData.tickets.reduce((minTicket: Event["tickets"][number], currentTicket: Event["tickets"][number]) =>
+    currentTicket.price < minTicket.price ? currentTicket : minTicket
+  );
+  setSelectedTicketId(cheapestTicket.id);
+}
+
         } else {
           console.error("Failed to fetch event:", response.message);
         }
@@ -70,34 +74,41 @@ export default function CheckoutPage() {
       }
     };
 
-    fetchEvent();
-  }, [eventId]);
+    if (slug) fetchEvent();
+  }, [slug]);
 
   useEffect(() => {
+    if (!event) return;
+
     setCheckoutDetails((prev) => ({
       ...prev,
-      eventId,
+      eventId: event.id,
       ticketType: selectedTicketId,
       quantity,
       totalPrice: total,
     }));
-  }, [eventId, selectedTicketId, quantity, total]);
+  }, [event, selectedTicketId, quantity, total]);
 
   const handleOrderInitiation = async () => {
-
     if (loading) return;
+
+    if (!user?.token || !event?.id || !selectedTicket?.id) {
+      console.error("Missing required data to proceed with order.");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      console.log("initiating order...")
+      console.log("initiating order...");
       const orderResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/orders/initiate`,
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json", 
-          "Authorization": `Bearer ${user?.token}`
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
         },
-        body: { eventId: eventId },
+        body: { eventId: event.id },
       });
 
       if (orderResponse?.status !== "success") {
@@ -105,24 +116,23 @@ export default function CheckoutPage() {
         return;
       }
 
-      console.log(orderResponse)
       const orderId = orderResponse.data.order.id;
-      console.log(orderId, " - Order ID")
-      console.log(selectedTicket?.id, " - ticketId")
-      console.log(quantity, " - quantity")
+      console.log(orderId, " - Order ID");
+      console.log(selectedTicket.id, " - ticketId");
+      console.log(quantity, " - quantity");
 
-      console.log("sending order items...")
+      console.log("sending order items...");
       const itemResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/order-items`,
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json", 
-          "Authorization": `Bearer ${user?.token}`
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
         },
         body: {
-          orderId: orderId,
-          ticketId: selectedTicket?.id,
-          quantity: quantity
+          orderId,
+          ticketId: selectedTicket.id,
+          quantity,
         },
       });
 
@@ -131,13 +141,13 @@ export default function CheckoutPage() {
         return;
       }
 
-      console.log("completeing order...")
+      console.log("completing order...");
       const completeResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/orders/complete`,
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json", 
-          "Authorization": `Bearer ${user?.token}`
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
         },
         body: { orderId },
       });
@@ -147,13 +157,13 @@ export default function CheckoutPage() {
         return;
       }
 
-      console.log("initializing payment...")
+      console.log("initializing payment...");
       const paymentResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/payment/initialize`,
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json", 
-          "Authorization": `Bearer ${user?.token}`
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
         },
         body: { orderId },
       });
@@ -166,9 +176,9 @@ export default function CheckoutPage() {
       }
     } catch (error) {
       console.log("Error processing order:", error);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading
   };
 
   return (
@@ -211,18 +221,15 @@ export default function CheckoutPage() {
           </div>
 
           <div className="mt-8 flex justify-end">
-          
             <Button
               type="button"
               onClick={handleOrderInitiation}
               loading={loading}
-              loaderClass='mt-[0.08em] ml-[-0.005em]'
+              loaderClass="mt-[0.08em] ml-[-0.005em]"
               className="px-8 py-4 bg-[#FF4D2A] text-white rounded-lg hover:bg-[#e6391a] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]"
             >
-             Pay NGN {total} 
-            </Button> 
-            
-            
+              Pay NGN {total}
+            </Button>
           </div>
         </div>
       </div>

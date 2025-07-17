@@ -89,7 +89,7 @@ const useAxios = () => {
       setError(friendlyMessage);
 
       // retry automatically if you want:
-      if (retryCount < 3) {
+      if (retryCount < 1) {
         console.log(`Retrying request (${retryCount + 1})...`);
         return sendRequest({
           url,

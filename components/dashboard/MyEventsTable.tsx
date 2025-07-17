@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import EventRow, { Event } from "./EventRow";
+
 
 interface MyEventsTableProps {
   events: Event[];
@@ -24,6 +25,9 @@ const columnWidths = [
 ];
 
 const MyEventsTable: React.FC<MyEventsTableProps> = ({ events }) => {
+
+ 
+
   return (
     <div className="relative">
       <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D2A] to-transparent filter blur-3xl opacity-30 -z-10"></div>
