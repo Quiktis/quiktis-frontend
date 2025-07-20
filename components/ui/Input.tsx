@@ -8,7 +8,7 @@ interface InputProps {
   placeholder?: string;
   className?: string;
   disabled?: boolean;
-  label?: string;
+  label?: string | any;
   error?: string;
   required?: boolean;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
@@ -69,8 +69,8 @@ const Input: React.FC<InputProps> = (
   };
 
   return (
-    <div className="flex flex-col gap-2 relative">
-      {label && <label className="">{label}</label>}
+    <div className="flex flex-col gap-2 relative w-full">
+      {label && <label className="flex gap-2 text-gray-300 ">{label}{required && <span className="text-red-500">*</span>}</label>}
       <input
         type={type === 'password' && showPassword ? 'text' : type}
         value={value}

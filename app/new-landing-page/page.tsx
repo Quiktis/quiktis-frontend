@@ -130,7 +130,7 @@ export default function NewLandingPage() {
                         </a>
       
                         <a
-                          href={`/checkout/${event?.id ?? ""}`}
+                          href={`/checkout/${event?.slug ?? ""}`}
                           className="bg-[#ff4d2a] lg:w-fit hover:bg-[#ff4d2a]/90 text-white font-semibold rounded-[5px] text-xs md:text-sm py-4 px-8 flex justify-center"
                         >
                           GET TICKET{" "}

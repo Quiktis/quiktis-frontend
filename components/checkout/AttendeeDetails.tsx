@@ -1,17 +1,20 @@
 "use client";
+import Input from "../ui/Input";
 
 import React, { useState } from "react";
 import GenderDropdown from "@/components/checkout/gender-dropdown";
 
-export default function AttendeeDetails() {
+export default function AttendeeDetails({email, setEmail}: {email:string, setEmail:any}) {
   const [gender, setGender] = useState("");
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
       {/* Full Name */}
-      <div>
-        <label className="block text-gray-300 text-sm mb-2">Full Name</label>
-        <input
+      <div className="grid" >
+      
+        <Input
+        required={true}
+        label="Full Name"
           type="text"
           placeholder="Enter your full name here"
           className="w-full bg-transparent border border-gray-600 rounded p-3 placeholder-gray-500"
@@ -20,13 +23,17 @@ export default function AttendeeDetails() {
 
       {/* Email Address */}
       <div>
-        <div className="flex items-center gap-2 text-sm mb-2">
-          <label className="text-gray-300">Email Address</label>
+        <div className="flex items-center gap-2 text-sm">
+          
+        </div>
+        <Input
+        onChange={(e) => setEmail(e.target.value) }
+        value={email}
+        required
+        label={<p className="space-x-2"><label className="text-gray-300">Email Address</label>
           <span className="text-gray-400 text-xs">
             (This mail would receive a copy of the event ticket)
-          </span>
-        </div>
-        <input
+          </span></p>}
           type="email"
           placeholder="Enter your email address here"
           className="w-full bg-transparent border border-gray-600 rounded p-3 placeholder-gray-500"
@@ -35,8 +42,9 @@ export default function AttendeeDetails() {
 
       {/* Location */}
       <div>
-        <label className="block text-gray-300 text-sm mb-2">Location</label>
-        <input
+     
+        <Input
+        label="Location"
           type="text"
           placeholder="Input Location"
           className="w-full bg-transparent border border-gray-600 rounded p-3 placeholder-gray-500"
@@ -45,7 +53,7 @@ export default function AttendeeDetails() {
 
       {/* Gender */}
       <div>
-        <label className="block text-gray-300 text-sm mb-2">Gender</label>
+        <label className="block text-gray-300 mb-2">Gender</label>
         <GenderDropdown value={gender} onChange={setGender} />
       </div>
     </div>

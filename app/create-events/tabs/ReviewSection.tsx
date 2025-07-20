@@ -170,7 +170,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({uploadImage, preview, even
               <Button
                 onClick={() => {}}
                 className="mr-0 md:ml-auto mb-3 max-md:mt-3 mt-auto  text-[16px] w-[150px] h-fit flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary ">
-                Get Tickets
+                Copy Link
               </Button>
             </div>
           </div>

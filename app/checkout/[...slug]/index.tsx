@@ -15,6 +15,7 @@ export default function CheckoutPage() {
   const [quantity, setQuantity] = useState(1);
   const [event, setEvent] = useState<Event | null>(null);
   const [selectedTicketId, setSelectedTicketId] = useState("");
+  const [attendeeEmail, setAttendeeEmail] = useState("")
 
   const { sendRequest, loading, setLoading } = useAxios();
   const { user } = useUser();
@@ -92,7 +93,9 @@ export default function CheckoutPage() {
   const handleOrderInitiation = async () => {
     if (loading) return;
 
-    if (!user?.token || !event?.id || !selectedTicket?.id) {
+    if (!attendeeEmail ) alert("Please enter your email and full name")
+
+    if (!event?.id || !selectedTicket?.id) {
       console.error("Missing required data to proceed with order.");
       return;
     }
@@ -106,7 +109,7 @@ export default function CheckoutPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
+          /*Authorization: `Bearer ${user.token}`,*/
         },
         body: { eventId: event.id },
       });
@@ -141,7 +144,7 @@ export default function CheckoutPage() {
         return;
       }
 
-      console.log("completing order...");
+      /*console.log("completing order...");
       const completeResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/orders/complete`,
         method: "POST",
@@ -155,7 +158,7 @@ export default function CheckoutPage() {
       if (completeResponse?.status !== "success") {
         console.error("Failed to complete order:", completeResponse);
         return;
-      }
+      }*/
 
       console.log("initializing payment...");
       const paymentResponse = await sendRequest({
@@ -165,7 +168,7 @@ export default function CheckoutPage() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
         },
-        body: { orderId },
+        body: { orderId, email: attendeeEmail },
       });
 
       const paymentUrl = paymentResponse?.data?.url;
@@ -214,10 +217,10 @@ export default function CheckoutPage() {
         <div className="w-full md:w-[80%]">
           <div className="pt-8">
             <h2 className="font-semibold text-white mb-2 text-4xl">
-              Attendee Details <span className="font-normal">(Optional)</span>
+              Attendee Details {/*<span className="font-normal">(Optional)</span>*/}
             </h2>
             <p className="text-white mb-6">Confirm recipient details</p>
-            <AttendeeDetails />
+            <AttendeeDetails email={attendeeEmail} setEmail={setAttendeeEmail}/>
           </div>
 
           <div className="mt-8 flex justify-end">
