@@ -16,6 +16,8 @@ export default function CheckoutPage() {
   const [event, setEvent] = useState<Event | null>(null);
   const [selectedTicketId, setSelectedTicketId] = useState("");
   const [attendeeEmail, setAttendeeEmail] = useState("")
+  const [fullName, setFullname] = useState("");
+  const [location, setLocation] = useState("");
 
   const { sendRequest, loading, setLoading } = useAxios();
   const { user } = useUser();
@@ -220,7 +222,14 @@ export default function CheckoutPage() {
               Attendee Details {/*<span className="font-normal">(Optional)</span>*/}
             </h2>
             <p className="text-white mb-6">Confirm recipient details</p>
-            <AttendeeDetails email={attendeeEmail} setEmail={setAttendeeEmail}/>
+            <AttendeeDetails 
+            email={attendeeEmail} 
+            setEmail={setAttendeeEmail}
+            fullName={fullName}
+            setFullname={setFullname}
+            location={location}
+            setLocation={setLoading}
+            />
           </div>
 
           <div className="mt-8 flex justify-end">

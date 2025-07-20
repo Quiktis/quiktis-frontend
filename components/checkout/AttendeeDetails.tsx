@@ -4,7 +4,21 @@ import Input from "../ui/Input";
 import React, { useState } from "react";
 import GenderDropdown from "@/components/checkout/gender-dropdown";
 
-export default function AttendeeDetails({email, setEmail}: {email:string, setEmail:any}) {
+export default function AttendeeDetails({
+  email, 
+  setEmail,
+  fullName,
+  setFullname,
+  location,
+  setLocation
+}: {
+  email:string, 
+  setEmail:any,
+  fullName: string,
+  setFullname: any,
+  location: string,
+  setLocation: any,
+}) {
   const [gender, setGender] = useState("");
 
   return (
@@ -14,6 +28,8 @@ export default function AttendeeDetails({email, setEmail}: {email:string, setEma
       
         <Input
         required={true}
+        value={fullName}
+        onChange={(e) => setFullname(e.target.value) }
         label="Full Name"
           type="text"
           placeholder="Enter your full name here"
@@ -44,7 +60,11 @@ export default function AttendeeDetails({email, setEmail}: {email:string, setEma
       <div>
      
         <Input
+
         label="Location"
+        value={location}
+        onChange={(e) => setLocation(e.target.value) }
+
           type="text"
           placeholder="Input Location"
           className="w-full bg-transparent border border-gray-600 rounded p-3 placeholder-gray-500"
