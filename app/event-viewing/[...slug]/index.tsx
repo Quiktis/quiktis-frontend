@@ -18,6 +18,7 @@ import { useUser } from "@/app/context/UserContext";
 import useAxios from "@/app/hooks/useAxios";
 import { usePathname } from "next/navigation";
 import { Event } from "@/constant/customTypes";
+import { BsPlus } from "react-icons/bs";
 import {
   formatToHumanReadableDate,
   formatToHumanReadableTime,
@@ -162,172 +163,113 @@ export default function EventViewingPage() {
         </div>
       </section>
 
-      <section className="relative ">
-        <div className="absolute w-[73%] h-[65em] top-[-12em] radial-gradient blur-3xl opacity-50"></div>
-
-        <div className="relative flex flex-col gap-3 lg:grid grid-cols-[65%_32%] h-[max-content] w-full lg:gap-11">
-          <div
-            className={`
-              max-sm:mb-[1.5em]
-              relative z-10
-              h-fit w-fit
-              max-md:px-4 md:px-9 lg:px-16
-              py-3 lg:py-9
-              shadow-xl
-              ${manageStyles.glassOverride}
-            `}>
-            <div
-              className="
-                absolute w-[500px] h-[500px]
-                rounded-full
-                bg-[#FF4D2A]/35
-                filter blur-[100px]
-                top-1/2 left-1/2
-                transform -translate-x-1/2 -translate-y-1/2
-                pointer-events-none
-                
-              "
-            />
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                borderRadius: "24px",
-                borderTop: "1px solid rgba(255,255,255,0.8)",
-                borderLeft: "1px solid rgba(255,255,255,0.8)",
-                borderRight: "1px solid rgba(255,255,255,0.8)",
-                borderBottom: "none",
-                maskImage:
-                  "linear-gradient(to bottom, white 0%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, white 0%, transparent 100%)",
-              }}
-            />
-
-            <div className="relative space-y-8">
-              <div>
-                <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">
-                  DESCRIPTION
-                </h2>
-                <p className="text-white text-sm leading-relaxed whitespace-pre-wrap">
-                  {renderTextWithLineBreaks(event?.description || "")}
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">
-                  DATE &amp; TIME
-                </h2>
-
-                <div className="flex flex-wrap gap-x-6 gap-y-3 items-center text-white text-sm">
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src="/icons/date.png"
-                      alt="Calendar icon"
-                      width={18}
-                      height={18}
-                    />
-                    <span>
-                      {event && formatToHumanReadableDate(event?.startDate)}
-                    </span>
+      <section className="relative">
+              <div className="absolute w-[73%] h-[65em] top-[-12em] radial-gradient blur-3xl opacity-50"></div>
+              <div className="relative flex flex-col gap-3 lg:grid grid-cols-[65%_32%] h-[max-content] w-full lg:gap-11">
+                <div className="h-fit max-md:w-fit w-full min max-md:px-4 md:px-9 lg:px-16 py-3 lg:py-9 glass-bg shadow-xl shadow-white md:rounded-[40px] rounded-lg font-secondary">
+                  {event?.description && 
+                  <div><h1 className="max-md:text-[1.3em] text-3xl lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+                    DESCRIPTION
+                  </h1>
+                  <p className=''>{event?.description || ""}</p>
+                  </div>}
+      
+                  <h1 className="mt-6 max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+                    DATE & TIME
+                  </h1>
+                  <div className="flex gap-3 w-full max-sm:flex-wrap sm:flex-wrap">
+                    <p className="text-gray-300">{event?.startDate ? formatToHumanReadableDate((event.startDate)) : ""}, {event?.startTime || ""}</p>
+                    <button className="text-gray-300 mr-0 max-sm:ml-0 sm:ml-0  md:ml-auto flex  gap-1 text-primary">
+                      <BsPlus size={24} className="m-auto" /> Add to Calender
+                    </button>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <MdOutlineAccessTimeFilled size={18} />
-                    <span>
-                      {event &&
-                        `${formatToHumanReadableTime(
-                          event.startTime
-                        )} - ${formatToHumanReadableTime(event.startTime)}`}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* TAGS */}
-              <div>
-                <h2 className="text-[#FF4D2A] text-3xl font-bold mb-3">TAGS</h2>
-                <div className="flex flex-wrap gap-1 text-sm">
-                  {event?.tags && event.tags.length > 0 ? (
-                    event.tags.map((tag, idx) => (
+      
+                  {event?.tags?.length != 0 && (
+                    <>
+                    <h1 className="mt-6 max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+                    TAGS
+                  </h1>
+                  <div className="flex flex-wrap gap-2">
+                    {event?.tags?.map((item, index) => (
                       <Link
-                        key={idx}
+                        key={index}
                         href="#"
-                        className="
-                          px-2 py-1
-                          bg-white/10 backdrop-blur-sm
-                          rounded-xl mb-1
-                          hover:bg-white/20 transition
-                        ">
-                        <span className="text-body-txt">{tag}</span>
+                        className="bg-[#ffffff18] max-md:text-sm px-2 py-2 md:px-4 md:py-3 shadow-2xl rounded-xl mb-1 hover:border-2 hover:border-white border-2 border-[transparent]">
+                        {item}
                       </Link>
-                    ))
-                  ) : (
-                    <span className="text-white/60 text-sm">No tags added</span>
-                  )}
+                    ))}
+                    
+                  </div></>)}
+      
+                  <h1 className="mt-6 max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+                    TICKETS
+                  </h1>
+                  <div>
+                    {event?.tickets.map((item, index) => (
+                      <p key={index}><span className='font-medium'>{item.name}</span> - {item.price === 0 ? "Free" : `₦${item.price}`}</p>
+                    ))}
+                  </div>
+      
+                  <h1 className="mt-6 max-md:text-[1.1em] text-[1.5em] lg:text-[25px] font-primary font-semibold max-w-[100%] lg:max-w-[80%]">
+                    Share with loved ones
+                  </h1>
+                  <div className="max-md:flex-col flex gap-4 flex-wrap">
+                    <div>
+                      <span className="mt-4 flex gap-4 text-primary">
+                        {socials.map((item, index) => (
+                          <Link key={index} href="#" className="hover:text-white">
+                            {item.icon}
+                          </Link>
+                        ))}
+                      </span>
+                      <p className="mt-6 flex gap-3">
+                        <FaLocationDot size={20} className="my-auto text-primary max-md:text-sm" />{" "}
+                        {event?.location || ""}
+                      </p>
+                    </div>
+      
+                    <Button
+                      onClick={() => {}}
+                      className="mr-0 md:ml-auto mb-3 max-md:mt-3 mt-auto  text-[16px] max-md:w-full w-[150px] h-fit flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary ">
+                      Copy Link
+                    </Button>
+                  </div>
+                </div>
+                <div className="mt-3 lg:mt-0 flex max-sm:flex-col lg:grid h-full w-full grid-rows-[63.5%_31%] lg:gap-11 gap-6">
+                  <div className="relative w-full h-[16em] lg:h-full">
+                    <Image
+                      src={"/map.png"}
+                      alt="party 1"
+                      fill
+                      objectFit="cover"
+                      className="rounded-[30px]"
+                      objectPosition="50% 80%"
+                      unoptimized
+                    />
+                  </div>
+                  <div className="relative w-full h-[16em]  lg:h-full bg-white rounded-[30px] px-8 py-7 text-black flex flex-col gap-2 ">
+                    <h2 className="text-[1.3em] font-semibold">Locate</h2>
+                    <p className=" text-gray-800">
+                      {event?.location || ""}
+                    </p>
+                    <button className="mt-1 w-fit text-primary flex gap-2">
+                      <RiFileCopy2Fill size={20} className="my-auto" /> Copy Location
+                    </button>
+                    <Button
+                      onClick={() => {}}
+                      className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[16px] w-full h-fit flex items-center justify-center py-3 px-2 bg-primary ">
+                      Open Map
+                    </Button>
+                  </div>
                 </div>
               </div>
-              <div className="space-y-4">
-                <p className="text-white text-xl font-medium">
-                  Share with loved ones
-                </p>
-                <div className="flex gap-4">
-                  {/*socials.map((s, i) => (
-                    <Link
-                      key={i}
-                      href={s.href}
-                      className="text-[#FF4D2A] hover:text-[#FF4D2A]/80 transition-colors">
-                      {s.icon}
-                    </Link>
-                  ))*/}
-                  <button
-                    onClick={handleCopy}
-                    className="bg-primary flex gap-2 text-white px-4 py-3 rounded-md hover:bg-opacity-80 transition">
-                    <FaLink className="my-auto" />{" "}
-                    {copied ? "Copied!" : "Copy Link"}
-                  </button>
-                </div>
-              </div>
-
-              {/* ADDRESS */}
-              <div className="flex items-center gap-2 text-white text-sm">
-                <FaLocationDot size={18} className="text-[#FF4D2A]" />
-                <span>{event?.location ?? ""}</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="-mt-2 flex flex-col gap-7">
-            <div className="relative w-full h-[27em] rounded-[30px] overflow-hidden">
-              <Image
-                src="/map.png"
-                alt="Map view"
-                fill
-                objectFit="cover"
-                objectPosition="50% 80%"
-                unoptimized
-              />
-            </div>
-            <div className="bg-white rounded-[30px] px-8 py-6 text-black flex flex-col gap-3">
-              <h2 className="text-[1.3em] font-semibold">Locate</h2>
-              <p className="text-black">{event?.location ?? ""}</p>
-              <button className="inline-flex items-center text-primary gap-2">
-                <RiFileCopy2Fill size={20} /> Copy Location
-              </button>
-
-              <Button
-                onClick={() => {}}
-                className="mt-auto text-[16px] w-full py-3 px-4 bg-primary font-secondary">
-                Open Map
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+            </section>
 
       <section className="max-sm:flex flex-col grid grid-cols-2 gap-[1.8em] mt-3 relative z-10">
         <Link href={`/checkout/${eventId}`}>
           <div className="w-full">
             <button className="font-secondary text-[1.2em] w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-primary shadow-xl shadow-[#eeab8536] cursor-pointer rounded-md hover:opacity-90 transition-all">
-              Buy with Card <IoTicketSharp size={20} />
+              Buy with Card / Transfer <IoTicketSharp size={20} />
             </button>
           </div>
         </Link>

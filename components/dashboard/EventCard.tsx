@@ -3,14 +3,14 @@
 import React from "react";
 import { useState } from "react";
 import Image from "next/image";
-import { IoTicketSharp } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { formatToHumanReadableDate } from "@/app/utils/utilities";
 import { MdDelete } from "react-icons/md";
-import { IoMdMore } from "react-icons/io";
 import Button from "../ui/Button";
 import useAxios from "@/app/hooks/useAxios";
 import { useUser } from "@/app/context/UserContext";
+import { FiEdit2 } from "react-icons/fi";
+import Link from "next/link";
 
 interface EventCardProps {
   title: string;
@@ -107,11 +107,14 @@ const EventCard: React.FC<EventCardProps> = ({
           </button>*/}
         </div>
 
-        <div className="absolute w-full h-full grid top-0 bottom-0 left-0 right-0">
+        <div className="absolute w-full h-full top-0 bottom-0 left-0 right-0 flex justify-between">
           <button onClick={() => setDeletePopup(true)} className="mb-4 mt-auto ml-4 p-2 bg-[#0e0e0e9d] rounded-sm shadow-md w-fit h-fit" >
             <MdDelete size={22} />
           </button>
 
+            <Link href={`/edit-event/${eventId}`} onClick={() => setDeletePopup(true)} className="mb-4 mt-auto mr-4 p-2 bg-[#0e0e0e9d] rounded-sm shadow-md w-fit h-fit" >
+            <FiEdit2 size={22} />
+          </Link>
           {/*<button className="flex gap-2 items-center absolute bg-[#0c0c0c] shadow-xl border-[1.8px] rounded-md border-primary  px-3 py-2 w-fit h-fit bottom-[3em] left-6 pr-4" onClick={() => setDeletePopup(true)
           }>
             <MdDelete size={18} />Delete
