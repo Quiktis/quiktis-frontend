@@ -27,13 +27,15 @@ import {
 // Remove the hardcoded tags array since we'll use dynamic tags from the event data
 
 // Helper function to render text with line breaks
-const renderTextWithLineBreaks = (text: string | null | undefined): React.ReactNode => {
+const renderTextWithLineBreaks = (
+  text: string | null | undefined
+): React.ReactNode => {
   if (!text) return "";
-  
-  return text.split('\n').map((line, index) => (
+
+  return text.split("\n").map((line, index) => (
     <React.Fragment key={index}>
       {line}
-      {index < text.split('\n').length - 1 && <br />}
+      {index < text.split("\n").length - 1 && <br />}
     </React.Fragment>
   ));
 };
@@ -61,7 +63,7 @@ export default function EventViewingPage() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
     } catch (err) {
-      console.error("Failed to copy!", err);
+      //console.error("Failed to copy!", err);
     }
   };
 
@@ -84,7 +86,7 @@ export default function EventViewingPage() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      console.log(eventId);
+      //console.log(eventId);
       try {
         const response = await sendRequest({
           url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${eventId}`,
@@ -94,16 +96,16 @@ export default function EventViewingPage() {
           },
         });
 
-        console.log("Events response:", response);
+        //console.log("Events response:", response);
 
         if (response.status === "success") {
-          console.log("Event data:", response.data.event);
+          //console.log("Event data:", response.data.event);
           setEvent(response.data.event);
         } else {
-          console.error("Failed to fetch event details:", response.message);
+          //console.error("Failed to fetch event details:", response.message);
         }
       } catch (error) {
-        console.error("Error fetching event details", error);
+        //console.error("Error fetching event details", error);
       }
     };
 
@@ -114,8 +116,8 @@ export default function EventViewingPage() {
 
   return (
     <div className="w-full space-y-5 lg:w-[90%] mx-auto">
-      <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] h-[40em] lg:gap-11 gap-6">
-        <div className="relative w-full h-full">
+      <section className="flex flex-col md:grid grid-cols-1 md:h-[20em] lg:h-[30em] h-fit lg:gap-11 gap-6">
+        <div className="relative w-full h-full max-md:h-[36vh]">
           {/* Placeholder while loading or on error */}
           {(!isImageLoaded || hasError) && (
             <div
@@ -140,22 +142,23 @@ export default function EventViewingPage() {
         </div>
       </section>
       <section>
-        <div className="w-full flex flex-wrap md:flex-nowrap md:gap-[4em] h-auto">
+        <div className="w-full flex flex-wrap md:flex-nowrap md:gap-[4em] h-auto mb-6">
           <div className="h-full text-center md:text-left">
-            <h1 className="text-[32px] sm:text-[36px] md:text-[40px] font-primary font-bold whitespace-normal">
+            <h1 className="text-[32px] max-md:text-2xl md:text-[40px] font-primary font-bold whitespace-normal">
               {event?.title || "Event Title"}
             </h1>
-            <p className="text-gray-500 font-secondary text-sm md:text-base">
+            <p className="text-gray-500 font-secondary text-sm md:text-base text-left">
               Organized by {event?.organiser?.name || "Event Organiser"}
             </p>
           </div>
 
-          <div className="grid h-full w-full md:w-fit mt-4 md:mt-0 md:ml-auto">
+          <div className="max-md:hidden grid h-full w-full md:w-fit mt-4 md:mt-0 md:ml-auto">
             <Link href={`/checkout/${eventId}`}>
               <span className="text-[#FF4D2A] max-sm:hidden text-[1em] sm:text-[1.2em] md:text-[1.3em] font-semibold flex items-center justify-center gap-2 cursor-pointer hover:no-underline">
-                Get Ticket {event?.tickets && event.tickets.length > 0
-    ? Math.min(...event.tickets.map((ticket) => ticket.price))
-    : 0}{" "}
+                Get Ticket{" "}
+                {event?.tickets && event.tickets.length > 0
+                  ? Math.min(...event.tickets.map((ticket) => ticket.price))
+                  : 0}{" "}
                 <IoTicketSharp size={20} />
               </span>
             </Link>
@@ -164,118 +167,136 @@ export default function EventViewingPage() {
       </section>
 
       <section className="relative">
-              <div className="absolute w-[73%] h-[65em] top-[-12em] radial-gradient blur-3xl opacity-50"></div>
-              <div className="relative flex flex-col gap-3 lg:grid grid-cols-[65%_32%] h-[max-content] w-full lg:gap-11">
-                <div className="h-fit max-md:w-fit w-full min max-md:px-4 md:px-9 lg:px-16 py-3 lg:py-9 glass-bg shadow-xl shadow-white md:rounded-[40px] rounded-lg font-secondary">
-                  {event?.description && 
-                  <div><h1 className="max-md:text-[1.3em] text-3xl lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
-                    DESCRIPTION
-                  </h1>
-                  <p className=''>{event?.description || ""}</p>
-                  </div>}
-      
-                  <h1 className="mt-6 max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
-                    DATE & TIME
-                  </h1>
-                  <div className="flex gap-3 w-full max-sm:flex-wrap sm:flex-wrap">
-                    <p className="text-gray-300">{event?.startDate ? formatToHumanReadableDate((event.startDate)) : ""}, {event?.startTime || ""}</p>
-                    <button className="text-gray-300 mr-0 max-sm:ml-0 sm:ml-0  md:ml-auto flex  gap-1 text-primary">
-                      <BsPlus size={24} className="m-auto" /> Add to Calender
-                    </button>
-                  </div>
-      
-                  {event?.tags?.length != 0 && (
-                    <>
-                    <h1 className="mt-6 max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
-                    TAGS
-                  </h1>
-                  <div className="flex flex-wrap gap-2">
-                    {event?.tags?.map((item, index) => (
-                      <Link
-                        key={index}
-                        href="#"
-                        className="bg-[#ffffff18] max-md:text-sm px-2 py-2 md:px-4 md:py-3 shadow-2xl rounded-xl mb-1 hover:border-2 hover:border-white border-2 border-[transparent]">
-                        {item}
-                      </Link>
-                    ))}
-                    
-                  </div></>)}
-      
-                  <h1 className="mt-6 max-md:text-[1.3em] text-[1.8em] lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
-                    TICKETS
-                  </h1>
-                  <div>
-                    {event?.tickets.map((item, index) => (
-                      <p key={index}><span className='font-medium'>{item.name}</span> - {item.price === 0 ? "Free" : `₦${item.price}`}</p>
-                    ))}
-                  </div>
-      
-                  <h1 className="mt-6 max-md:text-[1.1em] text-[1.5em] lg:text-[25px] font-primary font-semibold max-w-[100%] lg:max-w-[80%]">
-                    Share with loved ones
-                  </h1>
-                  <div className="max-md:flex-col flex gap-4 flex-wrap">
-                    <div>
-                      <span className="mt-4 flex gap-4 text-primary">
-                        {socials.map((item, index) => (
-                          <Link key={index} href="#" className="hover:text-white">
-                            {item.icon}
-                          </Link>
-                        ))}
-                      </span>
-                      <p className="mt-6 flex gap-3">
-                        <FaLocationDot size={20} className="my-auto text-primary max-md:text-sm" />{" "}
-                        {event?.location || ""}
-                      </p>
-                    </div>
-      
-                    <Button
-                      onClick={() => {}}
-                      className="mr-0 md:ml-auto mb-3 max-md:mt-3 mt-auto  text-[16px] max-md:w-full w-[150px] h-fit flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary ">
-                      Copy Link
-                    </Button>
-                  </div>
-                </div>
-                <div className="mt-3 lg:mt-0 flex max-sm:flex-col lg:grid h-full w-full grid-rows-[63.5%_31%] lg:gap-11 gap-6">
-                  <div className="relative w-full h-[16em] lg:h-full">
-                    <Image
-                      src={"/map.png"}
-                      alt="party 1"
-                      fill
-                      objectFit="cover"
-                      className="rounded-[30px]"
-                      objectPosition="50% 80%"
-                      unoptimized
-                    />
-                  </div>
-                  <div className="relative w-full h-[16em]  lg:h-full bg-white rounded-[30px] px-8 py-7 text-black flex flex-col gap-2 ">
-                    <h2 className="text-[1.3em] font-semibold">Locate</h2>
-                    <p className=" text-gray-800">
-                      {event?.location || ""}
-                    </p>
-                    <button className="mt-1 w-fit text-primary flex gap-2">
-                      <RiFileCopy2Fill size={20} className="my-auto" /> Copy Location
-                    </button>
-                    <Button
-                      onClick={() => {}}
-                      className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[16px] w-full h-fit flex items-center justify-center py-3 px-2 bg-primary ">
-                      Open Map
-                    </Button>
-                  </div>
-                </div>
+        <div className="absolute max-md:w-full w-[73%] h-[65em] top-[-12em] radial-gradient blur-3xl opacity-50"></div>
+        <div className="relative flex flex-col gap-3 lg:grid grid-cols-[65%_32%] h-fit w-full lg:gap-11 mb-10">
+          <div className="h-fit w-full max-sm:p-4 max-md:p-8 md:px-16 md:py-9 glass-bg shadow-xl shadow-white md:rounded-[40px] rounded-3xl font-secondary">
+            {event?.description && (
+              <div>
+                <h1 className="max-md:text-xl text-2xl lg:text-3xl mb-1 font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+                  DESCRIPTION
+                </h1>
+                <p className="">{event?.description || ""}</p>
               </div>
-            </section>
+            )}
 
-      <section className="max-sm:flex flex-col grid grid-cols-2 gap-[1.8em] mt-3 relative z-10">
+            <h1 className="mt-6 max-md:text-xl text-2xl lg:text-3xl font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+              DATE & TIME
+            </h1>
+            <div className="flex gap-3 w-full max-sm:flex-wrap sm:flex-wrap">
+              <p className="text-gray-300">
+                {event?.startDate
+                  ? formatToHumanReadableDate(event.startDate)
+                  : ""}
+                , {event?.startTime || ""}
+              </p>
+              <button className="text-gray-300 mr-0 max-sm:ml-0 sm:ml-0  md:ml-auto flex  gap-1 text-primary">
+                <BsPlus size={24} className="m-auto" /> Add to Calender
+              </button>
+            </div>
+
+            {event?.tags && (
+              <>
+                <h1 className="mt-6 max-md:text-xl text-2xl lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+                  TAGS
+                </h1>
+                <div className="flex flex-wrap gap-2">
+                  {event?.tags?.map((item, index) => (
+                    <Link
+                      key={index}
+                      href="#"
+                      className="bg-[#ffffff18] max-md:text-sm px-2 py-2 md:px-4 md:py-3 shadow-2xl rounded-xl mb-1 hover:border-2 hover:border-white border-2 border-[transparent]"
+                    >
+                      {item}
+                    </Link>
+                  ))}
+                </div>
+              </>
+            )}
+
+            <h1 className="mt-6 max-md:text-xl text-2xl lg:3xl font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
+              TICKETS
+            </h1>
+            <div>
+              {event?.tickets.map((item, index) => (
+                <p key={index}>
+                  <span className="font-medium">{item.name}</span> -{" "}
+                  {item.price === 0 ? "Free" : `₦${item.price}`}
+                </p>
+              ))}
+            </div>
+
+            <h1 className="mt-6 max-md:text-[1.1em] text-[1.5em] lg:text-[25px] font-primary font-medium max-w-[100%] lg:max-w-[80%]">
+              Share with loved ones
+            </h1>
+            <div className="max-md:flex-col flex gap-4 flex-wrap">
+              <div>
+                <span className="mt-4 flex gap-4 text-primary">
+                  {socials.map((item, index) => (
+                    <Link key={index} href="#" className="hover:text-white">
+                      {item.icon}
+                    </Link>
+                  ))}
+                </span>
+                <p className="mt-6 flex gap-3">
+                  <FaLocationDot
+                    size={20}
+                    className="my-auto text-primary max-md:text-sm"
+                  />{" "}
+                  {event?.location || ""}
+                </p>
+              </div>
+
+              <Button
+                onClick={() => {}}
+                className="mr-0 md:ml-auto mb-3 max-md:mt-3 mt-auto  text-[16px] max-md:w-full w-[150px] h-fit flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary "
+              >
+                Copy Link
+              </Button>
+            </div>
+          </div>
+          <div className="mt-3 lg:mt-0 max-sm:flex grid md:grid-cols-2 lg:grid-cols-1 max-sm:flex-col lg:grid w-full grid-rows-1 lg:grid-rows-2 lg:gap-11 gap-6">
+            <div className="relative w-full h-[16em] lg:h-full">
+              <Image
+                src={"/map.png"}
+                alt="party 1"
+                fill
+                objectFit="cover"
+                className="rounded-[30px]"
+                objectPosition="50% 80%"
+                unoptimized
+              />
+            </div>
+            <div className="relative w-full max-md:h-[100%] lg:h-fit bg-white rounded-[30px] px-8 py-7 text-black flex flex-col gap-2 ">
+              <div className="space-y-4 my-auto">
+                <h2 className="text-[1.3em] font-semibold">Locate</h2>
+                <p className=" text-gray-800">{event?.location || ""}</p>
+                <button className="mt-1 w-fit text-primary flex gap-2">
+                  <RiFileCopy2Fill size={20} className="my-auto" /> Copy
+                  Location
+                </button>
+                <Button
+                  onClick={() => {}}
+                  className="font-secondary mr-0 ml-auto mb-0 mt-auto  text-[16px] w-full h-fit flex items-center justify-center py-3 px-2 bg-primary "
+                >
+                  Open Map
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full max-sm:flex flex-col grid grid-cols-2 gap-[1.8em] mt-3 relative z-10">
         <Link href={`/checkout/${eventId}`}>
           <div className="w-full">
-            <button className="font-secondary text-[1.2em] w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-primary shadow-xl shadow-[#eeab8536] cursor-pointer rounded-md hover:opacity-90 transition-all">
+            <button className="font-secondary max-md:text-lg text-xl w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-primary shadow-xl shadow-[#eeab8536] cursor-pointer rounded-md hover:opacity-90 transition-all">
               Buy with Card / Transfer <IoTicketSharp size={20} />
             </button>
           </div>
         </Link>
         <Link href={`/checkout/${eventId}`}>
           <div className="w-full">
-            <button className="font-secondary text-[1.2em] w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl shadow-[#85d5ee36] cursor-pointer rounded-md hover:opacity-90 transition-all">
+            <button className="font-secondary max-md:text-lg text-xl w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl shadow-[#85d5ee36] cursor-pointer rounded-md hover:opacity-90 transition-all">
               Buy with Crypto
               <Image
                 src="/icons/crypto.png"

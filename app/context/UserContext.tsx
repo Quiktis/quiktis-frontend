@@ -100,7 +100,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         method: "POST",
       });
     } catch (err) {
-      console.error("Logout failed:", err);
+      //console.error("Logout failed:", err);
     }
   };
 
@@ -150,7 +150,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
             token: null,
           });
 
-          console.error("Error fetching user profile:", data);
+          //console.error("Error fetching user profile:", data);
           logout();
           return false;
         }
@@ -205,7 +205,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
       return false;
     } catch (error) {
-      console.error("Error checking token:", error);
+      //console.error("Error checking token:", error);
       return false;
     }
   };
@@ -216,7 +216,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         await checkTokenPresence();
         setLoading(false);
       } catch (error) {
-        console.error("Error initializing user:", error);
+        //console.error("Error initializing user:", error);
         setLoading(false);
       }
     };
@@ -316,7 +316,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     );
   }
 
-  console.log("[UserProvider] Rendering children with user context:", user);
+  //console.log("[UserProvider] Rendering children with user context:", user);
   return (
     <UserContext.Provider
       value={{

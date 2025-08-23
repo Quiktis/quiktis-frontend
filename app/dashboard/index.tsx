@@ -64,7 +64,7 @@ const CreateEvent = () => {
       }
       //console.log("Supported banks fetched successfully:", response.data);
     } catch (error) {
-      console.error("Error fetching events:", error);
+      //console.error("Error fetching events:", error);
     } finally {
       setLoading(false);
     }
@@ -83,7 +83,7 @@ useEffect(() => {
 
   const currentBank = (bankList as any[]).find((bank) => bank.name === bank_name);
 
-  console.log(currentBank, " - current bank");
+  //console.log(currentBank, " - current bank");
 
   if (account_number && currentBank) {
     setPayoutDetails({
@@ -94,7 +94,7 @@ useEffect(() => {
       bank_code: currentBank.code || "",
     });
 
-    console.log ("initial payout details - " , payoutDetails)
+    //console.log ("initial payout details - " , payoutDetails)
   }
 }, [bankList, user]);
 
@@ -137,7 +137,7 @@ useEffect(() => {
             setPayoutError("Account not found!");
           }
         } catch (error) {
-          console.error("Error verifying account:", error);
+          //console.error("Error verifying account:", error);
           onpayoutDetailsChange("account_name", "");
           setPayoutError("Account not found!");
         } finally {
@@ -149,8 +149,8 @@ useEffect(() => {
     }
 
     // Optional for debug:
-    console.log("Watching for account_number & bank_code changes");
-    console.log(payoutDetails, "Payout details updated");
+    //console.log("Watching for account_number & bank_code changes");
+    //console.log(payoutDetails, "Payout details updated");
   }, [
     payoutDetails.account_number,
     payoutDetails.bank_name,
@@ -198,7 +198,7 @@ useEffect(() => {
 
         
         
-        console.log(user, "Payout update response");
+        //console.log(user, "Payout update response");
         
         // Clear messages after 10 seconds
         setTimeout(() => {
@@ -233,7 +233,7 @@ useEffect(() => {
     setIsDeleting(true);
 
     const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment/payouts/${user.payoutDetails.id}`;
-    console.log("delete url: ", url);
+    //console.log("delete url: ", url);
 
     const response = await sendRequest({
       url,
@@ -268,11 +268,11 @@ useEffect(() => {
       setTimeout(() => setInfo1(null), 10000);
       
     } else {
-      console.log(response);
+      //console.log(response);
       alert(response?.message || "Failed to delete payout details.");
     }
   } catch (error) {
-    console.error("Error deleting payout details:", error);
+    //console.error("Error deleting payout details:", error);
   } finally {
     setIsDeleting(false);
     
@@ -343,7 +343,7 @@ useEffect(() => {
         setInfo2(null);
       }, 10000);
 
-      console.log("User updated successfully:", response.data);
+      //console.log("User updated successfully:", response.data);
 
       // Optionally redirect the user after delay
       // setTimeout(() => {
@@ -352,7 +352,7 @@ useEffect(() => {
 
       return;
     } catch (error) {
-      console.error("Error updating user:", error);
+      //console.error("Error updating user:", error);
       alert("An error occurred while updating your profile. Please try again.");
       return;
     }
@@ -404,9 +404,9 @@ useEffect(() => {
         );
       }
 
-      console.log("uploading image to:", `${baseUrl}/medias/upload`);
-      console.log(user, "user data");
-      console.log(user?.token, "user token");
+      //console.log("uploading image to:", `${baseUrl}/medias/upload`);
+      //console.log(user, "user data");
+      //console.log(user?.token, "user token");
 
       // Make the POST request to upload the image
       const response = await sendRequest({
@@ -419,14 +419,14 @@ useEffect(() => {
         body: formData1,
       });
 
-      console.log(response, "response data");
-      console.log(response.status, "status");
+      //console.log(response, "response data");
+      //console.log(response.status, "status");
       // Extract the URL from the response
 
       if (response.status !== "success")
         return alert("Failed to create event. Please try again.");
       const imageUrl = response.data.files[0].cloudinaryUrl; // Adjust this based on the actual response structure
-      console.log("Image uploaded successfully:", imageUrl);
+      //console.log("Image uploaded successfully:", imageUrl);
 
       // Make the POST request to upload the image
       const response2 = await sendRequest({
@@ -443,12 +443,12 @@ useEffect(() => {
         return alert("Failed to create event. Please try again.");
       const imageUrl2 = response.data.files[0].cloudinaryUrl;
 
-      console.log("Image2 uploaded successfully:", imageUrl2);
+      //console.log("Image2 uploaded successfully:", imageUrl2);
 
       return;
     } catch (error) {
-      console.error("Error verifying ID:", error);
-      //alert("Failed to verify ID. Please try again.");
+      //console.error("Error verifying ID:", error);
+      alert("Failed to create event. Please try again.");
       return;
     }
   };
@@ -461,10 +461,10 @@ useEffect(() => {
       // Navigate to the next page after the image is uploaded
       //router.push(`/my-events`);
     } catch (error) {
-      console.error(
+      /*console.error(
         "An error occurred while uploading your document. Please try again.",
         error
-      );
+      );*/
       alert(
         "An error occurred while uploading your document. Please try again."
       );
@@ -496,11 +496,11 @@ useEffect(() => {
       }, 5000);
 
           } else {
-            console.log(response, " - withdrawl error")
+            //console.log(response, " - withdrawl error")
             alert("Withdrawal failed, please try again")
           }
         } catch (error) {
-          console.error("withdrawal failed: ", error);
+          //console.error("withdrawal failed: ", error);
           
         } finally {
           setIsWithdrawing(false);
@@ -511,7 +511,7 @@ useEffect(() => {
 
   const handleLogout = async () => {
     if (loading) return; // Prevent multiple clicks
-    console.log("sending request");
+    //console.log("sending request");
 
     setLoading(true); // Set loading state
 
@@ -522,7 +522,7 @@ useEffect(() => {
         headers: { "Content-Type": "application/json" },
       });
 
-      console.log("response: ", response);
+      //console.log("response: ", response);
 
       setUser({
         userId: null,
@@ -536,7 +536,7 @@ useEffect(() => {
       });
       localStorage.setItem("quiktis_user", JSON.stringify(user));
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     } finally {
       setLoading(false); // Reset loading state
       router.push("/signin");

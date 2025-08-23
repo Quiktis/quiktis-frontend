@@ -25,6 +25,7 @@ export default function BlogFooter(): JSX.Element {
     "/auth/google/callback",
     "/new-landing-page",
     "/",
+   
   ];
   const hiddenPaths = [
     "/event-viewing",
@@ -57,6 +58,7 @@ export default function BlogFooter(): JSX.Element {
     "/attendees",
     "/write-review",
     "/auth/google/callback",
+     "/terms"
   ];
   const extraPaddingPaths = ["/blog"];
 

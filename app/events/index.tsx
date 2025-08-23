@@ -43,7 +43,7 @@ const EventsPage = () => {
         setResults(data.data.events || []);
       }
     } catch (error) {
-      console.error("Error fetching events:", error);
+      //console.error("Error fetching events:", error);
     } finally {
       setLoading(false);
     }
@@ -63,10 +63,10 @@ const EventsPage = () => {
               setEvents(response.data.events);
               //console.log("Upcoming events - ", comingUpNext)
             } else {
-              console.error("Failed to fetch events:", response.message);
+              //console.error("Failed to fetch events:", response.message);
             }
           } catch (error) {
-            console.error("Error fetching events:", error);
+            //console.error("Error fetching events:", error);
           }
         };
     
@@ -74,7 +74,7 @@ const EventsPage = () => {
       }, []);
   
         useEffect(() => {
-        console.log("Updated upcoming events:", events);
+        //console.log("Updated upcoming events:", events);
       }, [events]);
 
   return (

@@ -197,7 +197,7 @@ export default function Footer(): JSX.Element | null {
 
         <div className="flex justify-center items-center space-x-2 mt-4 text-base">
           <Link
-            href="/404"
+            href="/terms"
             className="hover:text-[#FF4D2A] transition-colors">
             Terms of Service
           </Link>

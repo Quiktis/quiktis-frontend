@@ -12,33 +12,33 @@ export default function FAQPage() {
 
   const faqData = [
     {
-      question: "What payment methods do you accept?",
+      question: "What is Quiktis?",
       answer:
-        "We accept all major credit cards, PayPal, and other methods based on location.",
+        "Quiktis is a decentralized ticketing platform that makes event tickets fraud-proof, easy to transfer, and simple to use.",
     },
     {
-      question: "Lorem ipsum dolor sit amet consectetur?",
+      question: "How is Quiktis different from other ticketing apps?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod magna sit amet diam fermentum commodo",
+        "We cut out fake tickets, reduce high fees, and introduce Event Identity—a digital profile that showcases your event history."
     },
     {
-      question: "Lorem ipsum dolor sit amet consectetur?",
+      question: "Do I need crypto to buy a ticket?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod magna sit amet diam fermentum commodo",
+        "No! You can pay with your card or bank just like any other platform. Crypto is optional for those who want it.",
     },
     {
-      question: "How can I share feedback about the platform?",
-      answer: "Use the feedback form in the settings menu.",
+      question: "What if I lose my ticket?",
+      answer: "Don’t worry—your ticket is always stored in your Quiktis account. You can re-download it anytime.",
     },
     {
-      question: "Lorem ipsum dolor sit amet consectetur?",
+      question: "Can I resell or transfer my ticket?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod magna sit amet diam fermentum commodo",
+        "Yes. Tickets can be resold or transferred securely, with organizers setting the rules to keep things fair."
     },
     {
-      question: "Lorem ipsum dolor sit amet consectetur?",
+      question: "What is Event Identity?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod magna sit amet diam fermentum commodo",
+        "It’s your cultural fingerprint on Quiktis—an on-chain record of the events you attend or host, unlocking rewards and community access while protecting your privacy.",
     },
   ];
 
@@ -50,10 +50,10 @@ export default function FAQPage() {
 
   return (
     <main className="bg-transparent text-white min-h-screen flex flex-col">
-      <div className="container mx-auto py-10 px-6 flex-1 flex flex-col">
-        <div className="flex justify-between items-start flex-wrap gap-8 flex-1 md:flex-none">
-          <div>
-            <h1 className="text-[80px] md:text-[100px] font-extrabold">
+      <div className="container mx-auto max-sm:px-0 py-10 px-6 flex-1 flex flex-col">
+        <div className="flex max-sm:justify-center justify-between items-start flex-wrap gap-8 flex-1 md:flex-none">
+          <div className="max-sm:text-center text-left">
+            <h1 className="text-[80px] max-sm:text-6xl md:text-[100px] font-extrabold">
               F<span className="mx-1 text-[#FF4D2A]">.</span>A
               <span className="mx-1 text-[#FF4D2A]">.</span>Q
             </h1>
@@ -75,7 +75,7 @@ export default function FAQPage() {
               height={250}
               width={380}
               alt="Question Mark"
-              className="w-[240px] md:w-[380px] -mt-6"
+              className="w-[240px] md:w-[380px] -mt-6 max-sm:mt-[-3em] max-sm:max-w-[80vw] max-sm:h-[100px] object-contain max-sm:mb-[1em]"
             />
             <div className="flex gap-6 mt-4">
               <Button
@@ -122,7 +122,7 @@ export default function FAQPage() {
                 <div
                   key={idx}
                   className="
-                    p-3
+                    p-3 px-6 max-sm:py-4
                     rounded-[20px]
                     shadow-md
                     bg-[#1A1A1A]
@@ -143,7 +143,7 @@ export default function FAQPage() {
                 <div
                   key={idx}
                   className="
-                    p-3
+                    p-3 px-6 max-sm:py-4
                     rounded-[20px]
                     shadow-md
                     bg-[#1A1A1A]

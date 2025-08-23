@@ -69,11 +69,11 @@ function CreateEventPage() {
   };
 
   useEffect(() => {
-    console.log("Event Data Updated:", eventData);
+    //console.log("Event Data Updated:", eventData);
   }, [eventData]); // This runs whenever eventData changes
 
   useEffect(() => {
-    console.log("Time Data Updated:", timeData);
+    //console.log("Time Data Updated:", timeData);
   }, [timeData]);
 
   const handleTimeChange = (
@@ -144,12 +144,12 @@ function CreateEventPage() {
         body: formData,
       });
 
-      console.log(response, "response data")
-      console.log(response.status, "status")
+      //console.log(response, "response data")
+      //console.log(response.status, "status")
       // Extract the URL from the response
 
       if (response.status !== "success") { 
-        console.log(response, "- Event creation failed response")
+        //console.log(response, "- Event creation failed response")
         return alert("Failed to create event. Please try again.");}
       //const imageUrl = response.data.files[0].cloudinaryUrl
 
@@ -169,7 +169,7 @@ const eventPayload = {
   bannerImage: imageUrl,
 };
 
-console.log("event payload that is being sent:", eventPayload);
+//console.log("event payload that is being sent:", eventPayload);
 
 const createEventResponse = await sendRequest({
   url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
@@ -180,42 +180,18 @@ const createEventResponse = await sendRequest({
   },
   body: eventPayload, // use the variable
 });
-      ; // Adjust this based on the actual response structure
-
-      // Update the eventData state with the returned URL
-      /*setEventData((prev) => ({
-        ...prev,
-        bannerImage: imageUrl,
-      }));
-
-      console.log(eventData, "event data that is being sent")
-
-      console.log("Image uploaded successfully:", imageUrl);
-
-      console.log("uploading image to:", `${baseUrl}/events`);
-
-      const createEventResponse = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json", 
-          "Authorization": `Bearer ${user?.token}`
-        },
-        body: eventData,
-      });
-
-      */console.log(createEventResponse, "response data")
+      //console.log(createEventResponse, "response data")
 
       if (createEventResponse.status === "success") router.push("/my-events");
 
       if (createEventResponse.status !== "success") { 
-        console.log(createEventResponse, "- Event creation failed response")
+        //console.log(createEventResponse, "- Event creation failed response")
         alert("Failed to create event. Please try again.");}
 
       return;
 
     } catch (error) {
-      console.error("Error uploading image:", error);
+      //console.error("Error uploading image:", error);
       alert("Failed to create event. Please try again.");
       return;
     }
