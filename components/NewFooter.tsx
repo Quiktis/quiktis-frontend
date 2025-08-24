@@ -165,17 +165,23 @@ export default function Footer(): JSX.Element | null {
           </div>
         </div> */}
 
-        <div className="flex justify-center items-center space-x-2 mt-4 text-base">
+        <div className="flex justify-center max-sm:flex-wrap items-center gap-2 space-x-2 mt-[3em] text-base">
           <Link
-            href="/terms"
+            href="/legal/terms"
             className="hover:text-[#FF4D2A] transition-colors">
             Terms of Service
           </Link>
           <span className="text-white/50">|</span>
           <Link
-            href="/404"
-            className="hover:text-[#FF4D2A] transition-colors">
+            href="/legal/privacy-policy"
+            className="hover:text-[#FF4D2A] transition-colors mx-auto w-fit">
             Privacy Policy
+          </Link>
+          <span className="text-white/50 max-sm:hidden block">|</span>
+          <Link
+            href="/legal/cookies-policy"
+            className="hover:text-[#FF4D2A] transition-colors mr-0 ml-auto w-fit">
+            Cookies Policy
           </Link>
         </div>
 

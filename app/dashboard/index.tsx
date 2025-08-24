@@ -1,5 +1,6 @@
 "use client";
 //import CreateEventForm from '@/components/EventCreationForm'
+import Link from "next/link";
 import EventsOperations from "@/components/EventsOperations";
 import ProfileCard from "@/components/ProfileCard";
 //import Statistics from '@/components/Statistics'
@@ -558,13 +559,13 @@ useEffect(() => {
 
           <ProfileCard containerClass="mt-[1.78em]" />
 
-          <Button
-            onClick={() => router.push(`/create-events`)}
+          <Link
+            href="/create-events"
             className="flex justify-center gap-3 lg:hidden items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3 shadow-xl shadow-[#ff4e2a42] bg-primary"
           >
             <Image src="/icons/event.svg" height={24} width={24} alt="icon" />
             <p className="my-auto">Create Event</p>
-          </Button>
+          </Link>
         </div>
       </div>
       <section className="mt-[3em]">

@@ -160,7 +160,7 @@ Behind Quiktis is a passionate team dedicated to transforming how people connect
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-12">
                 {teamMembers.map((m) => (
                   <div key={m.name} className="flex flex-col items-center">
-                    <div
+                    {/*<div
                       className="w-20 h-20 mb-3 relative rounded-full overflow-hidden"
                       style={{ backgroundColor: m.bg }}
                     >
@@ -169,8 +169,8 @@ Behind Quiktis is a passionate team dedicated to transforming how people connect
                         alt={m.name}
                         fill
                         className="object-cover"
-                      />
-                    </div>
+                      /
+                    </div>*/}
                     <p className="font-medium">{m.name}</p>
                     <p className="text-sm text-[#FF4D2A]">{m.role}</p>
                   </div>

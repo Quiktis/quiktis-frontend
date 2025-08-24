@@ -52,6 +52,10 @@ export default function NewLandingPage() {
 }, [comingUpNext]);
 
 
+
+
+
+
   return (
     <main className="relative mt-[-3em]">
 
@@ -81,7 +85,7 @@ export default function NewLandingPage() {
             </div>
       
             {comingUpNext.length > 0 && 
-              <div className="relative z-10 container mx-auto text-white">
+              <div id="up-next" className="relative z-10 container mx-auto text-white">
                 <h2 className="md:text-[1.8em] lg:text-[2.2em] mb-8">Coming Up Next</h2>
       
                 <div className="md:grid grid-cols-1 lg:grid-cols-1 gap-4 max-sm:space-y-[2em]">
@@ -128,13 +132,14 @@ export default function NewLandingPage() {
                         >
                           Read more <FiArrowRight className="h-4 w-4 ml-1 mt-[0.2em]" />
                         </a>
-      
+                          
+                          
                         <a
-                          href={`/checkout/${event?.slug ?? ""}`}
-                          className="bg-[#ff4d2a] lg:w-fit hover:bg-[#ff4d2a]/90 text-white font-semibold rounded-[5px] text-xs md:text-sm py-4 px-8 flex justify-center"
+                          href={new Date(event?.startDate) < new Date() ? "#up-next" : `/checkout/${event?.slug ?? ""}`}
+                          className="bg-[#ff4d2a] lg:w-fit hover:bg-[#ff4d2a]/90 text-white font-medium rounded-[5px] text-xs md:text-sm py-4 px-8 flex justify-center"
                         >
-                          GET TICKET{" "}
-                          <FiArrowRight className="h-4 w-4 ml-1 transform rotate-45" />
+                           {(new Date(event?.startDate) < new Date()) ? "ENDED" : <><span className="flex items-center">GET TICKET <FiArrowRight className="h-4 w-4 ml-1 transform rotate-45" /></span></>}
+                          
                         </a>
                       </div>
                     </div>

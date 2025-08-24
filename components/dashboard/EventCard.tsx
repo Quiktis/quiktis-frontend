@@ -112,7 +112,7 @@ const EventCard: React.FC<EventCardProps> = ({
             <MdDelete size={22} />
           </button>
 
-            <Link href={`/edit-event/${eventId}`} onClick={() => setDeletePopup(true)} className="mb-4 mt-auto mr-4 p-2 bg-[#0e0e0e9d] rounded-sm shadow-md w-fit h-fit" >
+            <Link href={`/edit-event/${eventId}`} className="mb-4 mt-auto mr-4 p-2 bg-[#0e0e0e9d] rounded-sm shadow-md w-fit h-fit" >
             <FiEdit2 size={22} />
           </Link>
           {/*<button className="flex gap-2 items-center absolute bg-[#0c0c0c] shadow-xl border-[1.8px] rounded-md border-primary  px-3 py-2 w-fit h-fit bottom-[3em] left-6 pr-4" onClick={() => setDeletePopup(true)

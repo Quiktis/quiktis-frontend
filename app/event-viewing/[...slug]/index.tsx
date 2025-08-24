@@ -144,15 +144,17 @@ export default function EventViewingPage() {
       <section>
         <div className="w-full flex flex-wrap md:flex-nowrap md:gap-[4em] h-auto mb-6">
           <div className="h-full text-center md:text-left">
+            {event?.startDate && (new Date(event?.startDate) && <p className=" px-3 py-1 text-sm bg-primary text-white rounded-md w-fit">Event ended</p>)}
             <h1 className="text-[32px] max-md:text-2xl md:text-[40px] font-primary font-bold whitespace-normal">
               {event?.title || "Event Title"}
             </h1>
+            
             <p className="text-gray-500 font-secondary text-sm md:text-base text-left">
               Organized by {event?.organiser?.name || "Event Organiser"}
             </p>
           </div>
 
-          <div className="max-md:hidden grid h-full w-full md:w-fit mt-4 md:mt-0 md:ml-auto">
+          {event?.startDate && !(new Date(event?.startDate)) ?<div className="max-md:hidden grid h-full w-full md:w-fit mt-4 md:mt-0 md:ml-auto">
             <Link href={`/checkout/${eventId}`}>
               <span className="text-[#FF4D2A] max-sm:hidden text-[1em] sm:text-[1.2em] md:text-[1.3em] font-semibold flex items-center justify-center gap-2 cursor-pointer hover:no-underline">
                 Get Ticket{" "}
@@ -162,8 +164,8 @@ export default function EventViewingPage() {
                 <IoTicketSharp size={20} />
               </span>
             </Link>
-          </div>
-        </div>
+          </div>: null}
+        </div> 
       </section>
 
       <section className="relative">
@@ -286,7 +288,8 @@ export default function EventViewingPage() {
         </div>
       </section>
 
-      <section className="w-full max-sm:flex flex-col grid grid-cols-2 gap-[1.8em] mt-3 relative z-10">
+      {event?.startDate && !(new Date(event?.startDate)) ? <section className="w-full max-sm:flex flex-col grid grid-cols-2 gap-[1.8em] mt-3 relative z-10">
+        
         <Link href={`/checkout/${eventId}`}>
           <div className="w-full">
             <button className="font-secondary max-md:text-lg text-xl w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-primary shadow-xl shadow-[#eeab8536] cursor-pointer rounded-md hover:opacity-90 transition-all">
@@ -307,7 +310,7 @@ export default function EventViewingPage() {
             </button>
           </div>
         </Link>
-      </section>
+      </section> : null}
 
       <UpcomingEvents />
     </div>

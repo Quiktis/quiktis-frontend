@@ -242,7 +242,7 @@ const EditSection: React.FC<EditSectionProps> = ({
               />
             </div>
 
-            <div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
+            {/*<div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
               <label className="my-auto mr-0 md:ml-auto md:text-right mt-0 mb-auto">
                 Tags
               </label>
@@ -255,7 +255,7 @@ const EditSection: React.FC<EditSectionProps> = ({
                   className="w-full"
                 />
               </div>
-            </div>
+            </div>*/}
           </div>
           
           
