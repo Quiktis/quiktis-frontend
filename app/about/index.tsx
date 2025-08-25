@@ -138,7 +138,7 @@ Behind Quiktis is a passionate team dedicated to transforming how people connect
           </div>
         </section>
 
-        <section className="relative overflow-hidden">
+        {/*<section className="relative overflow-hidden">
           <div className="absolute inset-0">
             <Image
               src="/gradient.png"
@@ -170,7 +170,7 @@ Behind Quiktis is a passionate team dedicated to transforming how people connect
                         fill
                         className="object-cover"
                       /
-                    </div>*/}
+                    </div>}
                     <p className="font-medium">{m.name}</p>
                     <p className="text-sm text-[#FF4D2A]">{m.role}</p>
                   </div>
@@ -178,7 +178,7 @@ Behind Quiktis is a passionate team dedicated to transforming how people connect
               </div>
             </div>
           </div>
-        </section>
+        </section>*/}
 
         <section className="py-16 px-4">
           <div className="max-w-5xl mx-auto text-center text-white">
