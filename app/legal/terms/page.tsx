@@ -50,7 +50,7 @@ export default function TermsPage() {
     <main className="max-w-4xl mx-auto px-6 py-12 text-gray-50 leading-relaxed">
       {/* Header */}
       <header className="mb-10">
-        <h1 className="text-3xl font-bold mb-2">Quiktis Terms and Conditions</h1>
+        <h1 className="text-3xl font-bold mb-2">Terms and Conditions</h1>
 
       </header>
 
