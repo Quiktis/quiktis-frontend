@@ -62,7 +62,10 @@ export default function BlogFooter(): JSX.Element {
   ];
   const extraPaddingPaths = ["/blog"];
 
+  const year = new Date().getFullYear();
+
   if (excludeFooterPaths.includes(pathname)) return <></>;
+
 
   return (
     <>
@@ -189,24 +192,30 @@ export default function BlogFooter(): JSX.Element {
           </div>
         </div> */}
 
-        <div className="flex justify-center max-sm:flex-wrap items-center gap-2 space-x-2 mt-[3em] text-base">
+        <div className="flex max-sm:justify-between justify-center items-center max-md:space-x-1 space-x-2 mt-[3em] text-base">
           <Link
             href="/legal/terms"
-            className="hover:text-[#FF4D2A] transition-colors">
+            className="hover:text-[#FF4D2A] transition-colors max-md:text-[0.82em] w-fit">
             Terms of Service
           </Link>
           <span className="text-white/50">|</span>
           <Link
             href="/legal/privacy-policy"
-            className="hover:text-[#FF4D2A] transition-colors mx-auto w-fit">
+            className="hover:text-[#FF4D2A] transition-colors mx-auto w-fit max-md:text-[0.82em]">
             Privacy Policy
           </Link>
-          <span className="text-white/50 max-sm:hidden block">|</span>
+          <span className="text-white/50 block">|</span>
           <Link
             href="/legal/cookies-policy"
-            className="hover:text-[#FF4D2A] transition-colors mr-0 ml-auto w-fit">
+            className="hover:text-[#FF4D2A] transition-colors mr-0 ml-auto w-fit max-md:text-[0.82em]">
             Cookies Policy
           </Link>
+        </div>
+
+        {/* Radial gradient background */}
+        <div className="flex gap-4 mx-auto mt-10 max-md:mt-5 w-fit">
+          <p className="text-gray-300 max-md:text-[0.82em]">&copy; {year} Quiktis Limited</p>
+          <p className="text-gray-300 max-md:text-[0.82em]">All rights reserved</p>
         </div>
 
         {/* Radial gradient */}

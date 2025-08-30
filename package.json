@@ -23,6 +23,7 @@
     "html-to-image": "^1.11.13",
     "js-cookie": "^3.0.5",
     "next": "^14.2.25",
+    "next-cloudinary": "^6.16.0",
     "qrcode.react": "^4.2.0",
     "quiktis-frontend": "file:",
     "react": "^18",

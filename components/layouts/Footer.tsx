@@ -195,35 +195,41 @@ export default function Footer(): JSX.Element | null {
           </div>
         </div> */}
 
-        <div className="flex justify-center max-sm:flex-wrap items-center gap-2 space-x-2 mt-[3em] text-base">
-          <Link
-            href="/legal/terms"
-            className="hover:text-[#FF4D2A] transition-colors">
-            Terms of Service
-          </Link>
-          <span className="text-white/50">|</span>
-          <Link
-            href="/legal/privacy-policy"
-            className="hover:text-[#FF4D2A] transition-colors mx-auto w-fit">
-            Privacy Policy
-          </Link>
-          <span className="text-white/50 max-sm:hidden block">|</span>
-          <Link
-            href="/legal/cookies-policy"
-            className="hover:text-[#FF4D2A] transition-colors mr-0 ml-auto w-fit">
-            Cookies Policy
-          </Link>
-        </div>
+        <div className="flex max-sm:justify-between justify-center items-center max-md:space-x-1 space-x-2 mt-[3em] text-base">
+                  <Link
+                    href="/legal/terms"
+                    className="hover:text-[#FF4D2A] transition-colors max-md:text-[0.82em] w-fit">
+                    Terms of Service
+                  </Link>
+                  <span className="text-white/50">|</span>
+                  <Link
+                    href="/legal/privacy-policy"
+                    className="hover:text-[#FF4D2A] transition-colors mx-auto w-fit max-md:text-[0.82em]">
+                    Privacy Policy
+                  </Link>
+                  <span className="text-white/50 block">|</span>
+                  <Link
+                    href="/legal/cookies-policy"
+                    className="hover:text-[#FF4D2A] transition-colors mr-0 ml-auto w-fit max-md:text-[0.82em]">
+                    Cookies Policy
+                  </Link>
+                </div>
 
-        {/* radial gradient */}
+
+                {/* radial gradient */}
         <div
           className="absolute pointer-events-none w-[70%] sm:w-[75%] h-[26em]
                      top-[-3em] left-0 md:right-0 md:left-auto
                      radial-gradient-purple blur-3xl opacity-50"
         />
+        
+                {/* Radial gradient background */}
+                <div className="flex gap-4 mx-auto mt-10 max-md:mt-5 w-fit">
+                  <p className="text-gray-300 text-[0.82em]">&copy; {year} Quiktis Limited</p>
+                  <p className="text-gray-300 text-[0.82em]">All rights reserved</p>
+                </div>
 
-        <p className="mx-auto text-center text-gray-300 mt-10 text-sm">&copy; {year} Quiktis</p>
-        <p className="mx-auto text-center text-gray-300 text-sm">All rights reserved</p>
+
       </footer>
     </>
   );
