@@ -177,7 +177,7 @@ export default function Footer(): JSX.Element | null {
             className="hover:text-[#FF4D2A] transition-colors mx-auto w-fit max-sm:text-sm">
             Privacy Policy
           </Link>
-          <span className="text-white/50 max-sm:hidden block">|</span>
+          <span className="text-white/50 block">|</span>
           <Link
             href="/legal/cookies-policy"
             className="hover:text-[#FF4D2A] transition-colors mr-0 ml-auto w-fit max-sm:text-sm">
