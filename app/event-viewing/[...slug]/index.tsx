@@ -2,6 +2,7 @@
 import React from "react";
 import { useEffect } from "react";
 import Image from "next/image";
+import { CldImage } from "next-cloudinary";
 import Button from "@/components/ui/Button";
 import { IoTicketSharp } from "react-icons/io5";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
@@ -127,7 +128,7 @@ export default function EventViewingPage() {
             />
           )}
           {bannerImageSrc && !hasError && (
-            <Image
+            <CldImage
               src={bannerImageSrc}
               alt="Banner Image"
               fill

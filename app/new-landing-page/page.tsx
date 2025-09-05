@@ -16,6 +16,7 @@ import { Event } from "@/constant/customTypes";
 import Image from "next/image";
 import { formatToHumanReadableDate, formatToHumanReadableTime } from "@/app/utils/utilities";
 import { FiArrowRight } from "react-icons/fi";
+import { CldImage } from 'next-cloudinary';
 
 
 export default function NewLandingPage() {
@@ -112,7 +113,7 @@ export default function NewLandingPage() {
                       <div className="flex gap-3 w-fit">
                         <div className="relative w-[7.5em] h-[7.5em] rounded-[5px] overflow-hidden flex-shrink-0">
                           {event?.bannerImage && (
-                            <Image
+                            <CldImage
                             key={event?.id ?? ""}
                               src={event?.bannerImage}
                               alt={event.title}

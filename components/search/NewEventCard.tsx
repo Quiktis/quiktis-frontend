@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { Event } from "@/constant/customTypes";
 import { formatToHumanReadableDate, truncateText } from "@/app/utils/utilities";
 import { start } from "repl";
+import { CldImage } from "next-cloudinary";
 
 interface NewEventCardProps {
  
@@ -40,7 +41,7 @@ const NewEventCard: React.FC<NewEventCardProps> = ({
   return (
     <div className="w-full md:max-w-[300px] h-auto flex flex-col gap-[15px]">
       <div className="relative">
-        <Image
+        <CldImage
           src={image}
           alt={title}
           width={300}
