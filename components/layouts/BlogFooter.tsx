@@ -213,7 +213,7 @@ export default function BlogFooter(): JSX.Element {
         </div>
 
         {/* Radial gradient background */}
-        <div className="flex gap-4 mx-auto mt-10 max-md:mt-5 w-fit">
+        <div className="flex gap-1 mx-auto mt-10 max-md:mt-5 w-fit">
           <p className="text-gray-300 max-md:text-[0.82em]">&copy; {year} Quiktis Limited</p>
           <p className="text-gray-300 max-md:text-[0.82em]">All rights reserved</p>
         </div>
