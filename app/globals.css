@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+
 /* Self-hosted Space Grotesk font */
 @font-face {
   font-family: "Space Grotesk";
@@ -21,6 +26,23 @@
   src: url("/fonts/SpaceGrotesk-Bold.ttf") format("truetype");
   font-weight: 700; /* Bold */
   font-display: swap;
+}
+
+.font-instrument-serif {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-instrument-serif-i {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.font-geist {
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
 }
 
 .space-grotesk {
@@ -171,6 +193,25 @@ body {
     rgba(255, 0, 0, 0) 100%
   );
 }
+
+.radial-gradient-1 {
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(236, 49, 84, 0.4) 0%,
+    rgba(112, 79, 242, 0.349) 50%,
+    rgba(255, 0, 0, 0) 100%
+  );}
+
+  .radial-gradient-3 {
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(234, 67, 53, 0.54) 0%,
+    rgba(221, 68, 54, 0.349) 50%,
+    rgba(255, 0, 0, 0) 100%
+  );}
+
 
 .btn-3d {
   background: radial-gradient(circle at 50% 30%, #e94640ec, #ff1400);
@@ -323,4 +364,8 @@ body {
 
 .hide-srollbar-container {
   scrollbar-width: none !important;
+}
+
+a {
+  cursor: pointer;
 }

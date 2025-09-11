@@ -27,7 +27,7 @@ const socials = [
 export default function Footer(): JSX.Element | null {
   const pathname = usePathname();
 
-  const excludeFooterPaths = ["/signin", "/register"];
+  const excludeFooterPaths = ["/signin", "/register", "landing-page-2", "/"];
   const hiddenPaths = [
     "/event-viewing",
     "/faq",
@@ -61,6 +61,7 @@ export default function Footer(): JSX.Element | null {
     "/write-review",
     "/dashboard",
     "/404",
+    "/"
   ];
 
   if (excludeFooterPaths.includes(pathname)) return null;

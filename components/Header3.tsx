@@ -1,0 +1,77 @@
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+
+interface TimeWithGmtProps {
+  date?: Date | number | string;      // date input (default: now)
+  fixedGmtOffset?: number | null;     // optional fixed GMT offset (in hours, can be fractional)
+}
+
+const TimeWithGmt: React.FC<TimeWithGmtProps> = ({
+  date = new Date(),
+  fixedGmtOffset = null,
+}) => {
+  const input = date instanceof Date ? date : new Date(date);
+
+  const formatTime12Hour = (d: Date, timeZone?: string): string => {
+    return d.toLocaleTimeString(undefined, {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      ...(timeZone ? { timeZone } : {}),
+    });
+  };
+
+  const formatGmtString = (offsetMinutesEast: number): string => {
+    const sign = offsetMinutesEast >= 0 ? "+" : "-";
+    const absMins = Math.abs(offsetMinutesEast);
+    const hours = Math.floor(absMins / 60);
+    const mins = absMins % 60;
+    return mins === 0
+      ? `GMT${sign}${hours}`
+      : `GMT${sign}${hours}:${String(mins).padStart(2, "0")}`;
+  };
+
+  if (fixedGmtOffset === null) {
+    // Local time and offset
+    const offsetMinutesEast = -input.getTimezoneOffset();
+    const gmtString = formatGmtString(offsetMinutesEast);
+    const timeStr = formatTime12Hour(input);
+    return (
+      <span>
+        {timeStr} {gmtString}
+      </span>
+    );
+  } else {
+    // Fixed GMT offset
+    const offsetMinutesEast = Math.round(fixedGmtOffset * 60);
+    const utcMs = input.getTime() + input.getTimezoneOffset() * 60000;
+    const targetMs = utcMs + offsetMinutesEast * 60000;
+    const shiftedDate = new Date(targetMs);
+
+    const gmtString = formatGmtString(offsetMinutesEast);
+    const timeStr = formatTime12Hour(shiftedDate, "UTC");
+
+    return (
+      <span>
+        {timeStr} {gmtString}
+      </span>
+    );
+  }
+};
+
+export default function Header3() {
+  return (
+    <header className='absolute top-0 bottom-auto left-0 right-0 font-inter text-[0.95em]'>
+        <div className='w-[90%] mx-auto py-9 flex gap-4 justify-between h-fit'>
+            <Image src="/New logo.png" alt='logo' height={25} width={25} unoptimized className='object-contain'/>
+
+            <div className='flex gap-9 text-[#919499] font-medium max-md:hidden'>
+                <p className='my-auto'><TimeWithGmt /></p>
+                <Link href={"#"} className='cursor-pointer my-auto flex gap-1'>Explore events <Image src="/arrow-45.svg" alt='logo' height={14} width={14} unoptimized className='object-contain'/></Link>
+                <Link href={"#"} className='cursor-pointer px-4 py-1 rounded-xl bg-[#919499]/20'>Sign in</Link>
+            </div>
+        </div>
+    </header>
+  )
+}

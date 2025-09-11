@@ -24,6 +24,7 @@ export default function Footer(): JSX.Element | null {
     "/register",
     "/auth/google/callback",
     "/new-landing-page",
+    "/landing-page-2",
     "/",
   ];
   const hiddenPaths = [
@@ -58,6 +59,7 @@ export default function Footer(): JSX.Element | null {
     "/attendees",
     "/write-review",
     "/auth/google/callback",
+    "/"
   ];
   const extraPaddingPaths = [
     "/nfts-notification",
