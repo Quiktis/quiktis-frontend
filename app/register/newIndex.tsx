@@ -3,9 +3,11 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/Input"
-import { Label } from "@/components/ui/label"
+import Button from "@/components/ui/button"
+import Input from "@/components/ui/Input"
+import Label from "@/components/ui/label"
+
+
 import { Eye, EyeOff } from "lucide-react"
 import Image from "next/image"
 
