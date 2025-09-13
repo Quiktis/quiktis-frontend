@@ -4,7 +4,7 @@ import { FaGoogle, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 //import Countdown from 'react-countdown';
 import Image from 'next/image';
 import Button from '@/components/ui/CustomButton';
-import { Input } from '@/components/ui/Input';
+import Input from '@/components/ui/CustomInput';
 
 const features = [
   { id: 1, icon: '/star2.png', title: 'Secure, fraud-free transactions' },
