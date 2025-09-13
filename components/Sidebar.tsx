@@ -3,7 +3,7 @@ import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/app/context/UserContext";
-import { link } from "fs";
+import Image from "next/image";
 
 interface SidebarProps {
   isOpen?: boolean;
@@ -11,21 +11,17 @@ interface SidebarProps {
 }
 
 const authTabs = [
-  { label: "Home", link: "/" },
-  { label: "Dashboard", link: "/dashboard" },
-  { label: "Explore Events", link: "/events" },
-  {label: "About us", link: "/about"},
-  { label: "Contact us", link: "/contact" },
+  { label: "Home", link: "/", icon: "" },
+  { label: "Dashboard", link: "/dashboard", icon: "" },
+  { label: "Explore Events", link: "/events", icon: "" },
+  {label: "About us", link: "/about", icon: ""},
+  { label: "Contact us", link: "/contact", icon: "" },
 ];
 
 const guestTabs = [
-  { label: "Home", link: "/" },
-  { label: "Sign up", link: "/register" },
-  { label: "Sign in", link: "/signin" },
-  { label: "Explore Events", link: "/events" },
-  {label: "About us", link: "/about"},
-  { label: "Contact us", link: "/contact" },
-  { label: "Faq", link: "/faq" },
+  { label: "Explore Events", link: "#", icon: <Image src="/arrow-45.svg" alt='logo' height={10} width={10} unoptimized className='ml-1.5 object-contain'/> },
+  { label: "Sign in", link: "/register", icon: "" },
+  
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
@@ -38,7 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
   return (
     <>
       {isOpen && (
-        <aside className="md:hidden fixed px-2 py-6 bg-[#1b1b1b] rounded-xl grid w-[15em] right-4 z-[2000] top-5 shadow">
+        <aside className="md:hidden fixed px-2 py-6 bg-[#1b1b1b] rounded-xl grid w-[15em] right-4 z-[2000] top-5 shadow ">
           <ul className="grid w-[90%] gap-2 place-items-center mx-auto">
             <li className="w-full grid">
               <button
@@ -55,7 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
                   href={item.link}
                   onClick={() => onSidebarClose()}
                   className="w-full text-gray-200 flex justify-center py-3">
-                  {item.label}
+                  {item.label}{item.icon ?? item.icon}
                 </Link>
               </li>
             ))}

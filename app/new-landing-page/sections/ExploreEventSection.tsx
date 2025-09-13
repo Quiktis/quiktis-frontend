@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/CustomButton";
 import Image from "next/image";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { FiArrowUpRight } from "react-icons/fi";

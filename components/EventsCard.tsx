@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import Button from "./ui/Button";
+import Button from "./ui/CustomButton";
 import { IoTicketSharp } from "react-icons/io5";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import Link from "next/link";

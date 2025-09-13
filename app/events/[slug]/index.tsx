@@ -1,7 +1,7 @@
 "use client"
 import AllEvents from '@/components/AllEvents'
 import DescriptionCard from '@/components/DescriptionCard'
-import Button from '@/components/ui/Button'
+import Button from '@/components/ui/CustomButton'
 import Image from 'next/image'
 import React from 'react'
 import { IoCopy, IoTicketSharp } from 'react-icons/io5'

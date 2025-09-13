@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/CustomButton";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const HappeningSection = () => {

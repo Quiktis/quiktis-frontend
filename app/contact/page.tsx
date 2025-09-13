@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/CustomButton";
 import { FiSend } from "react-icons/fi";
 
 const ContactPage = () => {

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/CustomButton";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import InputField from "@/components/ui/InputFields";

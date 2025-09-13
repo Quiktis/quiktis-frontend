@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 
 import DashboardNav from "@/components/dashboard/DashboardNav";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/CustomButton";
 import InputField from "@/components/ui/InputFields";
 import FavoriteEvents from "@/components/dashboard/FavoriteEvents";
 

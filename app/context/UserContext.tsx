@@ -11,6 +11,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import useAxios from "../hooks/useAxios";
+import Header3 from "@/components/Header3";
 
 export interface User {
   userId?: string | null;
@@ -230,7 +231,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   if (loading && !shouldExcludeLoading) {
     return (
       <>
-        <header className="h-[4.5em] relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] shadow-2xl border border-[#ffffff10]">
+        {/*<header className="h-[4.5em] relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] shadow-2xl border border-[#ffffff10]">
           <div className="my-auto lg:px-8">
             <Image
               src="/new_logo.svg"
@@ -281,9 +282,26 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
               />
             </button>
           </div>
-        </header>
+        </header>*/}
 
-        <div className="min-h-screen w-full md:w-[80%] mx-auto flex flex-col items-center justify-center space-y-2 md:space-y-[2em] px-4 mt-[-5em]">
+        <header className='absolute top-0 bottom-auto left-0 right-0 font-inter text-[0.95em] z-50'>
+          <div className='w-[90%] mx-auto py-7 flex gap-4 justify-between h-fit'>
+            <Link href={"/"}><Image src="/New logo.png" alt='logo' height={25} width={25} unoptimized className='object-contain'/></Link>
+              
+
+              <div className='flex gap-9 text-[#919499] font-medium max-md:hidden'>
+                  {/*<p className='my-auto'><TimeWithGmt /></p>*/}
+                  <Link href={"#"} className='cursor-pointer my-auto flex gap-1'>Explore events <Image src="/arrow-45.svg" alt='logo' height={12} width={12} unoptimized className='object-contain'/></Link>
+                  <Link href={"/register"} className='cursor-pointer px-4 py-1 rounded-full bg-[#919499]/20'>Sign in</Link>
+              </div>
+
+
+             
+              
+          </div>
+      </header>
+
+        <div className="min-h-screen w-full md:w-[80%] mx-auto flex flex-col items-center justify-center space-y-2 md:space-y-[2em] px-4">
           <div className="w-full flex flex-col md:grid grid-cols-[1.3fr_0.7fr_0.9fr] h-full md:h-[8em] gap-3 md:gap-6">
             {[1, 2, 3].map((_, i) => (
               <div

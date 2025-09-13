@@ -34,7 +34,7 @@ const socials = [
 
 export default function Footer3() {
   return (
-    <footer className='my-[2em] '>
+    <footer className='my-[2em] max-sm:text-[0.85em] text-[0.94em] '>
         <hr className='w-[85%] mx-auto border-0 border-t border-gray-800'></hr>
         <section className='max-md:flex-col gap-6 max-md:justify-center max-md:text-center max-md:w-fit w-[85%] mx-auto flex justify-between mt-6 text-[#919499]'>
             <div className='flex gap-5'>
@@ -46,7 +46,7 @@ export default function Footer3() {
                         height={21}
                         priority
                         className='cursor-pointer object-contain bg-cover'
-                        unoptimized
+                        unoptimized={true}
                       />uiktis
                 </p>
                 
@@ -55,17 +55,25 @@ export default function Footer3() {
                 <Link href={"#"}>Help</Link>
             </div>
 
-            <div className='flex gap-5 max-md:w-fit max-md:mx-auto'>
+            <div className='md:flex gap-4 max-md:w-fit max-md:mx-auto hidden'>
                 {socials.map((item, index) => (
-                    <Link target='blank' key={index} href={item.link}><Image alt={item.alt} src={item.icon} height={24} width={24} className='h-[20px] w-[20px] object-contain'/></Link>
+                    <Link target='blank' key={index} href={item.link}><Image alt={item.alt} src={item.icon} height={22} width={22} className='h-[18px] w-[18px] object-contain'/></Link>
                 ))}
             </div>
         </section>
         <section className='w-[85%] mx-auto flex justify-between mt-5 text-[#919499]'>
             <div className='flex gap-5 max-md:w-fit max-md:mx-auto'>
-                <Link  href={"#"}>Terms</Link>
-                <Link  href={"#"}>Privacy</Link>
+                <Link  href={"/legal/terms"}>Terms</Link>
+                <Link  href={"/legal/privacy-policy"}>Privacy</Link>
                 <Link  href={"#"}>Security</Link>
+            </div>
+        </section>
+
+        <section className='w-[85%] mx-auto flex justify-between mt-5 text-[#919499]'>
+            <div className='flex gap-4 max-md:w-fit max-md:mx-auto md:hidden'>
+                {socials.map((item, index) => (
+                    <Link target='blank' key={index} href={item.link}><Image alt={item.alt} src={item.icon} height={22} width={22} className='h-[18px] w-[18px] object-contain'/></Link>
+                ))}
             </div>
         </section>
     </footer>

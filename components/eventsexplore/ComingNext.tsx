@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/CustomButton";
 import { Card, CardContent } from "@/components/ui/Card";
 import { IoArrowForward, IoTicket } from "react-icons/io5";
 

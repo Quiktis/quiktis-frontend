@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/CustomButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 

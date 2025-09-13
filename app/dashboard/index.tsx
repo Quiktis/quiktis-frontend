@@ -5,10 +5,10 @@ import EventsOperations from "@/components/EventsOperations";
 import ProfileCard from "@/components/ProfileCard";
 //import Statistics from '@/components/Statistics'
 import Image from "next/image";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/CustomButton";
 import React from "react";
 import InputField from "@/components/ui/InputFields";
-import Label from "@/components/ui/Label";
+import Label from "@/components/ui/CustomLabel";
 import { useUser } from "../context/UserContext";
 import { useRouter } from "next/navigation";
 import { FaArrowRight } from "react-icons/fa6";

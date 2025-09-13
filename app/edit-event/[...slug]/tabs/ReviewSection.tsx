@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '@/components/ui/Button'
+import Button from '@/components/ui/CustomButton'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image';
 import { FaLocationDot } from "react-icons/fa6";

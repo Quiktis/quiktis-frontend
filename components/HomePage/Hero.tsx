@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect } from "react";
-import Button from "../ui/Button";
+import Button from "../ui/CustomButton";
 import { useRouter } from "next/navigation";
 
 const company = [

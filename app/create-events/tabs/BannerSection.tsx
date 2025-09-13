@@ -1,6 +1,6 @@
 import React from 'react'
 import ImageUploader from '@/components/ImageUploader'
-import Button from '@/components/ui/Button'
+import Button from '@/components/ui/CustomButton'
 import { useRouter } from 'next/navigation';
 
 

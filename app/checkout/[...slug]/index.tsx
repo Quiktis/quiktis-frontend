@@ -9,7 +9,7 @@ import CartItem from "@/components/checkout/CartItem";
 import AttendeeDetails from "@/components/checkout/AttendeeDetails";
 import TicketCard from "@/components/nft/TicketCard";
 import { Event } from "@/constant/customTypes";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/CustomButton";
 
 export default function CheckoutPage() {
   const [quantity, setQuantity] = useState(1);

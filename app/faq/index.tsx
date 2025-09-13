@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import SearchBar from "@/components/ui/SearchBar";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/CustomButton";
 import Image from "next/image";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { TbMessage } from "react-icons/tb";

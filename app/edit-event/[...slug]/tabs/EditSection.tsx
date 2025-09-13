@@ -2,7 +2,7 @@
 import React, {useState} from 'react'
 import InputField from "@/components/ui/InputFields";
 import Dropdown from "@/components/ui/DropDown";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/CustomButton";
 import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import CustomTimePicker from "@/components/ui/CustomTimePicker";
 import EditableTags from "@/components/ui/EditableTags"; // Add this import

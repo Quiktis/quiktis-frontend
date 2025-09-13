@@ -1,6 +1,9 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Sidebar from './Sidebar'
+import { usePathname } from "next/navigation";
 
 interface TimeWithGmtProps {
   date?: Date | number | string;      // date input (default: now)
@@ -61,17 +64,45 @@ const TimeWithGmt: React.FC<TimeWithGmtProps> = ({
 };
 
 export default function Header3() {
-  return (
-    <header className='absolute top-0 bottom-auto left-0 right-0 font-inter text-[0.95em]'>
-        <div className='w-[90%] mx-auto py-9 flex gap-4 justify-between h-fit'>
-            <Image src="/New logo.png" alt='logo' height={25} width={25} unoptimized className='object-contain'/>
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+    const pathname = usePathname();
 
-            <div className='flex gap-9 text-[#919499] font-medium max-md:hidden'>
-                <p className='my-auto'><TimeWithGmt /></p>
-                <Link href={"#"} className='cursor-pointer my-auto flex gap-1'>Explore events <Image src="/arrow-45.svg" alt='logo' height={14} width={14} unoptimized className='object-contain'/></Link>
-                <Link href={"#"} className='cursor-pointer px-4 py-1 rounded-xl bg-[#919499]/20'>Sign in</Link>
-            </div>
-        </div>
-    </header>
+  const hiddenPaths = ["/register"];
+
+  if (hiddenPaths.includes(pathname)) return null;
+
+  return (
+    <>
+      <header className='absolute top-0 bottom-auto left-0 right-0 font-inter text-[0.95em] z-50'>
+          <div className='w-[90%] mx-auto py-7 flex gap-4 justify-between h-fit'>
+            <Link href={"/"}><Image src="/New logo.png" alt='logo' height={25} width={25} unoptimized className='object-contain'/></Link>
+              
+
+              <div className='flex gap-9 text-[#919499] font-medium max-md:hidden'>
+                  <p className='my-auto'><TimeWithGmt /></p>
+                  <Link href={"#"} className='cursor-pointer my-auto flex gap-1'>Explore events <Image src="/arrow-45.svg" alt='logo' height={12} width={12} unoptimized className='object-contain'/></Link>
+                  <Link href={"/register"} className='cursor-pointer px-4 py-1 rounded-full bg-[#919499]/20'>Sign in</Link>
+              </div>
+
+
+              <button className='hidden max-md:block my-auto' onClick={() => setSidebarOpen(true)}>
+                          <Image
+                            unoptimized={true}
+                            src="/ep_menu.svg"
+                            alt="menu"
+                           height={24}
+                            width={24}
+                            className='opacity-40'
+            
+                          />
+                        </button>
+              
+          </div>
+      </header>
+      <Sidebar
+        onSidebarClose={() => setSidebarOpen(false)}
+        isOpen={sidebarOpen}
+      />
+    </>
   )
 }

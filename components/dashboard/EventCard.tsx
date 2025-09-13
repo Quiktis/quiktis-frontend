@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { formatToHumanReadableDate } from "@/app/utils/utilities";
 import { MdDelete } from "react-icons/md";
-import Button from "../ui/Button";
+import Button from "../ui/CustomButton";
 import useAxios from "@/app/hooks/useAxios";
 import { useUser } from "@/app/context/UserContext";
 import { FiEdit2 } from "react-icons/fi";
