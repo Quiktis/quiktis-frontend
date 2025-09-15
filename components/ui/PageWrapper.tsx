@@ -11,6 +11,7 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => {
     "/contact",
     "/search",
     "/404",
+    "/pricing"
   ];
 
   //px-20 max-md:px-5

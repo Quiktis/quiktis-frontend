@@ -34,7 +34,7 @@ const socials = [
 
 export default function Footer3() {
   return (
-    <footer className='my-[2em] max-sm:text-[0.85em] text-[0.94em] '>
+    <footer className=' max-sm:text-[0.85em] text-[0.94em] mb-0 mt-auto'>
         <hr className='w-[85%] mx-auto border-0 border-t border-gray-800'></hr>
         <section className='max-md:flex-col gap-6 max-md:justify-center max-md:text-center max-md:w-fit w-[85%] mx-auto flex justify-between mt-6 text-[#919499]'>
             <div className='flex gap-5'>
@@ -51,7 +51,7 @@ export default function Footer3() {
                 </p>
                 
                 <Link href={"#"}>Discover</Link>
-                <Link href={"#"}>Pricing</Link>
+                <Link href={"/pricing"}>Pricing</Link>
                 <Link href={"#"}>Help</Link>
             </div>
 

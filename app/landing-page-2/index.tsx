@@ -1,7 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import Header3 from "@/components/Header3";
-import Footer3 from "@/components/Footer3";
 
 
 
@@ -9,10 +7,16 @@ export default function LandingPage2() {
   return (
     <>
 
-      <main className="relative ">
+      <main className="relative mb-[4em]">
         <div className="absolute grid w-full min-h-[max-content] top-0 bottom-0 left-0 right-0 ">
           <div className="grid w-screen h-screen mx-auto mb-0 mt-auto">
-            <div className=" pointer-events-none radial-gradient-1 blur-3xl opacity-50 w-[80vw] h-[76vh] lg:w-[65vw] lg:h-[40em] pt-[4em] lg:pt-[6em] mr-[0em] ml-auto max-sm:mb-[7.7em] mb-[-8em] mt-auto"></div>
+            <div className=" pointer-events-none radial-gradient-1 blur-3xl opacity-50 w-[80vw] h-[76vh] lg:w-[75vw] lg:h-[20vh] pt-[4em] lg:pt-[6em] mr-[0em] ml-auto max-sm:mb-[7.7em] mb-[-4em] mt-auto"></div>
+</div>
+        </div>
+
+        <div className="absolute grid w-full min-h-[max-content] top-0 bottom-0 left-0 right-0 ">
+          <div className="grid w-screen h-screen mx-auto mb-0 mt-auto">
+            <div className=" pointer-events-none radial-gradient-1 blur-3xl opacity-40 w-[80vw] h-[76vh] lg:w-[75vw] lg:h-[55vh] pt-[4em] lg:pt-[6em] mr-[0em] ml-auto max-sm:mb-[7.7em] mt-auto"></div>
 </div>
         </div>
 
@@ -76,7 +80,6 @@ export default function LandingPage2() {
           </div>
         </section>
       </main>
-      <Footer3 />
     </>
   );
 }

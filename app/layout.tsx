@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header3 from "@/components/Header3";
+import Footer3 from "@/components/Footer3";
 
 import Header from "@/components/layouts/Header";
 import PageWrapper from "@/components/ui/PageWrapper";
@@ -35,12 +36,15 @@ export default function RootLayout({
       <body className="antialiased flex flex-col min-h-screen">
         <UserProvider>
           <GoogleOAuthProvider clientId="YOUR_CLIENT_ID_HERE">
-            <PageWrapper>
+            {/*<PageWrapper>*/}
+              <div className="relative">
               {/*<NewHeader containerClass="max-w-[40em]" />*/}
               <Header3 />
               {children}
-              <FooterSelector />
-            </PageWrapper>
+              {/*<FooterSelector />*/}
+              <Footer3 />
+              </div>
+            {/*</PageWrapper>*/}
           </GoogleOAuthProvider>
         </UserProvider>
       </body>
