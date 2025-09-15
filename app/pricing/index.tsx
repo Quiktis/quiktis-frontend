@@ -136,7 +136,7 @@ export default function PricingPage() {
               </div>
               <div className="flex items-center gap-3">
                 <Image src="/verified-tick.svg" height={16} width={16} alt="icon" />
-                <span className="text-sm font-semibold">Fast settlement to organizer's account</span>
+                <span className="text-sm font-semibold">{`Fast settlement to organizer's account`}</span>
               </div>
             </div>
           </div>
