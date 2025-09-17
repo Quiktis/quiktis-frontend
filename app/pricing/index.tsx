@@ -104,7 +104,7 @@ export default function PricingPage() {
               <div className="mb-[0.2em]">
                 <span className="text-4xl font-medium">3% per tickets</span>
               </div>
-              <p className="text-sm">₦150 minimum, ₦2,000 cap</p>
+              <p className="text-sm">₦200 minimum, ₦2,000 cap</p>
             </div>
 
             <Button className="w-full mb-8 bg-[#EA4335] hover:bg-red-600">Get started</Button>
