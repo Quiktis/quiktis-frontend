@@ -62,7 +62,7 @@ export default function PricingPage() {
         <div className="text-center my-[6.5em]">
           <h1 className="text-3xl lg:text-4xl font-semibold mb-6">Pricing</h1>
           <div className="text-[0.95em] md:text-lg text-[#919499] max-w-2xl mx-auto ">
-            <p>Host unlimited events and guests on Luma for free.</p>
+            <p>Host unlimited events and guests on Quiktis for free.</p>
             <p>Upgrade for extra invites, 0% fees, and more.</p>
           </div>
         </div>
