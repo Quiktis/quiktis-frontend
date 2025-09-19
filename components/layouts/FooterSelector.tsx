@@ -2,11 +2,9 @@
 
 import { usePathname } from "next/navigation";
 
-
 import Footer from "./Footer";
 import NewFooter from "../NewFooter";
 import BlogFooter from "./BlogFooter";
-
 
 const FooterSelector: React.FC = () => {
   const pathname = usePathname();

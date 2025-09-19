@@ -1,10 +1,8 @@
-import React from 'react'
-import EventsPage from '.'
+import React from "react";
+import EventsPage from ".";
 
 const page = () => {
-  return (
-    <EventsPage/>
-  )
-}
+  return <EventsPage />;
+};
 
-export default page
+export default page;
