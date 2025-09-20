@@ -10,9 +10,7 @@ import { IoNotifications } from "react-icons/io5";
 /* --- TimeWithGmt Component --- */
 interface TimeWithGmtProps {
   date?: Date | number | string;
-  // date input (default: now)
   fixedGmtOffset?: number | null;
-  // optional fixed GMT offset (in hours, can be fractional)
 }
 
 const TimeWithGmt: React.FC<TimeWithGmtProps> = ({
@@ -64,7 +62,6 @@ const TimeWithGmt: React.FC<TimeWithGmtProps> = ({
   }
 };
 
-// --- Profile Dropdown ---
 const ProfileDropdown = () => {
   return (
     <div
@@ -222,7 +219,6 @@ export default function Header3({ isLoggedInProp }: Header3Props) {
 
   const pathnameRaw = usePathname();
   const pathname = pathnameRaw ?? "";
-  // Router + search params for syncing the header toggle to the URL:
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentTab =
@@ -248,7 +244,8 @@ export default function Header3({ isLoggedInProp }: Header3Props) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const isEventsPage = pathname.startsWith("/events");
+  const isEventsPage = pathname === "/events-active";
+
   const hiddenPaths = ["/register"];
   if (hiddenPaths.some((p) => pathname === p || pathname.startsWith(`${p}/`)))
     return null;
@@ -259,18 +256,32 @@ export default function Header3({ isLoggedInProp }: Header3Props) {
   return (
     <>
       <header className="absolute top-0 bottom-auto left-0 right-0 font-inter text-[0.95em] z-50 isolate">
-        {/* --- Gradient background --- */}
         {isLoggedIn && isEventsPage && (
-          <div
-            className="absolute inset-x-0 -top-28 -z-10 h-[30rem] blur-3xl opacity-[0.15] md:opacity-20 md:-top-20"
-            style={{
-              background:
-                currentTab === "past"
-                  ? "radial-gradient(ellipse 100% 40% at 50% 40%, #1E90FF, transparent 100%)" // 🔵 Past tab
-                  : "radial-gradient(ellipse 100% 40% at 50% 40%, #D6409F, transparent 100%)", // 🌸 Upcoming tab
-            }}
-            aria-hidden="true"
-          />
+          <>
+            {/* Mobile-only gradient: moved upward and set to 15% opacity */}
+            <div
+              className="absolute inset-x-0 -top-36 -z-10 h-[30rem] blur-3xl opacity-[0.15] md:hidden"
+              style={{
+                background:
+                  currentTab === "past"
+                    ? "radial-gradient(ellipse 100% 40% at 50% 30%, #1E90FF, transparent 100%)"
+                    : "radial-gradient(ellipse 100% 40% at 50% 30%, #D6409F, transparent 100%)",
+              }}
+              aria-hidden="true"
+            />
+
+            {/* Desktop/tablet gradient: preserved previous settings */}
+            <div
+              className="hidden md:block absolute inset-x-0 md:-top-20 -z-10 h-[30rem] blur-3xl opacity-20"
+              style={{
+                background:
+                  currentTab === "past"
+                    ? "radial-gradient(ellipse 100% 40% at 50% 40%, #1E90FF, transparent 100%)"
+                    : "radial-gradient(ellipse 100% 40% at 50% 40%, #D6409F, transparent 100%)",
+              }}
+              aria-hidden="true"
+            />
+          </>
         )}
 
         <div className="w-[90%] mx-auto py-4">
@@ -361,7 +372,7 @@ export default function Header3({ isLoggedInProp }: Header3Props) {
                         style={{ background: "rgba(0, 0, 0, 0.1)" }}
                       >
                         <Link
-                          href="/events"
+                          href="/events-active"
                           className="flex items-center space-x-2 text-white px-4 py-2 rounded-full"
                         >
                           <div className="relative w-5 h-5">
