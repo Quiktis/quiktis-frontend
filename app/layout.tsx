@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import Header3 from "@/components/Header3";
@@ -14,7 +13,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import NewHeader from "@/components/NewHeader";
 import AuthUserSync from "@/components/AuthUserSync";
 
-// Events tab context provider (so Header3 + EventsPageClient can share activeTab state)
 import { EventsTabProvider } from "@/lib/EventsTabContext";
 
 export const metadata: Metadata = {
