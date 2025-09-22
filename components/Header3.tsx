@@ -212,7 +212,7 @@ interface Header3Props {
   isLoggedInProp?: boolean;
 }
 
-export default function Header3({ isLoggedInProp }: Header3Props) {
+export default function Header({ isLoggedInProp }: Header3Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   // Profile dropdown
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -258,11 +258,9 @@ export default function Header3({ isLoggedInProp }: Header3Props) {
 
   return (
     <>
-      <header className="absolute top-0 bottom-auto left-0 right-0 font-inter text-[0.95em] z-50 isolate">
-        {/* --- Gradient background --- */}
-        {isLoggedIn && isEventsPage && (
+    {isLoggedIn && isEventsPage && (
           <div
-            className="absolute inset-x-0 -top-28 -z-10 h-[30rem] blur-3xl opacity-[0.15] md:opacity-20 md:-top-20"
+            className="absolute inset-x-0 -top-28  h-[30rem] blur-3xl opacity-[0.15] md:opacity-20 md:-top-20"
             style={{
               background:
                 currentTab === "past"
@@ -272,6 +270,10 @@ export default function Header3({ isLoggedInProp }: Header3Props) {
             aria-hidden="true"
           />
         )}
+        
+      <header className="absolute top-0 bottom-auto left-0 right-0 font-inter text-[0.95em] z-50 isolate">
+        {/* --- Gradient background --- */}
+        
 
         <div className="w-[90%] mx-auto py-4">
           {isLoggedIn ? (
@@ -415,7 +417,7 @@ export default function Header3({ isLoggedInProp }: Header3Props) {
                     </nav>
                     {isEventsPage && (
                       <div className="mt-20">
-                        <h1 className="text-4xl font-semibold text-white pl-4">
+                        <h1 className="block md:hidden text-4xl font-semibold text-white pl-4">
                           Events
                         </h1>
                       </div>

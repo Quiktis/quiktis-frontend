@@ -1,18 +1,12 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
-import Header3 from "@/components/Header3";
-import Footer3 from "@/components/Footer3";
-
-import Header from "@/components/layouts/Header";
-import PageWrapper from "@/components/ui/PageWrapper";
+import Header from "@/components/Header3";
 import FooterOverride from "@/components/layouts/FooterOverride";
-
 import { UserProvider } from "./context/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-
-import NewHeader from "@/components/NewHeader";
-import AuthUserSync from "@/components/AuthUserSync";
+import ClientLayout from "./context/ClientLayout";
+import { Suspense } from "react";
 
 // Events tab context provider (so Header3 + EventsPageClient can share activeTab state)
 import { EventsTabProvider } from "@/lib/EventsTabContext";
@@ -48,24 +42,21 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased flex flex-col min-h-screen">
-        <UserProvider>
-          <GoogleOAuthProvider clientId="YOUR_CLIENT_ID_HERE">
-            <EventsTabProvider>
-              {/*<PageWrapper>*/}
-              <div className="relative">
-                <Header3 isLoggedInProp={isLoggedInForTest} />
-
-                {children}
-
-                {/*<FooterSelector />*/}
-                <FooterOverride />
-              </div>
-              {/*</PageWrapper>*/}
-
-              {/* <AuthUserSync /> */}
-            </EventsTabProvider>
-          </GoogleOAuthProvider>
-        </UserProvider>
+        <Suspense fallback={<div></div>}>
+          <ClientLayout>
+            <UserProvider>
+              <GoogleOAuthProvider clientId="YOUR_CLIENT_ID_HERE">
+                <EventsTabProvider>
+                  <div className="relative">
+                    <Header isLoggedInProp={isLoggedInForTest} />
+                    {children}
+                    <FooterOverride />
+                  </div>
+                </EventsTabProvider>
+              </GoogleOAuthProvider>
+            </UserProvider>
+          </ClientLayout>
+        </Suspense>
       </body>
     </html>
   );

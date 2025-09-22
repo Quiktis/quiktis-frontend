@@ -12,6 +12,12 @@ export type TimeData = {
   };
 }
 
+export type TimeUnit = {
+  hour: number | null
+  minute: number | null
+  period: "AM" | "PM" | null
+}
+
 // Ticket types
 export type TicketData = {
   name: string;
