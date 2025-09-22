@@ -7,7 +7,7 @@ import {
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
-import ProfileImageUploader from "./ProfileImageUploader/ProfileImageUploader";
+//import ProfileImageUploader from "./ProfileImageUploader/ProfileImageUploader";
 import { useUser, User } from "@/app/context/UserContext";
 import useAxios from "@/app/hooks/useAxios";
 
@@ -112,12 +112,12 @@ const handleProfileSave = async (croppedImage: string) => {
     <div className={`grid relative w-full md:w-[fit-content] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] px-3 md:px-[3.8em] py-5 md:py-[3em] text-white shadow-lg h-fit `}>
       {/* Top Section */}
       <div className="grid grid-cols-[5.1em_auto] md:grid-cols-[7em_auto] my-auto gap-[0.8em] max-md:w-[90%] max-md:mx-auto w-fit h-fit">
-      <ProfileImageUploader 
+      {/*<ProfileImageUploader 
         preview={profilePreview}
         setPreview={setProfilePreview}
         setImage={setProfile}
         onSave={handleProfileSave}
-      />
+      />*/}
           <div className="h-fit my-auto">
           <div className="flex max-md:gap-3 gap-[3em] justify-between ">
           
