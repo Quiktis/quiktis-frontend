@@ -31,7 +31,10 @@ const socials = [
 
 export default function SpecialFooterPast() {
   return (
-    <footer className="max-sm:text-[0.85em] text-[0.94em] mb-0 mt-auto pt-10 sm:pt-6 md:pt-8 lg:pt-[6rem] xl:pt-[8rem] pb-8">
+    <footer
+      className="max-sm:text-[0.85em] text-[0.94em] mb-0 mt-auto pt-6 sm:pt-6 md:pt-6 lg:pt-[4rem] xl:pt-[5rem] pb-6"
+      style={{ background: "#131517" }}
+    >
       <hr className="w-[85%] mx-auto border-0 border-t border-gray-800" />
 
       {/* Top links + socials */}
@@ -100,8 +103,10 @@ export default function SpecialFooterPast() {
         </div>
       </section>
 
-      {/* Bottom host block */}
-      <div className="p-4 flex items-center justify-center max-w-[95%] md:max-w-[85%] mx-auto mt-[1.5em]">
+      <div
+        className="p-4 flex items-center justify-center max-w-[95%] md:max-w-[85%] mx-auto mt-[0.6em]"
+        style={{ background: "transparent" }}
+      >
         <div className="flex items-center gap-3 text-center">
           <span
             className="font-inter font-medium text-[24px] leading-[96%]"
