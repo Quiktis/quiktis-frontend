@@ -44,11 +44,11 @@ export function SignUpScreen() {
       </div>
 
       {/* Right Side - Sign Up Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-1 lg:p-2">
+      <div className="w-[95%] mx-auto lg:w-1/2 flex items-center justify-center p-1 py-0 py-[2em] lg:p-2">
         <div className="w-full max-w-md space-y-8">
           {/* Header */}
           <div className="text-center">
-            <h2 className="text-xl md:text-[1.7em] font-medium text-white mb-2">{isNewUser ? "Sign Up Account" : "Sign In Account"}</h2>
+            <h2 className="text-lg md:text-[1.5em] lg:text-[1.5em] font-medium text-white mb-2">{isNewUser ? "Sign Up Account" : "Sign In Account"}</h2>
             <p className="text-gray-400 text-sm mb-[3.2em]"> {isNewUser ? "Enter your personal details to create your account." : "Enter your personal details to Sign in your account."}</p>
           </div>
          
@@ -77,11 +77,11 @@ export function SignUpScreen() {
           </div>
 
           {/* Sign Up Form */}
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2 mt-2">
+          <form onSubmit={handleSubmit} className="flex flex-col max-md:gap-4 gap-2 mt-[2em]">
             {/* Name Fields */}
             {isNewUser && (<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName" className="text-white">
+                <Label htmlFor="firstName" className="text-white text-sm">
                   First name
                 </Label>
                 <Input
@@ -96,7 +96,7 @@ export function SignUpScreen() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName" className="text-white">
+                <Label htmlFor="lastName" className="text-white text-sm">
                   Last Name
                 </Label>
                 <Input
@@ -114,8 +114,9 @@ export function SignUpScreen() {
             }
 
             {/* Email Field */}
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-white">
+            <div className="grid grid-rows-1 max-md:gap-4 gap-2">
+              <div className="space-y-2">
+              <Label htmlFor="email" className="text-white text-sm">
                 Email
               </Label>
               <Input
@@ -132,7 +133,7 @@ export function SignUpScreen() {
 
             {/* Password Field */}
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-white">
+              <Label htmlFor="password" className="text-white text-sm">
                 Password
               </Label>
               <div className="relative">
@@ -156,6 +157,8 @@ export function SignUpScreen() {
               </div>
               {isNewUser && (<p className="text-xs text-gray-500">Must be at least 8 characters</p>)}
             </div>
+            </div>
+            
 
     
 

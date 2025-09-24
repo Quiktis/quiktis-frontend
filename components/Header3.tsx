@@ -80,7 +80,7 @@ export default function Header() {
 
               <div className='flex gap-9 text-[#919499] font-medium max-md:hidden'>
                   <p className='my-auto'><TimeWithGmt /></p>
-                  <Link href={"#"} className='cursor-pointer my-auto flex gap-1'>Explore events <Image src="/arrow-45.svg" alt='logo' height={12} width={12} unoptimized className='object-contain'/></Link>
+                  <Link href={"/register"} className='cursor-pointer my-auto flex gap-1'>Explore events <Image src="/arrow-45.svg" alt='logo' height={12} width={12} unoptimized className='object-contain'/></Link>
                   <Link href={"/register"} className='cursor-pointer px-4 py-1 rounded-full bg-[#919499]/20'>Sign in</Link>
               </div>
 

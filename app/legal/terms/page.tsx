@@ -47,7 +47,7 @@ const terms = [
 
 export default function TermsPage() {
   return (
-    <main className="max-w-4xl mx-auto px-6 py-12 text-gray-50 leading-relaxed">
+    <main className="max-w-4xl mx-auto px-6 py-12 text-gray-50 leading-relaxed mt-[3.5em] md:mt-[2.5em]">
       {/* Header */}
       <header className="mb-10">
         <h1 className="text-3xl font-bold mb-2">Terms and Conditions</h1>

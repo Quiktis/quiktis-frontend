@@ -56,7 +56,7 @@ export default function LandingPage() {
                   <div className="w-[10px] h-[10px] rounded-full items-center my-auto hover:bg-white bg-[#71EA00] shadow-[0_0_10px_rgba(123,255,0,0.5)]"></div>
                   <p className="my-auto">Create your first event</p>
                 </Link>
-                <button className="z-30 font-geist font-medium flex gap-2 hover:bg-gray-50/10 transition max-sm:px-9 px-5 py-3 border-[1px] border-gray-100/30 rounded-md ">
+                <Link href={"/register"} className="z-30 font-geist font-medium flex gap-2 hover:bg-gray-50/10 transition max-sm:px-9 px-5 py-3 border-[1px] border-gray-100/30 rounded-md ">
                   <Image
                     src="/incognito.svg"
                     alt="image"
@@ -64,7 +64,7 @@ export default function LandingPage() {
                     width={22}
                   />{" "}
                   <p className="my-auto">Schedule a demo</p>
-                </button>
+                </Link>
               </div>
             </div>
 

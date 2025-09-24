@@ -70,7 +70,7 @@ export default function PricingPage() {
         {/* Pricing Cards */}
         <div className="grid lg:grid-cols-3 gap-8 w-full mx-auto">
           {/* Free Events */}
-          <div className="bg-[#1C1E20] border border-[#2B2B2B] rounded-2xl p-8 z-50">
+          <div className="bg-[#1C1E20] border border-[#2B2B2B] rounded-2xl p-8 z-50 flex flex-col">
             <div className="mb-8">
               <h3 className="text-lg font-semibold mb-2">Free Events</h3>
               <div className="mb-[0.2em]">
@@ -79,7 +79,7 @@ export default function PricingPage() {
               <p className=" text-sm">Free now, free forever</p>
             </div>
 
-            <Button className="w-full mb-8 bg-white text-black hover:bg-gray-100">Get started</Button>
+            <Link href={"/register"} className="w-[100%] px-3 py-2 mb-8 bg-white text-black hover:bg-gray-100 rounded-md text-center font-semibold">Get started</Link>
 
             <div className="space-y-4">
               <div className="flex items-center gap-3">
@@ -98,7 +98,7 @@ export default function PricingPage() {
           </div>
 
           {/* Paid Events */}
-          <div className="bg-[#1C1E20] border border-[#2B2B2B] rounded-2xl p-8 z-50">
+          <div className="bg-[#1C1E20] border border-[#2B2B2B] rounded-2xl p-8 z-50 flex flex-col">
             <div className="mb-8">
               <h3 className="text-lg font-semibold mb-2 ">Paid Events</h3>
               <div className="mb-[0.2em]">
@@ -107,7 +107,7 @@ export default function PricingPage() {
               <p className="text-sm">₦200 minimum, ₦2,000 cap</p>
             </div>
 
-            <Button className="w-full mb-8 bg-[#EA4335] hover:bg-red-600">Get started</Button>
+            <Link href={"/register"} className="w-[100%] px-3 py-2 mb-8 bg-[#EA4335] hover:bg-red-600 rounded-md text-center font-semibold">Get started</Link>
 
             <div className="space-y-4">
               <div className="flex items-center gap-3">
@@ -142,7 +142,7 @@ export default function PricingPage() {
           </div>
 
           {/* Quiktis Premium */}
-          <div className="bg-[#1C1E20] border border-[#2B2B2B] rounded-2xl p-8 z-50">
+          <div className="bg-[#1C1E20] border border-[#2B2B2B] rounded-2xl p-8 z-50 flex flex-col">
             <div className="mb-8">
               <h3 className="text-lg font-semibold mb-2">Quiktis Premium</h3>
               <div className="mb-[0.2em]">
@@ -151,7 +151,7 @@ export default function PricingPage() {
               <p className="text-sm">Optional, per event</p>
             </div>
 
-            <Button className="w-full mb-8 bg-[#FB2E74] hover:bg-pink-600">Get started</Button>
+             <Link href={"/register"} className="w-[100%] px-3 py-2 mb-8 bg-[#FB2E74] hover:bg-pink-600 rounded-md text-center font-semibold">Get started</Link>
 
             <div className="space-y-4">
               <div className="flex items-center gap-3">
@@ -182,7 +182,7 @@ export default function PricingPage() {
               <hr className='w-[85%] mx-auto border-0 border-t border-gray-800'></hr>
               <section className='max-md:flex-col gap-6 max-md:justify-center max-md:text-center max-md:w-fit w-[85%] mx-auto flex justify-between mt-6 text-[#919499]'>
                   <div className='flex gap-5'>
-                      <p className='flex gap-[0.8px]'>
+                      <Link href={"/"} className='flex gap-[0.8px]'>
                           <Image
                               src='/New logo.png'
                               alt='Quiktis Logo'
@@ -192,11 +192,11 @@ export default function PricingPage() {
                               className='cursor-pointer object-contain bg-cover'
                               unoptimized={true}
                             />uiktis
-                      </p>
+                      </Link>
                       
                       <Link href={"#"}>Discover</Link>
                       <Link href={"/pricing"}>Pricing</Link>
-                      <Link href={"#"}>Help</Link>
+                      <Link href={"/contact"}>Help</Link>
                   </div>
       
                   <div className='md:flex gap-4 max-md:w-fit max-md:mx-auto hidden'>
