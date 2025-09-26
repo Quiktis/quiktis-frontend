@@ -1,13 +1,15 @@
 "use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Sidebar from "./Sidebar";
 import { usePathname } from "next/navigation";
+import { useUser } from "@/app/context/UserContext";
 
 interface TimeWithGmtProps {
-  date?: Date | number | string; // date input (default: now)
-  fixedGmtOffset?: number | null; // optional fixed GMT offset (in hours, can be fractional)
+  date?: Date | number | string;
+  fixedGmtOffset?: number | null;
 }
 
 const TimeWithGmt: React.FC<TimeWithGmtProps> = ({
@@ -36,7 +38,6 @@ const TimeWithGmt: React.FC<TimeWithGmtProps> = ({
   };
 
   if (fixedGmtOffset === null) {
-    // Local time and offset
     const offsetMinutesEast = -input.getTimezoneOffset();
     const gmtString = formatGmtString(offsetMinutesEast);
     const timeStr = formatTime12Hour(input);
@@ -46,7 +47,6 @@ const TimeWithGmt: React.FC<TimeWithGmtProps> = ({
       </span>
     );
   } else {
-    // Fixed GMT offset
     const offsetMinutesEast = Math.round(fixedGmtOffset * 60);
     const utcMs = input.getTime() + input.getTimezoneOffset() * 60000;
     const targetMs = utcMs + offsetMinutesEast * 60000;
@@ -66,10 +66,13 @@ const TimeWithGmt: React.FC<TimeWithGmtProps> = ({
 export default function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
+  const { user } = useUser(); // ✅ grab user state
 
   const hiddenPaths = ["/register"];
-
   if (hiddenPaths.includes(pathname)) return null;
+
+  // ✅ Get first name safely
+  const firstName = user?.name ? user.name.split(" ")[0] : null;
 
   return (
     <>
@@ -90,23 +93,29 @@ export default function Header() {
             <p className="my-auto">
               <TimeWithGmt />
             </p>
-            <Link href={"#"} className="cursor-pointer my-auto flex gap-1">
-              Explore events{" "}
+            <Link href={"/event"} className="cursor-pointer my-auto flex gap-1">
+              Explore events
               <Image
                 src="/arrow-45.svg"
-                alt="logo"
+                alt="arrow"
                 height={12}
                 width={12}
                 unoptimized
                 className="object-contain"
               />
             </Link>
-            <Link
-              href={"/register"}
-              className="cursor-pointer px-4 py-1 rounded-full bg-[#919499]/20"
-            >
-              Sign in
-            </Link>
+
+            {/* ✅ Show greeting if logged in, else Sign in */}
+            {user?.userId ? (
+              <span className="my-auto text-white">Hi {firstName}</span>
+            ) : (
+              <Link
+                href={"/register"}
+                className="cursor-pointer px-4 py-1 rounded-full bg-[#919499]/20"
+              >
+                Sign in
+              </Link>
+            )}
           </div>
 
           <button
@@ -114,7 +123,7 @@ export default function Header() {
             onClick={() => setSidebarOpen(true)}
           >
             <Image
-              unoptimized={true}
+              unoptimized
               src="/ep_menu.svg"
               alt="menu"
               height={24}
@@ -124,6 +133,7 @@ export default function Header() {
           </button>
         </div>
       </header>
+
       <Sidebar
         onSidebarClose={() => setSidebarOpen(false)}
         isOpen={sidebarOpen}

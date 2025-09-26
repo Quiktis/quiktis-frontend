@@ -13,6 +13,8 @@ const FooterOverride: React.FC = () => {
     "/create-event",
     "/events/create-event",
     "/events/create",
+    "/event",
+    "/register"
   ];
   const isCreatePage = hideFooterPaths.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`)

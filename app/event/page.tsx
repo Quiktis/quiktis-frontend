@@ -1,92 +1,84 @@
 "use client";
 
 import React from "react";
+import { useSearchParams } from "next/navigation";
+import UpcomingActive from "@/components/events/UpcomingActive";
+import PastActive from "@/components/events/PastActive";
+import EventsEmptyState from "@/components/events/EventsEmptyState";
 import Link from "next/link";
 import Image from "next/image";
-import { FiPlus } from "react-icons/fi";
+import SpecialFooterPast from "@/components/ui/SpecialFooterPast";
 
 const socials = [
   {
     icon: "/discord-new.svg",
     link: "https://discord.gg/TmavF8QCu5",
-    alt: "discord-link",
+    alt: "discord",
   },
   {
     icon: "/instagram-new.svg",
     link: "https://instagram.com/quiktis",
-    alt: "instagram-link",
+    alt: "instagram",
   },
-  {
-    icon: "/twitter-new.svg",
-    link: "https://x.com/quiktishq",
-    alt: "twitter-link",
-  },
+  { icon: "/twitter-new.svg", link: "https://x.com/quiktishq", alt: "twitter" },
   {
     icon: "/linkedin-new.svg",
     link: "https://linkedin.com/company/quiktis",
-    alt: "linkedin-link",
+    alt: "linkedin",
   },
   {
     icon: "/facebook-new.svg",
     link: "https://www.facebook.com/share/1BnfVxgh29/",
-    alt: "facebook-link",
+    alt: "facebook",
   },
 ];
 
-export default function EventsEmptyState({
-  tab,
-  hideFooter = false,
-}: {
-  tab?: "upcoming" | "past";
-  hideFooter?: boolean;
-}) {
-  const title = tab === "past" ? "No past events" : "No upcoming Events";
-  const subtitle =
-    tab === "past"
-      ? "No upcoming events at this time. Take a bold step, Host one!"
-      : "No upcoming events at this time. Take a bold step, Host one!";
+export default function EventsActivePage() {
+  const searchParams = useSearchParams();
+  const currentTab =
+    (searchParams?.get("tab") as "upcoming" | "past") ?? "upcoming";
+
+  const activeParam = searchParams?.get("active");
+  const hasUpcoming = activeParam === "true";
+  const hasPast = activeParam === "true";
+
+  const hasEvents =
+    (currentTab === "upcoming" && hasUpcoming) ||
+    (currentTab === "past" && hasPast);
 
   return (
     <div
-      className=" text-white"
+      className="flex flex-col min-h-screen text-white pb-8 md:pb-12"
       style={{ backgroundColor: "#131517" }}
     >
-      <div className="w-[95%] lg:w-[90%] xl:w-[85%] mx-auto">
-        <div className="flex flex-col items-center justify-center  py-8">
-          <div className="mb-10 -mt-20 md:-mt-6">
-            <Image
-              src="/inactive_events.svg"
-              alt="No events illustration"
-              width={320}
-              height={200}
-              className="object-contain"
-              unoptimized={true}
-            />
-          </div>
-
-          <div className="text-center">
-            <h2 className="mb-4 text-2xl md:text-3xl font-medium text-[#919499]">
-              {title}
-            </h2>
-            <p className="mb-8 text-sm md:text-base text-gray-400 max-w-md">
-              {subtitle}
-            </p>
-          </div>
-
-          <Link href={"/create-event"}
-            className="bg-[#252729] hover:bg-[#2A2C30] text-[#919499] px-6 py-3 rounded-xl transition-colors flex items-center gap-3"
-            aria-label="Create event"
-          >
-            <div className="bg-[#2A2C30] rounded-full p-1.5">
-              <FiPlus className="h-4 w-4" />
+      {/* Main content */}
+      <main
+        className={`flex-1 w-[90%] lg:w-[90%] xl:w-[85%] mx-auto ${
+          hasEvents ? "" : ""
+        } `}
+      >
+        {currentTab === "upcoming" ? (
+          hasUpcoming ? (
+            <UpcomingActive />
+          ) : (
+            <div className="grid place-items-center min-h-screen">
+                <EventsEmptyState tab="upcoming" hideFooter={true} />
             </div>
-            <span className="text-[16px]">Create event</span>
-          </Link>
-        </div>
-      </div>
+            
+          )
+        ) : currentTab === "past" ? (
+          hasPast ? (
+            <PastActive />
+          ) : (
+            <EventsEmptyState tab="past" hideFooter={true} />
+          )
+        ) : null}
+      </main>
 
-      {!hideFooter && (
-        <footer className=" max-sm:text-[0.85em] text-[0.94em] mb-0 mt-auto pt-10 sm:pt-6 md:pt-8 lg:pt-[6rem] xl:pt-[8rem] pb-8">
+      {currentTab === "past" ? (
+        <SpecialFooterPast />
+      ) : (
+        <footer className="max-sm:text-[0.85em] text-[0.94em] mb-0 mt-auto pt-10 sm:pt-6 md:pt-8 lg:pt-[6rem] xl:pt-[8rem] pb-8">
           <hr className="w-[85%] mx-auto border-0 border-t border-gray-800" />
           <section className="max-md:flex-col gap-6 max-md:justify-center max-md:text-center max-md:w-fit w-[85%] mx-auto flex justify-between mt-6 text-[#919499]">
             <div className="flex gap-5">
