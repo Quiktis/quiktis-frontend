@@ -13,7 +13,8 @@ interface SidebarProps {
 const authTabs = [
   { label: "Home", link: "/", icon: "" },
   { label: "Create Events", link: "/create-event", icon: "" },
-  { label: "My Events", link: "/create-event", icon: "" },
+  { label: "My Events", link: "/event", icon: "" },
+  { label: "Explore Events", link: "/explore-events", icon: "" },
 ];
 
 const guestTabs = [

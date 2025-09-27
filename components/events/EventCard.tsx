@@ -56,7 +56,7 @@ export default function EventCard({ event }: { event: EventItem }) {
   };
 
   return (
-    <div
+    <div className="max-sm:w-[87vw] mx-auto"
       role="button"
       //onClick={() => router.push(href)}
       //className="cursor-pointer"
@@ -70,7 +70,7 @@ export default function EventCard({ event }: { event: EventItem }) {
         </div>
 
         <div
-          className="p-3 w-full box-border rounded-xl"
+          className="p-3 box-border rounded-xl"
           style={mobileCardStyle}
         >
           <div className="flex gap-3 items-start">
@@ -80,7 +80,8 @@ export default function EventCard({ event }: { event: EventItem }) {
                 {timeStr}
               </div>
 
-              <h2 className="text-white text-base font-semibold leading-tight break-words">
+              <h2 className="text-white text-base font-semibold leading-tight break-words max-sm:max-w-[65%]
+              ">
                 {event.title}
               </h2>
 
@@ -104,7 +105,7 @@ export default function EventCard({ event }: { event: EventItem }) {
               <div className="flex items-center gap-2 text-gray-400">
                 <FaMapMarkerAlt className="w-3 h-3 flex-shrink-0" />
                 <span
-                  className="font-inter font-medium text-xs truncate"
+                  className="font-inter font-medium text-xs truncate max-sm:max-w-[57%]"
                   title={event.location ?? "Online"}
                 >
                   {event.location ?? "Online"}

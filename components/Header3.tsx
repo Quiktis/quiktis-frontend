@@ -109,6 +109,10 @@ export default function Header() {
               My events
             </Link>}
 
+            {user?.userId && <Link href={"/explore-events"} className="cursor-pointer my-auto flex gap-1">
+              Explore events
+            </Link>}
+
             {/* ✅ Show greeting if logged in, else Sign in */}
             {user?.userId ? (
               <span className="my-auto text-white">Hi {firstName}</span>
