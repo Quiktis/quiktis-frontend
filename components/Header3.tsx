@@ -93,8 +93,8 @@ export default function Header() {
             <p className="my-auto">
               <TimeWithGmt />
             </p>
-            <Link href={"/register"} className="cursor-pointer my-auto flex gap-1">
-              Explore events
+            <Link href={user?.userId ? "/create-event" : "/register"} className="cursor-pointer my-auto flex gap-1">
+              {user?.userId ? "Create event" : "Explore event"}
               <Image
                 src="/arrow-45.svg"
                 alt="arrow"

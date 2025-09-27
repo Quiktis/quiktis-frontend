@@ -64,7 +64,7 @@ export default function EventsActivePage() {
             <UpcomingActive />
           ) : (
             <div className="grid place-items-center min-h-screen">
-                <EventsEmptyState tab="upcoming" hideFooter={true} />
+                <UpcomingActive  />
             </div>
             
           )

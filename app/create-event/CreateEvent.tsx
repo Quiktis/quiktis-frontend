@@ -10,6 +10,7 @@ import CustomTimePicker2 from "@/components/ui/CustomTimePicker2"
 import { TimeData, TimeUnit, NewEventData } from "@/constant/customTypes"
 import Input from "@/components/ui/Input"
 import Button from "@/components/ui/Button"
+import { useRouter } from "next/router"
 
 import { createNewEvent } from "../utils/api"
 
@@ -73,6 +74,7 @@ export default function CreateEventPage() {
 
   const [showThemeSelector, setShowThemeSelector] = useState(false)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const router = useRouter();
 
 
    const [newTicket, setNewTicket] = useState<TicketType>({
@@ -86,6 +88,7 @@ export default function CreateEventPage() {
   mutationFn: createNewEvent,
   onSuccess: (data) => {
     console.log("Event created Succesfully:", data);
+    router.push("/event")
     // maybe redirect to /dashboard or /event/:id
   },
   onError: (error: any) => {

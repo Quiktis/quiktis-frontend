@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import SafeImage from "../SafeImage";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { EventItem } from "@/lib/eventsClient";
@@ -58,8 +58,8 @@ export default function EventCard({ event }: { event: EventItem }) {
   return (
     <div
       role="button"
-      onClick={() => router.push(href)}
-      className="cursor-pointer"
+      //onClick={() => router.push(href)}
+      //className="cursor-pointer"
       aria-label={`Open event ${event.title}`}
     >
       {/* ---------- MOBILE LAYOUT ---------- */}
@@ -85,7 +85,7 @@ export default function EventCard({ event }: { event: EventItem }) {
               </h2>
 
               <div className="flex items-center gap-2">
-                <Image
+                <SafeImage
                   src={icon}
                   alt="organizer icon"
                   width={16}
@@ -124,7 +124,7 @@ export default function EventCard({ event }: { event: EventItem }) {
             {/* Poster image */}
             <div className="flex-shrink-0">
               <div className="w-[86px] h-[86px] rounded-md overflow-hidden">
-                <Image
+                <SafeImage
                   src={thumb}
                   alt={`${event.title} poster`}
                   width={86}
@@ -163,7 +163,7 @@ export default function EventCard({ event }: { event: EventItem }) {
               {event.title}
             </h2>
             <div className="flex items-center gap-2">
-              <Image
+              <SafeImage
                 src={icon}
                 alt="organizer icon"
                 width={20}
@@ -192,7 +192,7 @@ export default function EventCard({ event }: { event: EventItem }) {
           {/* Poster (desktop) */}
           <div className="w-full md:w-auto mt-4 md:mt-0 md:ml-4 flex-shrink-0 md:-mt-2 md:-mr-2">
             <div className="w-full md:w-[156px] md:h-[156px] rounded-xl overflow-hidden">
-              <Image
+              <SafeImage
                 src={thumb}
                 alt={`${event.title} poster`}
                 width={156}
