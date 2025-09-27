@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import {
   createContext,
   useContext,
@@ -87,6 +89,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [googleUser, setGoogleUser] = useState<GoogleUser>({ token: null });
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
+  const router = useRouter();
 
   const setRole = (role: string) => {
     setUser((prevUser) => ({
@@ -97,35 +100,39 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   // Keep logout endpoint if you have it; also clear local storage + context
   const logout = async () => {
-    try {
-      await sendRequest({
-        url: `/api/auth/logout`,
-        method: "POST",
-      });
-    } catch {
-      // ignore errors from logout endpoint for now
-    } finally {
-      setUser({
-        userId: null,
-        name: null,
-        email: null,
-        role: null,
-        picture: null,
-        age: null,
-        location: null,
-        token: null,
-        payoutDetails: {
-          id: "",
-          account_number: "",
-          account_name: "",
-          bank_name: "",
-          recipient_code: "",
-        },
-      });
-      localStorage.removeItem("quiktis_user");
-      localStorage.removeItem("quiktis_token");
-    }
-  };
+  try {
+    await fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "include", // ✅ ensures cookies are sent
+    });
+  } catch {
+    // ignore errors from logout endpoint for now
+  } finally {
+    setUser({
+      userId: null,
+      name: null,
+      email: null,
+      role: null,
+      picture: null,
+      age: null,
+      location: null,
+      token: null,
+      payoutDetails: {
+        id: "",
+        account_number: "",
+        account_name: "",
+        bank_name: "",
+        recipient_code: "",
+      },
+    });
+
+    localStorage.removeItem("quiktis_user");
+    localStorage.removeItem("quiktis_token");
+
+    router.push("/");
+  }
+};
+
 
   // 🔁 TEMP approach (no /auth/me): restore from localStorage only
   useEffect(() => {

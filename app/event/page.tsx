@@ -8,6 +8,7 @@ import EventsEmptyState from "@/components/events/EventsEmptyState";
 import Link from "next/link";
 import Image from "next/image";
 import SpecialFooterPast from "@/components/ui/SpecialFooterPast";
+import { useUser } from "../context/UserContext";
 
 const socials = [
   {
@@ -34,6 +35,7 @@ const socials = [
 ];
 
 export default function EventsActivePage() {
+  const { user, logout } = useUser();
   const searchParams = useSearchParams();
   const currentTab =
     (searchParams?.get("tab") as "upcoming" | "past") ?? "upcoming";
@@ -98,6 +100,7 @@ export default function EventsActivePage() {
               <Link href={"#"}>Discover</Link>
               <Link href={"/pricing"}>Pricing</Link>
               <Link href={"#"}>Help</Link>
+              {user?.userId && <button onClick={logout}>Logout</button>}
             </div>
 
             <div className="md:flex gap-4 max-md:w-fit max-md:mx-auto hidden">

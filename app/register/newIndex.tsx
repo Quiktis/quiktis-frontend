@@ -77,6 +77,7 @@ export function SignUpScreen() {
     onSuccess: (data) => {
       setErrorMsg(null);
       if (data.status === "success") {
+        //alert("Signup successfull")
         const { user, token } = data.data;
         setUser({
           userId: user.id,

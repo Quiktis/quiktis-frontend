@@ -1,6 +1,8 @@
+"use client"
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useUser } from "@/app/context/UserContext";
 
 const socials = [
   {
@@ -31,6 +33,8 @@ const socials = [
 ];
 
 export default function Footer3() {
+
+  const { user, logout } = useUser();
   return (
     <footer className=" max-sm:text-[0.85em] text-[0.94em] mb-[2.5em] mt-auto">
       <hr className="w-[85%] mx-auto border-0 border-t border-gray-800"></hr>
@@ -52,6 +56,7 @@ export default function Footer3() {
           <Link href={"#"}>Discover</Link>
           <Link href={"/pricing"}>Pricing</Link>
           <Link href={"/contact"}>Help</Link>
+          {user?.userId && <button onClick={logout}>Logout</button>}
         </div>
 
         <div className="md:flex gap-4 max-md:w-fit max-md:mx-auto hidden">
@@ -73,6 +78,7 @@ export default function Footer3() {
           <Link href={"/legal/terms"}>Terms</Link>
           <Link href={"/legal/privacy-policy"}>Privacy</Link>
           <Link href={"/legal/security"}>Security</Link>
+          
         </div>
       </section>
 

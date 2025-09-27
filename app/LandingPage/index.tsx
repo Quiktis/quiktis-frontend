@@ -1,10 +1,14 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useUser } from "@/app/context/UserContext";
 
 
 
 export default function LandingPage() {
+  const { user } = useUser();
+
   return (
     <>
 
@@ -52,11 +56,11 @@ export default function LandingPage() {
               </p>
 
               <div className="flex max-sm:flex-col gap-2 mt-[2em] md:mt-[4em] mx-auto lg:mx-0 w-fit z-30">
-                <Link href={"/create-event"} className="hover:bg-[#ce0a5c] hover:text-white transition flex gap-2 font-geist font-medium max-sm:px-9 px-5 py-3 shadow-md bg-white text-black rounded-md z-30">
+                <Link href={user?.userId ? "create-event" : "/register"} className="hover:bg-[#ce0a5c] hover:text-white transition flex gap-2 font-geist font-medium max-sm:px-9 px-5 py-3 shadow-md bg-white text-black rounded-md z-30">
                   <div className="w-[10px] h-[10px] rounded-full items-center my-auto hover:bg-white bg-[#71EA00] shadow-[0_0_10px_rgba(123,255,0,0.5)]"></div>
                   <p className="my-auto">Create your first event</p>
                 </Link>
-                <Link href={"/register"} className="z-30 font-geist font-medium flex gap-2 hover:bg-gray-50/10 transition max-sm:px-9 px-5 py-3 border-[1px] border-gray-100/30 rounded-md ">
+                <Link href={user?.userId ? "create-event" : "/register"} className="z-30 font-geist font-medium flex gap-2 hover:bg-gray-50/10 transition max-sm:px-9 px-5 py-3 border-[1px] border-gray-100/30 rounded-md ">
                   <Image
                     src="/incognito.svg"
                     alt="image"

@@ -93,7 +93,7 @@ export default function Header() {
             <p className="my-auto">
               <TimeWithGmt />
             </p>
-            <Link href={"/event"} className="cursor-pointer my-auto flex gap-1">
+            <Link href={"/register"} className="cursor-pointer my-auto flex gap-1">
               Explore events
               <Image
                 src="/arrow-45.svg"

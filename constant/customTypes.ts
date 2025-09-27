@@ -98,3 +98,29 @@ export type EventUpdate = Partial<Omit<EventData, 'tickets'>> & {
   id: string;
   tickets?: TicketData[];
 }
+
+
+
+
+export type NewTicket = {
+  name: string
+  description: string
+  price: number
+  quantity: number
+}
+
+export type NewEventData = {
+  eventName: string
+  description: string
+  startDate: Date | null   // yyyy-mm-dd
+  endDate: Date | null
+  startTime: TimeUnit | null  // HH:mm
+  endTime: TimeUnit | null
+  location: string
+  eventType: "paid" | "free" | string
+  coverImage?: File | null | string | any
+  eventTheme?: string
+  approvalRequired?: boolean
+  eventCapacity?: number
+  tickets?: NewTicket[]
+}

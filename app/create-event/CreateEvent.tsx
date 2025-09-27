@@ -5,32 +5,23 @@ import { useMutation } from "@tanstack/react-query"
 import { Textarea } from "@/components/ui/Textarea"
 import { Switch } from "@/components/ui/Switch"
 import { Calendar, MapPin, ImageIcon, Settings, Ticket, Shield, Users, Bell, Search } from "lucide-react"
-
 import CustomDatePicker2 from "@/components/ui/CustomDatePicker2"
 import CustomTimePicker2 from "@/components/ui/CustomTimePicker2"
-import { TimeData, TimeUnit } from "@/constant/customTypes"
-
+import { TimeData, TimeUnit, NewEventData } from "@/constant/customTypes"
 import Input from "@/components/ui/Input"
 import Button from "@/components/ui/Button"
-import Label from "@/components/ui/Label"
+
+import { createNewEvent } from "../utils/api"
 
 
-
-interface EventData {
+interface TicketType {
   name: string
-  startDate: Date | null
-  startTime: TimeUnit | null
-  endDate: Date | null
-  endTime: TimeUnit | null
-  location: string
   description: string
-  isPaid: boolean
-  requiresApproval: boolean
-  seatCapacity: number
-  isPublic: boolean
-  coverImage: File | null
-  theme: string
+  price: number
+  quantity: number
 }
+
+
 
 const THEME_COLORS = [
   { name: "Orange", color: "#FF6B35" },
@@ -61,65 +52,56 @@ const getTimeData = (date: Date): TimeData["startTime"] => {
   }
 }
 
-const createEvent = async (eventData: EventData) => {
-  const formData = new FormData()
-
-  Object.entries(eventData).forEach(([key, value]) => {
-    if (key === "coverImage") {
-      if (value) formData.append("coverImage", value)
-    } else {
-      formData.append(key, String(value))
-    }
-  })
-
-  const response = await fetch("/api/events", {
-    method: "POST",
-    body: formData,
-  })
-
-  if (!response.ok) {
-    throw new Error("Failed to create event")
-  }
-
-  return response.json()
-}
-
 export default function CreateEventPage() {
-  const [eventData, setEventData] = useState<EventData>({
-    name: "",
+  const [eventData, setEventData] = useState<NewEventData>({
+    eventName: "",
     startDate: now,
     startTime: null,
     endDate: now,
     endTime: null,
     location: "",
     description: "",
-    isPaid: false,
-    requiresApproval: false,
-    seatCapacity: 0,
-    isPublic: true,
+    eventType: "free",
+    approvalRequired: false,
+    eventCapacity: 0,
     coverImage: null,
-    theme: THEME_COLORS[0].color,
+    eventTheme: THEME_COLORS[0].color,
+    tickets: [],
   })
+  
+  const [eventSettings, setEventSettings] = useState("")
 
   const [showThemeSelector, setShowThemeSelector] = useState(false)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
 
-  const createEventMutation = useMutation({
-    mutationFn: createEvent,
-    onSuccess: (data) => {
-      console.log("Event created successfully:", data)
-    },
-    onError: (error) => {
-      console.error("Error creating event:", error)
-    },
+
+   const [newTicket, setNewTicket] = useState<TicketType>({
+    name: "",
+    description: "",
+    price: 0,
+    quantity: 0,
   })
 
-  const handleInputChange = (field: keyof EventData, value: string | boolean | number | File | null) => {
-    setEventData((prev) => ({
-      ...prev,
-      [field]: value,
-    }))
-  }
+  const createEventMutation = useMutation({
+  mutationFn: createNewEvent,
+  onSuccess: (data) => {
+    console.log("Event created Succesfully:", data);
+    // maybe redirect to /dashboard or /event/:id
+  },
+  onError: (error: any) => {
+    console.error("Error creating event:", error.response?.data || error.message);
+  },
+});
+
+const handleInputChange = (
+  field: keyof NewEventData,
+  value: string | boolean | number | null | File
+) => {
+  setEventData((prev) => ({
+    ...prev,
+    [field]: value as any, // TS can be picky here
+  }))
+}
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -135,13 +117,88 @@ export default function CreateEventPage() {
   }
 
   const handleThemeSelect = (color: string) => {
-    handleInputChange("theme", color)
+    handleInputChange("eventTheme", color)
     setShowThemeSelector(false)
   }
 
-  const handleSubmit = () => {
-    createEventMutation.mutate(eventData)
+   const handleTicketChange = (field: keyof TicketType, value: string | number) => {
+    setNewTicket((prev) => ({
+      ...prev,
+      [field]: value,
+    }))
   }
+
+  const addTicket = () => {
+    if (eventData.eventType === "free") {
+      if (!newTicket.name) return
+    setEventData((prev) => ({
+      ...prev,
+      tickets: [...(prev.tickets || []), newTicket],
+    }))
+    setNewTicket({ name: "", description: "", price: 0, quantity: 100000 })
+    } else {
+      if (!newTicket.name || !newTicket.price) return
+    setEventData((prev) => ({
+      ...prev,
+      tickets: [...(prev.tickets || []), newTicket],
+    }))
+    setNewTicket({ name: "", description: "", price: 0, quantity: 100000 })
+    }
+    
+  }
+
+
+
+
+
+  const removeTicket = (index: number) => {
+    setEventData((prev) => ({
+      ...prev,
+      tickets: prev.tickets?.filter((_, i) => i !== index),
+    }))
+  }
+
+  const handleSubmit = () => {
+  // Validation rules
+  if (!eventData.eventName.trim()) {
+    alert("Please enter an event name.");
+    return;
+  }
+
+  if (!eventData.startDate || !eventData.endDate) {
+    alert("Please select start and end dates.");
+    return;
+  }
+
+  if (!eventData.startTime || !eventData.endTime) {
+    alert("Please select start and end times.");
+    return;
+  }
+
+  if (!eventData.location.trim()) {
+    alert("Please enter a location.");
+    return;
+  }
+
+  if (!eventData.description.trim()) {
+    alert("Please add a description.");
+    return;
+  }
+
+  if (!eventData.eventType) {
+    alert("Please choose if the event is Free or Paid.");
+    return;
+  }
+
+  if (eventData.eventType === "paid" && (!eventData.tickets || eventData.tickets.length === 0)) {
+    alert("Please add at least one ticket type for a paid event.");
+    return;
+  }
+
+  // Passed all checks → trigger mutation
+  createEventMutation.mutate(eventData);
+};
+
 
   return (
     <div className="relative min-h-screen text-white">
@@ -207,7 +264,7 @@ export default function CreateEventPage() {
                       key={theme.name}
                       onClick={() => handleThemeSelect(theme.color)}
                       className={`w-12 h-12 rounded-full border-2 transition-all hover:scale-110 ${
-                        eventData.theme === theme.color ? "border-white shadow-lg" : "border-transparent"
+                        eventData.eventTheme === theme.color ? "border-white shadow-lg" : "border-transparent"
                       }`}
                       style={{ backgroundColor: theme.color }}
                       title={theme.name}
@@ -236,8 +293,8 @@ export default function CreateEventPage() {
               fontSize: "3em"
             }}
               placeholder="Event Name Here..."
-              value={eventData.name}
-              onChange={(e) => handleInputChange("name", e.target.value)}
+              value={eventData.eventName}
+              onChange={(e) => handleInputChange("eventName", e.target.value)}
               className="z-30 py-2 bg-transparent font-instrument-serif-i border-none font-light placeholder:text-gray-500 px-0 focus-visible:ring-0 "
             />
           </div>
@@ -338,16 +395,20 @@ export default function CreateEventPage() {
 
           {/* Location */}
           <div className="bg-[#FFFFFF0F] backdrop-blur-xl p-4 rounded-2xl">
-            <div className="flex items-center gap-2 text-gray-400">
-              <MapPin className="w-4 h-4" />
-              <span className="text-sm">Select Event Location</span>
+            <div className="flex items-center gap-2 text-gray-400 w-full">
+              
+              <div className="flex gap-2 w-full"><MapPin className="w-4 h-4 my-auto" /><span className="text-sm my-auto">Enter Event Location
+                
+              </span> </div>
+              
+              
             </div>
-            {/*<Input
-              placeholder="Offline location or virtual link"
+            <Input
+              placeholder="Add Event Location"
               value={eventData.location}
               onChange={(e) => handleInputChange("location", e.target.value)}
-              className="bg-transparent border-none text-white placeholder:text-gray-500 p-0 focus-visible:ring-0"
-            />*/}
+              className="bg-transparent border-none text-white  mt-2 w-full placeholder:text-gray-500 p-0 focus-visible:ring-0 resize-none"
+            />
           </div>
 
           {/* Description */}
@@ -362,51 +423,194 @@ export default function CreateEventPage() {
           </div>
 
           {/* Event Settings */}
-          <div className="space-y-4 max-sm:pt-[2em]">
-            <h3 className="text-lg font-medium text-white">Event Settings</h3>
+          {/* Event Settings */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium">Event Settings</h3>
 
-            <div className="bg-[#FFFFFF0F] backdrop-blur-xl rounded-2xl p-1">
-              {/* Ticket Setting */}
-              <div className="flex items-center justify-between p-4">
-                <div className="flex items-center gap-3">
+            <div className="flex flex-col w-full">
+              {/* Ticket Type Toggle */}
+              <section  >
+              <div className="flex items-center justify-between p-4 md:pt-6.5 px-6  bg-[#FFFFFF0F] backdrop-blur-xl rounded-t-2xl">
+                <button onClick={() => eventSettings === "ticket" ? setEventSettings("") : setEventSettings("ticket")} className="flex items-center gap-3">
                   <Ticket className="w-5 h-5 text-gray-400" />
-                  <span className="text-white">Ticket</span>
+                  <span>Ticket</span>
+                </button>
+            
+                <button onClick={() => eventSettings === "ticket" ? setEventSettings("") : setEventSettings("ticket")} className="text-gray-500">{eventData.eventType === "free" ? "Free" : "Paid"}</button>
                 </div>
-                <Switch
-                  checked={eventData.isPaid}
-                  onCheckedChange={(checked) => handleInputChange("isPaid", checked)}
+
+                  
+                {eventSettings === "ticket" && (
+            <div className="space-y-3 text-left my-5 px-6">
+              {/* Ticket Form */}
+              <div className="flex items-center justify-between ">
+
+                <div className="flex flex-col gap-5 w-full">
+
+                  <div className="flex justify-between gap-3">
+                  <div className="flex flex-col">
+                    <span className="md:text-lg font-medium">Free</span>
+                    <span className="text-gray-400 text-[0.85em] max-md:max-w-[95%] max-sm:text-[0.68em]">Your event is currently set for free without revenue on ticket</span>
+                  </div>
+
+                  <Switch
+    className="data-[state=checked]:bg-white data-[state=unchecked]:bg-[#4d4d4d] [&>span]:bg-black/90 my-auto"
+    checked={eventData.eventType === "free"}
+    onCheckedChange={(checked) =>
+      handleInputChange("eventType", checked ? "free" : "paid")
+    }
+  />
+                  
+                </div>
+
+                <div className="flex justify-between gap-3">
+                  <div className="flex flex-col">
+                    <span className="md:text-lg font-medium">Paid</span>
+                    <span className="text-gray-400 text-[0.85em] max-md:max-w-[95%] max-sm:text-[0.68em]">Click here to set up your paid event</span>
+                  </div>
+
+                 <Switch
+    className="data-[state=checked]:bg-white data-[state=unchecked]:bg-[#4d4d4d] [&>span]:bg-black/90 my-auto"
+    checked={eventData.eventType === "paid"}
+    onCheckedChange={(checked) =>
+      handleInputChange("eventType", checked ? "paid" : "free")
+    }
+  />
+                  
+                </div>
+
+
+                <div className="space-y-3">
+                  <h4>Ticket type</h4>
+                  <Input
+                  placeholder="e.g VIP, VVIP, Regular"
+                  className="border-0 placeholder:text-gray-500 bg-[#212427] py-3"
+                  value={newTicket.name}
+                  onChange={(e) => handleTicketChange("name", e.target.value)}
                 />
-              </div>
+
+                {eventData.eventType !== "free" && <Input
+                  type="number"
+                  placeholder="Add price"
+                  className="border-0 placeholder:text-gray-500  bg-[#212427] py-3"
+                  value={newTicket.price || "" }
+                  onChange={(e) => handleTicketChange("price", parseFloat(e.target.value))}
+                />}
+
+                 <Button onClick={addTicket} className="px-5 font-normal py-5 w-fit bg-[#212427] hover:bg-gray-100/10 mt-2">
+                Add Type
+              </Button>
+                </div>
+
+                </div>
+                
+                </div>
+             
+             
+
+              {/* Ticket List */}
+              {eventData.tickets && eventData.tickets?.length > 0 && (
+                <ul className="space-y-2 mt-3">
+                  {eventData?.tickets?.map((ticket, index) => (
+                    <li
+                      key={index}
+                      className="flex justify-between items-center bg-[#FFFFFF0F] px-3 py-3 rounded-lg"
+                    >
+                      <span>{ticket.name} {`${eventData.eventType === "free" ? "" : `- ₦${ticket.price}`}`}</span>
+                      <Button
+                        className="bg-gray-600/30 hover:bg-red-600/90"
+                        size="sm"
+                        onClick={() => removeTicket(index)}
+                      >
+                        Remove
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+
+              </section>
 
               {/* Admin Approval */}
-              <div className="flex items-center justify-between p-4">
-                <div className="flex items-center gap-3">
+              <section>
+              <div className="flex items-center justify-between p-4 px-6 bg-[#FFFFFF0F] backdrop-blur-xl z-50">
+                <button onClick={() => eventSettings === "approval" ? setEventSettings("") : setEventSettings("approval")} className="flex items-center gap-3">
                   <Shield className="w-5 h-5 text-gray-400" />
-                  <span className="text-white">Approval</span>
-                </div>
-                <Switch
-                  checked={eventData.requiresApproval}
-                  onCheckedChange={(checked) => handleInputChange("requiresApproval", checked)}
-                />
+                  <span>Approval</span>
+                </button>
+                
               </div>
 
-              {/* Seat Capacity */}
-              <div className="flex items-center justify-between p-4">
-                <div className="flex items-center gap-3">
+              {eventSettings === "approval" && (
+            <div className="space-y-3 text-left my-5 px-6">
+              {/* Ticket Form */}
+              
+
+                  <div className="flex justify-between gap-3">
+                  <div className="flex flex-col">
+                    <span className="md:text-lg font-medium">Approval Required</span>
+                    <span className="text-gray-400 text-[0.85em] max-md:max-w-[95%] max-sm:text-[0.68em]">Click here to set event approval</span>
+                  </div>
+
+                  <Switch
+                 className="data-[state=checked]:bg-white data-[state=unchecked]:bg-[#4d4d4d] [&>span]:bg-black/90 my-auto"
+                  checked={eventData.approvalRequired}
+                  onCheckedChange={(checked) => handleInputChange("approvalRequired", checked)}
+                />
+  
+                  
+                </div>
+
+               
+
+
+                
+             
+             
+
+            </div>
+          )}
+              </section>
+
+              {/* Capacity */}
+              <section>
+              <div className="flex items-center justify-between p-4 md:pb-6.5  px-6 bg-[#FFFFFF0F] backdrop-blur-xl rounded-b-2xl">
+                <button onClick={() => eventSettings === "capacity" ? setEventSettings("") : setEventSettings("capacity")} className="flex items-center gap-3">
                   <Users className="w-5 h-5 text-gray-400" />
-                  <span className="text-white">Set Capacity</span>
+                  <span>Set Capacity</span>
+                </button>
+              </div>
+
+              {eventSettings === "capacity" && (
+            <div className="space-y-3 text-left my-5 px-6">
+              {/* Ticket Form */}
+              
+
+                  <div className="flex justify-between gap-3">
+                  <div className="flex flex-col">
+                    <span className="md:text-lg font-medium">Event Capacity</span>
+                    <span className="text-gray-400 text-[0.85em] max-md:max-w-[95%] max-sm:text-[0.68em]">Enter your event capacity here</span>
+                  </div>
                 </div>
                 <Input
                   type="number"
-                  min="0"
-                  value={eventData.seatCapacity}
-                  onChange={(e) => handleInputChange("seatCapacity", Number.parseInt(e.target.value) || 0)}
-                  className="w-20 bg-[#1a1b23] border-gray-600 text-white text-center rounded-lg"
-                  placeholder="0"
+                  placeholder="e.g 100, 150"
+                  className="border-0 placeholder:text-gray-500  bg-[#212427] py-3"
+                  value={eventData.eventCapacity || "" }
+                   onChange={(e) =>
+                    handleInputChange("eventCapacity", parseInt(e.target.value) || 0)
+                  }
                 />
-              </div>
+
+            </div>
+          )}
+              </section>
             </div>
           </div>
+          
+
 
           {/* Create Event Button */}
           <Button
