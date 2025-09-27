@@ -77,8 +77,8 @@ export default function UpcomingActive() {
   }
 
   return (
-    <section className="mt-4 md:mt-[10em]">
-      <div className="flex flex-col gap-6 w-[90%] mx-auto md:w-full md:max-w-5xl md:pr-12">
+    <section className="mt-[7em] md:mt-[10em]">
+      <div className="flex flex-col gap-8 w-[98] mx-auto md:w-full md:max-w-5xl md:pr-12">
         {userEvents.map((event) => (
           <EventCard
             key={event.id}

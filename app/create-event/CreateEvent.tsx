@@ -10,7 +10,7 @@ import CustomTimePicker2 from "@/components/ui/CustomTimePicker2"
 import { TimeData, TimeUnit, NewEventData } from "@/constant/customTypes"
 import Input from "@/components/ui/Input"
 import Button from "@/components/ui/Button"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation";
 
 import { createNewEvent } from "../utils/api"
 
@@ -204,7 +204,7 @@ const handleInputChange = (
 
 
   return (
-    <div className="relative min-h-screen text-white">
+    <div className="relative min-h-screen text-white max-md:mb-[4em]">
      
 
       {/* Main Content */}

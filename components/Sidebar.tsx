@@ -12,21 +12,19 @@ interface SidebarProps {
 
 const authTabs = [
   { label: "Home", link: "/", icon: "" },
-  { label: "Dashboard", link: "/dashboard", icon: "" },
-  { label: "Explore Events", link: "/events", icon: "" },
-  {label: "About us", link: "/about", icon: ""},
-  { label: "Contact us", link: "/contact", icon: "" },
+  { label: "Create Events", link: "/create-event", icon: "" },
+  { label: "My Events", link: "/create-event", icon: "" },
 ];
 
 const guestTabs = [
-  { label: "Explore Events", link: "#", icon: <Image src="/arrow-45.svg" alt='logo' height={10} width={10} unoptimized className='ml-1.5 object-contain'/> },
+  { label: "Explore Events", link: "/register", icon: <Image src="/arrow-45.svg" alt='logo' height={10} width={10} unoptimized className='ml-1.5 object-contain'/> },
   { label: "Sign in", link: "/register", icon: "" },
   
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
   const router = useRouter();
-  const { user } = useUser();
+  const { user, logout } = useUser();
 
   const tabsToRender = user?.email ? authTabs : guestTabs;
 
@@ -55,6 +53,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
                 </Link>
               </li>
             ))}
+            {user?.email && <button className="mt-5 bg-white/5 px-6 py-1 rounded-full" 
+            onClick={() => {
+              onSidebarClose();
+              logout();
+            }}
+            >Logout</button>}
           </ul>
         </aside>
       )}

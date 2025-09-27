@@ -65,8 +65,8 @@ export default function EventCard({ event }: { event: EventItem }) {
       {/* ---------- MOBILE LAYOUT ---------- */}
       <div className="md:hidden -mx-4">
         <div className="text-left mb-6 px-0">
-          <div className="text-white font-bold text-lg">{dateStr}</div>
-          <div className="text-gray-400 text-md font-medium">{weekdayStr}</div>
+          <div className="text-white font-bold md:text-lg">{dateStr}</div>
+          <div className="text-gray-400 text-md md:font-medium">{weekdayStr}</div>
         </div>
 
         <div
