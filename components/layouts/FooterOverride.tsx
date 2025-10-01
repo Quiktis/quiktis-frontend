@@ -3,6 +3,7 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import Footer3 from "@/components/Footer3";
 import SpecialFooterPast from "@/components/ui/SpecialFooterPast";
+import SpecialFooterProfile from "@/components/ui/SpecialFooterProfile";
 
 const FooterOverride: React.FC = () => {
   const pathname = usePathname() || "";
@@ -38,6 +39,12 @@ const FooterOverride: React.FC = () => {
     pathname === "/discover" || pathname.startsWith("/discover/");
   if (isDiscover) {
     return <SpecialFooterPast />;
+  }
+
+  // Render special footer for /profile
+  const isProfile = pathname === "/profile" || pathname.startsWith("/profile/");
+  if (isProfile) {
+    return <SpecialFooterProfile />;
   }
 
   // fallback: normal footer everywhere else
