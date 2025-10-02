@@ -24,7 +24,6 @@ export default function Footer(): JSX.Element | null {
     "/register",
     "/auth/google/callback",
     "/new-landing-page",
-    "/landing-page-2",
     "/",
   ];
   const hiddenPaths = [
@@ -59,7 +58,6 @@ export default function Footer(): JSX.Element | null {
     "/attendees",
     "/write-review",
     "/auth/google/callback",
-    "/"
   ];
   const extraPaddingPaths = [
     "/nfts-notification",
@@ -76,7 +74,7 @@ export default function Footer(): JSX.Element | null {
     <>
       {!hiddenPaths.includes(pathname) && (
         <section className="relative w-full mb-[5em]">
-          <NewsLetter />
+          {/*<NewsLetter />*/}
         </section>
       )}
 
@@ -197,7 +195,7 @@ export default function Footer(): JSX.Element | null {
           </div>
         </div> */}
 
-        <div className="flex max-sm:justify-between justify-center items-center max-md:space-x-1 space-x-2 mt-[3em] text-base">
+        <div className="flex max-sm:justify-between justify-center items-center max-md:space-x-1 space-x-2 mt-[3em] text-base w-fit mx-auto">
                   <Link
                     href="/legal/terms"
                     className="hover:text-[#FF4D2A] transition-colors max-md:text-[0.82em] w-fit">
@@ -209,7 +207,7 @@ export default function Footer(): JSX.Element | null {
                     className="hover:text-[#FF4D2A] transition-colors mx-auto w-fit max-md:text-[0.82em]">
                     Privacy Policy
                   </Link>
-                  <span className="text-white/50 block">|</span>
+                  <span className="text-white/50 block ml-2"> |</span>
                   <Link
                     href="/legal/cookies-policy"
                     className="hover:text-[#FF4D2A] transition-colors mr-0 ml-auto w-fit max-md:text-[0.82em]">

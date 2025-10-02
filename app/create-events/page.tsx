@@ -134,7 +134,7 @@ function CreateEventPage() {
     console.log(user?.token, "user token")
 
       // Make the POST request to upload the image
-      /*const response = await sendRequest({
+     const response = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/medias/upload`,
         method: "POST",
         headers: { 
@@ -154,11 +154,11 @@ function CreateEventPage() {
         }
       //const imageUrl = response.data.files[0].cloudinaryUrl
 
-        */
+       
 
       // after uploading the image
-//const imageUrl = response.data.files[0].cloudinaryUrl ?? "";
-const imageUrl = "https://res.cloudinary.com/dpaeqpvsn/image/upload/v1759269626/savingsville-lessons/z2zif6ic0c4fbsiaedee.jpg"
+const imageUrl = response.data.files[0].cloudinaryUrl;
+//const imageUrl = "https://res.cloudinary.com/dpaeqpvsn/image/upload/v1759269626/savingsville-lessons/z2zif6ic0c4fbsiaedee.jpg"
 
 // update state for future use (fine)
 setEventData((prev) => ({

@@ -253,10 +253,10 @@ const RegisterPage: React.FC = () => {
           {message && <div>{message}</div>}
           <Button
             type="submit"
-            className="w-full py-4 border-white border mt-4"
+            className="w-full py-4 border-white bg-primary text-white mt-4"
             //disabled={!agreed}
             loading={isProcessing}
-            loaderClass='mt-[0.08em] ml-[-0.005em]'
+            loaderClass='mt-[0.24em] ml-[-0.005em]'
           >
             Create an account
           </Button>

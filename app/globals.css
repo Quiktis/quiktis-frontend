@@ -1,8 +1,11 @@
 @import "tailwindcss";
+@import "tailwindcss/preflight"
 
-@tailwind base;
-@tailwind components;
+
+
 @tailwind utilities;
+
+
 /* Self-hosted Space Grotesk font */
 @font-face {
   font-family: "Space Grotesk";
@@ -29,6 +32,11 @@
   font-family: "Space Grotesk", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+
+button {
+  cursor: pointer;
 }
 
 

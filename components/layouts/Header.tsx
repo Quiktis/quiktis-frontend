@@ -2,7 +2,7 @@
 import React from "react";
 import Logo from "../Logo";
 import Navbar from "../Navbar";
-import Button from "../ui/CustomButton";
+import Button from "../ui/Button";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";

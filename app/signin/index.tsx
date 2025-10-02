@@ -80,7 +80,7 @@ const LoginPage: React.FC = () => {
         };*/
 
         setUser(user);
-        localStorage.setItem("quiktis_user", JSON.stringify(user));
+        /*localStorage.setItem("quiktis_user", JSON.stringify(userForStorage));*/
         router.push("/dashboard");
       }
     } catch (error) {
@@ -119,6 +119,7 @@ const LoginPage: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="Email"
+            label='Email Address'
             required={true}
             placeholder="Enter your email address here"
             className="bg-black border border-[#CBCAD7] text-white placeholder-gray-500"
@@ -127,13 +128,13 @@ const LoginPage: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
+            label='Password'
             required={true}
             placeholder="Enter your password here"
             className="bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
           />
           {error && <div className="text-red-500 text-[0.95em] mb-[-3em]">{error}</div>}
-          <Button type="submit" 
-             className="w-full justify-center py-4 mt-4 bg-primary">
+          <Button type="submit" loading={isProcessing} loaderClass='mt-1 ml-[-0.04em]' className="w-full justify-center py-4 mt-4 bg-primary">
             Login
           </Button>
         </form>

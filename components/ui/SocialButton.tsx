@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaApple, FaFacebookF, FaGoogle, FaTwitter } from 'react-icons/fa';
-import Button from './CustomButton';
+import Button from './Button';
 import { LuLoaderCircle } from 'react-icons/lu';
 
 interface SocialLoginButtonProps {

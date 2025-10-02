@@ -71,7 +71,7 @@ export default function BlogFooter(): JSX.Element {
     <>
       {!hiddenPaths.includes(pathname) && (
         <section className="relative w-full mb-[5em]">
-          <BlogNewsletter />
+          {/*<BlogNewsletter />*/}
         </section>
       )}
 

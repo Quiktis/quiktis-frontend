@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaSearch } from 'react-icons/fa';
-import Input from './CustomInput';
+import Input from '../ui/Input';
 
 interface SearchBarProps {
   placeholder?: string;

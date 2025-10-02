@@ -1,5 +1,5 @@
 "use client";
-import Input from "../ui/CustomInput";
+import Input from "../ui/Input";
 
 import React, { useState } from "react";
 import GenderDropdown from "@/components/checkout/gender-dropdown";

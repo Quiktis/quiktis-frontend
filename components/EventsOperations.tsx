@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
-import Button from "@/components/ui/CustomButton";
+import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";

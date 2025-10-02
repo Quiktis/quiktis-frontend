@@ -30,11 +30,11 @@ const NewHeader: React.FC<HeaderProps> = ({ containerClass }) => {
     // { name: "Newsletter", path: "/reviews" },
   ];
 
-  const allowedPaths = [""];
+  const allowedPaths = ["/"];
 
-  const hiddenPaths = [ "/landing-page-2"];
+  const hiddenPaths = ["", ""];
 
-  if (hiddenPaths.includes(pathname)) return null;
+  //if (hiddenPaths.includes(pathname)) return null;
 
   return (
     <>

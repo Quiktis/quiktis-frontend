@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import Button from "./ui/CustomButton";
-import Input from "./ui/CustomInput";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
 
 const NewsLetter = () => {
   const [email, setEmail] = useState("");
