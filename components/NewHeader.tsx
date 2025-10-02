@@ -32,7 +32,7 @@ const NewHeader: React.FC<HeaderProps> = ({ containerClass }) => {
 
   const allowedPaths = [""];
 
-  const hiddenPaths = ["/", "/landing-page-2"];
+  const hiddenPaths = [ "/landing-page-2"];
 
   if (hiddenPaths.includes(pathname)) return null;
 

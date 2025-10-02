@@ -1,56 +1,75 @@
+@import "tailwindcss";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
-
-
-
+/* Self-hosted Space Grotesk font */
 @font-face {
-  font-family: "instrumentserif-italic";
-  src: url("/fonts/instrumentserif-italic.ttf") format("truetype");
-  font-weight: 500; /* Regular */
-  font-style: italic;
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Regular.ttf") format("truetype");
+  font-weight: 400; /* Regular */
   font-display: swap;
 }
 
-.font-instrument-serif {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Medium.ttf") format("truetype");
+  font-weight: 500; /* Medium */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Bold.ttf") format("truetype");
+  font-weight: 700; /* Bold */
+  font-display: swap;
+}
+
+.space-grotesk {
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
   font-style: normal;
 }
 
-.font-instrument-serif-i {
-  font-family: "instrumentserif-italic", serif;
-  font-weight: 400;
-  font-style: italic;
+
+
+
+@theme {
+  --color-primary: #ff4d2a; 
 }
 
-.font-geist {
-  font-family: "Geist", sans-serif;
-  font-optical-sizing: auto;
+@layer utilities {
+  .bg-gradient-radial {
+    background-image: radial-gradient(var(--tw-gradient-stops));
+  }
+  .bg-gradient-conic {
+    background-image: conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops));
+  }
+  .bg-gradient-bg {
+    background-image: url('/gradient.png');
+  }
 }
 
 
 :root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
   --primary: #ff4d2a !important;
   --secondary-white: #ffffff;
   --secondary-brown: #401801;
   --accent-dark-gray: #181819;
-  --font-primary: "Inter";
+  --font-primary: "Space Grotesk";
   --font-secondary: "Montserrat";
   font-family: "Space Grotesk";
   overflow-x: hidden;
+
+  
 }
 
-html, body {
+body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Inter';
+  font-family: "Space Grotesk";
   
 }
 
@@ -176,35 +195,6 @@ html, body {
     rgba(255, 0, 0, 0) 100%
   );
 }
-
-.radial-gradient-1 {
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(236, 49, 84, 0.4) 0%,
-    rgba(236, 49, 83, 0.151) 50%,
-    rgba(255, 0, 0, 0) 100%
-  );}
-
-  .radial-gradient-2 {
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(112, 79, 242, 0.068) 0%,
-    rgba(112, 79, 242, 0.205) 50%,
-    rgba(255, 0, 0, 0) 100%
-  );}
-
-
-  .radial-gradient-3 {
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(234, 67, 53, 0.54) 0%,
-    rgba(221, 68, 54, 0.349) 50%,
-    rgba(255, 0, 0, 0) 100%
-  );}
-
 
 .btn-3d {
   background: radial-gradient(circle at 50% 30%, #e94640ec, #ff1400);
@@ -357,88 +347,4 @@ html, body {
 
 .hide-srollbar-container {
   scrollbar-width: none !important;
-}
-
-a {
-  cursor: pointer;
-}
-
-
-
-@layer base {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-
-    --card: #0a0a0a;
-    --card-foreground: #ededed;
-
-    --popover: #0a0a0a;
-    --popover-foreground: #ededed;
-
-    --primary: #ff4d2a; /* orange */
-    --primary-foreground: #ffffff;
-
-    --secondary: #401801; /* brown */
-    --secondary-foreground: #ffffff;
-
-    --muted: #181819;
-    --muted-foreground: #ededed;
-
-    --accent: #181819;
-    --accent-foreground: #ededed;
-
-    --destructive: #ff4d2a;
-    --destructive-foreground: #ffffff;
-
-    --border: #181819;
-    --input: #181819;
-    --ring: #ff4d2a;
-
-    --font-primary: "Inter", sans-serif;
-    --font-secondary: "Montserrat", sans-serif;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-
-    --card: #181819;
-    --card-foreground: #ededed;
-
-    --popover: #181819;
-    --popover-foreground: #ededed;
-
-    --primary: #ff4d2a;
-    --primary-foreground: #ffffff;
-
-    --secondary: #401801;
-    --secondary-foreground: #ffffff;
-
-    --muted: #181819;
-    --muted-foreground: #ededed;
-
-    --accent: #181819;
-    --accent-foreground: #ededed;
-
-    --destructive: #ff4d2a;
-    --destructive-foreground: #ffffff;
-
-    --border: #401801;
-    --input: #181819;
-    --ring: #ff4d2a;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-    font-family: var(--font-primary);
-  }
-  body {
-    @apply bg-background text-foreground;
-    overflow-x: hidden;
-  }
 }

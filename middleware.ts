@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const protectedRoutes = ["/create-event", "/dashboard", "/event"];
+const protectedRoutes = ["/create-events", "/dashboard", "/event"];
 const authRoutes = ["/register", "/login", "/signin"];
 
 export function middleware(req: NextRequest) {
@@ -24,7 +24,7 @@ export function middleware(req: NextRequest) {
   if (authRoutes.some((route) => pathname.startsWith(route))) {
     if (token) {
       const url = req.nextUrl.clone();
-      url.pathname = "/event"; // or wherever you want logged-in users to land
+      url.pathname = "/dashboard"; // or wherever you want logged-in users to land
       return NextResponse.redirect(url);
     }
   }
@@ -34,8 +34,8 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/event/:path*",        // ✅ Protect all /event routes
-    "/create-event",
+    "/events/:path*",        // ✅ Protect all /event routes
+    "/create-events",
     "/dashboard",
     "/register",
     "/login",

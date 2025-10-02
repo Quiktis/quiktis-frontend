@@ -2,8 +2,8 @@
 import React, { useState, useEffect,Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Input from "@/components/ui/CustomInput";
-import Button from "@/components/ui/CustomButton";
+import Input from "@/components/ui/Input";
+import Button from "@/components/ui/Button";
 import { SocialButton } from "@/components/ui/SocialButton";
 import useAxios from "../hooks/useAxios";
 //import { useUser } from "../context/UserContext";

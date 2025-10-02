@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Input from '@/components/ui/CustomInput';
-import Button from '@/components/ui/CustomButton';
+import Input from '@/components/ui/Input';
+import Button from '@/components/ui/Button';
 import { SocialButton } from '@/components/ui/SocialButton';
 import useAxios from '../hooks/useAxios';
 import { useUser } from '../context/UserContext';
@@ -80,7 +80,7 @@ const LoginPage: React.FC = () => {
         };*/
 
         setUser(user);
-        /*localStorage.setItem("quiktis_user", JSON.stringify(userForStorage));*/
+        localStorage.setItem("quiktis_user", JSON.stringify(user));
         router.push("/dashboard");
       }
     } catch (error) {
@@ -119,7 +119,6 @@ const LoginPage: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="Email"
-            label='Email Address'
             required={true}
             placeholder="Enter your email address here"
             className="bg-black border border-[#CBCAD7] text-white placeholder-gray-500"
@@ -128,13 +127,13 @@ const LoginPage: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-            label='Password'
             required={true}
             placeholder="Enter your password here"
             className="bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
           />
           {error && <div className="text-red-500 text-[0.95em] mb-[-3em]">{error}</div>}
-          <Button type="submit" loading={isProcessing} loaderClass='mt-1 ml-[-0.04em]' className="w-full justify-center py-4 mt-4 bg-primary">
+          <Button type="submit" 
+             className="w-full justify-center py-4 mt-4 bg-primary">
             Login
           </Button>
         </form>

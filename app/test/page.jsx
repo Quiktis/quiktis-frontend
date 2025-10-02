@@ -1,7 +1,7 @@
-"use client";
-import React, { useRef } from "react";
-import { toPng } from "html-to-image";
-import download from "downloadjs";
+"use client"
+import React, { useRef } from 'react';
+import { toPng } from 'html-to-image';
+import download from 'downloadjs';
 
 const Ticket = () => {
   const ticketRef = useRef();
@@ -9,7 +9,7 @@ const Ticket = () => {
   const handleDownload = async () => {
     if (ticketRef.current) {
       const dataUrl = await toPng(ticketRef.current);
-      download(dataUrl, "e-ticket.png");
+      download(dataUrl, 'e-ticket.png');
     }
   };
 
@@ -22,10 +22,7 @@ const Ticket = () => {
         <p>Date: 2025-06-01</p>
         <p>Venue: Example Hall</p>
       </div>
-      <button
-        onClick={handleDownload}
-        className="relative z-50 mt-4 p-2 bg-blue-500 text-white"
-      >
+      <button onClick={handleDownload} className="relative z-50 mt-4 p-2 bg-blue-500 text-white">
         Download Ticket
       </button>
     </div>

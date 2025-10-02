@@ -1,7 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 import {
   createContext,
   useContext,
@@ -13,7 +11,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import useAxios from "../hooks/useAxios";
-import Header3 from "@/components/Header3";
+import { useRouter } from "next/navigation";
 
 export interface User {
   userId?: string | null;
@@ -47,7 +45,6 @@ interface UserContextType {
   profilePreview: string | null;
   setProfilePreview: React.Dispatch<React.SetStateAction<string | null>>;
   setRole: (role: string) => void;
-  logout: () => void; // expose logout for convenience
 }
 
 const menuItems = [
@@ -76,12 +73,14 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     token: null,
     payoutDetails: {
       id: "",
-      account_number: "",
-      account_name: "",
-      bank_name: "",
-      recipient_code: "",
-    },
+    account_number: "",
+    account_name: "",
+    bank_name: "",
+    recipient_code: ""
+    }
   });
+
+  const router = useRouter();
 
   const [profile, setProfile] = useState<File | null>(null);
   const [profilePreview, setProfilePreview] = useState<string | null>(null);
@@ -89,84 +88,38 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [googleUser, setGoogleUser] = useState<GoogleUser>({ token: null });
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
-  const router = useRouter();
 
   const setRole = (role: string) => {
     setUser((prevUser) => ({
       ...prevUser,
-      role,
+      role: role,
     }));
   };
 
-  // Keep logout endpoint if you have it; also clear local storage + context
   const logout = async () => {
-  try {
-    await fetch("/api/auth/logout", {
-      method: "POST",
-      credentials: "include", // ✅ ensures cookies are sent
-    });
-  } catch {
-    // ignore errors from logout endpoint for now
-  } finally {
-    setUser({
-      userId: null,
-      name: null,
-      email: null,
-      role: null,
-      picture: null,
-      age: null,
-      location: null,
-      token: null,
-      payoutDetails: {
-        id: "",
-        account_number: "",
-        account_name: "",
-        bank_name: "",
-        recipient_code: "",
-      },
-    });
-
-    localStorage.removeItem("quiktis_user");
-    localStorage.removeItem("quiktis_token");
-
-    router.push("/");
-  }
-};
-
-
-  // 🔁 TEMP approach (no /auth/me): restore from localStorage only
-  useEffect(() => {
     try {
-      const storedUserRaw = localStorage.getItem("quiktis_user");
-      const storedToken = localStorage.getItem("quiktis_token");
+      sendRequest({
+        url: `/api/auth/logout`,
+        method: "POST",
+      });
+    } catch (err) {
+      //console.error("Logout failed:", err);
+    }
+  };
 
-      if (storedUserRaw && storedToken) {
-        const storedUser = JSON.parse(storedUserRaw) as {
-          id?: string;
-          userId?: string;
-          name?: string | null;
-          email?: string | null;
-          role?: string | null;
-          picture?: string | null;
-          age?: any | null;
-          location?: string | null;
-        };
+  const checkTokenPresence = async (): Promise<boolean> => {
+    try {
+      const data = await sendRequest({
+        url: "/api/auth/me",
+        method: "GET",
+        withCredentials: true,
+      });
 
-        setUser((prev) => ({
-          ...prev,
-          userId: storedUser.id ?? storedUser.userId ?? null,
-          name: storedUser.name ?? null,
-          email: storedUser.email ?? null,
-          role: storedUser.role ?? null,
-          picture: storedUser.picture ?? null,
-          age: storedUser.age ?? null,
-          location: storedUser.location ?? null,
-          token: storedToken,
-        }));
-      } else {
-        // ensure a clean state if nothing in storage
-        setUser((prev) => ({
-          ...prev,
+      //console.log("Token presence check response:", data);
+
+      if (!data?.tokenFound) {
+        console.log("Token not found");
+        setUser({
           userId: null,
           name: null,
           email: null,
@@ -175,72 +128,181 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
           age: null,
           location: null,
           token: null,
-        }));
+        });
+        logout();
+        router.push("/")
+        return false;
+        
       }
-    } catch {
-      // if parsing fails, clear storage to avoid broken state
-      localStorage.removeItem("quiktis_user");
-      localStorage.removeItem("quiktis_token");
-    } finally {
-      setLoading(false);
+
+      console.log("Token found at auth context:", data.token);
+
+      const fetchProfile = async () => {
+        const profileRequest = await sendRequest({
+          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/me`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        });
+
+
+        console.log("Profile request response:", profileRequest);
+
+        if (profileRequest?.error === "Token expired") {
+          setUser({
+            userId: null,
+            name: null,
+            email: null,
+            role: null,
+            picture: null,
+            age: null,
+            location: null,
+            token: null,
+          });
+
+          //console.error("Error fetching user profile:", data);
+          logout();
+          return false;
+        }
+
+        //console.log("Profile request response:", profileRequest);
+
+        if (profileRequest?.data?.email) {
+          //console.log("Token found:", data.token);
+          setUser({
+            userId: profileRequest.data.id,
+            name: profileRequest.data.name,
+            email: profileRequest.data.email,
+            role: profileRequest.data.role,
+            picture: profileRequest.data.picture,
+            age: profileRequest.data.age,
+            location: profileRequest.data.location,
+            token: data.token,
+          });
+        }
+
+        return true;
+      };
+
+      const fetchPayoutDetails = async () => {
+        const response = await sendRequest({
+          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment/payouts`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        });
+
+        if (response?.status === "success") {
+          setUser((prev) => ({
+            ...prev,
+            payoutDetails: response.data,
+          }));
+
+          //console.log("Payout details updated:", user);
+          return true;
+        } else {
+          //console.log(response, "Error response")
+        }
+
+        return false
+      };
+
+      const profileResult = await fetchProfile();
+      const payoutResult = await fetchPayoutDetails();
+
+      if (profileResult && payoutResult) return true;
+
+      return false;
+    } catch (error) {
+      //console.error("Error checking token:", error);
+      return false;
     }
+  };
+
+  useEffect(() => {
+    const initializeUser = async () => {
+      try {
+        await checkTokenPresence();
+        setLoading(false);
+      } catch (error) {
+        //console.error("Error initializing user:", error);
+        setLoading(false);
+      }
+    };
+
+    initializeUser();
   }, []);
 
-  // Keep your existing loading fallback logic intact
   const shouldExcludeLoading =
     pathname === "/" || pathname === "/some-other-page";
 
   if (loading && !shouldExcludeLoading) {
     return (
       <>
-        <header className="absolute top-0 bottom-auto left-0 right-0 font-inter text-[0.95em] z-50">
-          <div className="w-[90%] mx-auto py-7 flex gap-4 justify-between h-fit">
-            <Link href={"/"}>
-              <Image
-                src="/New logo.png"
-                alt="logo"
-                height={25}
-                width={25}
-                unoptimized
-                className="object-contain"
-              />
-            </Link>
-
-            <div className="flex gap-9 text-[#919499] font-medium max-md:hidden">
-              {/* <p className='my-auto'><TimeWithGmt /></p> */}
-              <Link
-                href={"#"}
-                className="cursor-pointer my-auto flex gap-1"
-              >
-                Explore events{" "}
-                <Image
-                  src="/arrow-45.svg"
-                  alt="logo"
-                  height={12}
-                  width={12}
-                  unoptimized
-                  className="object-contain"
-                />
-              </Link>
-              <Link
-                href={"/register"}
-                className="cursor-pointer px-4 py-1 rounded-full bg-[#919499]/20"
-              >
-                Sign in
-              </Link>
+        <header className="h-[4.5em] relative z-40 mx-auto flex justify-between mt-[1.4em] md:mt-[4em] w-[100%] lg:w-[95%] lg:max-w-[70em] md:bg-[#acabab21] lg:px-3 md:px-7 px-5 py-6 lg:py-3 rounded-[1.3em] shadow-[#0723424D] shadow-2xl border border-[#ffffff10]">
+          <div className="my-auto lg:px-8">
+            <Image
+              src="/new_logo.svg"
+              className="w-[80px]"
+              alt="Logo"
+              width={120}
+              height={60}
+              unoptimized
+            />
+          </div>
+          <ul className="relative z-20 gap-9 my-auto hidden md:flex tablet-hidden">
+            {menuItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  href={item.path}
+                  className={`transition-colors duration-300 ${
+                    pathname === item.path
+                      ? "text-red-500 font-bold"
+                      : "text-white hover:text-primary"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {user.name ? (
+            <div className="hidden mr-1 my-auto lg:flex gap-3 items-center">
+              Hi, {getFirstName(user.name)}{" "}
+              <div className="bg-gray-400 h-[2.8em] w-[2.8em] rounded-full"></div>
             </div>
+          ) : (
+            <Link
+              href="/register"
+              className="lg:block cursor-pointer bg-primary px-6 py-3 rounded-[1em] btn-3d border-1 border-[#eb4b3c] hidden icon"
+            >
+              Get Started
+            </Link>
+          )}
+          <div className="relative h-[30px] w-[30px] my-auto block md:hidden tablet-block">
+            <button>
+              <Image
+                src="/ep_menu.svg"
+                alt="menu"
+                fill
+                className="object-fit"
+                unoptimized
+              />
+            </button>
           </div>
         </header>
 
-        <div className="min-h-screen w-full md:w-[80%] mx-auto flex flex-col items-center justify-center space-y-2 md:space-y-[2em] px-4">
+        <div className="min-h-screen w-full md:w-[80%] mx-auto flex flex-col items-center justify-center space-y-2 md:space-y-[2em] px-4 mt-[-5em]">
           <div className="w-full flex flex-col md:grid grid-cols-[1.3fr_0.7fr_0.9fr] h-full md:h-[8em] gap-3 md:gap-6">
             {[1, 2, 3].map((_, i) => (
               <div
                 key={i}
                 className="w-full max-sm:h-[15vh] h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"
-              />
+              ></div>
             ))}
-            <div className="hidden max-sm:block w-full max-sm:h-[19vh] h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse" />
+            <div className="hidden max-sm:block w-full max-sm:h-[19vh] h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"></div>
           </div>
 
           <div className="max-sm:hidden w-full grid grid-cols-[1fr_0.8fr_4fr_1.3fr] h-[10vh] md:h-[3em] gap-3 md:gap-6">
@@ -248,7 +310,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
               <div
                 key={i}
                 className="w-full h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"
-              />
+              ></div>
             ))}
           </div>
 
@@ -257,7 +319,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
               <div
                 key={i}
                 className="w-full h-full bg-[#ffffff2c] rounded-[1em] opacity-10 animate-pulse"
-              />
+              ></div>
             ))}
           </div>
         </div>
@@ -265,6 +327,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     );
   }
 
+  //console.log("[UserProvider] Rendering children with user context:", user);
   return (
     <UserContext.Provider
       value={{
@@ -277,7 +340,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         profilePreview,
         setProfilePreview,
         setRole,
-        logout,
       }}
     >
       {children}

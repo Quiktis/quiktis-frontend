@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { IoArrowBack } from "react-icons/io5"
-import Button from "@/components/ui/CustomButton" 
+import Button from "@/components/ui/Button" 
 
 
 export default function NotFoundPage() {

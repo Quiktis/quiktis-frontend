@@ -1,123 +1,83 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import Link from "next/link";
-import { CheckCircle, XCircle, Loader2 } from "lucide-react";
+import useAxios from "@/app/hooks/useAxios";
+import { useUser } from "@/app/context/UserContext";
 
 const VerifyAccountPage = () => {
+  const { sendRequest, loading } = useAxios();
+  const { setUser } = useUser();
   const router = useRouter();
   const pathname = usePathname();
 
+  const [dots, setDots] = useState(".");
   const [error, setError] = useState<string | null>(null);
+  const [isVerified, setIsVerified] = useState(false);
 
-  // ✅ Extract token from URL (/verify-account/[token])
   const token = pathname?.split("/verify-account/")[1];
 
-  // ✅ Mutation to verify account
-  const mutation = useMutation({
-    mutationFn: async (token: string) => {
-      const res = await axios.post("/api/auth/verify-email", { token });
-      return res.data;
-    },
-    onSuccess: (data) => {
-      if (data.status === "success") {
-        setTimeout(() => {
-          router.push("/register?mode=signin");
-        }, 2000);
-      } else {
-        setError(data.message || "Verification failed.");
-      }
-    },
-    onError: (err: any) => {
-      const backendMessage = err.response?.data?.message;
-
-      if (backendMessage?.toLowerCase().includes("expired")) {
-        setError("This link has expired. Please request a new verification email.");
-      } else if (backendMessage?.toLowerCase().includes("invalid")) {
-        setError("This verification link is invalid. Please check your email again.");
-      } else if (backendMessage?.toLowerCase().includes("already")) {
-        setError("Your email is already verified. Redirecting you to login...");
-        setTimeout(() => router.push("/login"), 2000);
-      } else {
-        setError("We couldn’t verify your account. Please try again later.");
-      }
-    },
-  });
-
-  // Fire automatically on mount
   useEffect(() => {
-    if (token) {
-      mutation.mutate(token);
-    } else {
-      setError("Verification token is missing. Please check your email again.");
-    }
+    const interval = setInterval(() => {
+      setDots((prev) => (prev === "." ? ".." : prev === ".." ? "..." : "."));
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const verifyAccount = async () => {
+      if (isVerified || loading) return;
+
+      if (!token) {
+        setError("Verification token missing. A link has been sent to your email.");
+        return;
+      }
+
+      try {
+        const response = await sendRequest({
+          url: `/api/auth/verify`,
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: { token },
+        });
+
+        if (!response.ok || response.status !== "success") {
+          throw new Error("Account verification failed.");
+        }
+
+        if (response.data?.id) {
+          const user = {
+            userId: response.data.id,
+            name: response.data.name,
+            email: response.data.email,
+            role: response.data.role,
+            token,
+          }
+          setUser(user);
+          localStorage.setItem("quiktis_user", JSON.stringify(user));
+        }
+
+        setIsVerified(true);
+        router.push("/dashboard"); // ✅ You can change to /login if preferred
+        console.log("Account verified successfully:", response);
+      } catch (err) {
+        console.error("Verification Error:", err);
+        setError("Verification failed. Please try again");
+      }
+    };
+
+    verifyAccount();
   }, [token]);
 
-  // ✅ Handle retry
-  const handleRetry = () => {
-    if (token) {
-      setError(null); // clear old error so loader shows again
-      mutation.mutate(token);
-    }
-  };
-
   return (
-    <section className="min-h-[85vh] grid place-items-center px-4">
-      <div className="w-full max-w-md rounded-xl bg-[#1a1a1a] border border-gray-700 shadow-xl p-8 text-center space-y-4">
-        {/* Loading */}
-        {mutation.isPending && !error && (
-          <div className="flex flex-col items-center gap-3">
-            <Loader2 className="h-10 w-10 animate-spin text-blue-400" />
-            <h1 className="text-white font-semibold text-lg">
-              Verifying your account…
-            </h1>
-            <p className="text-gray-400 text-sm">
-              Please wait while we confirm your email.
-            </p>
-          </div>
-        )}
-
-        {/* Success */}
-        {mutation.isSuccess && !error && (
-          <div className="flex flex-col items-center gap-3">
-            <CheckCircle className="h-12 w-12 text-green-500" />
-            <h1 className="text-green-500 font-bold text-lg">
-              Email Verified Successfully!
-            </h1>
-            <p className="text-gray-400 text-sm">
-              Redirecting you to signin…
-            </p>
-          </div>
-        )}
-
-        {/* Error */}
-        {error && (
-          <div className="flex flex-col items-center gap-3">
-            <XCircle className="h-12 w-12 text-gray-300" />
-            <h1 className="text-gray-300 font-bold text-lg">
-              Verification Failed
-            </h1>
-            <p className="text-gray-300 text-sm">{error}</p>
-
-            <div className="flex gap-3 mt-4">
-              {token && !error.toLowerCase().includes("already") && (
-                <button
-                  onClick={handleRetry}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition"
-                >
-                  Retry
-                </button>
-              )}
-              <Link href="/register"
-                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm font-medium transition"
-              >
-                Go to Login
-              </Link>
-            </div>
-          </div>
+    <section className="min-h-[20em] h-[60vh] grid place-items-center">
+      <div className="flex flex-col gap-3 justify-center min-w-[15em] text-center px-8 py-6 bg-[#7a7a7a1c] border border-gray-600 rounded-md shadow-md">
+        {isVerified ? (
+          <h1>verification successfull, please wait.{dots}</h1>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : (
+          <h1>Verifying your account, please wait{dots}</h1>
         )}
       </div>
     </section>
