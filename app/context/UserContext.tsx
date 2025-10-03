@@ -7,11 +7,10 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import useAxios from "../hooks/useAxios";
-import { useRouter } from "next/navigation";
 
 export interface User {
   userId?: string | null;
@@ -62,48 +61,102 @@ function getFirstName(fullName: string): string {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User>({
-    userId: null,
-    name: null,
-    email: null,
-    role: null,
-    picture: null,
-    age: null,
-    location: null,
-    token: null,
-    payoutDetails: {
-      id: "",
-    account_number: "",
-    account_name: "",
-    bank_name: "",
-    recipient_code: ""
-    }
-  });
-
   const router = useRouter();
+  const pathname = usePathname();
+  const { sendRequest } = useAxios();
+
+  // --- Load initial state from localStorage ---
+  const [user, setUser] = useState<User>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("quiktis-user");
+      return saved
+        ? JSON.parse(saved)
+        : {
+            userId: null,
+            name: null,
+            email: null,
+            role: null,
+            picture: null,
+            age: null,
+            location: null,
+            token: null,
+            payoutDetails: {
+              id: "",
+              account_number: "",
+              account_name: "",
+              bank_name: "",
+              recipient_code: "",
+            },
+          };
+    }
+    return {
+      userId: null,
+      name: null,
+      email: null,
+      role: null,
+      picture: null,
+      age: null,
+      location: null,
+      token: null,
+      payoutDetails: {
+        id: "",
+        account_number: "",
+        account_name: "",
+        bank_name: "",
+        recipient_code: "",
+      },
+    };
+  });
 
   const [profile, setProfile] = useState<File | null>(null);
   const [profilePreview, setProfilePreview] = useState<string | null>(null);
-  const { sendRequest } = useAxios();
   const [googleUser, setGoogleUser] = useState<GoogleUser>({ token: null });
   const [loading, setLoading] = useState(true);
-  const pathname = usePathname();
+
+  // --- Persist user in localStorage whenever it changes ---
+  useEffect(() => {
+    if (user && user.token) {
+      localStorage.setItem("quiktis-user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("quiktis-user");
+    }
+  }, [user]);
 
   const setRole = (role: string) => {
     setUser((prevUser) => ({
       ...prevUser,
-      role: role,
+      role,
     }));
   };
 
   const logout = async () => {
     try {
-      sendRequest({
+      await sendRequest({
         url: `/api/auth/logout`,
         method: "POST",
       });
     } catch (err) {
-      //console.error("Logout failed:", err);
+      // ignore
+    } finally {
+      setUser({
+        userId: null,
+        name: null,
+        email: null,
+        role: null,
+        picture: null,
+        age: null,
+        location: null,
+        token: null,
+        payoutDetails: {
+          id: "",
+          account_number: "",
+          account_name: "",
+          bank_name: "",
+          recipient_code: "",
+        },
+      });
+      localStorage.removeItem("quiktis-user");
+      router.push("/");
     }
   };
 
@@ -115,123 +168,66 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         withCredentials: true,
       });
 
-      //console.log("Token presence check response:", data);
-
       if (!data?.tokenFound) {
-        console.log("Token not found");
-        setUser({
-          userId: null,
-          name: null,
-          email: null,
-          role: null,
-          picture: null,
-          age: null,
-          location: null,
-          token: null,
-        });
         logout();
-        router.push("/")
         return false;
-        
       }
 
-      console.log("Token found at auth context:", data.token);
+      // Fetch profile
+      const profileRequest = await sendRequest({
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/me`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      });
 
-      const fetchProfile = async () => {
-        const profileRequest = await sendRequest({
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/me`,
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${data.token}`,
-          },
-        });
+      if (profileRequest?.error === "Token expired") {
+        logout();
+        return false;
+      }
 
+      if (profileRequest?.data?.email) {
+        setUser((prev) => ({
+          ...prev,
+          userId: profileRequest.data.id,
+          name: profileRequest.data.name,
+          email: profileRequest.data.email,
+          role: profileRequest.data.role,
+          picture: profileRequest.data.picture,
+          age: profileRequest.data.age,
+          location: profileRequest.data.location,
+          token: data.token,
+        }));
+      }
 
-        console.log("Profile request response:", profileRequest);
+      // Fetch payout details
+      const payoutResponse = await sendRequest({
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment/payouts`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      });
 
-        if (profileRequest?.error === "Token expired") {
-          setUser({
-            userId: null,
-            name: null,
-            email: null,
-            role: null,
-            picture: null,
-            age: null,
-            location: null,
-            token: null,
-          });
+      if (payoutResponse?.status === "success") {
+        setUser((prev) => ({
+          ...prev,
+          payoutDetails: payoutResponse.data,
+        }));
+      }
 
-          //console.error("Error fetching user profile:", data);
-          logout();
-          return false;
-        }
-
-        //console.log("Profile request response:", profileRequest);
-
-        if (profileRequest?.data?.email) {
-          //console.log("Token found:", data.token);
-          setUser({
-            userId: profileRequest.data.id,
-            name: profileRequest.data.name,
-            email: profileRequest.data.email,
-            role: profileRequest.data.role,
-            picture: profileRequest.data.picture,
-            age: profileRequest.data.age,
-            location: profileRequest.data.location,
-            token: data.token,
-          });
-        }
-
-        return true;
-      };
-
-      const fetchPayoutDetails = async () => {
-        const response = await sendRequest({
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment/payouts`,
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${data.token}`,
-          },
-        });
-
-        if (response?.status === "success") {
-          setUser((prev) => ({
-            ...prev,
-            payoutDetails: response.data,
-          }));
-
-          //console.log("Payout details updated:", user);
-          return true;
-        } else {
-          //console.log(response, "Error response")
-        }
-
-        return false
-      };
-
-      const profileResult = await fetchProfile();
-      const payoutResult = await fetchPayoutDetails();
-
-      if (profileResult && payoutResult) return true;
-
-      return false;
+      return true;
     } catch (error) {
-      //console.error("Error checking token:", error);
       return false;
     }
   };
 
   useEffect(() => {
     const initializeUser = async () => {
-      try {
-        await checkTokenPresence();
-        setLoading(false);
-      } catch (error) {
-        //console.error("Error initializing user:", error);
-        setLoading(false);
-      }
+      await checkTokenPresence();
+      setLoading(false);
     };
-
     initializeUser();
   }, []);
 
@@ -327,7 +323,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     );
   }
 
-  //console.log("[UserProvider] Rendering children with user context:", user);
   return (
     <UserContext.Provider
       value={{

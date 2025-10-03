@@ -9,6 +9,7 @@ import useAxios from "../hooks/useAxios";
 //import { useUser } from "../context/UserContext";
 import { useRouter, useSearchParams } from "next/navigation";
 //import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 type ValidationRule = {
   test: (value: string) => boolean;
@@ -158,37 +159,39 @@ const RegisterPage: React.FC = () => {
     setError("");
   
     try {
-      const response = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/signup`,
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: { name: fullName, email, password, role: "organizer" },
-      });
-  
-      if (response?.status === "success") {
-        await new Promise(() => {
-          router.push("/check-email");          
-        });
-      }
+      const response = await axios.post(
+    `/api/auth/signup`,
+    {
+      name: fullName,
+      email: email,
+      password: password,
+      role: "organizer",
+    },
+    {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true, // if your backend uses cookies
+    }
+  );
 
+  console.log("response from registration: ", response.data);
 
-      if (response?.status === "error") {
-        setLoading(false);
-        setIsProcessing(false);
-        setError(response.message);
-        setTimeout(() => setError(""), 4000)
-        if (response.redirectStatus === "user exists") {
-          // You can append the email and error message in the URL query parameters
-          const redirectUrl = `/signin?email=${encodeURIComponent(email)}&message=${encodeURIComponent(response.message)}`;
-          router.push(redirectUrl);
-        }
-        return
-      }
+  if (response.data?.status === "success") {
+    router.push("/check-email");
+  }
 
-      
+  if (response.data?.status === "error") {
+    setLoading(false);
+    setIsProcessing(false);
+    setError(response.data.message);
+    setTimeout(() => setError(""), 4000);
 
-
-      console.log("response: ", response);
+    if (response.data.redirectStatus === "user exists") {
+      const redirectUrl = `/signin?email=${encodeURIComponent(
+        email
+      )}&message=${encodeURIComponent(response.data.message)}`;
+      router.push(redirectUrl);
+    }
+  }
     } catch (error) {
       console.log(error);
       setError("Registration failed. Please try again.");

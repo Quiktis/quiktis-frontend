@@ -113,7 +113,7 @@ const EditSection: React.FC<EditSectionProps> = ({
                 onChange={handleInputChange} />
             </div>
 
-            <div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
+            {/*<div className="flex flex-col md:grid grid-cols-[9em_60%] gap-5">
               <label className="my-auto mr-0 md:ml-auto">Event Category</label>
               <Dropdown
             options={categories}
@@ -121,7 +121,7 @@ const EditSection: React.FC<EditSectionProps> = ({
             onChange={handleDropdownChange}
             placeholder="Please select one"
           />
-            </div>
+            </div>*/}
           </section>
         </section>
 

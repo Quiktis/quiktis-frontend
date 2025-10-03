@@ -34,7 +34,7 @@ function CreateEventPage() {
   const [eventData, setEventData] = useState<EventData>({
     title: "",
     description: "",
-    categoryId: "",
+    categoryId: "24ea55de-3ee8-4a6f-9697-051739eb446f",
     startDate: "",
     endDate: "",
     accessType: "free",
