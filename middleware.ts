@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const protectedRoutes = ["/create-events", "/dashboard", "/event"];
+const protectedRoutes = ["/create-events", "/dashboard"];
 const authRoutes = ["/register", "/login", "/signin"];
 
 export function middleware(req: NextRequest) {
@@ -33,8 +33,7 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/events/:path*",        // ✅ Protect all /event routes
+  matcher: [    // ✅ Protect all /event routes
     "/create-events",
     "/dashboard",
     "/register",
