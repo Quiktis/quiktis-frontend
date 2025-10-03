@@ -11,21 +11,16 @@ interface SidebarProps {
 }
 
 const authTabs = [
-  { label: "Home", link: "/" },
+  //{ label: "Home", link: "/" },
   { label: "Dashboard", link: "/dashboard" },
+  { label: "My Events", link: "/my-events" },
   { label: "Explore Events", link: "/events" },
-  {label: "About us", link: "/about"},
-  { label: "Contact us", link: "/contact" },
 ];
 
 const guestTabs = [
   { label: "Home", link: "/" },
-  { label: "Sign up", link: "/register" },
-  { label: "Sign in", link: "/signin" },
+  { label: "Sign in", link: "/register" },
   { label: "Explore Events", link: "/events" },
-  {label: "About us", link: "/about"},
-  { label: "Contact us", link: "/contact" },
-  { label: "Faq", link: "/faq" },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
