@@ -44,7 +44,7 @@ const EditSection: React.FC<EditSectionProps> = ({
    // Validation function
    const isFormValid = () => {
     // Check if all required fields in eventData are filled
-    const requiredFields = ["title", "eventType", "location", "description", "categoryId"];
+    const requiredFields = ["title", "eventType", "location", "description"];
     const isEventDataValid = requiredFields.every((field) => eventData[field as keyof EventData]);
 
     // Check if startDate and endDate are set

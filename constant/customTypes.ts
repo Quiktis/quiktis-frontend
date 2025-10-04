@@ -54,7 +54,7 @@ export type Organiser = {
 export type EventData = {
   title: string;
   description: string;
-  categoryId?: string;
+  categoryId?: string | any;
   eventType: "single" | "recurring";
   accessType: "paid" | "free";
   startDate: string;            // ISO date string

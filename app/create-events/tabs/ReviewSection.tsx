@@ -11,7 +11,7 @@ import { EventData } from '@/constant/customTypes';
 import { useUser } from '@/app/context/UserContext';
 interface ReviewSectionProps {
   eventData: EventData;
-  uploadImage: () => void;
+  onCreateEvent: () => void;
   preview: string | null; 
   loading?: boolean;
 }
@@ -63,14 +63,14 @@ function formatDateToText(date: Date): string {
 }
 
 
-const ReviewSection: React.FC<ReviewSectionProps> = ({uploadImage, preview, eventData, loading}) => {
+const ReviewSection: React.FC<ReviewSectionProps> = ({onCreateEvent, preview, eventData, loading}) => {
   const router = useRouter();
   const { user } = useUser();
 
   async function handleClick() {
     try {
       // Wait for the image to be uploaded
-      await uploadImage();
+      await onCreateEvent();
   
       // Navigate to the next page after the image is uploaded
       //router.push(`/my-events`);

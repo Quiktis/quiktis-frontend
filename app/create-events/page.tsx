@@ -23,7 +23,7 @@ function CreateEventPage() {
   const [pageIndex, setPageIndex] = useState(0);
   const { user } = useUser();
   const router = useRouter();
-  const { sendRequest, loading } = useAxios();
+  const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<File | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -111,94 +111,46 @@ function CreateEventPage() {
 
   const currentStepIndex = steps.findIndex((step) => step.link === tab);
 
-  const uploadImage = async () => {
-    if (loading) return;
-    if (!image) {
-      alert("Please select an image to upload.");
-      return;
+  const proxyFormData = new FormData();
+proxyFormData.append("files", image as File);
+proxyFormData.append("title", eventData.title);
+proxyFormData.append("categoryId", eventData.categoryId);
+proxyFormData.append("description", eventData.description);
+proxyFormData.append("accessType", eventData.accessType);
+proxyFormData.append("eventType", eventData.eventType);
+proxyFormData.append("startDate", eventData.startDate);
+proxyFormData.append("endDate", eventData.endDate);
+proxyFormData.append("location", eventData.location);
+proxyFormData.append("startTime", eventData.startTime);
+proxyFormData.append("endTime", eventData.endTime);
+proxyFormData.append("tickets", JSON.stringify(eventData.tickets));
+
+
+
+const createEvent = async (): Promise<void> => {
+  setLoading(true);
+  try {
+    const createEventResponse = await fetch("/api/events", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+      body: proxyFormData, // your FormData with file + fields
+    });
+
+    const result = await createEventResponse.json();
+
+    if (result.status === "success") {
+      router.push("/my-events");
+    } else {
+      alert(result.message || "Failed to create event");
     }
-
-    try {
-      // Create a FormData object to send the image file
-      const formData = new FormData();
-      formData.append("files", image); // Assuming `image` is a File object
-
-      // Use the base URL from the environment variable
-    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-    if (!baseUrl) {
-      throw new Error("Base URL is not defined in the environment variables.");
-    }
-
-    console.log("uploading image to:", `${baseUrl}/medias/upload`);
-    console.log(user, "user data")
-    console.log(user?.token, "user token")
-
-      // Make the POST request to upload the image
-     const response = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/medias/upload`,
-        method: "POST",
-        headers: { 
-          //"Content-Type": "multipart/form-data", 
-          "Authorization": `Bearer ${user?.token}`
-        },
-        body: formData,
-      });
-
-      console.log(response, "response data")
-      console.log(response.status, "status")
-      // Extract the URL from the response
-
-      if (response.status !== "success") { 
-        console.log(response, "- Event creation (IMAGE UPLOAD) failed response")
-        //return alert("Failed to create event. Please try again.");
-        }
-      //const imageUrl = response.data.files[0].cloudinaryUrl
-
-       
-
-      // after uploading the image
-const imageUrl = response.data.files[0].cloudinaryUrl;
-//const imageUrl = "https://res.cloudinary.com/dpaeqpvsn/image/upload/v1759269626/savingsville-lessons/z2zif6ic0c4fbsiaedee.jpg"
-
-// update state for future use (fine)
-setEventData((prev) => ({
-  ...prev,
-  bannerImage: imageUrl,
-}));
-
-// but ALSO use a local object *immediately*:
-const eventPayload = {
-  ...eventData,
-  bannerImage: imageUrl,
+  } catch (err) {
+    console.error(err);
+    alert("Failed to create event");
+  }
+  setLoading(false)
 };
-
-console.log("event payload that is being sent:", eventPayload);
-
-const createEventResponse = await sendRequest({
-  url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
-  method: "POST",
-  headers: { 
-    "Content-Type": "application/json", 
-    "Authorization": `Bearer ${user?.token}`
-  },
-  body: eventPayload, // use the variable
-});
-      //console.log(createEventResponse, "response data")
-
-      if (createEventResponse.status === "success") router.push("/my-events");
-
-      if (createEventResponse.status !== "success") { 
-        //console.log(createEventResponse, "- Event creation failed response")
-        alert("Failed to create event. Please try again.");}
-
-      return;
-
-    } catch (error) {
-      //console.error("Error uploading image:", error);
-      alert("Failed to create event. Please try again.");
-      return;
-    }
-  };
 
   return (
     <>
@@ -285,7 +237,7 @@ const createEventResponse = await sendRequest({
             handleEventDataChange={handleEventDataChange}
           />
         )}
-        {tab === "review" && <ReviewSection preview={preview} eventData={eventData} loading={loading} uploadImage={uploadImage}/>}
+        {tab === "review" && <ReviewSection preview={preview} eventData={eventData} loading={loading} onCreateEvent={createEvent}/>}
       </form>
     </>
   );
