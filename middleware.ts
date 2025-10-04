@@ -1,44 +1,38 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const protectedRoutes = ["/create-events", "/dashboard"];
-const authRoutes = ["/register", "/login", "/signin"];
-
-export function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
-
-  // Get token from cookies
+export default function middleware(req: NextRequest) {
   const token = req.cookies.get("quiktis_token")?.value;
+  const pathname = req.nextUrl.pathname;
 
-  // 1️⃣ If route is protected and no token → redirect to signin
-  if (protectedRoutes.some((route) => pathname.startsWith(route))) {
-    if (!token) {
-      const url = req.nextUrl.clone();
-      url.pathname = "/register";
-      url.searchParams.set("mode", "signin");
-      return NextResponse.redirect(url);
-    }
+  // Redirect unauthenticated users from protected routes
+  if (!token && isProtectedRoute(pathname)) {
+    return NextResponse.redirect(new URL("/register", req.url));
   }
 
-  // 2️⃣ If user is logged in and visiting auth routes → redirect to dashboard
-  if (authRoutes.some((route) => pathname.startsWith(route))) {
-    if (token) {
-      const url = req.nextUrl.clone();
-      url.pathname = "/dashboard"; // or wherever you want logged-in users to land
-      return NextResponse.redirect(url);
-    }
+  // Redirect authenticated users away from auth routes
+  if (token && isAuthRoute(pathname)) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   return NextResponse.next();
 }
 
+function isProtectedRoute(pathname: string): boolean {
+  return ["/my-tickets", "/dashboard", "/create-events", "/notificatons", "/my-events"].includes(pathname);
+}
+
+function isAuthRoute(pathname: string): boolean {
+  return ["/signin", "/register"].includes(pathname);
+}
+
 export const config = {
-  matcher: [    // ✅ Protect all /event routes
-    "/create-events",
+  matcher: [
+    "/my-tickets",
     "/dashboard",
-    "/register",
-    "/login",
+    "/create-events",
+    "/notificatons",
     "/signin",
-    "/profile/:path*",
+    "/register",
   ],
 };
