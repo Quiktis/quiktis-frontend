@@ -27,16 +27,19 @@ export default function NewLandingPage() {
   const [showCookieBanner, setShowCookieBanner] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem("cookieConsent");
-    if (!consent) {
+    // Check if cookie consent is already saved
+    const consentGiven = localStorage.getItem("cookieConsent");
+    if (!consentGiven) {
       setShowCookieBanner(true);
     }
   }, []);
+
 
   const acceptCookies = () => {
     localStorage.setItem("cookieConsent", "true");
     setShowCookieBanner(false);
   };
+
 
   useEffect(() => {
       const fetchEvents = async () => {
@@ -124,7 +127,7 @@ export default function NewLandingPage() {
                           )}
                         </div>
                         <div className="my-auto">
-                          <h3 className="text-[#FF1400] font-bold text-sm md:text-base lg:text-[1.4em] max-w-[10em] leading-2">
+                          <h3 className="text-[#FF1400] font-bold text-sm md:text-base lg:text-[1.4em] max-w-[10em] md:leading-8">
                             {event?.title}
                           </h3>
                           <p className="py-2">{event?.location ?? ""}</p>
@@ -166,32 +169,29 @@ export default function NewLandingPage() {
 
       <TakeYourEventManagementSection />
 
-      {showCookieBanner && (
-        <div className="fixed grid max-md:bottom-2 bottom-[2.3em] left-0 w-full  items-center z-50 shadow-lg">
+       {showCookieBanner && (
+        <div className="fixed grid max-md:bottom-2 bottom-[2.3em] left-0 w-full items-center z-50 shadow-lg">
           <div className="flex max-md:flex-col gap-6 justify-between max-md:w-[96%] w-[80%] m-auto h-fit bg-[#131313] border border-gray-300/50 text-white px-8 py-7 rounded-lg max-md:px-4 max-md:py-6">
             <p className="my-auto max-md:text-sm">
-            We use cookies to improve your experience on our site. By continuing, you accept our{" "}
-            <a href="/legal/cookies-policy" className="underline text-blue-400 hover:text-blue-300">
-              cookie policy
-            </a>.
-          </p>
-          <div className="flex max-md:flex-col gap-5 w-fit max-md:w-full">
-            <button
-            onClick={acceptCookies}
-            className="bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg "
-          >
-            Accept
-          </button>
-          <button
-            onClick={() => setShowCookieBanner(false)}
-            className="border border-gray-200/50 hover:bg-blue-600 text-white px-6 py-2 rounded-lg "
-          >
-            Reject
-          </button>
+              We use cookies to improve your experience on our site. By
+              continuing, you accept our{" "}
+              <a
+                href="/legal/cookies-policy"
+                className="underline text-blue-400 hover:text-blue-300"
+              >
+                cookie policy
+              </a>.
+            </p>
+
+            <div className="flex max-md:flex-col gap-5 w-fit max-md:w-full">
+              <button
+                onClick={acceptCookies}
+                className="bg-primary text-white px-6 py-2 rounded-lg"
+              >
+                Close
+              </button>
+            </div>
           </div>
-          
-          </div>
-          
         </div>
       )}
       

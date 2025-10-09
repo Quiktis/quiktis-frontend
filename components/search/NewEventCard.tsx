@@ -51,13 +51,13 @@ const NewEventCard: React.FC<NewEventCardProps> = ({
         <div className="absolute top-[8px] right-[8px] flex items-center justify-center w-[65px] h-[28px] rounded-[8px] bg-[#FFFFFF26] text-white text-sm">
           {price ?? ""}
         </div>
-        <div className="absolute bottom-2 right-2">
+        {startDate && new Date(startDate) > new Date() ? <div className="absolute bottom-2 right-2">
           <Link
            href={`/checkout/${eventId}`}
             className="bg-primary flex gap-2 justify-center text-white py-2 px-3 rounded-[10px] text-sm">
             Get Ticket <IoTicketSharp size={16} />
           </Link>
-        </div>
+        </div> : null}
       </div>
 
       <div className="flex flex-col gap-2">

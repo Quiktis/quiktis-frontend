@@ -53,6 +53,11 @@ const menuItems = [
   { name: "Contact Us", path: "/contact" },
 ];
 
+
+
+const PUBLIC_ROUTES = ["/", "/about", "/contact", "/events", "/event-viewing", "/legal/privacy-policy", "/legal/terms", "/legal/cookie-policy", "/checkout", "faq"];
+
+
 function getFirstName(fullName: string): string {
   if (!fullName) return "";
   return fullName.trim().split(" ")[0];
@@ -156,7 +161,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         },
       });
       localStorage.removeItem("quiktis-user");
-      router.push("/");
+      //router.push("/");
     }
   };
 
@@ -169,9 +174,13 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       });
 
       if (!data?.tokenFound) {
-        logout();
-        return false;
-      }
+  // If user is on a public page, don't force logout redirect
+  const isPublic = PUBLIC_ROUTES.some((route) => pathname.startsWith(route));
+  if (!isPublic) {
+    logout(); // redirect only if it's a protected page
+  }
+  return false;
+}
 
       // Fetch profile
       const profileRequest = await sendRequest({

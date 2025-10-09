@@ -145,7 +145,11 @@ export default function EventViewingPage() {
       <section>
         <div className="w-full flex flex-wrap md:flex-nowrap md:gap-[4em] h-auto mb-6">
           <div className="h-full text-center md:text-left">
-            {event?.startDate && (new Date(event?.startDate) && <p className=" px-3 py-1 text-sm bg-primary text-white rounded-md w-fit">Event ended</p>)}
+            {event?.startDate && new Date(event.startDate) < new Date() && (
+  <p className="px-3 py-1 text-sm bg-primary text-white rounded-md w-fit">
+    Event ended
+  </p>
+)}
             <h1 className="text-[32px] max-md:text-2xl md:text-[40px] font-primary font-bold whitespace-normal">
               {event?.title || "Event Title"}
             </h1>
@@ -289,29 +293,30 @@ export default function EventViewingPage() {
         </div>
       </section>
 
-      {event?.startDate && !(new Date(event?.startDate)) ? <section className="w-full max-sm:flex flex-col grid grid-cols-2 gap-[1.8em] mt-3 relative z-10">
-        
-        <Link href={`/checkout/${eventId}`}>
-          <div className="w-full">
-            <button className="font-secondary max-md:text-lg text-xl w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-primary shadow-xl shadow-[#eeab8536] cursor-pointer rounded-md hover:opacity-90 transition-all">
-              Buy with Card / Transfer <IoTicketSharp size={20} />
-            </button>
-          </div>
-        </Link>
-        <Link href={`/checkout/${eventId}`}>
-          <div className="w-full">
-            <button className="font-secondary max-md:text-lg text-xl w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl shadow-[#85d5ee36] cursor-pointer rounded-md hover:opacity-90 transition-all">
-              Buy with Crypto
-              <Image
-                src="/icons/crypto.png"
-                alt="Crypto icon"
-                width={20}
-                height={20}
-              />
-            </button>
-          </div>
-        </Link>
-      </section> : null}
+      {event?.startDate && new Date(event.startDate) > new Date() ? (
+  <section className="w-full max-sm:flex flex-col grid grid-cols-2 gap-[1.8em] mt-3 relative z-10">
+    <Link href={`/checkout/${eventId}`}>
+      <div className="w-full">
+        <button className="font-secondary max-md:text-lg text-xl w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-primary shadow-xl shadow-[#eeab8536] cursor-pointer rounded-md hover:opacity-90 transition-all">
+          Buy with Card / Transfer <IoTicketSharp size={20} />
+        </button>
+      </div>
+    </Link>
+    <Link href={`/checkout/${eventId}`}>
+      <div className="w-full">
+        <button className="font-secondary max-md:text-lg text-xl w-full h-fit flex items-center justify-center gap-2 py-4 px-2 bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl shadow-[#85d5ee36] cursor-pointer rounded-md hover:opacity-90 transition-all">
+          Buy with Crypto
+          <Image
+            src="/icons/crypto.png"
+            alt="Crypto icon"
+            width={20}
+            height={20}
+          />
+        </button>
+      </div>
+    </Link>
+  </section>
+) : null}
 
       <UpcomingEvents />
     </div>
