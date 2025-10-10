@@ -175,10 +175,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
       if (!data?.tokenFound) {
   // If user is on a public page, don't force logout redirect
-  const isPublic = PUBLIC_ROUTES.some((route) => pathname.startsWith(route));
-  if (!isPublic) {
+  //const isPublic = PUBLIC_ROUTES.some((route) => pathname.startsWith(route));
+  //if (!isPublic) {
     logout(); // redirect only if it's a protected page
-  }
+  //}
   return false;
 }
 

@@ -35,7 +35,7 @@ const TickettingSection: React.FC<TickettingSectionProps> = ({
   const addTicket = () => {
     const updatedTickets = [
       ...eventData.tickets,
-      { name: "", price: "", description: "", quantity: 1 },
+      { name: "", price: 0, description: "", quantity: 1 },
     ];
     handleEventDataChange("tickets", updatedTickets);
   };
@@ -86,14 +86,26 @@ const validateTickets = (tickets: any[]): { isValid: boolean; error?: string } =
 
 const handleContinue = () => {
   const validation = validateTickets(eventData.tickets);
-  
+
   if (!validation.isValid) {
     alert(validation.error);
     return;
   }
 
+  // ✅ Add ₦200 to each paid ticket price before proceeding
+  if (eventData.accessType === "paid") {
+    const updatedTickets = eventData.tickets.map((ticket) => ({
+      ...ticket,
+      // ensure numeric conversion to avoid string concatenation
+      price: Number(ticket.price || 0) + 200,
+    }));
+
+    handleEventDataChange("tickets", updatedTickets);
+  }
+
   router.push(`?tab=review`);
 };
+
 
   const deleteTicket = (index: number) => {
     if (index === 0) return; // prevent deleting the first

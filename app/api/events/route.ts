@@ -118,6 +118,7 @@ export async function POST(req: Request) {
     // ✅ Create event with retry
     const createUrl = `${process.env.BASE_URL}/events`;
     console.log("🌍 Creating event at:", createUrl);
+    console.log("📦 Event payload:", eventPayload);
 
     const createResponse = await postWithRetry(
       createUrl,

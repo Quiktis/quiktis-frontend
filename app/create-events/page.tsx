@@ -142,6 +142,8 @@ function CreateEventPage() {
     proxyFormData.append("endTime", eventData.endTime);
     proxyFormData.append("tickets", JSON.stringify(eventData.tickets));
 
+    console.log("request data:", proxyFormData)
+
     try {
       const createEventResponse = await fetch("/api/events", {
         method: "POST",
@@ -159,6 +161,7 @@ function CreateEventPage() {
         router.push("/my-events");
       } else {
         alert(result.message || "Failed to create event");
+        console.log("Create event error:", result);
       }
     } catch (err) {
       console.error(err);

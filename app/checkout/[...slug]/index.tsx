@@ -117,16 +117,16 @@ export default function CheckoutPage() {
       });
 
       if (orderResponse?.status !== "success") {
-        //console.error("Failed to initiate order:", orderResponse);
+        console.error("Failed to initiate order:", orderResponse);
         return;
       }
 
       const orderId = orderResponse.data.order.id;
-      //console.log(orderId, " - Order ID");
-      //console.log(selectedTicket.id, " - ticketId");
-      //console.log(quantity, " - quantity");
+      console.log(orderId, " - Order ID");
+      console.log(selectedTicket.id, " - ticketId");
+      console.log(quantity, " - quantity");
 
-      //console.log("sending order items...");
+      console.log("sending order items...");
       const itemResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/order-items`,
         method: "POST",
@@ -142,12 +142,13 @@ export default function CheckoutPage() {
       });
 
       if (itemResponse?.status !== "success") {
-        //console.log("Failed to create order items:", itemResponse);
+        console.log("Failed to create order items:", itemResponse);
         return;
       }
 
 
-      //console.log("initializing payment...");
+      console.log("initializing payment...");
+      console.log("response body: ", { orderId, email: attendeeEmail });
       const paymentResponse = await sendRequest({
         url: `${process.env.NEXT_PUBLIC_PAYMENT_API}/payment/initialize`,
         method: "POST",
@@ -162,10 +163,10 @@ export default function CheckoutPage() {
       if (paymentResponse.success && paymentUrl) {
         window.location.href = paymentUrl;
       } else {
-        //console.error("Payment initialization failed:", paymentResponse);
+        console.error("Payment initialization failed:", paymentResponse);
       }
     } catch (error) {
-      //console.log("Error processing order:", error);
+      console.log("Error processing order:", error);
     } finally {
       setLoading(false);
     }
