@@ -9,11 +9,11 @@ export default function HomePage() {
 
     {/* Dotted background pattern */}
     <div
-        className=" absolute inset-0 right-0 left-0 z-0"
+        className=" absolute inset-0 right-0 left-0 z-0 max-md:top-[-250vw] md:top-[-200vw]"
         style={{
            
           backgroundImage: `url('/texture.png')`,
-          backgroundRepeat: "repeat",
+          backgroundRepeat: "no-repeat",
           backgroundSize: "auto",
           opacity: 0.23,
         }}
