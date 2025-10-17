@@ -1,3 +1,5 @@
+import { BASE_URL } from "./base-url";
+
 export const AUTH_ENDPOINTS = {
   SIGNUP: `${BASE_URL}/auth/signup`,
   LOGIN: `${BASE_URL}/auth/login`,
@@ -10,3 +12,7 @@ export const AUTH_ENDPOINTS = {
   LOGOUT:`${BASE_URL}/auth/logout`,
   LOGOUT_ALL: `${BASE_URL}/auth/logout-all`,
 };
+//file
+export const UPLOAD_MEDIA = {
+  MEDIA:`${BASE_URL}/medias/upload`
+}

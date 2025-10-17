@@ -30,10 +30,9 @@ export interface SignUp {
   email: string;
   password: string;
   name: string;
-  age: 10;
-  role: Role;
-  profilePicture: string;
-  location: string;
+  age: number;
+  picture?: string;
+  location?: string;
 }
 export interface SignupResponse extends Response {}
 export interface Login {
@@ -46,6 +45,11 @@ export interface LoginInfo {
 }
 export interface LoginResponse extends Response {
   data: LoginInfo;
+}
+export interface VerifyEmail {
+  token: string;
+}
+export interface VerifyResponse extends Response {
 }
 export interface InitiateResetPassword {
   email: string;
@@ -120,4 +124,9 @@ export interface TicketHolder {
   email: string;
   phoneNumber: string;
   additionalInfo: AdditionalInfo;
+}
+
+//upload response
+export interface UploadResponse extends Response {
+  
 }

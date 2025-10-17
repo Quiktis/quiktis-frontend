@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { TokenService } from "./token-service";
+import { BASE_URL } from "./base-url";
 
 const token = TokenService.getCookie();
 const axiosInstance = axios.create({

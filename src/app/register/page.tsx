@@ -1,6 +1,5 @@
 import React from 'react'
-import RegisterPage from '.'
-import { SignUpScreen } from './newIndex'
+import { SignUpScreen } from '.'
 
 const page = () => {
   return (

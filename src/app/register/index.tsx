@@ -1,295 +1,250 @@
 "use client";
-import React, { useState, useEffect, Suspense } from "react";
-import Link from "next/link";
+
+import type React from "react";
+import { useState } from "react";
+import Label from "@/src/components/ui/Label";
+import Input from "@/src/components/ui/Input";
+import Button from "@/src/components/ui/Button";
+import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
-import Input from "@/src/components/ui/CustomInput";
-import Button from "@/src/components/ui/CustomButton";
-import { SocialButton } from "@/src/components/ui/SocialButton";
-import useAxios from "../hooks/useAxios";
-//import { useUser } from "../context/UserContext";
-import { useRouter, useSearchParams } from "next/navigation";
-//import { useGoogleLogin } from "@react-oauth/google";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema, registerType } from "@/src/lib/schema";
+import UploadImage from "@/src/components/ui/UploadImage";
+import { useMutations } from "@/src/ApiServices/hooks/useMutations";
+export function SignUpScreen() {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm<registerType>({
+    mode: "onChange",
+    resolver: zodResolver(registerSchema),
+  });
+  const signUp = useMutations().signUp;
 
-type ValidationRule = {
-  test: (value: string) => boolean;
-  message: string;
-};
-
-const passwordRules: ValidationRule[] = [
-  {
-    test: (pw) => pw.length >= 8,
-    message: "Password must be at least 8 characters long.",
-  },
-  {
-    test: (pw) => /[A-Z]/.test(pw),
-    message: "Password must include at least one uppercase letter.",
-  },
-  {
-    test: (pw) => /[a-z]/.test(pw),
-    message: "Password must include at least one lowercase letter.",
-  },
-  {
-    test: (pw) => /[0-9]/.test(pw),
-    message: "Password must include at least one number.",
-  },
-  {
-    test: (pw) => /[^A-Za-z0-9]/.test(pw),
-    message: "Password must include at least one special character.",
-  },
-];
-
-const validateInput = (
-  value: string,
-  rules: ValidationRule[],
-  setError: (msg: string) => void
-): boolean => {
-  for (const rule of rules) {
-    if (!rule.test(value)) {
-      setError(rule.message);
-      setTimeout(() => setError(""), 3000);
-      return false;
-    }
-  }
-  return true;
-};
-
-// Inside your submit function or onChange handler:
-//const isPasswordValid = validateInput(password, passwordRules, setError);
-
-const RegisterPage: React.FC = () => {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [agreed, setAgreed] = useState(false);
-  const { sendRequest, loading, setLoading } = useAxios();
-  const [error, setError] = useState("");
-  //const { user, setUser } = useUser();
-  const [isProcessing, setIsProcessing] = useState(false); // NEW state
-  const [googleLoading, setGoogleLoading] = useState(false);
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [requestLoading, setRequestLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [passwordValid, setPasswordValid] = useState();
-
-  useEffect(() => {
-    const handleGoogleCallback = async () => {
-      const code = searchParams.get("code");
-      if (!code) return;
-      if (requestLoading) return;
-
-      setRequestLoading(true);
-
-      try {
-        const res = await fetch("/api/auth/google/callback", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ code }),
-        });
-
-        const data = await res.json();
-        if (data) {
-          console.log("response body: ", data);
-          console.log("token: ", data.token);
-        } else {
-          console.error("Authentication failed:", data);
-        }
-      } catch (error) {
-        console.error("Error processing Google auth:", error);
-      }
-      setRequestLoading(false);
-    };
-
-    handleGoogleCallback();
-  }, [searchParams.toString()]); // Convert to string to avoid unnecessary re-renders
-
-  const handleGoogleLogin = async () => {
-    try {
-      if (googleLoading) return;
-      console.log("testing google auth with backend");
-      setGoogleLoading(true);
-      const response = await fetch("/api/auth/google");
-      const data = await response.json();
-      if (data.url) {
-        window.location.href = data.url; // Redirect to Google OAuth
-      }
-    } catch (error) {
-      console.error("Google OAuth failed:", error);
-    }
-    setGoogleLoading(false);
+  const onSubmit = async (data: registerType) => {
+    const {confirm_password, ...payload} = data
+    await signUp(payload);
   };
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (confirmPassword !== password) {
-      setError("Passwords dont't match");
-      setTimeout(() => setError(""), 3000);
-      return;
-    }
-
-    const isPasswordValid = validateInput(password, passwordRules, setError);
-
-    if (!isPasswordValid) return;
-
-    if (!agreed) {
-      setError("Please agree to the terms to continue.");
-      setTimeout(() => setError(""), 3000);
-      return;
-    }
-
-    console.log("Sending registration request...");
-    setIsProcessing(true);
-
-    // Start tracking entire process
-
-    if (loading || isProcessing) return; // Prevent multiple submissions
-    setError("");
-
-    try {
-      const response = await sendRequest({
-        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/signup`,
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: { name: fullName, email, password, role: "organizer" },
-      });
-
-      if (response?.status === "success") {
-        await new Promise(() => {
-          router.push("/check-email");
-        });
-      }
-
-      if (response?.status === "error") {
-        setLoading(false);
-        setIsProcessing(false);
-        setError(response.message);
-        setTimeout(() => setError(""), 4000);
-        if (response.redirectStatus === "user exists") {
-          // You can append the email and error message in the URL query parameters
-          const redirectUrl = `/signin?email=${encodeURIComponent(
-            email
-          )}&message=${encodeURIComponent(response.message)}`;
-          router.push(redirectUrl);
-        }
-        return;
-      }
-
-      console.log("response: ", response);
-    } catch (error) {
-      console.log(error);
-      setError("Registration failed. Please try again.");
-    } finally {
-      setTimeout(() => {
-        setIsProcessing(false);
-      }, 10000);
-    }
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="relative max-md:mb-[5em]  md:flex lg:grid grid-cols-[1.6fr_2fr] gap-[3em] justify-center text-white overflow-hidden mt-5 items-center w-full lg:w-[86%] mx-auto">
-      <div className="flex-1 flex flex-col lg:p-6 w-full">
-        <h1 className="text-[44px] font-bold">Welcome!!!</h1>
-        <p className="mb-6">Create Your Quikitis Account</p>
-        <form className="w-full space-y-4" onSubmit={handleRegister}>
-          <Input
-            value={fullName}
-            label="Full Name"
-            required={true}
-            onChange={(e) => setFullName(e.target.value)}
-            placeholder="Enter your full name here"
-            className=" bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
-          />
-          <Input
-            value={email}
-            label="Email Address"
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="Enter your email address here"
-            required={true}
-            className=" bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
-          />
-          <Input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            label="Password"
-            required={true}
-            showPasswordCriteria={true}
-            placeholder="Enter your password here"
-            className=" bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
-          />
-          <Input
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            type="password"
-            label="Confirm Password"
-            required={true}
-            placeholder="Enter your password here"
-            className=" bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
-            error={confirmPassword !== password ? "Passwords don't match" : ""}
-          />
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              checked={agreed}
-              onChange={() => setAgreed(!agreed)}
-              className="mr-2"
-            />
-            <label>I agree to the Terms of Service and Privacy Policy</label>
-          </div>
-          {error && <div className="text-red-500 text-[0.95em]">{error}</div>}
-          {message && <div>{message}</div>}
-          <Button
-            type="submit"
-            className="w-full py-4 border-white border mt-4"
-            //disabled={!agreed}
-            loading={isProcessing}
-            loaderClass="mt-[0.08em] ml-[-0.005em]"
-          >
-            Create an account
-          </Button>
-        </form>
-        <div className="mt-6 w-full">
-          <div className="flex items-center justify-center gap-2 my-6">
-            <div className="flex-grow border-t border-[#808080]"></div>
-            <p className="text-center mb-0 px-2">Continue with</p>
-            <div className="flex-grow border-t border-[#808080]"></div>
-          </div>
-          <SocialButton
-            googleLogin={handleGoogleLogin}
-            googleLoading={googleLoading}
-          />
-          <p className="mt-6 w-full flex justify-center">
-            Already have an account?{" "}
-            <Link
-              href={"/signin"}
-              className="text-orange-500 cursor-pointer ml-2"
-            >
-              {" "}
-              Sign In
-            </Link>
+    <div
+      className={`min-h-screen flex gap-7 w-full md:w-[83%] mx-auto mt-[3em] lg:mt-0`}
+    >
+      {/* Left Side */}
+      <div className="relative hidden lg:flex lg:w-1/2 items-center justify-center overflow-hidden h-[95vh] my-auto rounded-[1.5em] ">
+        <Image
+          src={"/login-gradient.png"}
+          alt="image"
+          height={4000}
+          width={4000}
+          className="h-[100vh] my-auto w-[120%] object-fill"
+        />
+        <div className="absolute text-center text-white max-w-md">
+          <h1 className="text-2xl font-bold mb-2 text-balance mt-[9em] ">
+            Get Started with Quiktis
+          </h1>
+          <p className="font-semibold leading-relaxed text-[0.95em] text-[#AAAAAA] max-w-[70%] mx-auto">
+            Complete these easy steps to register your account.
           </p>
         </div>
       </div>
-      <div className="tablet-hidden md:flex justify-center w-full lg:w-[90%] mx-auto sm:w-[48%] h-[950px]">
-        <Image
-          src="/authImage.png"
-          alt="auth"
-          className="object-cover bg-cover rounded-[25px] w-full max-h-[90%] sm:h-[70%]"
-          width={707}
-          height={950}
-        />
+
+      {/* Right Side */}
+
+      <div className="w-[95%] mx-auto lg:w-1/2 flex items-center justify-center p-1 py-0 py-[2em] lg:p-2">
+        <div className="w-full max-w-md space-y-8">
+          {/* Header */}
+          <div className="text-center">
+            <h2 className="text-lg md:text-[1.5em] lg:text-[1.5em] font-medium text-white mb-2">
+              Sign Up Account
+            </h2>
+            <p className="text-gray-400 text-sm mb-[3.2em]">
+              Enter your personal details to create your account.
+            </p>
+          </div>
+          {/* Social buttons */}
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Button
+                variant="outline"
+                className="bg-transparent border-gray-700 text-white hover:bg-gray-800/30 h-12 gap-[0.4em]"
+              >
+                <Image
+                  src="/google-color.svg"
+                  alt="icon"
+                  height={17}
+                  width={17}
+                />
+                <span className="my-auto">Google</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="bg-transparent border-gray-700 text-white hover:bg-gray-800/30 h-12 gap-[0.4em]"
+              >
+                <Image
+                  src="/apple-logo.svg"
+                  alt="icon"
+                  height={13.5}
+                  width={13.5}
+                />
+                <span className="my-auto">Apple</span>
+              </Button>
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-gray-700 mr-4" />
+              </div>
+              <div className="relative flex justify-center text-xs">
+                <span className="bg-[#0a0a0a] px-2 text-gray-400">Or</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Form */}
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col max-md:gap-4 gap-2 mt-[2em]"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="Full Name" className="text-white text-sm">
+                  Full name
+                </Label>
+                <Input
+                  id="fullName"
+                  {...register("name")}
+                  error={errors?.name}
+                  type="text"
+                  placeholder="e.g Anjola Adeyemi"
+                  className="bg-[#1A1A1A] border-0 text-white placeholder:text-gray-500  h-12"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-white text-sm">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  {...register("email")}
+                  error={errors?.email}
+                  placeholder="eg. Anjolaadeyemi@gmail.com"
+                  className="bg-[#1A1A1A] border-0 text-white placeholder:text-gray-500 focus:border-gray-600 h-12"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-white text-sm">
+                  Password
+                </Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    {...register("password")}
+                    error={errors?.password}
+                    placeholder="Create your password"
+                    className="bg-[#1A1A1A] border-0 text-white placeholder:text-gray-500 focus:border-gray-600 h-12 pr-12"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5" />
+                    ) : (
+                      <Eye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-white text-sm">
+                  Confirm Password
+                </Label>
+                <div className="relative">
+                  <Input
+                    id="confirm_password"
+                    type={showPassword ? "text" : "password"}
+                    {...register("confirm_password")}
+                    error={errors?.confirm_password}
+                    placeholder="Confirm your password"
+                    className="bg-[#1A1A1A] border-0 text-white placeholder:text-gray-500 focus:border-gray-600 h-12 pr-12"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5" />
+                    ) : (
+                      <Eye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="lastName" className="text-white text-sm">
+                  Age
+                </Label>
+                <Input
+                  id="age"
+                  {...register("age")}
+                  error={errors?.age}
+                  type="number"
+                  placeholder="24"
+                  className="bg-[#1A1A1A] border-0 text-white placeholder:text-gray-500  h-12"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="location" className="text-white text-sm">
+                  Location
+                </Label>
+                <Input
+                  id="location"
+                  type="text"
+                  {...register("location")}
+                  error={errors?.location}
+                  placeholder="Bolade steet"
+                  className="bg-[#1A1A1A] border-0 text-white placeholder:text-gray-500 focus:border-gray-600 h-12"
+                  required
+                />
+              </div>
+            </div>
+            <div className="grid grid-rows-1 max-md:gap-4 mt-10 gap-2">
+              <UploadImage
+                id="picture"
+                error={errors.picture}
+                height="30vh"
+                register={register}
+              />
+            </div>
+            <Button
+              type="submit"
+              className="w-full bg-[#ff4d2a] text-white font-bold hover:bg-gray-100 h-12 text-base mt-5"
+            >
+              Register
+            </Button>
+          </form>
+          <p className="text-center text-gray-400 font-medium">
+            Already have an account?
+            <button className="text-[#EA4335] font-medium underline">
+              Log In
+            </button>
+          </p>
+        </div>
       </div>
     </div>
-  );
-};
-
-export default function Page() {
-  return (
-    <Suspense fallback={<div></div>}>
-      <RegisterPage />
-    </Suspense>
   );
 }

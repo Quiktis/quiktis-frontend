@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FieldError } from 'react-hook-form';
 
 interface InputProps {
   value?: string;
@@ -9,7 +10,7 @@ interface InputProps {
   className?: string;
   disabled?: boolean;
   label?: string | any;
-  error?: string;
+  error?: FieldError;
   required?: boolean;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
@@ -95,7 +96,7 @@ const Input: React.FC<InputProps> = (
         <p className="text-gray-300 text-[0.9em] mt-1">{message}</p>
       )}
 
-      {error && <p className='text-red-500 font-medium text-[0.9em]'>{error}</p>}
+      {error && <p className='text-red-500 font-medium text-[0.9em]'>{error.message}</p>}
     </div>
   );
 };

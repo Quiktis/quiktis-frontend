@@ -1,7 +1,11 @@
+"use client"
 import Cookies from "js-cookie";
 const getDomain = () => {
-  const hostname = window.location.hostname;
-  return hostname.includes("quiktis.com") ? ".quiktis.com" : hostname;
+  if (typeof window === "undefined") return undefined;
+    const hostname = window.location.hostname;
+    const domain = hostname.includes("quiktis.com") ? ".quiktis.com" : hostname;
+    return domain;
+  
 };
 const cookieConfig = {
   path: "/",

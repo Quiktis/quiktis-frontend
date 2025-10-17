@@ -7,6 +7,10 @@ interface QuiktisStore {
   setMessage: (value: string) => void;
   userId: string;
   setUserId: (value: string) => void;
+  isError: boolean;
+  setIsError: (value:boolean)=>void;
+  isSuccess: boolean;
+  setIsSuccess: (value:boolean)=>void;
 }
 
 export const useStore = create<QuiktisStore>()(
@@ -16,6 +20,14 @@ export const useStore = create<QuiktisStore>()(
         loading: false,
         setLoading: (value: boolean) => {
           set({ loading: value });
+        },
+        isSuccess: false,
+        setIsSuccess: (value:boolean)=> {
+          set({isSuccess:value })
+        },
+         isError: false,
+        setIsError: (value:boolean)=> {
+          set({isError:value })
         },
         message: "",
         setMessage: (value: string) => {

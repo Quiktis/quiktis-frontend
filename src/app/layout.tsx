@@ -5,6 +5,7 @@ import FooterOverride from "@/src/components/layouts/FooterOverride";
 import { Suspense } from "react";
 
 import { EventsTabProvider } from "@/src/lib/EventsTabContext";
+import QueryProvider from "../components/layouts/QueryProvider";
 
 export const metadata: Metadata = {
   title: "Quiktis",
@@ -16,7 +17,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en">
       <head>
@@ -37,13 +37,15 @@ export default function RootLayout({
       </head>
       <body className="antialiased flex flex-col min-h-screen">
         <Suspense fallback={<div></div>}>
-                <EventsTabProvider>
-                  <div className="relative">
-                    <Header />
-                    {children}
-                    <FooterOverride />
-                  </div>
-                </EventsTabProvider>
+          <QueryProvider>
+            <EventsTabProvider>
+              <div className="relative">
+                <Header />
+                {children}
+                <FooterOverride />
+              </div>
+            </EventsTabProvider>
+          </QueryProvider>
         </Suspense>
       </body>
     </html>

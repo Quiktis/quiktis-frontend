@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { request } from "./request";
+import { request } from "../request";
 
 export const Queries = () => {
   ///auth

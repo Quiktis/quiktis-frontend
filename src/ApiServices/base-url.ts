@@ -1,1 +1,1 @@
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL_DEVELOPMENT
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL_DEVELOPMENT ?? "https://quiktis-inc.onrender.com"
