@@ -13,7 +13,7 @@ interface SocialLoginButtonProps {
 
 export const AuthButton: React.FC<SocialLoginButtonProps> = ({ onClick, className, children, icon }) => {
   return (
-    <Button onClick={onClick} className={`flex text-sm items-center justify-center bg-black h-[64px] border border-[#808080] ${className}`}>
+    <Button onClick={onClick} className={`flex text-sm cursor-pointer items-center justify-center bg-black h-[64px] border border-[#808080] ${className}`}>
       <span className="mr-2">{icon}</span>
       {children}
     </Button>

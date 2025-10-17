@@ -28,8 +28,8 @@ const LoginPage: React.FC = () => {
     await signIn(data);
     reset()
   };
-  const handleInitiateGoogle=async()=> {
-      initiateGoogle
+  const handleInitiateGoogle=()=> {
+     initiateGoogle()
   }
   return (
     <div className="mb-[5em] flex md:grid grid-cols-[1.6fr_2fr] gap-[3.5em] justify-center text-white overflow-hidden mt-5 items-center w-full lg:w-[86%] mx-auto">

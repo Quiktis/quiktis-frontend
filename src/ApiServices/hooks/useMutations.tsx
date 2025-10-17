@@ -191,7 +191,7 @@ export const useMutations = () => {
   });
 
   //Categories
-  
+
   return {
     login: (data: Login) => loginMutation(data),
     signUp: (data: SignUp) => signUpMutation(data),
@@ -200,7 +200,7 @@ export const useMutations = () => {
       initiateResetPasswordMutation(data),
     resetPassword: (data: ResetPassword) => resetPasswordMutation(data),
     upload: (files: File) => uploadMutation(files),
-    initiateGoogle: () => initiateGoogleMutation,
+    initiateGoogle: () => initiateGoogleMutation(),
     googleCallback: (data: GoogleCallback) => googleCallbackMutation(data),
   };
 };
