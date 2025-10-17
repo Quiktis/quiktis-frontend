@@ -6,6 +6,7 @@ import { Suspense } from "react";
 
 import { EventsTabProvider } from "@/src/lib/EventsTabContext";
 import QueryProvider from "../components/layouts/QueryProvider";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "Quiktis",
@@ -45,6 +46,7 @@ export default function RootLayout({
                 <FooterOverride />
               </div>
             </EventsTabProvider>
+            <ToastContainer/>
           </QueryProvider>
         </Suspense>
       </body>

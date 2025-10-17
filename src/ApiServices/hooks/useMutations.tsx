@@ -10,9 +10,11 @@ import {
   SignUp,
   VerifyEmail,
 } from "../../types";
+import useNotify from "./useNotify";
 
 export const useMutations = () => {
   const { setLoading, setMessage, setUserId, setIsError, setIsSuccess } = useStore();
+  const {success, error}= useNotify()
   const router = useRouter();
   //auth
   const { mutateAsync: loginMutation } = useMutation({
@@ -25,6 +27,7 @@ export const useMutations = () => {
     onSuccess: (response) => {
       if (response) {
         setMessage(response.message);
+        success(response.message)
         setUserId(response?.data?.user?.id);
         router.push("/");
       }
@@ -32,6 +35,7 @@ export const useMutations = () => {
     onError: (err) => {
       if (err) {
         setMessage(err.message);
+        error(err.message)
       }
     },
     onSettled: () => {
@@ -48,12 +52,14 @@ export const useMutations = () => {
     onSuccess: (response) => {
       if (response) {
         setMessage(response.message);
+        success(response.message)
         router.push("/verify-email");
       }
     },
     onError: (err) => {
       if (err) {
         setMessage(err.message);
+        error(err.message)
       }
     },
     onSettled: () => {
@@ -70,6 +76,7 @@ export const useMutations = () => {
     onSuccess: (response) => {
       if (response) {
         setMessage(response.message);
+        success(response.message)
         setIsSuccess(true)
         router.push("/login");
       }
@@ -78,6 +85,7 @@ export const useMutations = () => {
       if (err) {
         setIsError(false)
         setMessage(err.message);
+        error(err.message)
       }
     },
     onSettled: () => {
@@ -93,11 +101,13 @@ export const useMutations = () => {
     onSuccess: (response) => {
       if (response) {
         setMessage(response.message);
+        success(response.message)
       }
     },
     onError: (err) => {
       if (err) {
         setMessage(err.message);
+        error(err.message)
       }
     },
     onSettled: () => {
@@ -113,11 +123,13 @@ export const useMutations = () => {
     onSuccess: (response) => {
       if (response) {
         setMessage(response.message);
+        success(response.message)
       }
     },
     onError: (err) => {
       if (err) {
         setMessage(err.message);
+        error(err.message);
       }
     },
     onSettled: () => {
@@ -136,11 +148,13 @@ export const useMutations = () => {
           window.location.href = response.data.url;
         }
         setMessage(response.message);
+        success(response.message)
       }
     },
     onError: (err) => {
       if (err) {
         setMessage(err.message);
+        error(err.message)
       }
     },
     onSettled: () => {
@@ -157,11 +171,13 @@ export const useMutations = () => {
       if (response) {
         router.push("/signin");
         setMessage(response.message);
+        success(response.message)
       }
     },
     onError: (err) => {
       if (err) {
         setMessage(err.message);
+        error(err.message)
       }
     },
     onSettled: () => {
@@ -178,11 +194,13 @@ export const useMutations = () => {
     onSuccess: (response) => {
       if (response) {
         setMessage(response.message);
+        success(response.message)
       }
     },
-    onError: (error) => {
+    onError: (err) => {
       if (error) {
-        setMessage(error.message);
+        setMessage(err.message);
+        error(err.message)
       }
     },
     onSettled: () => {
