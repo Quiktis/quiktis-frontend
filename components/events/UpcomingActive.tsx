@@ -4,9 +4,9 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import EventCard from "./EventCard";
-import { useEvents } from "@/app/utils/useEvents";
 import { FiPlus } from "react-icons/fi";
-import { useUser } from "@/app/context/UserContext";
+import { useStore } from "@/app/lib/store";
+import { EventData } from "@/app/types";
 
 // A simple empty state component
 function EmptyState() {
@@ -18,15 +18,15 @@ function EmptyState() {
   );
 }
 
-export default function UpcomingActive() {
-  const { data: events, isLoading, isError } = useEvents();
-  const { user } = useUser();
+export default function UpcomingActive({ events }: { events: EventData[] }) {
+  //const { data: events, isLoading, isError } = useEvents();
+  const { loading, message, messageType } = useStore();
 
-  if (isLoading) {
+  if (loading) {
     return <p className="text-center text-gray-400">Loading events...</p>;
   }
 
-  if (isError) {
+  if (messageType === "error") {
     return (
       <p className="text-center text-red-500">
         Could not load events. Please try again later.
@@ -34,12 +34,8 @@ export default function UpcomingActive() {
     );
   }
 
-  // ✅ Filter events by organiser ID (only current user's events)
-  const userEvents =
-    events?.filter((event) => event.organiser?.id === user?.userId) || [];
-
-  if (userEvents.length === 0) {
-    return <div className="w-[95%] lg:w-[90%] xl:w-[85%] mx-auto">
+  if (events.length === 0) {
+    return <div className="w-[95%] lg:w-[90%] xl:w-[85%] mx-auto ">
         <div className="flex flex-col items-center justify-center  py-8">
           <div className="mb-10 -mt-20 md:-mt-6">
             <Image
@@ -77,13 +73,16 @@ export default function UpcomingActive() {
   }
 
   return (
-    <section className="mt-[7em] md:mt-[10em]">
-      <div className="flex flex-col gap-8 w-[98] mx-auto md:w-full md:max-w-5xl md:pr-12">
-        {userEvents.map((event) => (
+    <section className="relative mt-[6em] md:mt-[12em] z-50 mb-[4em]">
+      <div className="flex flex-col gap-8 mx-auto w-full md:w-fit pr-0 md:pr-12">
+         <div className="">
+          <h2 className="text-lg md:text-[2.2em] font-medium w-full">Events</h2>
+        </div>
+        {events.map((event) => (
           <EventCard
-            key={event.id}
+            key={event.eventId}
             event={{
-              id: event.id,
+              id: event.eventId,
               title: event.eventName,
               startsAt: event.startDate,
               organizer: event.organiser?.name || "Unknown Organizer",

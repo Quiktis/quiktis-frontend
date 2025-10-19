@@ -9,74 +9,101 @@ import Link from "next/link";
 import Image from "next/image";
 import SpecialFooterPast from "@/components/ui/SpecialFooterPast";
 import { useUser } from "../context/UserContext";
+import { Queries } from "../ApiServices/queries";
+import { GetAllEventsResponse, EventData } from "../types";
 
 const socials = [
-  {
-    icon: "/discord-new.svg",
-    link: "https://discord.gg/TmavF8QCu5",
-    alt: "discord",
-  },
-  {
-    icon: "/instagram-new.svg",
-    link: "https://instagram.com/quiktis",
-    alt: "instagram",
-  },
+  { icon: "/discord-new.svg", link: "https://discord.gg/TmavF8QCu5", alt: "discord" },
+  { icon: "/instagram-new.svg", link: "https://instagram.com/quiktis", alt: "instagram" },
   { icon: "/twitter-new.svg", link: "https://x.com/quiktishq", alt: "twitter" },
-  {
-    icon: "/linkedin-new.svg",
-    link: "https://linkedin.com/company/quiktis",
-    alt: "linkedin",
-  },
-  {
-    icon: "/facebook-new.svg",
-    link: "https://www.facebook.com/share/1BnfVxgh29/",
-    alt: "facebook",
-  },
+  { icon: "/linkedin-new.svg", link: "https://linkedin.com/company/quiktis", alt: "linkedin" },
+  { icon: "/facebook-new.svg", link: "https://www.facebook.com/share/1BnfVxgh29/", alt: "facebook" },
 ];
 
 export default function EventsActivePage() {
   const { user, logout } = useUser();
   const searchParams = useSearchParams();
+  const { getAllUserEvents } = Queries();
+
+  // 🟢 Extract active tab (upcoming or past)
   const currentTab =
     (searchParams?.get("tab") as "upcoming" | "past") ?? "upcoming";
 
-  const activeParam = searchParams?.get("active");
-  const hasUpcoming = activeParam === "true";
-  const hasPast = activeParam === "true";
+  // 🟢 Handle loading/error states
+  if (getAllUserEvents.isLoading)
+    return (
+      <div className="flex items-center justify-center min-h-screen text-gray-400">
+        Loading events...
+      </div>
+    );
 
-  const hasEvents =
-    (currentTab === "upcoming" && hasUpcoming) ||
-    (currentTab === "past" && hasPast);
+  if (getAllUserEvents.isError)
+    return (
+      <div className="flex items-center justify-center min-h-screen text-red-400">
+        Failed to load events.
+      </div>
+    );
+
+  const events = getAllUserEvents.data?.data?.events || [];
+const now = new Date();
+
+const upcomingEvents = events.filter((event) => {
+  const start = new Date(event.startDate);
+  return start >= now;
+});
+
+const pastEvents = events.filter((event) => {
+  const end = new Date(event.endDate);
+  return end < now;
+});
+
+const displayedEvents =
+  currentTab === "upcoming" ? upcomingEvents : pastEvents;
+
+
+    
+ currentTab === "upcoming" ? upcomingEvents : pastEvents;
+
+ console.log("All events:", events.map(e => ({
+  name: e.eventName,
+  start: e.startDate,
+  end: e.endDate,
+  id: e.id
+})));
 
   return (
+    <>
+
+    <div className="grid left-auto top-[-34em] right-auto place-items-center absolute w-full h-[50em]">
+        <div className="w-screen h-[35em] inset-0 radial-gradient-purple-new blur-3xl opacity-50"></div>
+      </div>
+
+
     <div
       className="flex flex-col min-h-screen text-white pb-8 md:pb-12"
       style={{ backgroundColor: "#131517" }}
     >
-      {/* Main content */}
-      <main
-        className={`flex-1 w-[90%] lg:w-[90%] xl:w-[85%] mx-auto ${
-          hasEvents ? "" : ""
-        } `}
-      >
-        {currentTab === "upcoming" ? (
-          hasUpcoming ? (
-            <UpcomingActive />
-          ) : (
-            <div className="grid place-items-center min-h-screen">
-                <UpcomingActive  />
-            </div>
-            
+      <main className="flex-1 w-[90%] lg:w-[90%] xl:w-[85%] mx-auto">
+        {/* ✅ Conditional rendering for Upcoming/Past */}
+        {events.length > 0 ? (
+            <UpcomingActive 
+            events={events} 
+            />
           )
-        ) : currentTab === "past" ? (
-          hasPast ? (
-            <PastActive />
-          ) : (
-            <EventsEmptyState tab="past" hideFooter={true} />
-          )
-        ) : null}
+         : (
+          <EventsEmptyState
+            tab={currentTab}
+            //title={
+            //  currentTab === "upcoming"
+            //    ? "No Upcoming Events"
+             //   : "No Past Events Yet"
+            //}
+            hideFooter={currentTab === "past"}
+          />
+        )}
       </main>
 
+      {/* ✅ Conditional Footer */}
       {currentTab === "past" ? (
         <SpecialFooterPast />
       ) : (
@@ -97,9 +124,9 @@ export default function EventsActivePage() {
                 <span>uiktis</span>
               </p>
 
-              <Link href={"#"}>Discover</Link>
-              <Link href={"/pricing"}>Pricing</Link>
-              <Link href={"#"}>Help</Link>
+              <Link href="#">Discover</Link>
+              <Link href="/pricing">Pricing</Link>
+              <Link href="#">Help</Link>
               {user?.userId && <button onClick={logout}>Logout</button>}
             </div>
 
@@ -160,14 +187,13 @@ export default function EventsActivePage() {
               <div>
                 <h3 className="text-lg font-semibold mb-1">Call for help!</h3>
                 <p className="text-gray-400 text-sm">
-                  Need any help? Get in touch with our team to expert to support
-                  you.
+                  Need any help? Get in touch with our team to support you.
                 </p>
               </div>
             </div>
             <Link
-              href={"/contact"}
-              className=" text-black hover:bg-gray-700 px-6 py-2 rounded-md font-medium transition text-center bg-white hover:text-white max-md:w-[100%]"
+              href="/contact"
+              className="text-black hover:bg-gray-700 px-6 py-2 rounded-md font-medium transition text-center bg-white hover:text-white max-md:w-[100%]"
             >
               Contact us
             </Link>
@@ -175,5 +201,6 @@ export default function EventsActivePage() {
         </footer>
       )}
     </div>
+    </>
   );
 }

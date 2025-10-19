@@ -5,8 +5,12 @@ import SafeImage from "../SafeImage";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { EventItem } from "@/lib/eventsClient";
+import { formatDateShort, getDayFromISO, getWeekday, getTime } from "@/app/utils/utils";
+import { useStore } from "@/app/lib/store";
+import Link from "next/link";
 
 export default function EventCard({ event }: { event: EventItem }) {
+  const { user } = useStore();
   const router = useRouter();
   const dateStr = "September 30";
   const weekdayStr = "Tuesday";
@@ -31,7 +35,7 @@ export default function EventCard({ event }: { event: EventItem }) {
   const goingLabel =
     (event as any).goingLabel ?? formatCompact(event.goingCount);
 
-  const buttonColor = event.buttonColor ?? "#EA4335";
+ 
 
   const href = event.id ? `/events/${event.id}` : "#";
 
@@ -42,21 +46,10 @@ export default function EventCard({ event }: { event: EventItem }) {
     backdropFilter: "blur(3.88px)",
   };
 
-  // Desktop Style
-  const isStable =
-    !!event.organizer && event.organizer.toLowerCase().includes("stable");
-  const desktopCardStyle: React.CSSProperties = {
-    border: isStable ? "0.5px solid #91949926" : "0.5px solid #434343",
-    background: "#15181B3D",
-    backdropFilter: isStable ? "blur(15px)" : "blur(7px)",
-  };
-  const desktopDateCardStyle: React.CSSProperties = {
-    border: isStable ? "0.5px solid #91949926" : "0.5px solid #434343",
-    background: "transparent",
-  };
+
 
   return (
-    <div className="max-sm:w-[87vw] mx-auto"
+    <div className="max-md:w-[83vw] mx-auto"
       role="button"
       //onClick={() => router.push(href)}
       //className="cursor-pointer"
@@ -65,40 +58,40 @@ export default function EventCard({ event }: { event: EventItem }) {
       {/* ---------- MOBILE LAYOUT ---------- */}
       <div className="md:hidden -mx-4">
         <div className="text-left mb-6 px-0">
-          <div className="text-white font-bold md:text-lg">{dateStr}</div>
-          <div className="text-gray-400 text-md md:font-medium">{weekdayStr}</div>
+          <div className="text-white font-semibold md:text-lg">{formatDateShort(event.startsAt)}</div>
+          <div className="text-gray-400 text-md md:font-medium">{getWeekday(event.startsAt)}</div>
         </div>
 
         <div
-          className="p-3 box-border rounded-xl"
+          className="px-3.5 py-2.5 box-border rounded-xl"
           style={mobileCardStyle}
         >
-          <div className="flex gap-3 items-start">
+          <div className="flex gap-3 items-start w-full">
             {/* Info column */}
             <div className="flex-1 flex flex-col min-w-0 space-y-1.5">
               <div className="font-inter font-medium text-sm text-gray-400">
-                {timeStr}
+                {getTime(event.startsAt)}
               </div>
 
-              <h2 className="text-white text-base font-semibold leading-tight break-words max-sm:max-w-[65%]
+              <Link href={`/event/${event.id}`} className="text-white hover:underline text-base font-semibold leading-tight break-words max-sm:max-w-[65%]
               ">
                 {event.title}
-              </h2>
+              </Link>
 
               <div className="flex items-center gap-2">
                 <SafeImage
                   src={icon}
                   alt="organizer icon"
-                  width={16}
-                  height={16}
+                  width={17}
+                  height={17}
                   className="object-contain rounded-full"
                   unoptimized
                 />
                 <span
-                  className="font-inter font-medium text-xs text-gray-400 truncate"
+                  className="font-inter font-medium text-xs text-gray-400 truncate my-auto"
                   title={event.organizer ?? "Unknown"}
                 >
-                  By {event.organizer ?? "Unknown"}
+                  By {user?.name}
                 </span>
               </div>
 
@@ -112,13 +105,19 @@ export default function EventCard({ event }: { event: EventItem }) {
                 </span>
               </div>
 
-              <div className="pt-1">
-                <div
-                  className="inline-flex items-center gap-1 text-white px-2 py-1 rounded text-xs font-semibold"
-                  style={{ backgroundColor: buttonColor }}
-                >
-                  {goingLabel}
-                </div>
+              <div className="flex gap-2 pt-1">
+              
+              <Link href={`/event/${event.id}`}
+              className="inline-flex items-center gap-2 text-white px-3 py-1 rounded-md text-sm font-semibold w-fit cursor-pointer bg-[#6F4FF2] text-[0.8em]"
+            >
+              Manage event
+            </Link>
+            <div
+              className="inline-flex items-center gap-2 text-white px-3 py-1 rounded-md text-sm font-semibold w-fit bg-[#EA4335] text-[0.8em]"
+            >
+              {goingLabel}
+            </div>
+          
               </div>
             </div>
 
@@ -140,29 +139,33 @@ export default function EventCard({ event }: { event: EventItem }) {
       </div>
 
       {/* ---------- DESKTOP ---------- */}
-      <div className="hidden md:flex flex-col md:flex-row gap-4 w-full md:max-w-4xl mx-auto">
-        <div
-          className="rounded-2xl p-6 text-left min-w-[140px] flex flex-col justify-center"
-          style={desktopDateCardStyle}
+
+     
+      
+      <div className="hidden md:flex flex-col md:flex-row gap-4 w-fit max-md:w-full  mx-auto">
+        
+        <div className="grid  md:grid-cols-[13em_28em] lg:grid-cols-[13em_37em] h-[13em] gap-8">
+           <div
+          className="rounded-2xl p-4.5 text-left border border-gray-800/85 w-full h-full"
+          //style={desktopDateCardStyle}
         >
-          <div className="text-white font-bold text-xl mb-1">{dateStr}</div>
+          <div className="text-white font-medium text-xl ">{formatDateShort(event.startsAt)}</div>
           <div className="text-gray-500 text-base font-medium">
-            {weekdayStr}
+            {getWeekday(event.startsAt)}
           </div>
         </div>
 
-        {/* Main content */}
         <div
-          className="rounded-2xl p-6 flex flex-col md:flex-row items-start justify-between flex-1"
-          style={desktopCardStyle}
+          className="rounded-2xl px-6 py-2 flex justify-between items-center border border-gray-800/85"
+          //style={desktopCardStyle}
         >
-          <div className="space-y-3 flex-1 w-full">
+          <div className="flex flex-col gap-2 w-full">
             <div className="font-inter font-medium text-base text-[#666666]">
-              {timeStr}
+              {getTime(event.startsAt)}
             </div>
-            <h2 className="text-white text-2xl font-bold leading-tight">
+            <Link href={`/event/${event.id}`} className="text-white hover:underline  text-2xl cursor-pointer font-bold leading-tight">
               {event.title}
-            </h2>
+            </Link>
             <div className="flex items-center gap-2">
               <SafeImage
                 src={icon}
@@ -182,12 +185,19 @@ export default function EventCard({ event }: { event: EventItem }) {
                 {event.location ?? "Online"}
               </span>
             </div>
+            <span className="space-x-2">
+              <Link href={`/event/${event.id}`}
+              className="inline-flex items-center gap-2 text-white px-3 py-1 rounded-md text-sm font-semibold w-fit cursor-pointer bg-[#6F4FF2]"
+            >
+              Manage event
+            </Link>
             <div
-              className="inline-flex items-center gap-2 text-white px-3 py-1.5 rounded-md text-sm font-semibold"
-              style={{ backgroundColor: buttonColor }}
+              className="inline-flex items-center gap-2 text-white px-3 py-1 rounded-md text-sm font-semibold w-fit bg-[#EA4335]"
             >
               {goingLabel}
             </div>
+            </span>
+            
           </div>
 
           {/* Poster (desktop) */}
@@ -204,6 +214,11 @@ export default function EventCard({ event }: { event: EventItem }) {
             </div>
           </div>
         </div>
+        </div>
+       
+
+        {/* Main content */}
+        
       </div>
     </div>
   );

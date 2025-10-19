@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Sidebar from "./Sidebar";
 import { usePathname } from "next/navigation";
-import { useUser } from "@/app/context/UserContext";
+import { useStore } from "@/app/lib/store";
+
 
 interface TimeWithGmtProps {
   date?: Date | number | string;
@@ -66,7 +67,7 @@ const TimeWithGmt: React.FC<TimeWithGmtProps> = ({
 export default function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
-  const { user } = useUser(); // ✅ grab user state
+  const user = useStore((s) => s.user);
 
   const hiddenPaths = ["/register"];
   if (hiddenPaths.includes(pathname)) return null;
@@ -93,8 +94,8 @@ export default function Header() {
             <p className="my-auto">
               <TimeWithGmt />
             </p>
-            <Link href={user?.userId ? "/create-event" : "/register"} className="cursor-pointer my-auto flex gap-1">
-              {user?.userId ? "Create event" : "Explore event"}
+            <Link href={user?.id ? "/create-event" : "/register"} className="cursor-pointer my-auto flex gap-1">
+              {user?.id ? "Create event" : "Explore event"}
               <Image
                 src="/arrow-45.svg"
                 alt="arrow"
@@ -105,16 +106,16 @@ export default function Header() {
               />
             </Link>
 
-            {user?.userId && <Link href={"/event"} className="cursor-pointer my-auto flex gap-1">
+            {user?.id && <Link href={"/event"} className="cursor-pointer my-auto flex gap-1">
               My events
             </Link>}
 
-            {user?.userId && <Link href={"/explore-events"} className="cursor-pointer my-auto flex gap-1">
+            {user?.id && <Link href={"/explore-events"} className="cursor-pointer my-auto flex gap-1">
               Explore events
             </Link>}
 
             {/* ✅ Show greeting if logged in, else Sign in */}
-            {user?.userId ? (
+            {user?.id ? (
               <span className="my-auto text-white">Hi {firstName}</span>
             ) : (
               <Link

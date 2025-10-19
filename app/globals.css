@@ -10,7 +10,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'); */
 
 
-
+button {
+  cursor: pointer;
+}
 
 @font-face {
   font-family: "instrumentserif-italic";
@@ -162,6 +164,16 @@ html, body {
     
     
     rgba(196, 241, 247, 0.55) 0%,
+    rgba(226, 226, 226, 0.048) 100%
+  );
+}
+.radial-gradient-purple-new {
+  border-radius: 50%; /* Ensures the gradient is perfectly circular */
+  background: radial-gradient(
+    circle,
+    
+    rgba(247, 79, 179, 0.55), 0%,
+    rgba(247, 79, 179, 0.55), 50%,
     rgba(226, 226, 226, 0.048) 100%
   );
 }

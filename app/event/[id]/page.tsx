@@ -3,6 +3,12 @@
 import type { NextPage } from "next";
 import { Plus, MapPin } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
+import { Queries } from "@/app/ApiServices/queries";
+import { useParams } from "next/navigation";
+import { useStore } from "@/app/lib/store";
+import { formatDateShort, getDayFromISO, getWeekday, getTime, formatDate } from "@/app/utils/utils";
+import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 
 const InviteGuestIcon = ({
   className,
@@ -121,6 +127,7 @@ const StackedGlassLinkBars: React.FC<StackedGlassLinkBarsProps> = ({
 }) => {
   const timerRef = useRef<number | null>(null);
   const [copyStatus, setCopyStatus] = useState("Copy");
+  
 
   useEffect(() => {
     return () => {
@@ -147,114 +154,17 @@ const StackedGlassLinkBars: React.FC<StackedGlassLinkBarsProps> = ({
     }
   };
 
-  const barBaseStyle: React.CSSProperties = {
-    background: "#FFFFFF0F",
-    backdropFilter: "blur(20px)",
-    WebkitBackdropFilter: "blur(20px)",
-    width: "490px",
-    height: "61px",
-    margin: "0 -1rem",
-    paddingLeft: "32px",
-    paddingRight: "62px",
-    gap: "20px",
-    display: "flex",
-    alignItems: "center",
-    boxSizing: "border-box",
-  };
-
-  const copyAreaWidth = 60;
-
-  const topTextStyle: React.CSSProperties = {
-    fontFamily: "Inter",
-    fontWeight: 500,
-    fontSize: "20px",
-    lineHeight: "100%",
-    color: "#D2DDDA",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    flexGrow: 1,
-    maxWidth: `calc(490px - 32px - 62px - ${copyAreaWidth}px)`,
-  };
-
-  const copyStyle: React.CSSProperties = {
-    fontFamily: "Inter",
-    fontWeight: 500,
-    fontSize: "20px",
-    lineHeight: "100%",
-    color: "#D2DDDA",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    flexShrink: 0,
-    width: `${copyAreaWidth}px`,
-  };
-
-  const behindTextStyle: React.CSSProperties = {
-    fontFamily: "Inter",
-    fontWeight: 500,
-    fontSize: behindFontSize,
-    lineHeight: "100%",
-    color: "#D2DDDA",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "clip",
-    flexGrow: 1,
-    maxWidth: `calc(490px - 32px - 62px - ${copyAreaWidth}px)`,
-  };
+  
 
   return (
-    <div className={`relative ${className}`} style={{ minWidth: 0 }}>
-      <div
-        aria-hidden="true"
-        style={{
-          ...barBaseStyle,
-          position: "absolute",
-          left: 0,
-          top: 0 + peekBehind,
-          zIndex: 0,
-          overflow: "visible",
-          pointerEvents: "none",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
-          <div
-            style={{
-              flex: "1 1 auto",
-              maxWidth: `calc(100% - ${copyAreaWidth}px)`,
-            }}
-          >
-            <span style={behindTextStyle}>{behindText}</span>
-          </div>
+    <div className={`relative ${className}`}>
 
-          <div
-            style={{
-              width: `${copyAreaWidth}px`,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <span style={{ visibility: "hidden", ...copyStyle }}>Copy</span>
-          </div>
-        </div>
-      </div>
+      <div className="flex justify-between px-5 pr-6.5 md:px-8 bg-[#ffffff28] py-4 mb-4.5 mt-2.5">
+        <span className="font-medium text-white md:text-lg truncate max-w-[65%]">{topText}</span>
 
-      <div
-        role="region"
-        aria-label="Event link"
-        style={{
-          ...barBaseStyle,
-          position: "relative",
-          zIndex: 10,
-          overflow: "hidden",
-        }}
-      >
-        <span style={topTextStyle}>{topText}</span>
-
-        <div style={copyStyle} onClick={handleCopy}>
+        <button className="white font-medium text-white md:text-lg" onClick={handleCopy}>
           {copyStatus}
-        </div>
+        </button>
       </div>
     </div>
   );
@@ -283,25 +193,11 @@ const HostItem = ({ host }: { host: Host }) => (
         />
       </div>
       <div>
-        <p
-          style={{
-            fontFamily: "Inter",
-            fontWeight: 500,
-            fontSize: "24px",
-            lineHeight: "121%",
-            color: "#FFFFFF",
-          }}
-        >
+        <p className="font-medium text-white max-md:text-[0.9em] truncate max-sm:max-w-[85%] md:text-lg font-inter">
           {host.name}
         </p>
-        <p
-          style={{
-            fontFamily: "Inter",
-            fontWeight: 500,
-            fontSize: "12.98px",
-            lineHeight: "121%",
-            color: "#666666",
-          }}
+        <p className="max-sm:text-[0.7em] truncate max-sm:max-w-[90%] text-[#666666] font-inter"
+        
         >
           {host.email}
         </p>
@@ -346,37 +242,22 @@ const SectionHeader = ({
   subtitleClassName: string;
   buttonText?: string;
 }) => (
-  <div className="flex items-center justify-between mb-[47px]">
+  <div className="flex items-center justify-between mb-[47px] max-sm:mb-6">
     <div>
-      <h2 className={titleClassName}>{title}</h2>
-      <p className={subtitleClassName}>{subtitle}</p>
+      <h2 className="font-medium max-md:text-lg md:text-2xl text-white">{title}</h2>
+      <p className="max-md:text-[0.9em] max-sm:text-[0.7em]">{subtitle}</p>
     </div>
     {buttonText && (
       <button
-        className="flex items-center gap-3 pl-3 pr-4 transition-colors"
-        style={{
-          width: "178px",
-          height: "60px",
-          borderRadius: "9.19px",
-          border: "0.26px solid #91949926",
-          background: "#FFFFFF0F",
-          backdropFilter: "blur(10.33px)",
-        }}
+        className="flex items-center gap-3 transition-colors bg-[#FFFFFF0F] py-3 max-sm:py-2 max-sm:px-2 max-sm:pr-3 px-4 pr-5 rounded-md"
       >
         <div
-          className="w-9 h-9 rounded-full flex items-center justify-center"
+          className="w-8 h-8 max-sm:w-6 max-sm:h-6 rounded-full flex items-center justify-center"
           style={{ backgroundColor: "rgba(49, 46, 129, 0.5)" }}
         >
-          <Plus size={20} className="text-indigo-400" />
+          <Plus size={18} className="text-indigo-400" />
         </div>
-        <span
-          style={{
-            fontFamily: "Inter",
-            fontWeight: 500,
-            fontSize: "20px",
-            lineHeight: "100%",
-            color: "#D2DDDA",
-          }}
+        <span className="font-inter max-sm:text-[0.8em] font-medium text-[#D2DDDA]"
         >
           {buttonText}
         </span>
@@ -386,119 +267,95 @@ const SectionHeader = ({
 );
 
 const OnclickOverviewPage: NextPage = () => {
+  const { id: eventId } = useParams();
+  const origin =
+    typeof window !== "undefined" ? window.location.origin : "";
+  
+  const { getEventById } = Queries(eventId as string);
+
+  const { data, isLoading, error } = getEventById;
+
+  const eventData = data?.data;
+
+  const { user } = useStore();
+
   const hosts: Host[] = [
     {
-      name: "Dare Sobaloju Pamilerin",
-      email: "Pamilerincaleb@gmail.com",
+      name: user?.name??"",
+      email: user?.email??"",
       role: "Creator",
     },
-    {
+    /*{
       name: "Dare Sobaloju Pamilerin",
       email: "Pamilerincaleb@gmail.com",
       role: "Guest",
-    },
+    },*/
   ];
+
+const shareUrl = `${origin}/events/view/${eventData?.event.slug}`;
+
+  const handleShare = async (url: string) => {
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+         
+          url,
+        });
+        console.log("Event shared successfully!");
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      // fallback for unsupported browsers
+      await navigator.clipboard.writeText(url);
+      alert("Link copied to clipboard!");
+    }
+  };
 
   return (
     <div className="bg-[#131517] min-h-screen p-4 sm:p-6 md:p-8 text-gray-300 font-sans flex items-center justify-center">
       <div className="max-w-4xl mx-auto w-full mt-24">
-        <div className="bg-[#FFFFFF05] border-[0.33px] border-[#91949926] rounded-[11.66px] backdrop-blur-[13.11px] p-6">
-          <div className="mb-6 flex justify-start">
-            <div className="flex items-center gap-3">
-              <button
-                className="flex items-center gap-4 rounded-[11.66px] backdrop-blur-[13.11px] hover:bg-white/10 transition-colors"
-                style={{
-                  width: "237.89px",
-                  height: "55.97px",
-                  border: "0.33px solid #91949926",
-                  background: "#FFFFFF0F",
-                  justifyContent: "flex-start",
-                  padding: "0 10px",
-                }}
-              >
-                <div
-                  className="rounded-lg flex-shrink-0 relative overflow-hidden"
-                  style={{
-                    backgroundColor: "rgba(255, 242, 0, 0.5)",
-                    width: "33.438px",
-                    height: "33.438px",
-                  }}
+        <div className="bg-[#FFFFFF05] border-[0.33px] border-[#91949926] rounded-[11.66px] backdrop-blur-[13.11px] p-6 max-sm:p-4">
+          <div className="max-sm:mb-4 mb-6 flex justify-start">
+            <div className=" gap-3 w-[80vw] md:w-[490px] grid grid-cols-2">
+              <button onClick={() => handleShare(shareUrl)}
+                className="flex items-center gap-2 rounded-xl backdrop-blur-[13.11px] hover:bg-white/10 transition-colors bg-[#FFFFFF0F] max-sm:py-2.5 py-3 pl-2 pr-6 max-sm:px-3 w-full max-sm:text-[0.9em]"
                 >
-                  <InviteGuestIcon
-                    className="absolute bottom-0 left-0 w-full"
-                    style={{
-                      height: "auto",
-                      objectFit: "fill",
-                    }}
-                  />
-                </div>
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "17.27px",
-                    lineHeight: "100%",
-                    color: "#D2DDDA",
-                  }}
-                >
-                  Invite Guest
-                </span>
+               
+                  <Image src="/invite-guests.svg" className="max-sm:max-w-[20px] max-sm:max-h-[20px]" alt="icon" height={30} width={30}/>
+                <span className="font-inter font-semibold text-[#D2DDDA] max-sm:font-[0.6em]">Invite Guest</span>
               </button>
-              <button
-                className="flex items-center gap-4 rounded-[11.66px] backdrop-blur-[13.11px] hover:bg-white/10 transition-colors"
-                style={{
-                  width: "237.89px",
-                  height: "55.97px",
-                  border: "0.33px solid #91949926",
-                  background: "rgba(255, 255, 255, 0.06)",
-                  justifyContent: "flex-start",
-                  padding: "0 10px",
-                }}
+
+               <button onClick={() => handleShare(shareUrl)}
+                className="flex items-center gap-2 rounded-xl backdrop-blur-[13.11px] hover:bg-white/10 transition-colors bg-[#FFFFFF0F] py-3 max-sm:py-2.5 pl-2 pr-6 max-sm:px-3 w-full max-sm:text-[0.9em]"
+               
               >
-                <div
-                  className="rounded-lg flex-shrink-0 flex items-center justify-center"
-                  style={{
-                    backgroundColor: "rgba(111, 79, 242, 0.14)",
-                    width: "32.730px",
-                    height: "32.730px",
-                  }}
-                >
-                  <ShareEventIcon className="w-full h-full object-contain" />
-                </div>
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "17.27px",
-                    lineHeight: "100%",
-                    color: "#D2DDDA",
-                  }}
-                >
-                  Share Event
-                </span>
+               
+                  <Image src="/share-event.svg" className="max-sm:max-w-[20px] max-sm:max-h-[20px]" alt="icon" height={30} width={30}/>
+                <span className="font-inter font-semibold text-[#D2DDDA] max-sm:font-[0.6em]">Share Event</span>
               </button>
+              
+
+
+
             </div>
           </div>
 
-          <main className="flex flex-col md:flex-row gap-[47px]">
-            <div className="flex-none w-full md:w-[490px]">
+          <main className="flex flex-col lg:flex-row gap-8 max-sm:gap-4">
+            <div className="flex-none w-full lg:w-[490px]">
               <div
-                className="bg-[#CE5620] w-full h-[393px] rounded-[18.62px] p-4 flex flex-col justify-between"
-                style={{
-                  background: "#CE5620",
-                  borderRadius: "18.62px",
-                  padding: "1rem",
-                }}
+                className="bg-[#CE5620] max-sm:w-[80vw] w-full h-[fit] rounded-[18.62px]  flex flex-col justify-between max-sm:overflow-x-hidden"
+                
               >
-                <div className="flex flex-row gap-4">
-                  <div
-                    className="flex-shrink-0"
-                    style={{ width: "232px", height: "230.08px" }}
-                  >
-                    <img
-                      src="/spiral-img.svg"
-                      alt="Event decorative graphic"
-                      className="w-full h-full object-cover"
+                <div className="flex flex-row gap-4 md:gap-6 px-4 pt-4 max-sm:px-2.5 max-sm:pt-2.5">
+                  <div>
+                    <SafeImage
+                      alt="Event cover image"
+                      src={`${eventData?.event.coverImage ?? "/spiral-img.svg"}`}
+                      width={232}
+                      height={232}
+                      className="max-sm:w-[40vw] max-sm:h-[40vw] w-[17em] h-[17em] max-md:object-contain object-cover"
                       style={{ borderRadius: "16.75px" }}
                     />
                   </div>
@@ -511,19 +368,17 @@ const OnclickOverviewPage: NextPage = () => {
                         lineHeight: "1.2",
                       }}
                     >
-                      Africa Startup
-                      <br />
-                      Conference
+                      {eventData?.event.eventName?? ""}
                     </h1>
                     <div className="flex items-center gap-3">
                       <div className="w-[33.81px] h-[33.81px] flex-shrink-0 flex flex-col items-center justify-center border-[0.72px] border-[#F8F8F824] rounded-[10.79px] overflow-hidden">
                         <div className="w-full text-center bg-[#91949966]">
                           <span className="text-[6px] text-white/80 font-semibold block leading-tight pt-0.5">
-                            Sept
+                            {new Date(eventData?.event?.startDate?? "").toLocaleString("en-US", { month: "short" })}
                           </span>
                         </div>
                         <span className="text-[15px] font-semibold text-white block flex-grow flex items-center -mt-0.5">
-                          30
+                          {new Date(eventData?.event?.startDate??"").getDate()}
                         </span>
                       </div>
                       <div>
@@ -531,13 +386,13 @@ const OnclickOverviewPage: NextPage = () => {
                           className="font-semibold text-white"
                           style={{ fontSize: "11.35px" }}
                         >
-                          Thursday, Sep 23
+                          {formatDate(eventData?.event.startDate?? "")}
                         </p>
                         <p
                           className="font-medium"
                           style={{ fontSize: "11.35px", color: "#D8D8D8" }}
                         >
-                          7:00 PM - 8:30 PM GMT+1
+                         {getTime(eventData?.event.startDate?? "")}
                         </p>
                       </div>
                     </div>
@@ -556,40 +411,24 @@ const OnclickOverviewPage: NextPage = () => {
                           className="font-medium"
                           style={{ fontSize: "10.55px", color: "#D8D8D8" }}
                         >
-                          Stable Africa, Lagos, Nigeria
+                          {eventData?.event.location?? ""}
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="text-white">
-                  <p
-                    className="text-xs"
-                    style={{
-                      fontFamily: "Inter",
-                      fontWeight: 500,
-                      fontSize: "10px",
-                      color: "#FFFFFF8A",
-                    }}
-                  >
+                <div className="text-white mt-0 p-4 max-sm:p-2.5">
+                  <p className="text-xs font-inter fom-medium">
                     Hosted
                   </p>
-                  <p
-                    style={{
-                      fontFamily: "Inter",
-                      fontWeight: 500,
-                      fontSize: "14px",
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    Dare Sobaloju
+                  <p className="font-inter font-medium max-sm:text-[0.8em] text-[0.9em]">{user?.name ?? ""}
                   </p>
                 </div>
 
                 <div>
                   <StackedGlassLinkBars
-                    topText="Quiktis.com/xytrh"
-                    topCopyUrl="Quiktis.com/xytrh"
+                    topText={shareUrl}
+                    topCopyUrl={shareUrl}
                     behindText="Where Africa startup find oppurtunity"
                     peekBehind={0} // can be used overlap and show the text behind
                     behindFontSize="20px"
@@ -598,7 +437,35 @@ const OnclickOverviewPage: NextPage = () => {
               </div>
             </div>
 
-            <aside className="p-0 rounded-2xl flex-none w-full md:w-[341.37px]">
+            <div className="hidden max-sm:gap-2 gap-4 w-[80vw] md:w-[490px] max-sm:grid grid-cols-3">
+              <button
+                className="font-inter flex items-center justify-center md:font-semibold text-white transition-colors max-sm:text-[0.72em] bg-[#FFFFFF0F] max-sm:px-1.5 max-sm:py-2 px-2 py-2.5 rounded-md"
+                
+              >
+                
+                
+                  Edit Event
+                
+              </button>
+              <button
+                className="font-inter flex items-center justify-center md:font-semibold text-white transition-colors max-sm:text-[0.72em] bg-[#FFFFFF0F] max-sm:px-1.5 max-sm:py-2 px-2 py-2.5 rounded-md"
+                
+              >
+                
+                  Change Image
+                
+              </button>
+              <button onClick={() => handleShare(shareUrl)}
+                 className="font-inter flex items-center justify-center md:font-semibold text-white transition-colors max-sm:text-[0.72em] bg-[#FFFFFF0F] max-sm:px-1.5 max-sm:py-2  px-2 py-2.5 rounded-md"
+                
+              >
+                
+                  Share Event
+                
+              </button>
+            </div>
+
+            <aside className="p-0 rounded-2xl flex-none w-full md:w-fit">
               <h3 className="text-lg font-medium text-white mb-4">
                 When and Where
               </h3>
@@ -606,11 +473,11 @@ const OnclickOverviewPage: NextPage = () => {
                 <div className="w-[56px] h-[56px] flex-shrink-0 flex flex-col items-center justify-center border-[1.19px] border-[#F8F8F824] rounded-[17.87px] overflow-hidden">
                   <div className="w-full text-center bg-[#91949966]">
                     <span className="text-[8.28px] text-white-600 font-semibold block leading-tight py-0.5">
-                      Sept
+                      {new Date(eventData?.event?.startDate?? "").toLocaleString("en-US", { month: "short" })}
                     </span>
                   </div>
                   <span className="text-2xl font-semibold text-white block flex-grow flex items-center -mt-1">
-                    30
+                    {new Date(eventData?.event?.startDate??"").getDate()}
                   </span>
                 </div>
                 <div>
@@ -618,13 +485,13 @@ const OnclickOverviewPage: NextPage = () => {
                     className="font-semibold text-white"
                     style={{ fontSize: "11.35px" }}
                   >
-                    Thursday, Sep 23
+                    {formatDate(eventData?.event.startDate?? "")}
                   </p>
                   <p
                     className="font-medium"
                     style={{ fontSize: "11.35px", color: "#D8D8D8" }}
                   >
-                    7:00 PM - 8:30 PM GMT+1
+                    {getTime(eventData?.event.startDate?? "")}
                   </p>
                 </div>
               </div>
@@ -637,86 +504,42 @@ const OnclickOverviewPage: NextPage = () => {
                     Offline Location
                   </p>
                   <p className="text-xs text-[#D8D8D8]">
-                    Stable Africa, Lagos, Nigeria
+                    {eventData?.event.location?? ""}
                   </p>
                 </div>
               </div>
             </aside>
           </main>
 
-          <div className="mt-8 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <div className="mt-7 flex items-center justify-between">
+            <div className=" max-sm:gap-2 gap-4 w-[80vw] md:w-[490px] grid grid-cols-3 max-sm:hidden">
               <button
-                className="flex items-center justify-center gap-2 font-semibold text-white transition-colors"
-                style={{
-                  width: "143px",
-                  height: "44px",
-                  borderRadius: "9.19px",
-                  border: "0.26px solid #91949926",
-                  background: "#FFFFFF0F",
-                  backdropFilter: "blur(10.33px)",
-                }}
+                className="font-inter flex items-center justify-center md:font-semibold text-white transition-colors max-sm:text-[0.72em] bg-[#FFFFFF0F] max-sm:px-1.5 max-sm:py-2 px-2 py-2.5 rounded-md"
+                
               >
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "16px",
-                    lineHeight: "100%",
-                    color: "#D2DDDA",
-                  }}
-                >
+                
+                
                   Edit Event
-                </span>
+                
               </button>
               <button
-                className="flex items-center justify-center gap-2 font-semibold text-white transition-colors"
-                style={{
-                  width: "143px",
-                  height: "44px",
-                  borderRadius: "9.19px",
-                  border: "0.26px solid #91949926",
-                  background: "#FFFFFF0F",
-                  backdropFilter: "blur(10.33px)",
-                }}
+                className="font-inter flex items-center justify-center md:font-semibold text-white transition-colors max-sm:text-[0.72em] bg-[#FFFFFF0F] max-sm:px-1.5 max-sm:py-2 px-2 py-2.5 rounded-md"
+                
               >
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "16px",
-                    lineHeight: "100%",
-                    color: "#D2DDDA",
-                  }}
-                >
+                
                   Change Image
-                </span>
+                
               </button>
-              <button
-                className="flex items-center justify-center gap-2 font-semibold text-white transition-colors"
-                style={{
-                  width: "143px",
-                  height: "44px",
-                  borderRadius: "9.19px",
-                  border: "0.26px solid #91949926",
-                  background: "#FFFFFF0F",
-                  backdropFilter: "blur(10.33px)",
-                }}
+              <button onClick={() => handleShare(shareUrl)}
+                 className="font-inter flex items-center justify-center md:font-semibold text-white transition-colors max-sm:text-[0.72em] bg-[#FFFFFF0F] max-sm:px-1.5 max-sm:py-2  px-2 py-2.5 rounded-md"
+                
               >
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "16px",
-                    lineHeight: "100%",
-                    color: "#D2DDDA",
-                  }}
-                >
+                
                   Share Event
-                </span>
+                
               </button>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 max-md:hidden">
               <a href="#" className="p-2">
                 <FacebookIcon className="w-5 h-5" />
               </a>
@@ -767,25 +590,11 @@ const OnclickOverviewPage: NextPage = () => {
                 <ProfileImage className="w-full h-full object-cover rounded-full" />
               </div>
               <div>
-                <p
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "24px",
-                    lineHeight: "121%",
-                    color: "#FFFFFF",
-                  }}
-                >
+                <p className="font-medium text-white max-md:text-[0.9em] truncate max-sm:max-w-[85%] md:text-lg font-inter">
                   Personal
                 </p>
-                <p
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "12.98px",
-                    lineHeight: "121%",
-                    color: "#666666",
-                  }}
+                <p  className="max-sm:text-[0.7em] max-sm:max-w-[90%] text-[#666666] font-inter"
+                  
                 >
                   All your events listed to be public
                 </p>
@@ -804,15 +613,7 @@ const OnclickOverviewPage: NextPage = () => {
               <div className="flex items-center gap-1">
                 {" "}
                 <PublicIcon className="w-5 h-5" />
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "20px",
-                    lineHeight: "100%",
-                    color: "#FFFFFF",
-                  }}
-                >
+                <span className="font-inter font-medium text-white md:text-lg">
                   Public
                 </span>
               </div>

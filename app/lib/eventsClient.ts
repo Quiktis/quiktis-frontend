@@ -1,5 +1,4 @@
 export interface EventItem {
-  eventId?: string;
   id: string;
   title: string;
   startsAt: string;
@@ -11,6 +10,4 @@ export interface EventItem {
   icon?: string;
   goingLabel?: string;
   buttonColor?: string;
-  startTime?: string;
-  endTime?: string;
 }
