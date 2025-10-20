@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { request } from "./request";
-import { GetAllEventsResponse } from "../types";
-import { useStore } from "../lib/store";
+import { GetAllEventsResponse } from "../app/types";
+import { useStore } from "../app/lib/store";
 
 export const Queries = (eventId?: string) => {
   const { user } = useStore();

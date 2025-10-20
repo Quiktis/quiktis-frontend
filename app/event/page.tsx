@@ -9,7 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SpecialFooterPast from "@/components/ui/SpecialFooterPast";
 import { useUser } from "../context/UserContext";
-import { Queries } from "../ApiServices/queries";
+import { Queries } from "../../ApiServices/queries";
 import { GetAllEventsResponse, EventData } from "../types";
 
 const socials = [
@@ -68,7 +68,7 @@ const displayedEvents =
   name: e.eventName,
   start: e.startDate,
   end: e.endDate,
-  id: e.id
+  id: e.eventId
 })));
 
   return (

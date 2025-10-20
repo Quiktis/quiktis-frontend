@@ -3,7 +3,7 @@
 import type { NextPage } from "next";
 import { Plus, MapPin } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import { Queries } from "@/app/ApiServices/queries";
+import { Queries } from "@/ApiServices/queries";
 import { useParams } from "next/navigation";
 import { useStore } from "@/app/lib/store";
 import { formatDateShort, getDayFromISO, getWeekday, getTime, formatDate } from "@/app/utils/utils";

@@ -1,9 +1,9 @@
 import { useRouter } from "next/navigation";
-import { useStore } from "../lib/store";
+import { useStore } from "../app/lib/store";
 import { useMutation } from "@tanstack/react-query";
 import { request } from "./request";
-import { CreateEventData } from "../types";
-import { InitiateResetPassword, Login, ResetPassword, SignUp } from "../types";
+import { CreateEventData } from "../app/types";
+import { InitiateResetPassword, Login, ResetPassword, SignUp } from "../app/types";
 import { create } from "domain";
 
 export const Mutations = () => {
@@ -36,7 +36,7 @@ export const Mutations = () => {
         err?.response?.data?.error || 
         err?.message ||               
         "An unexpected error occurred";
-      setMessage(errorMsg, "error");
+      setMessage(`${errorMsg}`, "error");
     },
     onSettled: () => {
       setLoading(false);

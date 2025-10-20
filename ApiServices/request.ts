@@ -16,7 +16,7 @@ import {
   CreateEventResponse,
   MediaUploadResponse,
   GetAllEventsResponse
-} from "../types";
+} from "../app/types";
 import { crudRequest } from "./crud-requests";
 import { AUTH_ENDPOINTS } from "./route";
 import { TokenService } from "./token-service";

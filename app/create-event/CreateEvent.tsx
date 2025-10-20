@@ -4,7 +4,7 @@ import { useState } from "react";
 import { TimeData, TimeUnit } from "@/constant/customTypes";
 import { Ticket } from "../types";
 import { useStore } from "../lib/store";
-import { Mutations } from "../ApiServices/mutations";
+import { Mutations } from "../../ApiServices/mutations";
 import CoverImageUploader from "./components/CoverImageUploader";
 import ThemeSelector from "./components/ThemeSelector";
 import CreateEventForm from "./components/CreateEventForm";

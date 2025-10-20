@@ -10,6 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SpecialFooterPast from "@/components/ui/SpecialFooterPast";
 import { useUser } from "../context/UserContext";
+import { Queries } from "../../ApiServices/queries"
 
 const socials = [
   {
@@ -40,6 +41,23 @@ export default function EventsActivePage() {
   const searchParams = useSearchParams();
   const currentTab =
     (searchParams?.get("tab") as "upcoming" | "past") ?? "upcoming";
+    
+  const { getAllEvents } = Queries();
+
+  // 🟢 Handle loading/error states
+  if (getAllEvents.isLoading)
+    return (
+      <div className="flex items-center justify-center min-h-screen text-gray-400">
+        Loading events...
+      </div>
+    );
+
+  if (getAllEvents.isError)
+    return (
+      <div className="flex items-center justify-center min-h-screen text-red-400">
+        Failed to load events.
+      </div>
+    );
 
   const activeParam = searchParams?.get("active");
   const hasUpcoming = activeParam === "true";
@@ -48,6 +66,8 @@ export default function EventsActivePage() {
   const hasEvents =
     (currentTab === "upcoming" && hasUpcoming) ||
     (currentTab === "past" && hasPast);
+
+  const events = getAllEvents.data?.data?.events || [];
 
   return (
     <div
@@ -62,12 +82,9 @@ export default function EventsActivePage() {
       >
         {currentTab === "upcoming" ? (
           hasUpcoming ? (
-            <UpcomingActive />
+            <UpcomingActive events={events} />
           ) : (
-            <div className="grid place-items-center min-h-screen">
-                <ExploreEvents />
-            </div>
-            
+                <UpcomingActive events={events} />
           )
         ) : currentTab === "past" ? (
           hasPast ? (
