@@ -63,7 +63,7 @@ axiosInstance.interceptors.response.use(
           console.warn("[AXIOS DEBUG] 401 Unauthorized — clearing cookie and redirecting");
           TokenService.removeCookie();
           if (typeof window !== "undefined") {
-            window.location.href = "/register";
+            //window.location.href = "/register";
           }
           break;
         case 403:
