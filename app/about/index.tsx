@@ -3,32 +3,32 @@
 import React from "react";
 import Image from "next/image";
 
-const teamMembers = [
-  {
-    name: "Anjola Adeyemi",
-    role: "Founder",
-    img: "/founder.jpg",
-    bg: "#C7B9DA",
-  },
-  {
-    name: "Jacobs Odunayo",
-    role: "Co-founder and CMO",
-    img: "/co-founder.jpg",
-    bg: "#C7B9DA",
-  },
-  {
-    name: "Iyanuoluwa Oyerinde",
-    role: "Frontend Developer",
-    img: "/frontend-dev.jpg",
-    bg: "#AA9C75",
-  },
-  {
-    name: "Temiloluwa Osundosumu",
-    role: "Frontend Developer",
-    img: "/frontend-dev2.jpg",
-    bg: "#AA9C75",
-  },
-];
+// const teamMembers = [
+//   {
+//     name: "Anjola Adeyemi",
+//     role: "Founder",
+//     img: "/founder.jpg",
+//     bg: "#C7B9DA",
+//   },
+//   {
+//     name: "Jacobs Odunayo",
+//     role: "Co-founder and CMO",
+//     img: "/co-founder.jpg",
+//     bg: "#C7B9DA",
+//   },
+//   {
+//     name: "Iyanuoluwa Oyerinde",
+//     role: "Frontend Developer",
+//     img: "/frontend-dev.jpg",
+//     bg: "#AA9C75",
+//   },
+//   {
+//     name: "Temiloluwa Osundosumu",
+//     role: "Frontend Developer",
+//     img: "/frontend-dev2.jpg",
+//     bg: "#AA9C75",
+//   },
+// ];
 
 export default function AboutPage() {
   return (
