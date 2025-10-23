@@ -88,7 +88,7 @@ const MyEvents = () => {
         <h1 className="text-3xl font-bold mb-6 relative z-10">MY TICKETS</h1>
 
         <section className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[2.2em] max-w-7xl mx-auto relative z-10">
-          {events.map((event: Event, index: number) => (
+          {events && events.map((event: Event, index: number) => (
             <EventCard
               key={index}
               title={event.title}

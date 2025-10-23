@@ -152,7 +152,7 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
         {revenue}
       </td>
       <td className="w-2/12 px-1 md:px-4 py-1 md:py-3 whitespace-nowrap text-center">
-        {getConcatenatedTicketNames(event.tickets)}
+        {event.tickets && getConcatenatedTicketNames(event.tickets)}
       </td>
       <td className="w-1/12 px-1 md:px-4 py-1 md:py-3 whitespace-nowrap">
         <span
