@@ -92,12 +92,11 @@ const handleContinue = () => {
     return;
   }
 
-  // ✅ Add ₦200 to each paid ticket price before proceeding
   if (eventData.accessType === "paid") {
     const updatedTickets = eventData.tickets.map((ticket) => ({
       ...ticket,
       // ensure numeric conversion to avoid string concatenation
-      price: Number(ticket.price || 0) + 200,
+      price: Number(ticket.price || 0),
     }));
 
     handleEventDataChange("tickets", updatedTickets);
