@@ -55,7 +55,7 @@ const EventsOperations = () => {
           ))}
       </ul>
 
-      {user.role === "organizer" && operations.map((op, index) => (
+      {/*user.role === "organizer" && operations.map((op, index) => (
         <Button
           key={index}
           onClick={() => router.push(op.href)}
@@ -64,7 +64,7 @@ const EventsOperations = () => {
           <Image src="/icons/event.svg" height={24} width={24} alt="icon" />
           <span className="text-lg font-medium">{op.title}</span>
         </Button>
-      ))}
+      ))*/}
 
       {user.role === "user" ? operations.map((op, index) => (
         <Link href={"#verify"}

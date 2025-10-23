@@ -557,15 +557,20 @@ useEffect(() => {
         <div className="w-full">
           <EventsOperations />
 
-          <ProfileCard containerClass="mt-[1.78em]" />
-
-          <Link
+          <div className="flex justify-between mt-[1.78em] w-full max-sm:flex-col gap-3">
+            <ProfileCard containerClass="" />
+            <Link
             href="/create-events"
-            className="flex justify-center gap-3 lg:hidden items-center w-full md:px-[1.4em] md:w-fit mt-5 py-3 shadow-xl shadow-[#ff4e2a42] bg-primary"
+            className="flex justify-center gap-3 items-center w-full md:px-[1.4em] md:w-fit py-3 shadow-xl rounded-md shadow-[#ff4e2a42] bg-primary h-fit mt-0  mb-auto"
           >
             <Image src="/icons/event.svg" height={24} width={24} alt="icon" />
             <p className="my-auto">Create Event</p>
           </Link>
+          </div>
+
+          
+
+          
         </div>
       </div>
       <section className="mt-[3em]">

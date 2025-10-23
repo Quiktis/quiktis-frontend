@@ -133,7 +133,7 @@ const LoginPage: React.FC = () => {
             placeholder="Enter your password here"
             className="bg-black border border-[#CBCAD7] text-white placeholder-gray-500 placeholder:text-sm text-sm md:text-[17px]"
           />
-          {error && <div className="text-red-500 text-[0.95em] mb-[-3em]">{error}</div>}
+          {error && <div className="text-red-500 text-[0.95em] mb-1">{error}</div>}
           <Button type="submit" loading={isProcessing} loaderClass='mt-1 ml-[-0.04em]' className="w-full justify-center py-4 mt-4 bg-primary">
             Login
           </Button>
