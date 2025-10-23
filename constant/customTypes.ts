@@ -69,6 +69,8 @@ export type EventData = {
 
 // Full Event type (from database/API responses)
 export type Event = {
+  eventName: string;
+  eventId: string;
   id: string;
   createdAt: string;            // ISO date string
   updatedAt: string;            // ISO date string

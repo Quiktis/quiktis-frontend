@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/Card";
 import { IoArrowForward, IoTicket } from "react-icons/io5";
 
 interface Event {
+  eventId?: string;
   id: number;
   title: string;
   date: string;
@@ -49,7 +50,7 @@ export default function ComingNext(): JSX.Element {
       <div className="md:hidden flex overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide px-4">
         {events.map((event) => (
           <Card
-            key={event.id}
+            key={event.eventId}
             className="
               bg-black
               border-[6px] border-[#FF4D2A]

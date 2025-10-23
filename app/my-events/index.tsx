@@ -91,7 +91,7 @@ const MyEvents = () => {
           {events && events.map((event: Event, index: number) => (
             <EventCard
               key={index}
-              title={event.title}
+              title={event.eventName}
               //subtitle={event.subtitle}
               description={event.description}
               date={new Date(event.startDate)}
@@ -103,7 +103,7 @@ const MyEvents = () => {
 }
               image={event.bannerImage}
               time={event.startTime}
-              eventId={event.id}
+              eventId={event.eventId}
               //getTicketUrl={event.getTicketUrl}
             />
           ))}

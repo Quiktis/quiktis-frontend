@@ -7,6 +7,7 @@ import { useUser } from "@/app/context/UserContext";
 export type EventStatus = "Upcoming" | "Live" | "Ended" | "Canceled";
 
 type Ticket = {
+ 
   id: string;
   createdAt: string;
   name: string;
@@ -56,6 +57,8 @@ function formatToHumanReadableDate(dateString: string, time: string): string {
 }
 
 export interface Event {
+   eventName: string;
+  eventId: string;
   title: string;
   id: string;
   name: string;
@@ -95,7 +98,7 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
     const fetchOrders = async () => {
       try {
         const response = await sendRequest({
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/event/${event.id}`,
+          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/event/${event.eventId}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${user?.token}`,
@@ -132,7 +135,7 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
     };
 
     fetchOrders();
-  }, [event.id, user?.token]);
+  }, [event.eventId, user?.token]);
 
   return (
     <tr
@@ -140,7 +143,7 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
       className="hover:bg-[#ffffff13] transition duration-300 cursor-pointer"
     >
       <td className="w-3/12 px-1 md:px-4 py-1 md:py-3 whitespace-nowrap">
-        {event.title}
+        {event.eventName}
       </td>
       <td className="w-2/12 px-1 md:px-4 py-1 md:py-3 whitespace-nowrap">
         {formatToHumanReadableDate(event.startDate, event.startTime)}

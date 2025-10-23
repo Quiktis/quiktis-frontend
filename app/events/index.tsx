@@ -146,7 +146,7 @@ const EventsPage = () => {
               event={event}
               description={event.description ?? ""}
               price={event.tickets?.[0]?.price ?? ""}
-              eventId={event.id ?? ""}
+              eventId={event.eventId ?? ""}
               startDate={event.startDate ?? ""}
               startTime={event.startTime ?? ""}
               eventSlug={event.slug ?? ""}

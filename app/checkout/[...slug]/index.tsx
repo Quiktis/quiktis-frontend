@@ -113,7 +113,7 @@ export default function CheckoutPage() {
           "Content-Type": "application/json",
           /*Authorization: `Bearer ${user.token}`,*/
         },
-        body: { eventId: event.id },
+        body: { eventId: event.eventId },
       });
 
       if (orderResponse?.status !== "success") {
