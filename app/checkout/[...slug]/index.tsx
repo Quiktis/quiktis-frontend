@@ -282,7 +282,7 @@ export default function CheckoutPage() {
               type="button"
               onClick={handleOrderInitiation}
               loading={fiatLoading}
-              loaderClass="mt-[0.08em] ml-[-0.005em]"
+              loaderClass="my-auto ml-[0.2em]"
               className="px-8 py-4 bg-[#FF4D2A] text-white rounded-lg hover:bg-[#e6391a] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]"
             >
               Pay NGN {total} {`(Bank)`}
@@ -292,7 +292,7 @@ export default function CheckoutPage() {
               type="button"
               onClick={handleCryptoOrderInitiation}
               loading={cryptoLoading}
-              loaderClass="mt-[0.08em] ml-[-0.005em]"
+              loaderClass="my-auto ml-[0.2em]"
               className="px-8 py-4 bg-[#3729f1] text-white rounded-lg hover:bg-[#4424d1] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]"
             >
               Pay NGN {total} {`(Crypto)`}

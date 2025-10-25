@@ -52,6 +52,7 @@ export default function EventViewingPage() {
 
 
   const pathname = usePathname();
+  const origin = typeof window !== "undefined" ? window.location.origin : "";
 
 
   const eventId = pathname?.split("/event-viewing/")[1];
@@ -69,7 +70,7 @@ export default function EventViewingPage() {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(
-        `${process.env.NEXT_PUBLIC_CURRENT_URL}/event-viewing/${eventId}`
+        `${origin}/event-viewing/${eventId}`
       );
       setCopied(true);
       setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
@@ -103,7 +104,7 @@ export default function EventViewingPage() {
       try {
         await navigator.share({
          
-          url: `${process.env.NEXT_PUBLIC_CURRENT_URL}/event-viewing/${eventId}`,
+          url: `${origin}/event-viewing/${eventId}`,
         });
         console.log("Event shared successfully!");
       } catch (error) {
@@ -111,7 +112,7 @@ export default function EventViewingPage() {
       }
     } else {
       // fallback for unsupported browsers
-      await navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_CURRENT_URL}/event-viewing/${eventId}`);
+      await navigator.clipboard.writeText(`${origin}/event-viewing/${eventId}`);
       alert("Link copied to clipboard!");
     }
   };
@@ -260,7 +261,7 @@ export default function EventViewingPage() {
                 onClick={handleCopy}
                 className="mr-0 md:ml-auto mb-3 max-md:mt-3 mt-auto  text-[16px] max-md:w-full w-[150px] h-fit flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary "
               >
-                Copy Link
+                {copied ? "Copied!" : "Copy Link"}
               </Button>
             </div>
           </div>

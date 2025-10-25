@@ -74,7 +74,7 @@ const NewEventCard: React.FC<NewEventCardProps> = ({
           {event.location?? ""}
         </h4>
         <Link
-          href={`/event-viewing/${eventSlug}`}
+          href={`/event-viewing/${eventId}`}
           className="text-[10px] flex items-center border border-gray-500 rounded-md px-2 py-1 transition-all hover:bg-gray-700">
           Read more <FaLongArrowAltRight size={10} />
         </Link>

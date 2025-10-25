@@ -145,7 +145,7 @@ export default function NewLandingPage() {
                       {/* Right */}
                       <div className="flex justify-center gap-4 md:grid grid-cols-2 max-sm:flex-col sm:flex-col">
                         <a
-                          href={`/event-viewing/${event?.slug ?? ""}`}
+                          href={`/event-viewing/${event?.id ?? ""}`}
                           className="lg:w-fit border border-gray-700 text-gray-400 hover:text-white rounded-[5px] text-xs md:text-sm py-4 px-8 flex justify-center"
                         >
                           Read more <FiArrowRight className="h-4 w-4 ml-1 mt-[0.2em]" />
@@ -153,7 +153,7 @@ export default function NewLandingPage() {
                           
                           
                         <a
-                          href={new Date(event?.startDate) < new Date() ? "#up-next" : `/checkout/${event?.slug ?? ""}`}
+                          href={new Date(event?.startDate) < new Date() ? "#up-next" : `/checkout/${event?.id ?? ""}`}
                           className="bg-[#ff4d2a] lg:w-fit hover:bg-[#ff4d2a]/90 text-white font-medium rounded-[5px] text-xs md:text-sm py-4 px-8 flex justify-center"
                         >
                            {(new Date(event?.startDate) < new Date()) ? "ENDED" : <><span className="flex items-center">GET TICKET <FiArrowRight className="h-4 w-4 ml-1 transform rotate-45" /></span></>}
