@@ -10,7 +10,7 @@ import ClientLayout from "./context/ClientLayout";
 import { QuiktisProvider } from "./context/QuiktisContext";
 
 import NewHeader from "@/components/NewHeader";
-import AuthUserSync from "@/components/AuthUserSync";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Quiktis",
@@ -25,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased flex flex-col min-h-screen">
+        <Suspense fallback={<div></div>}>
         <ClientLayout>
           <QuiktisProvider>
             <PageWrapper>
@@ -34,6 +35,7 @@ export default function RootLayout({
             </PageWrapper>
           </QuiktisProvider>
         </ClientLayout>
+        </Suspense>
       </body>
     </html>
   );

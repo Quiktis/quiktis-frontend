@@ -3,11 +3,9 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 import useAxios from "@/app/hooks/useAxios";
-import { useUser } from "@/app/context/UserContext"; // Import User Context
-import { routeModule } from "next/dist/build/templates/app-page";
 
 const GoogleCallbackPage = () => {
-  const { setUser, setGoogleUser } = useUser(); // Access global state
+  //const { setUser, setGoogleUser } = useUser(); // Access global state
   const { loading, sendRequest } = useAxios();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -49,7 +47,7 @@ const GoogleCallbackPage = () => {
         }
 
         // Store the token globally
-        setGoogleUser({ token: authResponse.token });
+        //setGoogleUser({ token: authResponse.token });
 
         console.log("Auth Response:", authResponse);
 
@@ -73,7 +71,7 @@ const GoogleCallbackPage = () => {
         localStorage.setItem("quiktis_user", JSON.stringify(userForStorage));
 
         // Update global state with user data
-        setUser(user);
+        //setUser(user);
 
         // Redirect to the next page after authentication
         router.push("/dashboard");
