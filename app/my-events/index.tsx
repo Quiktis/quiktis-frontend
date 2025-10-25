@@ -10,40 +10,18 @@ import useAxios from "../hooks/useAxios";
 import { useUser } from "../context/UserContext";
 import { Event } from "@/constant/customTypes";
 import EventsOperations from "@/components/EventsOperations";
+import { useGetAllUserEvents, useGetPayoutDetails } from "@/ApiServices/queries";
+import { useStore } from "../context/QuiktisContext";
 
 const MyEvents = () => {
-  //const selectRef = useRef<HTMLSelectElement>(null);
-  const [events, setEvents] = useState([]);
-  const { sendRequest } = useAxios();
-  const { user } = useUser();
 
-  useEffect(() => {
-    
-    const fetchEvents = async () => {
-      try {
-        const response = await sendRequest({
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/organiser/${user.userId}`,
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        });
 
-        console.log("Events response:", response);
+   const {
+      data: events,
+      isLoading: loadingEvents,
+      isError: errorEvents,
+    } = useGetAllUserEvents();
 
-        if (response.status === "success") {
-          setEvents(response.data.events);
-          console.log(response.data.events);
-        } else {
-          console.error("Failed to fetch events:", response.message);
-        }
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
-    };
-
-    fetchEvents();
-  }, []);
 
   return (
     <main className="bg-transparent text-white min-h-screen flex flex-col gap-5 w-full relative sm:w-[88%] lg:w-[90%] mx-auto py-10">

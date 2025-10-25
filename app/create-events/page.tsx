@@ -6,7 +6,7 @@ import BannerSection from "./tabs/BannerSection";
 import TickettingSection from "./tabs/TickettingSection";
 import ReviewSection from "./tabs/ReviewSection";
 import { EventData, TimeData } from "@/constant/customTypes";
-import { useUser } from "../context/UserContext";
+import { mutations } from "@/ApiServices/mutations";
 
 const steps = [
   { label: "Edit", link: "edit" },
@@ -20,9 +20,6 @@ const STORAGE_KEY = "create-event-data";
 
 function CreateEventPage() {
   const [pageIndex, setPageIndex] = useState(0);
-  const { user } = useUser();
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<File | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -30,6 +27,7 @@ function CreateEventPage() {
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string>(""); // validation error display
   const tab = searchParams.get("tab") || "edit";
+  const { createEvent, isCreating } = mutations()
 
   // 🔹 Load eventData from localStorage or default
   const [eventData, setEventData] = useState<EventData>(() => {
@@ -124,10 +122,13 @@ function CreateEventPage() {
     return true;
   };
 
-  const createEvent = async (): Promise<void> => {
+  const handleCreateEvent = async (): Promise<void> => {
     if (!validateEventData()) return;
 
-    setLoading(true);
+    if (!image) {
+    setError("Banner image is required");
+    return;
+  }
     const proxyFormData = new FormData();
     if (image) proxyFormData.append("files", image);
     proxyFormData.append("title", eventData.title);
@@ -135,8 +136,8 @@ function CreateEventPage() {
     proxyFormData.append("description", eventData.description);
     proxyFormData.append("accessType", eventData.accessType);
     proxyFormData.append("eventType", eventData.eventType);
-    proxyFormData.append("startDate", eventData.startDate);
-    proxyFormData.append("endDate", eventData.endDate);
+    proxyFormData.append("startDate", new Date(eventData.startDate).toISOString());
+    proxyFormData.append("endDate", new Date(eventData.endDate).toISOString());
     proxyFormData.append("location", eventData.location);
     proxyFormData.append("startTime", eventData.startTime);
     proxyFormData.append("endTime", eventData.endTime);
@@ -144,30 +145,20 @@ function CreateEventPage() {
 
     console.log("request data:", proxyFormData)
 
-    try {
-      const createEventResponse = await fetch("/api/events", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-        body: proxyFormData,
-      });
-
-      const result = await createEventResponse.json();
-
-      if (result.status === "success") {
-        // clear storage after success
-        localStorage.removeItem(STORAGE_KEY);
-        router.push("/my-events");
-      } else {
-        alert(result.message || "Failed to create event");
-        console.log("Create event error:", result);
+    const eventPayload: any = {};
+    proxyFormData.forEach((value, key) => {
+      if (key !== "files") {
+        try {
+          eventPayload[key] = JSON.parse(value as string); // handle JSON fields (tickets etc.)
+        } catch {
+          eventPayload[key] = value;
+        }
       }
-    } catch (err) {
-      console.error(err);
-      alert("Failed to create event");
-    }
-    setLoading(false);
+    });
+
+    await createEvent(eventPayload, image );
+
+   
   };
 
   return (
@@ -234,8 +225,8 @@ function CreateEventPage() {
           <ReviewSection
             preview={preview}
             eventData={eventData}
-            loading={loading}
-            onCreateEvent={createEvent}
+            loading={isCreating}
+            onCreateEvent={handleCreateEvent}
           />
         )}
       </form>

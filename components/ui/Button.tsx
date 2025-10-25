@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LuLoaderCircle } from "react-icons/lu";
 
 interface ButtonProps {
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children: React.ReactNode;
   type?: "button" | "submit" | "reset";
   className?: string;
@@ -32,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
       className={`text-white py-2 px-4 justify-center rounded flex gap-1 ${
         className || "bg-primary"
       }`}
-      disabled={disabled}
+      disabled={loading ? loading : disabled}
       style={style}>
       {children}
       {loading && (

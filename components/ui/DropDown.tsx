@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
 interface DropdownProps {
-  options?: { id: string; name: string; description: string }[];
-  selected?: string;
+  options?: { id: string; name: string; description: string }[] | any[];
+  selected?: any;
   defaultValue?: string;
   onChange?: (value: string) => void;
   onOpen?: () => void;

@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAxios from "@/app/hooks/useAxios";
-import { useUser } from "@/app/context/UserContext";
 
 export type EventStatus = "Upcoming" | "Live" | "Ended" | "Canceled";
 
@@ -85,16 +84,14 @@ const statusStyles: Record<EventStatus, string> = {
 
 const EventRow: React.FC<EventRowProps> = ({ event }) => {
   const router = useRouter();
-  const { sendRequest } = useAxios();
-  const { user } = useUser();
 
   const [revenue, setRevenue] = useState("₦0");
 
   const handleRowClick = () => {
-    router.push(`/event-viewing/${event.slug}`);
+    router.push(`/event-viewing/${event.eventId}`);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchOrders = async () => {
       try {
         const response = await sendRequest({
@@ -135,7 +132,7 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
     };
 
     fetchOrders();
-  }, [event.eventId, user?.token]);
+  }, [event.eventId, user?.token]);*/
 
   return (
     <tr
@@ -152,7 +149,7 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
         {event.location}
       </td>
       <td className="w-2/12 px-1 md:px-4 py-1 md:py-3 whitespace-nowrap text-center">
-        {revenue}
+        {""}
       </td>
       <td className="w-2/12 px-1 md:px-4 py-1 md:py-3 whitespace-nowrap text-center">
         {event.tickets && getConcatenatedTicketNames(event.tickets)}

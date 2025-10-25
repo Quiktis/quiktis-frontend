@@ -7,15 +7,19 @@ import NewHappeningSection from "@/components/eventsexplore/NewHappeningSection"
 import NewEventCard from "@/components/search/NewEventCard";
 import SearchBar from "@/components/ui/SearchBar";
 import { Event } from "@/constant/customTypes";
-import useAxios from "../hooks/useAxios";
+import { useGetAllEvents } from "@/ApiServices/queries";
 
 
 const EventsPage = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Event[]>([]);
   const [loading, setLoading] = useState(false);
-  const [events, setEvents] = useState<Event[]>([]);
-  const { sendRequest } = useAxios();
+
+  const {
+          data: events,
+          isLoading: loadingEvent,
+          isError: errorEvent,
+        } = useGetAllEvents();
 
   // Debounced search effect
   useEffect(() => {
@@ -49,33 +53,7 @@ const EventsPage = () => {
     }
   };
 
-   useEffect(() => {
-        const fetchAllEvents = async () => {
-          try {
-            const response = await sendRequest({
-              url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`,
-              method: "GET",
-            });
-    
-            //console.log("Events response:", response);
-    
-            if (response.status === "success") {
-              setEvents(response.data.events);
-              //console.log("Upcoming events - ", comingUpNext)
-            } else {
-              //console.error("Failed to fetch events:", response.message);
-            }
-          } catch (error) {
-            //console.error("Error fetching events:", error);
-          }
-        };
-    
-        fetchAllEvents();
-      }, []);
-  
-        useEffect(() => {
-        //console.log("Updated upcoming events:", events);
-      }, [events]);
+   
 
   return (
     <main className="min-h-screen relative overflow-hidden">
@@ -138,7 +116,7 @@ const EventsPage = () => {
 
       <div className="flex flex-col gap-5 mt-10 mb-10">
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {events.map((event, index) => (
+          {events?.map((event: any, index: number) => (
             <NewEventCard
               key={index}
               image={event.bannerImage ?? ""}
@@ -146,7 +124,7 @@ const EventsPage = () => {
               event={event}
               description={event.description ?? ""}
               price={event.tickets?.[0]?.price ?? ""}
-              eventId={event.eventId ?? ""}
+              eventId={event.id}
               startDate={event.startDate ?? ""}
               startTime={event.startTime ?? ""}
               eventSlug={event.slug ?? ""}

@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useUser } from "@/app/context/UserContext";
+import { useStore } from "@/app/context/QuiktisContext";
 
 const operations = [
   {
@@ -27,7 +28,8 @@ const navLinks = [
 const EventsOperations = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { user } = useUser();
+  const { state } = useStore();
+  const { user } = state;
 
   if (!user) return null; // optionally show loading/skeleton if user not loaded
 

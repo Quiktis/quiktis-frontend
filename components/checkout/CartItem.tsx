@@ -1,3 +1,4 @@
+
 import React from "react";
 import Image from "next/image";
 import { IoIosArrowDown } from "react-icons/io";
@@ -60,9 +61,9 @@ const CartItem: React.FC<CartItemProps> = ({
         value={selectedTicketId}
         onChange={(e) => onTicketChange(e.target.value)}
         className="appearance-none bg-transparent border border-white/20 rounded-md px-4 py-2 text-base text-white focus:outline-none w-full lg:w-[170px]">
-          <option disabled selected>
-            Ticket Type
-          </option>
+          <option value="" disabled>
+  Ticket Type
+</option>
           {ticketTypes.map((type) => (
             <option key={type.id} value={type.id}   className="bg-black text-white">
               {type.name}

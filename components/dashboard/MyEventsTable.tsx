@@ -57,7 +57,7 @@ const MyEventsTable: React.FC<MyEventsTableProps> = ({ events }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-700 bg-transparent text-[10px] md:text-sm">
-            {events.map((ev) => (
+            {events && events.map((ev) => (
               <EventRow key={ev.eventId} event={ev} />
             ))}
           </tbody>

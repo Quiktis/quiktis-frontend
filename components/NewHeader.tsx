@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
-import { useUser } from "@/app/context/UserContext";
+import { useStore } from "@/app/context/QuiktisContext";
 
 interface HeaderProps {
   containerClass?: string;
@@ -18,7 +18,7 @@ function getFirstName(fullName: string): string {
 }
 
 const NewHeader: React.FC<HeaderProps> = ({ containerClass }) => {
-  const { user, profilePreview } = useUser();
+  const { state } = useStore();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -73,14 +73,14 @@ const NewHeader: React.FC<HeaderProps> = ({ containerClass }) => {
           ))}
         </ul>
 
-        {user.name ? (
+        {state.user?.name ? (
           <Link
             href={"/dashboard"}
             className="hidden mr-1 my-auto lg:flex gap-3 items-center"
           >
-            Hi, {getFirstName(user.name)}{" "}
+            Hi, {getFirstName(state.user?.name)}{" "}
             <div className="bg-[#1111116c] border-2 border-[#cfcfcf] h-[2.8em] w-[2.8em] rounded-full overflow-hidden grid place-items-center">
-            <Image src={profilePreview?? "/person.svg"} height={10} width={10} alt="profile" className={` rounded-full ${profilePreview ? " h-[2.8em] w-[2.8em]": "h-[1.5em] w-[1.5em]"}`}></Image>{" "}
+            <Image src={"/person.svg"} height={10} width={10} alt="profile" className={` rounded-full ${ "h-[1.5em] w-[1.5em]"}`}></Image>{" "}
             </div>
           </Link>
         ) : (

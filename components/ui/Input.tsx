@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 interface InputProps {
+  name?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: string;
@@ -28,6 +29,7 @@ const Input: React.FC<InputProps> = (
     required=false, 
     onFocus,
     onBlur,
+    name,
     showPasswordCriteria = false 
   }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -72,6 +74,7 @@ const Input: React.FC<InputProps> = (
     <div className="flex flex-col gap-2 relative w-full">
       {label && <label className="flex gap-2 text-gray-300 ">{label}{required && <span className="text-red-500">*</span>}</label>}
       <input
+      name={name}
         type={type === 'password' && showPassword ? 'text' : type}
         value={value}
         onChange={onChange}

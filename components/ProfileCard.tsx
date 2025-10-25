@@ -8,8 +8,9 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import ProfileImageUploader from "./ProfileImageUploader/ProfileImageUploader";
-import { useUser, User } from "@/app/context/UserContext";
 import useAxios from "@/app/hooks/useAxios";
+import { useStore } from "@/app/context/QuiktisContext";
+import Image from "next/image";
 
 interface ProfileCardProps {
   name?: string;
@@ -24,11 +25,13 @@ const ProfileCard: React.FC<ProfileCardProps> = (
   }) => {
 
     const { sendRequest } = useAxios();
-    const { user, setProfile, setProfilePreview, profilePreview, setUser } = useUser();
+    const { state } = useStore();
+    const { user} = state;
+
 
     // ...existing code...
 
-const handleProfileSave = async (croppedImage: string) => {
+/*const handleProfileSave = async (croppedImage: string) => {
   try {
     // Convert base64 string to file
     const response = await fetch(croppedImage);
@@ -40,26 +43,26 @@ const handleProfileSave = async (croppedImage: string) => {
     formData.append("files", file);
 
     // Upload the image - Remove Content-Type header for FormData
-    const uploadResponse = await sendRequest({
+    /*const uploadResponse = await sendRequest({
       url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/medias/upload`,
       method: "POST",
       headers: { 
         Authorization: `Bearer ${user?.token}`
       },
       body: formData,
-    });
+    });*/
 
-    console.log("Upload response:", uploadResponse); // Debug log to see response structure
+    //console.log("Upload response:", uploadResponse); // Debug log to see response structure
 
 
-    if ( uploadResponse?.status !== "success") {
+    /*if ( uploadResponse?.status !== "success") {
       console.error("Full upload response:", JSON.stringify(uploadResponse));
       throw new Error("Failed to get image URL from upload response");
     }
 
     let imageUrl = uploadResponse.data.files[0]?.cloudinaryUrl; // Adjust this based on the actual response structure
     console.log("Image URL:", imageUrl); // Debug log to see the image URL
-
+ 
     // Update user profile with the new image URL
     const updateProfileResponse = await sendRequest({
       url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${user?.userId}`,
@@ -71,7 +74,7 @@ const handleProfileSave = async (croppedImage: string) => {
       body: JSON.stringify({
         picture: imageUrl // Use the extracted URL
       }),
-    });
+    }); 
 
     
     console.log("Update profile response:", updateProfileResponse); // Debug log to see response structure
@@ -83,13 +86,13 @@ const handleProfileSave = async (croppedImage: string) => {
         picture: imageUrl,
       } as User);
       //throw new Error("Failed to update profile");
-    }
+    }*/
 
    // Update local user state
    /*setUser({
     ...user,
     picture: imageUrl,
-  } as User);*/
+  } as User);
 
     // Update local storage
     const storedUser = localStorage.getItem("quiktis_user");
@@ -105,26 +108,39 @@ const handleProfileSave = async (croppedImage: string) => {
     console.error("Error uploading profile image:", error);
     throw error;
   }
-};
+};*/
 
   return (
     <section className={containerClass}>
-    <div className={`grid relative w-full md:w-[fit-content] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] px-3 md:px-[3.8em] py-5 md:py-[3em] text-white shadow-lg h-fit `}>
+    <div className={`grid relative w-full md:w-[fit-content] newsletter-bg rounded-[40px] bg-gradient-to-br from-[#4f3130] to-[#323232] px-3 md:px-[2.8em] py-5 md:py-[3em] text-white shadow-lg h-fit max-md:py-[2em]`}>
       {/* Top Section */}
-      <div className="grid grid-cols-[5.1em_auto] md:grid-cols-[7em_auto] my-auto gap-[0.8em] max-md:w-[90%] max-md:mx-auto w-fit h-fit">
-      <ProfileImageUploader 
+      <div className="flex my-auto gap-[0.8em]  max-md:mx-auto w-fit h-fit ">
+      {/*<ProfileImageUploader 
         preview={profilePreview}
         setPreview={setProfilePreview}
         setImage={setProfile}
-        onSave={handleProfileSave}
-      />
+        //onSave={handleProfileSave}
+      />*/}
+      <div
+                  style={{ zIndex: "-10 !important" }}
+                  className={`grid place-items-center border-2 border-white rounded-full max-sm:w-[3em] max-md:h-[3em] w-[5em] h-[5em] mx-auto sm:mx-0 overflow-hidden`}
+                >
+                  <Image
+                    src={"/person.svg"}
+                    alt="profile picture"
+                    width={100}
+                    height={100}
+                    className={`rounded-full  object-cover max-md:w-[3em] max-md:h-[3em]   text-white ${"w-[2.5em] h-[2.5em]  max-md:w-[1.5em] max-md:h-[1.5em]"
+                    }`}
+                  />
+                </div>
           <div className="h-fit my-auto">
           <div className="flex max-md:gap-3 gap-[3em] justify-between ">
           
           <div className="flex flex-col">
-            <h2 className="text-xl font-semibold w-fit">{user.name}</h2>
+            <h2 className="text-xl font-semibold w-fit">{user?.name}</h2>
             <p className="text-gray-300 text-xs sm:text-sm w-fit">
-              {user.email}
+              {user?.email}
             </p>
           </div>
           <div className="hidden justify-center gap-4 h-fit my-auto">
@@ -147,14 +163,14 @@ const handleProfileSave = async (croppedImage: string) => {
 
         <div className="w-[6em] max-md:w-[0em]"></div>
         </div>
-        <hr className="my-4 border-gray-400 mt-5"></hr>
+        <hr className="max-md:my-2 my-4 border-gray-400 mt-5"></hr>
           </div>
         
         
         
       </div>
       {/* Bottom Section */}
-      { !user.age && !user.location ? null :  <div className="flex gap-14 justify-center w-full items-center text-gray-300 uppercase text-xs">
+      { !user?.age && !user?.location ? null :  <div className="flex gap-14 justify-center w-full items-center text-gray-300 uppercase text-xs">
       {user.age && <div className="flex flex-col gap-2">
           <h3 className="block text-gray-400">Age</h3>
           <div className="flex flex-row sm:flex-col gap-1">

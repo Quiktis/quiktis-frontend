@@ -3,6 +3,7 @@ import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/app/context/UserContext";
+import { useStore } from "@/app/context/QuiktisContext";
 import { link } from "fs";
 
 interface SidebarProps {
@@ -24,8 +25,10 @@ const guestTabs = [
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
-  const router = useRouter();
-  const { user } = useUser();
+  
+ 
+  const { state } = useStore();
+  const { user } = state;
 
   const tabsToRender = user?.email ? authTabs : guestTabs;
 

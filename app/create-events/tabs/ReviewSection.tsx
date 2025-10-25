@@ -8,7 +8,7 @@ import { BsPlus } from "react-icons/bs";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Link from 'next/link';
 import { EventData } from '@/constant/customTypes';
-import { useUser } from '@/app/context/UserContext';
+import { useStore } from '@/app/context/QuiktisContext';
 interface ReviewSectionProps {
   eventData: EventData;
   onCreateEvent: () => void;
@@ -65,7 +65,8 @@ function formatDateToText(date: Date): string {
 
 const ReviewSection: React.FC<ReviewSectionProps> = ({onCreateEvent, preview, eventData, loading}) => {
   const router = useRouter();
-  const { user } = useUser();
+  const { state } = useStore();
+  const { user } = state;
 
   async function handleClick() {
     try {
@@ -100,7 +101,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({onCreateEvent, preview, ev
         <div className="w-full flex max-sm:flex-wrap md:gap-[4em] h-[max-content]">
           <div className="h-full">
             <h1 className="max-md:text-[1.3em] text-[40px] font-primary font-bold max-w-[100%] w-fit">{eventData?.title || "EVENT TITLE" }</h1>
-            <p className="text-gray-500 font-secondary">organized by {user.name}</p>
+            <p className="text-gray-500 font-secondary">organized by {user?.name}</p>
           </div>
           <div className="grid h-full mr-0 md:ml-auto my-auto md:mt-0 mt-5 md:w-fit w-full">
             <Button

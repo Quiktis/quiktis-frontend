@@ -10,24 +10,30 @@ import AttendeeDetails from "@/components/checkout/AttendeeDetails";
 import TicketCard from "@/components/nft/TicketCard";
 import { Event } from "@/constant/customTypes";
 import Button from "@/components/ui/Button";
+import { useGetEventById } from "@/ApiServices/queries";
 
 export default function CheckoutPage() {
   const [quantity, setQuantity] = useState(1);
-  const [event, setEvent] = useState<Event | null>(null);
   const [selectedTicketId, setSelectedTicketId] = useState("");
   const [attendeeEmail, setAttendeeEmail] = useState("")
   const [fullName, setFullname] = useState("");
   const [location, setLocation] = useState("");
 
   const { sendRequest, loading, setLoading } = useAxios();
-  const { user } = useUser();
+  const [cryptoLoading, setCryptoLoading] = useState(false);
+  const [fiatLoading, setFiatLoading] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
 
   const slug = useMemo(() => pathname?.split("/checkout/")[1] ?? "", [pathname]);
 
+  const {
+          data: event,
+          isLoading: loadingEvent,
+          isError: errorEvent,
+        } = useGetEventById(slug);
+
   const selectedTicket = useMemo(() => {
-    return event?.tickets?.find((t) => t.id === selectedTicketId);
+    return event?.tickets?.find((t: any) => t.id === selectedTicketId);
   }, [event, selectedTicketId]);
 
   const total = useMemo(() => {
@@ -42,67 +48,28 @@ export default function CheckoutPage() {
     totalPrice: 0,
   });
 
-  const authHeader = {
-    Authorization: `Bearer ${user?.token}`,
-  };
 
   const handleQuantityChange = (newQty: number) => {
     if (newQty > 0) setQuantity(newQty);
   };
 
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        const response = await sendRequest({
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${slug}`,
-          method: "GET",
-          headers: authHeader,
-        });
 
-        if (response.status === "success") {
-          const eventData = response.data.event;
-          setEvent(eventData);
-          if (Array.isArray(eventData.tickets) && eventData.tickets.length > 0) {
-  const cheapestTicket = eventData.tickets.reduce((minTicket: Event["tickets"][number], currentTicket: Event["tickets"][number]) =>
-    currentTicket.price < minTicket.price ? currentTicket : minTicket
-  );
-  setSelectedTicketId(cheapestTicket.id);
-}
-
-        } else {
-          //console.error("Failed to fetch event:", response.message);
-        }
-      } catch (error) {
-        //console.error("Error fetching event:", error);
-      }
-    };
-
-    if (slug) fetchEvent();
-  }, [slug]);
-
-  useEffect(() => {
-    if (!event) return;
-
-    setCheckoutDetails((prev) => ({
-      ...prev,
-      eventId: event.id,
-      ticketType: selectedTicketId,
-      quantity,
-      totalPrice: total,
-    }));
-  }, [event, selectedTicketId, quantity, total]);
 
   const handleOrderInitiation = async () => {
-    if (loading) return;
+    if (fiatLoading) return;
 
-    if (!attendeeEmail ) alert("Please enter your email and full name")
+    if (!attendeeEmail ) {
+      alert("Please enter your email and full name")
+      return
+    }
 
-    if (!event?.id || !selectedTicket?.id) {
+    if (!slug || !selectedTicket?.id) {
       console.error("Missing required data to proceed with order.");
+      alert('please select a ticket type')
       return;
     }
 
-    setLoading(true);
+    setFiatLoading(true);
 
     try {
       console.log("initiating order...");
@@ -113,7 +80,7 @@ export default function CheckoutPage() {
           "Content-Type": "application/json",
           /*Authorization: `Bearer ${user.token}`,*/
         },
-        body: { eventId: event.eventId },
+        body: { eventId: slug },
       });
 
       if (orderResponse?.status !== "success") {
@@ -132,7 +99,7 @@ export default function CheckoutPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
+          //Authorization: `Bearer ${user.token}`,
         },
         body: {
           orderId,
@@ -154,7 +121,7 @@ export default function CheckoutPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
+          //Authorization: `Bearer ${user.token}`,
         },
         body: { orderId, email: attendeeEmail },
       });
@@ -168,22 +135,23 @@ export default function CheckoutPage() {
     } catch (error) {
       console.log("Error processing order:", error);
     } finally {
-      setLoading(false);
+      setFiatLoading(false);
     }
   };
 
 
    const handleCryptoOrderInitiation = async () => {
-    if (loading) return;
+    if (cryptoLoading) return;
 
     //if (!attendeeEmail ) alert("Please enter your email and full name")
 
-    if (!event?.id || !selectedTicket?.id) {
+    if (!slug || !selectedTicket?.id) {
       console.error("Missing required data to proceed with order.");
+      alert('please select a ticket type')
       return;
     }
 
-    setLoading(true);
+    setCryptoLoading(true);
 
     try {
       console.log("initiating order...");
@@ -194,7 +162,7 @@ export default function CheckoutPage() {
           "Content-Type": "application/json",
           /*Authorization: `Bearer ${user.token}`,*/
         },
-        body: { eventId: event.id },
+        body: { eventId: slug },
       });
 
       if (orderResponse?.status !== "success") {
@@ -213,7 +181,7 @@ export default function CheckoutPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
+          //Authorization: `Bearer ${user.token}`,
         },
         body: {
           orderId,
@@ -235,7 +203,7 @@ export default function CheckoutPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
+          //Authorization: `Bearer ${user.token}`,
         },
         body: { orderId, email: attendeeEmail, type: "crypto", paymentToken: "USDC"},
       });
@@ -249,9 +217,19 @@ export default function CheckoutPage() {
     } catch (error) {
       console.log("Error processing order:", error);
     } finally {
-      setLoading(false);
+      setCryptoLoading(false);
     }
   };
+
+  useEffect(() => {
+  if (!event?.tickets) return;
+
+  const stillExists = event.tickets.some((t: any) => t.id === selectedTicketId);
+
+  if (!stillExists) {
+    setSelectedTicketId(""); // reset selection if ticket is no longer valid
+  }
+}, [event, selectedTicketId]);
 
   return (
     <main className="min-h-screen bg-transparent text-white py-12 z-50 w-full lg:w-[90%] mx-auto">
@@ -303,7 +281,7 @@ export default function CheckoutPage() {
             <Button
               type="button"
               onClick={handleOrderInitiation}
-              loading={loading}
+              loading={fiatLoading}
               loaderClass="mt-[0.08em] ml-[-0.005em]"
               className="px-8 py-4 bg-[#FF4D2A] text-white rounded-lg hover:bg-[#e6391a] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]"
             >
@@ -313,7 +291,7 @@ export default function CheckoutPage() {
             <Button
               type="button"
               onClick={handleCryptoOrderInitiation}
-              loading={loading}
+              loading={cryptoLoading}
               loaderClass="mt-[0.08em] ml-[-0.005em]"
               className="px-8 py-4 bg-[#3729f1] text-white rounded-lg hover:bg-[#4424d1] transition-colors shadow-[0_0_20px_rgba(255,77,42,0.6)] active:shadow-[0_0_5px_rgba(255,77,42,0.3)]"
             >

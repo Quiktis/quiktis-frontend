@@ -11,21 +11,27 @@ import { FaLocationDot } from "react-icons/fa6";
 import { RiFileCopy2Fill } from "react-icons/ri";
 import Link from "next/link";
 import { useState } from "react";
-import { FaStar } from "react-icons/fa";
-import { MdOutlineAccessTimeFilled } from "react-icons/md";
-import manageStyles from "@/app/manage-event-viewing/page.module.css";
 import UpcomingEvents from "@/components/UpcomingEvents";
-import { useUser } from "@/app/context/UserContext";
-import useAxios from "@/app/hooks/useAxios";
 import { usePathname } from "next/navigation";
-import { Event } from "@/constant/customTypes";
 import { BsPlus } from "react-icons/bs";
+import { useGetEventById } from "@/ApiServices/queries";
 import {
   formatToHumanReadableDate,
   formatToHumanReadableTime,
 } from "@/app/utils/utilities";
 
-// Remove the hardcoded tags array since we'll use dynamic tags from the event data
+interface Ticket {
+  id?: string | null;
+  createdAt?: string;       
+  name: string
+  price: number
+  description?: string
+  quantity: number
+  soldCount?: number
+  isActive?: boolean
+  saleStartDate?: string | null
+  saleEndDate?: string | null
+}
 
 // Helper function to render text with line breaks
 const renderTextWithLineBreaks = (
@@ -42,19 +48,23 @@ const renderTextWithLineBreaks = (
 };
 
 export default function EventViewingPage() {
-  const [email, setEmail] = useState("");
-  const icons = Array(5).fill(<FaStar className="text-yellow-500" />);
-  const [rating, setRating] = useState(0);
-  const { user } = useUser();
-  const { sendRequest } = useAxios();
+
+
+
   const pathname = usePathname();
-  const [event, setEvent] = useState<Event>();
+
 
   const eventId = pathname?.split("/event-viewing/")[1];
   const [copied, setCopied] = useState(false);
 
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+
+  const {
+        data: event,
+        isLoading: loadingEvent,
+        isError: errorEvent,
+      } = useGetEventById(eventId);
 
   const handleCopy = async () => {
     try {
@@ -85,33 +95,26 @@ export default function EventViewingPage() {
     },
   ];
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      //console.log(eventId);
+ 
+
+  const handleShare = async () => {
+    
+    if (navigator.share) {
       try {
-        const response = await sendRequest({
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${eventId}`,
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
+        await navigator.share({
+         
+          url: `${process.env.NEXT_PUBLIC_CURRENT_URL}/event-viewing/${eventId}`,
         });
-
-        //console.log("Events response:", response);
-
-        if (response.status === "success") {
-          //console.log("Event data:", response.data.event);
-          setEvent(response.data.event);
-        } else {
-          //console.error("Failed to fetch event details:", response.message);
-        }
+        console.log("Event shared successfully!");
       } catch (error) {
-        //console.error("Error fetching event details", error);
+        console.error("Error sharing:", error);
       }
-    };
-
-    fetchEvents();
-  }, []);
+    } else {
+      // fallback for unsupported browsers
+      await navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_CURRENT_URL}/event-viewing/${eventId}`);
+      alert("Link copied to clipboard!");
+    }
+  };
 
   const bannerImageSrc = event?.bannerImage || "";
 
@@ -164,7 +167,7 @@ export default function EventViewingPage() {
               <span className="text-[#FF4D2A] max-sm:hidden text-[1em] sm:text-[1.2em] md:text-[1.3em] font-semibold flex items-center justify-center gap-2 cursor-pointer hover:no-underline">
                 Get Ticket{" "}
                 {event?.tickets && event.tickets.length > 0
-                  ? Math.min(...event.tickets.map((ticket) => ticket.price))
+                  ? Math.min(...event.tickets.map((ticket: Ticket) => ticket.price))
                   : 0}{" "}
                 <IoTicketSharp size={20} />
               </span>
@@ -201,7 +204,7 @@ export default function EventViewingPage() {
               </button>
             </div>
 
-            {event?.tags && (
+            {/*event?.tags && (
               <>
                 <h1 className="mt-6 max-md:text-xl text-2xl lg:text-[40px] font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
                   TAGS
@@ -218,13 +221,13 @@ export default function EventViewingPage() {
                   ))}
                 </div>
               </>
-            )}
+            )*/}
 
             <h1 className="mt-6 max-md:text-xl text-2xl lg:3xl font-primary text-primary font-bold max-w-[100%] lg:max-w-[80%]">
               TICKETS
             </h1>
             <div>
-              {event?.tickets.map((item, index) => (
+              {event?.tickets && event?.tickets.map((item: any, index: number) => (
                 <p key={index}>
                   <span className="font-medium">{item.name}</span> -{" "}
                   {item.price === 0 ? "Free" : `₦${item.price}`}
@@ -254,7 +257,7 @@ export default function EventViewingPage() {
               </div>
 
               <Button
-                onClick={() => {}}
+                onClick={handleCopy}
                 className="mr-0 md:ml-auto mb-3 max-md:mt-3 mt-auto  text-[16px] max-md:w-full w-[150px] h-fit flex items-center justify-center py-3 px-2 drop-shadow-custom-red bg-primary "
               >
                 Copy Link

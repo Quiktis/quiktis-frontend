@@ -13,7 +13,7 @@ interface ProfileImageUploaderProps {
   setImage: React.Dispatch<React.SetStateAction<File | null>>;
   label?: string;
   containerClass?: string;
-  onSave: (croppedImage: string) => Promise<string | void>;
+  onSave?: (croppedImage: string) => Promise<string | void>;
 }
 
 const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({
@@ -104,7 +104,8 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({
       const croppedImage = await getCroppedImg(preview, croppedAreaPixels) as string;
       
       // Call the onSave prop with the cropped image
-      await onSave(croppedImage);
+
+      if (onSave ) await onSave(croppedImage);
       
       // Update the preview with the cropped image
       setPreview(croppedImage);
