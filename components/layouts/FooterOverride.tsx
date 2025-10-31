@@ -4,25 +4,26 @@ import { usePathname, useSearchParams } from "next/navigation";
 import Footer3 from "@/components/Footer3";
 import SpecialFooterPast from "@/components/ui/SpecialFooterPast";
 import SpecialFooterProfile from "@/components/ui/SpecialFooterProfile";
+import SpecialFooterDiscover from "@/components/ui/SpecialFooterDiscover";
 
 const FooterOverride: React.FC = () => {
   const pathname = usePathname() || "";
   const searchParams = useSearchParams();
 
-  // Hide footer completely
   const hideFooterPaths = [
     "/create-event",
     "/events/create-event",
     "/events/create",
     "/event",
-    "/register"
+    "/register",
+    "/event-dashboard",
   ];
   const isCreatePage = hideFooterPaths.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`)
   );
   if (isCreatePage) return null;
 
-  // Hide footer on /event/[id] pages (onclick detail)
+  // Hide footer on /event/[id] pages
   const isEventDetail = /^\/event\/[^/]+/.test(pathname);
   if (isEventDetail) return null;
 
@@ -38,7 +39,14 @@ const FooterOverride: React.FC = () => {
   const isDiscover =
     pathname === "/discover" || pathname.startsWith("/discover/");
   if (isDiscover) {
-    return <SpecialFooterPast />;
+    return <SpecialFooterDiscover />;
+  }
+
+  // Render special footer for /events-checkout
+  const isCheckout =
+    pathname === "/events-checkout" || pathname.startsWith("/events-checkout/");
+  if (isCheckout) {
+    return <SpecialFooterDiscover />;
   }
 
   // Render special footer for /profile
@@ -47,7 +55,7 @@ const FooterOverride: React.FC = () => {
     return <SpecialFooterProfile />;
   }
 
-  // fallback: normal footer everywhere else
+  // fallback: normal footer
   return <Footer3 />;
 };
 

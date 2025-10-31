@@ -70,7 +70,7 @@ const CancelDeleteModal: React.FC<CancelDeleteModalProps> = ({
         </p>
 
         <div className="my-8 flex items-center justify-center" aria-hidden>
-          <img
+          <Image
             src="/icons/cancel-delete-registration.svg"
             alt="Cancel delete graphic"
             width={160}
@@ -185,10 +185,10 @@ const OnclickRegistrationPage: NextPage = () => {
     <div className="min-h-screen bg-[#131517] text-white p-6">
       <div className="max-w-4xl mx-auto w-full mt-24 space-y-6">
         {/* Invite & Share */}
-        <div className="flex justify-start" style={{ marginBottom: "50px" }}>
-          <div className="flex items-center gap-3">
+        <div className="flex justify-start overflow-x-auto md:overflow-visible mb-[50px]">
+          <div className="flex items-center gap-3 whitespace-nowrap">
             <button
-              className="flex items-center gap-4 rounded-[11.66px] backdrop-blur-[13.11px] hover:bg-white/10 transition-colors cursor-pointer"
+              className="flex items-center gap-4 rounded-[11.66px] backdrop-blur-[13.11px] hover:bg-white/10 transition-colors cursor-pointer flex-none"
               style={{
                 width: "237.89px",
                 height: "55.97px",
@@ -206,11 +206,12 @@ const OnclickRegistrationPage: NextPage = () => {
                   height: "33.438px",
                 }}
               >
-                <img
+                <Image
                   src="/icons/invite-onclick-guest.svg"
                   alt="Invite Guest Icon"
-                  className="absolute bottom-0 left-0 w-full"
-                  style={{ height: "auto", objectFit: "fill" }}
+                  fill
+                  className="object-contain"
+                  sizes="33px"
                 />
               </div>
               <span
@@ -226,7 +227,7 @@ const OnclickRegistrationPage: NextPage = () => {
             </button>
 
             <button
-              className="flex items-center gap-4 rounded-[11.66px] backdrop-blur-[13.11px] hover:bg-white/10 transition-colors cursor-pointer"
+              className="flex items-center gap-4 rounded-[11.66px] backdrop-blur-[13.11px] hover:bg-white/10 transition-colors cursor-pointer flex-none"
               style={{
                 width: "237.89px",
                 height: "55.97px",
@@ -244,10 +245,12 @@ const OnclickRegistrationPage: NextPage = () => {
                   height: "32.730px",
                 }}
               >
-                <img
+                <Image
                   src="/icons/share-onclick-event.svg"
                   alt="Share Event Icon"
-                  className="w-full h-full object-contain"
+                  width={33}
+                  height={33}
+                  className="object-contain"
                 />
               </div>
               <span
@@ -272,7 +275,7 @@ const OnclickRegistrationPage: NextPage = () => {
             Tickets
           </h2>
           <div
-            className="p-6 flex items-center justify-between"
+            className="p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
             style={{
               marginTop: "30px",
               borderRadius: "15px",
@@ -282,40 +285,43 @@ const OnclickRegistrationPage: NextPage = () => {
             }}
           >
             <div className="flex flex-col gap-4">
-              <h3 className="text-white" style={{ fontSize: 28 }}>
+              <h3
+                className="text-white text-[17.59px] md:text-[28px] font-medium leading-[100%]"
+                style={{ fontFamily: "Inter", letterSpacing: "-5%" }}
+              >
                 Cards
               </h3>
-              <p className="text-[#919499] max-w-2xl" style={{ fontSize: 18 }}>
+              <p
+                className="text-[#919499] max-w-2xl text-[11px] md:text-[18px] font-medium leading-[100%]"
+                style={{ fontFamily: "Inter", letterSpacing: "-5%" }}
+              >
                 Start selling tickets to your events. Major credit and debit
                 cards are always accepted
               </p>
               <button
-                className="text-black font-medium transition hover:opacity-80 flex items-center justify-center"
-                style={{
-                  width: "196px",
-                  height: "49px",
-                  borderRadius: "7.78px",
-                  backgroundColor: "#FFFFFF",
-                }}
+                className="text-[#131517] font-medium transition hover:opacity-80 flex items-center justify-center bg-white w-[107.7662px] h-[26.94155px] rounded-[4.28px] md:w-[196px] md:h-[49px] md:rounded-[7.78px] text-[10.26px] md:text-[18.67px] leading-[100%]"
+                style={{ fontFamily: "Inter", letterSpacing: "-4%" }}
               >
                 Get Started
               </button>
             </div>
 
             <button
-              className="flex items-center justify-center"
+              className="hidden lg:flex items-center justify-center"
               style={{ width: 48, height: 48, borderRadius: "50%" }}
             >
-              <img
+              <Image
                 src="/icons/add-icon-registration.svg"
                 alt="add"
-                className="w-full h-full object-cover"
+                width={48}
+                height={48}
+                className="object-cover"
               />
             </button>
           </div>
 
           <div
-            className="px-4 py-3 flex items-center justify-between"
+            className="px-4 py-3 flex flex-row items-center justify-between"
             style={{
               marginTop: "46px",
               borderRadius: "9.19px",
@@ -324,43 +330,37 @@ const OnclickRegistrationPage: NextPage = () => {
               backdropFilter: "blur(10.33px)",
             }}
           >
-            <div className="flex items-center gap-4">
-              <span
-                className="text-white"
-                style={{ fontSize: 24, fontWeight: 500 }}
-              >
+            <div className="flex flex-wrap items-center gap-2 md:gap-4">
+              <span className="text-white font-[500] text-[18px] md:text-[24px]">
                 Event Type
               </span>
-              <span
-                className="text-[#707070]"
-                style={{ fontSize: 24, fontWeight: 500 }}
-              >
+              <span className="text-[#707070] font-[500] text-[18px] md:text-[24px]">
                 Free
               </span>
               <span
-                className="flex items-center justify-center px-4 py-2"
-                style={{ borderRadius: 100, backgroundColor: "#E4751F1A" }}
+                className="flex items-center justify-center rounded-full px-3 py-1 md:px-4 md:py-2"
+                style={{ backgroundColor: "#E4751F1A" }}
               >
-                <span style={{ color: "#FF994A", fontSize: 20 }}>
+                <span className="text-[#FF994A] text-[14px] md:text-[20px]">
                   Approval required
                 </span>
               </span>
             </div>
-
-            <div className="flex items-center gap-1">
-              <img
+            <div className="flex items-center gap-1 flex-shrink-0 md:ml-4">
+              <Image
                 src="/icons/counting-registration.svg"
                 alt="count"
-                className="w-6 h-6"
+                width={24}
+                height={24}
+                className="w-5 h-5 md:w-6 md:h-6"
               />
-              <span className="text-[#919499]" style={{ fontSize: 20 }}>
+              <span className="text-[#919499] text-[16px] md:text-[20px]">
                 0
               </span>
             </div>
           </div>
         </div>
 
-        {/* Registration Questions */}
         <div className="space-y-4" style={{ marginTop: 36 }}>
           <h2 className="text-white" style={{ fontSize: 28, fontWeight: 500 }}>
             Registration Questions
@@ -381,10 +381,11 @@ const OnclickRegistrationPage: NextPage = () => {
               className="flex items-center gap-2 px-4 py-2"
               style={{ borderRadius: 100, backgroundColor: "#6F4FF21A" }}
             >
-              <img
+              <Image
                 src="/icons/full-name-registration.svg"
                 alt="full name"
-                className="w-5 h-5"
+                width={20}
+                height={20}
               />
               <span style={{ color: "#6F4FF2", fontSize: 20 }}>Full Name</span>
             </span>
@@ -410,7 +411,6 @@ const OnclickRegistrationPage: NextPage = () => {
           </div>
         </div>
 
-        {/* Custom Question */}
         <div className="space-y-2" style={{ marginTop: 49 }}>
           <h2 className="text-white" style={headerStyle}>
             Custom Question

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 interface CancelDeleteModalProps {
   isOpen: boolean;
@@ -23,7 +24,7 @@ const CancelDeleteModal: React.FC<CancelDeleteModalProps> = ({
       aria-labelledby="cancel-delete-title"
     >
       <div
-        className="relative mx-4 flex w-full max-w-sm flex-col items-center p-8"
+        className="relative mx-4 flex w-full max-w-sm flex-col items-center p-6 md:p-8"
         style={{
           borderRadius: "17.41px",
           background: "#181B1EED",
@@ -33,10 +34,10 @@ const CancelDeleteModal: React.FC<CancelDeleteModalProps> = ({
       >
         <h2
           id="cancel-delete-title"
+          className="text-[24px] md:text-[35.2px]"
           style={{
             fontFamily: "Inter, sans-serif",
             fontWeight: 600,
-            fontSize: "35.2px",
             lineHeight: "121%",
             textAlign: "center",
             color: "#FFFFFF",
@@ -47,10 +48,10 @@ const CancelDeleteModal: React.FC<CancelDeleteModalProps> = ({
         </h2>
 
         <p
+          className="text-[16px] md:text-[21.12px]"
           style={{
             fontFamily: "Inter, sans-serif",
             fontWeight: 500,
-            fontSize: "21.12px",
             lineHeight: "121%",
             textAlign: "center",
             color: "#919499",
@@ -64,33 +65,31 @@ const CancelDeleteModal: React.FC<CancelDeleteModalProps> = ({
           the event has been canceled.
         </p>
 
-        <div className="my-6 flex items-center justify-center" aria-hidden>
-          <img
+        <div
+          className="my-4 md:my-6 flex items-center justify-center"
+          aria-hidden
+        >
+          <Image
             src="/icons/cancel-delete-registration.svg"
             alt="Cancel delete graphic"
             width={120}
             height={120}
-            style={{ display: "block", maxWidth: "120px", height: "auto" }}
+            className="w-[100px] h-[100px] md:w-[120px] md:h-[120px]"
           />
         </div>
 
-        <div className="flex w-full flex-col" style={{ gap: "15px" }}>
+        <div className="flex w-full flex-col gap-3 md:gap-[15px]">
           {/* CANCEL */}
           <button
             onClick={onClose}
-            className="w-full"
-            style={{
-              borderRadius: "176.01px",
-              background: "#FFFFFF",
-              padding: "12px 0",
-              border: "none",
-            }}
+            className="w-full py-3 md:py-4 rounded-[8px] md:rounded-[176.01px] bg-white"
+            style={{ border: "none" }}
           >
             <span
+              className="text-[18px] md:text-[28.16px]"
               style={{
                 fontFamily: "Inter, sans-serif",
                 fontWeight: 500,
-                fontSize: "28.16px",
                 lineHeight: "121%",
                 color: "#000000",
               }}
@@ -102,19 +101,14 @@ const CancelDeleteModal: React.FC<CancelDeleteModalProps> = ({
           {/* DELETE */}
           <button
             onClick={onDelete}
-            className="w-full"
-            style={{
-              borderRadius: "176.01px",
-              background: "#FF000017",
-              padding: "12px 0",
-              border: "none",
-            }}
+            className="w-full py-3 md:py-4 rounded-[8px] md:rounded-[176.01px] bg-[rgba(255,0,0,0.09)]"
+            style={{ border: "none" }}
           >
             <span
+              className="text-[18px] md:text-[28.16px]"
               style={{
                 fontFamily: "Inter, sans-serif",
                 fontWeight: 500,
-                fontSize: "28.16px",
                 lineHeight: "121%",
                 color: "#FF0000",
               }}

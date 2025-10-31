@@ -199,7 +199,6 @@ const GuestInactive: React.FC<Props> = ({ eventId }) => {
             </div>
           )}
 
-          {/* Guest List Items (Hidden when empty) */}
           {inactiveGuestData.length > 0 && (
             <div className="space-y-3">
               {inactiveGuestData.map((guest) => (

@@ -1,5 +1,6 @@
 import React from "react";
 import DiscoverActive from "./DiscoverActive";
+import DiscoverInactive from "./DiscoverInActive";
 
 type Props = {
   searchParams?: {
@@ -14,6 +15,9 @@ export default function Page({ searchParams }: Props) {
     return <DiscoverActive />;
   }
 
-  // fallback: render active if anything else
+  if (state === "inactive") {
+    return <DiscoverInactive />;
+  }
+
   return <DiscoverActive />;
 }

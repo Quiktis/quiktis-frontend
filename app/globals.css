@@ -1,14 +1,10 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/*@tailwind base;
-//@tailwind components;
-/@tailwind utilities;*/
-
-/* @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'); */
-
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 button {
   cursor: pointer;
@@ -67,11 +63,11 @@ button {
   overflow-x: hidden;
 }
 
-html, body {
+html,
+body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Inter';
-  
+  font-family: "Inter";
 }
 
 .newsletter-bg {
@@ -161,8 +157,6 @@ html, body {
   border-radius: 50%; /* Ensures the gradient is perfectly circular */
   background: radial-gradient(
     circle,
-    
-    
     rgba(196, 241, 247, 0.55) 0%,
     rgba(226, 226, 226, 0.048) 100%
   );
@@ -171,9 +165,10 @@ html, body {
   border-radius: 50%; /* Ensures the gradient is perfectly circular */
   background: radial-gradient(
     circle,
-    
-    rgba(247, 79, 179, 0.55), 0%,
-    rgba(247, 79, 179, 0.55), 50%,
+    rgba(247, 79, 179, 0.55),
+    0%,
+    rgba(247, 79, 179, 0.55),
+    50%,
     rgba(226, 226, 226, 0.048) 100%
   );
 }
@@ -215,27 +210,28 @@ html, body {
     rgba(236, 49, 84, 0.4) 0%,
     rgba(236, 49, 83, 0.151) 50%,
     rgba(255, 0, 0, 0) 100%
-  );}
+  );
+}
 
-  .radial-gradient-2 {
+.radial-gradient-2 {
   border-radius: 50%;
   background: radial-gradient(
     circle,
     rgba(112, 79, 242, 0.068) 0%,
     rgba(112, 79, 242, 0.205) 50%,
     rgba(255, 0, 0, 0) 100%
-  );}
+  );
+}
 
-
-  .radial-gradient-3 {
+.radial-gradient-3 {
   border-radius: 50%;
   background: radial-gradient(
     circle,
     rgba(234, 67, 53, 0.54) 0%,
     rgba(221, 68, 54, 0.349) 50%,
     rgba(255, 0, 0, 0) 100%
-  );}
-
+  );
+}
 
 .btn-3d {
   background: radial-gradient(circle at 50% 30%, #e94640ec, #ff1400);
@@ -347,7 +343,6 @@ html, body {
   .background-div {
     top: 115vw !important;
   }
-
 }
 
 @media (min-width: 400px) and (max-width: 380px) {
@@ -393,8 +388,6 @@ html, body {
 a {
   cursor: pointer;
 }
-
-
 
 @layer base {
   :root {
@@ -463,4 +456,13 @@ a {
   }
 }
 
-
+@layer base {
+  * {
+    @apply border-border;
+    font-family: var(--font-primary);
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+}
