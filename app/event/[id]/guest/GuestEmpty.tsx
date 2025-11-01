@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import EventToggle from "../EventToggle";
 
 const InviteGuestIcon = ({ className }: { className?: string }) => (
   <img
@@ -40,8 +41,13 @@ const inactiveGuestData: InactiveGuest[] = [];
 
 const GuestInactive: React.FC<Props> = ({ eventId }) => {
   return (
-    <div className="min-h-screen bg-[#131517] text-white p-6">
-      <div className="max-w-4xl mx-auto w-full mt-24 space-y-6">
+    <div className="bg-[#131517] min-h-screen p-4 sm:p-6 md:p-8 text-gray-300 font-sans flex items-center justify-center">
+      <div className="max-w-5xl mx-auto w-full mt-40">
+        {/* Event Toggle */}
+        <div className="mb-8 md:mb-12">
+          <EventToggle eventId={eventId} defaultTab="guest" />
+        </div>
+
         {/* Header Buttons */}
         <header className="flex justify-start" style={{ marginBottom: "73px" }}>
           <div className="flex items-center gap-3">

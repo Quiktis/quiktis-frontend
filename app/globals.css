@@ -1,6 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0a0a;
+  --color-foreground: #ededed;
+  --color-primary: #ff4d2a;
+  --color-secondary: #401801;
+  --color-muted: #181819;
+  --color-accent: #181819;
+  --color-destructive: #ff4d2a;
+  --color-border: #181819;
+  --color-input: #181819;
+  --color-ring: #ff4d2a;
+}
 
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
@@ -458,11 +469,12 @@ a {
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: #181819;
     font-family: var(--font-primary);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: #0a0a0a;
+    color: #ededed;
     overflow-x: hidden;
   }
 }

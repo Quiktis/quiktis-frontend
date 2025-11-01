@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import type { NextPage } from "next";
 import Image from "next/image";
+import EventToggle from "../EventToggle";
+import { useParams } from "next/navigation";
 
 interface CancelDeleteModalProps {
   isOpen: boolean;
@@ -145,6 +147,8 @@ const CancelDeleteModal: React.FC<CancelDeleteModalProps> = ({
 };
 
 const OnclickRegistrationPage: NextPage = () => {
+  const params = useParams();
+  const eventId = params?.id as string;
   const [customQuestion, setCustomQuestion] = useState("");
   const [registrationEmail, setRegistrationEmail] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -182,8 +186,13 @@ const OnclickRegistrationPage: NextPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#131517] text-white p-6">
-      <div className="max-w-4xl mx-auto w-full mt-24 space-y-6">
+    <div className="bg-[#131517] min-h-screen p-4 sm:p-6 md:p-8 text-white font-sans flex items-center justify-center">
+      <div className="max-w-5xl mx-auto w-full mt-40">
+        {/* Event Toggle */}
+        <div className="mb-8 md:mb-12">
+          <EventToggle eventId={eventId} defaultTab="registration" />
+        </div>
+
         {/* Invite & Share */}
         <div className="flex justify-start overflow-x-auto md:overflow-visible mb-[50px]">
           <div className="flex items-center gap-3 whitespace-nowrap">
