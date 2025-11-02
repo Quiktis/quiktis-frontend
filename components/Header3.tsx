@@ -107,7 +107,7 @@ export default function Header() {
             </Link>
 
             
-            <Link href={"/explore-events"} className="cursor-pointer my-auto flex gap-1 text-[#919499] font-medium">
+            <Link href={"/discover"} className="cursor-pointer my-auto flex gap-1 text-[#919499] font-medium">
             <Image
                 src="/discover.svg"
                 alt="explore"

@@ -1,827 +1,525 @@
 "use client";
 
+import React, { useState } from "react";
 import type { NextPage } from "next";
-import { Plus, MapPin } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
-const InviteGuestIcon = ({
-  className,
-  style,
-}: {
-  className?: string;
-  style?: React.CSSProperties;
-}) => (
-  <img
-    src="/icons/invite-onclick-guest.svg"
-    alt="Invite Guest Icon"
-    className={className}
-    style={style}
-  />
-);
+interface CancelDeleteModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onDelete: () => void;
+}
 
-const ShareEventIcon = ({ className }: { className?: string }) => (
-  <img
-    src="/icons/share-onclick-event.svg"
-    alt="Share Event Icon"
-    className={className}
-  />
-);
-
-const FacebookIcon = ({ className }: { className?: string }) => (
-  <img
-    src="/icons/facebook-onclick.svg"
-    alt="Facebook Icon"
-    className={className}
-  />
-);
-
-const InstagramIcon = ({ className }: { className?: string }) => (
-  <img
-    src="/icons/instagram-onclick.svg"
-    alt="Instagram Icon"
-    className={className}
-  />
-);
-
-const XIcon = ({ className }: { className?: string }) => (
-  <img src="/icons/twitter-onclick.svg" alt="X Icon" className={className} />
-);
-
-const CreatorIcon = ({ className }: { className?: string }) => (
-  <img
-    src="/icons/creator-onclick-icon.svg"
-    alt="Creator Icon"
-    className={className}
-  />
-);
-
-const GuestIcon = ({ className }: { className?: string }) => (
-  <img
-    src="/icons/guest-onclick-icon.svg"
-    alt="Guest Icon"
-    className={className}
-  />
-);
-
-const PublicIcon = ({ className }: { className?: string }) => (
-  <img
-    src="/icons/public-onclick.svg"
-    alt="Public Icon"
-    className={className}
-  />
-);
-
-const ProfileImage = ({
-  className,
-  alt,
-}: {
-  className?: string;
-  alt?: string;
-}) => (
-  <img
-    src="/icons/Profile-img.svg"
-    alt={alt ?? "Profile Image"}
-    className={className}
-  />
-);
-
-const fallbackCopyText = (text: string) => {
-  const ta = document.createElement("textarea");
-  ta.value = text;
-  ta.style.position = "fixed";
-  ta.style.left = "-9999px";
-  document.body.appendChild(ta);
-  ta.select();
-  try {
-    const ok = document.execCommand("copy");
-    document.body.removeChild(ta);
-    return ok;
-  } catch {
-    document.body.removeChild(ta);
-    return false;
-  }
-};
-
-type StackedGlassLinkBarsProps = {
-  topText: string;
-  topCopyUrl?: string;
-  behindText: string;
-  peekBehind?: number;
-  behindFontSize?: string;
-  className?: string;
-};
-
-const StackedGlassLinkBars: React.FC<StackedGlassLinkBarsProps> = ({
-  topText,
-  topCopyUrl,
-  behindText,
-  peekBehind = 0,
-  behindFontSize = "20px",
-  className = "",
+const CancelDeleteModal: React.FC<CancelDeleteModalProps> = ({
+  isOpen,
+  onClose,
+  onDelete,
 }) => {
-  const timerRef = useRef<number | null>(null);
-  const [copyStatus, setCopyStatus] = useState("Copy");
-
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) window.clearTimeout(timerRef.current);
-    };
-  }, []);
-
-  const handleCopy = async () => {
-    const text = topCopyUrl ?? topText;
-    try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(text);
-      } else {
-        const ok = fallbackCopyText(text);
-        if (!ok) throw new Error("fallback copy failed");
-      }
-      setCopyStatus("Copied!");
-    } catch (err) {
-      console.error("copy failed", err);
-      setCopyStatus("Failed!");
-    } finally {
-      if (timerRef.current) window.clearTimeout(timerRef.current);
-      timerRef.current = window.setTimeout(() => setCopyStatus("Copy"), 2000);
-    }
-  };
-
-  const barBaseStyle: React.CSSProperties = {
-    background: "#FFFFFF0F",
-    backdropFilter: "blur(20px)",
-    WebkitBackdropFilter: "blur(20px)",
-    width: "490px",
-    height: "61px",
-    margin: "0 -1rem",
-    paddingLeft: "32px",
-    paddingRight: "62px",
-    gap: "20px",
-    display: "flex",
-    alignItems: "center",
-    boxSizing: "border-box",
-  };
-
-  const copyAreaWidth = 60;
-
-  const topTextStyle: React.CSSProperties = {
-    fontFamily: "Inter",
-    fontWeight: 500,
-    fontSize: "20px",
-    lineHeight: "100%",
-    color: "#D2DDDA",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    flexGrow: 1,
-    maxWidth: `calc(490px - 32px - 62px - ${copyAreaWidth}px)`,
-  };
-
-  const copyStyle: React.CSSProperties = {
-    fontFamily: "Inter",
-    fontWeight: 500,
-    fontSize: "20px",
-    lineHeight: "100%",
-    color: "#D2DDDA",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    flexShrink: 0,
-    width: `${copyAreaWidth}px`,
-  };
-
-  const behindTextStyle: React.CSSProperties = {
-    fontFamily: "Inter",
-    fontWeight: 500,
-    fontSize: behindFontSize,
-    lineHeight: "100%",
-    color: "#D2DDDA",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "clip",
-    flexGrow: 1,
-    maxWidth: `calc(490px - 32px - 62px - ${copyAreaWidth}px)`,
-  };
+  if (!isOpen) return null;
 
   return (
-    <div className={`relative ${className}`} style={{ minWidth: 0 }}>
+    <div
+      className="fixed inset-0 z-[99999] flex items-center justify-center"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cancel-delete-title"
+      style={{
+        borderRadius: "17.41px",
+        background: "#181B1EED",
+        border: "0.5px solid #66666633",
+        backdropFilter: "blur(7.4598px)",
+      }}
+    >
       <div
-        aria-hidden="true"
-        style={{
-          ...barBaseStyle,
-          position: "absolute",
-          left: 0,
-          top: 0 + peekBehind,
-          zIndex: 0,
-          overflow: "visible",
-          pointerEvents: "none",
-        }}
+        className="flex flex-col items-center justify-center"
+        style={{ width: "500px", padding: "40px" }}
       >
-        <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
-          <div
-            style={{
-              flex: "1 1 auto",
-              maxWidth: `calc(100% - ${copyAreaWidth}px)`,
-            }}
-          >
-            <span style={behindTextStyle}>{behindText}</span>
-          </div>
+        <h2
+          id="cancel-delete-title"
+          style={{
+            fontFamily: "Inter, sans-serif",
+            fontWeight: 600,
+            fontStyle: "normal",
+            fontSize: "35.2px",
+            lineHeight: "121%",
+            letterSpacing: "0%",
+            textAlign: "center",
+            color: "#FFFFFF",
+            margin: 0,
+          }}
+        >
+          Confirm Delete
+        </h2>
 
-          <div
+        <p
+          style={{
+            fontFamily: "Inter, sans-serif",
+            fontWeight: 500,
+            fontStyle: "normal",
+            fontSize: "21.12px",
+            lineHeight: "121%",
+            letterSpacing: "0%",
+            textAlign: "center",
+            color: "#919499",
+            marginTop: "10px",
+            marginBottom: "8px",
+            maxWidth: "400px",
+          }}
+        >
+          By clicking delete, you confirm you want Quiktis to remove your event.
+        </p>
+
+        <div className="my-8 flex items-center justify-center" aria-hidden>
+          <Image
+            src="/icons/cancel-delete-registration.svg"
+            alt="Cancel delete graphic"
+            width={160}
+            height={160}
+            style={{ display: "block", maxWidth: "160px", height: "auto" }}
+          />
+        </div>
+
+        <div
+          className="flex flex-col items-center justify-center w-full"
+          style={{ gap: "15px" }}
+        >
+          {/* CANCEL button */}
+          <button
+            onClick={onClose}
             style={{
-              width: `${copyAreaWidth}px`,
+              borderRadius: "176.01px",
+              background: "#FFFFFF",
+              width: "436.51px",
+              height: "65.13px",
+              border: "none",
               display: "flex",
+              alignItems: "center",
               justifyContent: "center",
             }}
+            aria-label="Cancel"
           >
-            <span style={{ visibility: "hidden", ...copyStyle }}>Copy</span>
-          </div>
-        </div>
-      </div>
+            <span
+              style={{
+                fontFamily: "Inter, sans-serif",
+                fontWeight: 500,
+                fontSize: "28.16px",
+                lineHeight: "121%",
+                color: "#000000",
+              }}
+            >
+              Cancel
+            </span>
+          </button>
 
-      <div
-        role="region"
-        aria-label="Event link"
-        style={{
-          ...barBaseStyle,
-          position: "relative",
-          zIndex: 10,
-          overflow: "hidden",
-        }}
-      >
-        <span style={topTextStyle}>{topText}</span>
-
-        <div style={copyStyle} onClick={handleCopy}>
-          {copyStatus}
+          {/* DELETE button */}
+          <button
+            onClick={onDelete}
+            style={{
+              borderRadius: "176.01px",
+              background: "#FF000017",
+              width: "436.51px",
+              height: "65.13px",
+              border: "none",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            aria-label="Delete"
+          >
+            <span
+              style={{
+                fontFamily: "Inter, sans-serif",
+                fontWeight: 500,
+                fontSize: "28.16px",
+                lineHeight: "121%",
+                color: "#FF0000",
+              }}
+            >
+              Delete
+            </span>
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-type Host = {
-  name: string;
-  email: string;
-  role: "Creator" | "Guest";
-};
+const OnclickRegistrationPage: NextPage = () => {
+  const [customQuestion, setCustomQuestion] = useState("");
+  const [registrationEmail, setRegistrationEmail] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-const HostItem = ({ host }: { host: Host }) => (
-  <div
-    className="flex items-center justify-between p-3 rounded-lg"
-    style={{
-      background: "#FFFFFF05",
-      border: "0.33px solid #91949926",
-      backdropFilter: "blur(10.33px)",
-    }}
-  >
-    <div className="flex items-center gap-3">
-      <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center overflow-hidden">
-        <ProfileImage
-          className="w-full h-full object-cover rounded-full"
-          alt={host.name}
-        />
-      </div>
-      <div>
-        <p
-          style={{
-            fontFamily: "Inter",
-            fontWeight: 500,
-            fontSize: "24px",
-            lineHeight: "121%",
-            color: "#FFFFFF",
-          }}
-        >
-          {host.name}
-        </p>
-        <p
-          style={{
-            fontFamily: "Inter",
-            fontWeight: 500,
-            fontSize: "12.98px",
-            lineHeight: "121%",
-            color: "#666666",
-          }}
-        >
-          {host.email}
-        </p>
-      </div>
-    </div>
-    <span
-      className={`font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2`}
-      style={{
-        width: "151px",
-        height: "42px",
-        ...(host.role === "Creator"
-          ? {
-              background: "rgba(123, 255, 0, 0.06)",
-              color: "#7BFF00",
-            }
-          : {
-              background: "rgba(247, 179, 179, 0.06)",
-              color: "#F74FB3",
-            }),
-      }}
-    >
-      {host.role === "Creator" ? (
-        <CreatorIcon className="w-4 h-4" />
-      ) : (
-        <GuestIcon className="w-4 h-4" />
-      )}
-      {host.role}
-    </span>
-  </div>
-);
+  const handleOpenCancel = () => setIsModalOpen(true);
+  const handleCloseCancel = () => setIsModalOpen(false);
 
-const SectionHeader = ({
-  title,
-  subtitle,
-  titleClassName,
-  subtitleClassName,
-  buttonText,
-}: {
-  title: string;
-  subtitle: string;
-  titleClassName: string;
-  subtitleClassName: string;
-  buttonText?: string;
-}) => (
-  <div className="flex items-center justify-between mb-[47px]">
-    <div>
-      <h2 className={titleClassName}>{title}</h2>
-      <p className={subtitleClassName}>{subtitle}</p>
-    </div>
-    {buttonText && (
-      <button
-        className="flex items-center gap-3 pl-3 pr-4 transition-colors"
-        style={{
-          width: "178px",
-          height: "60px",
-          borderRadius: "9.19px",
-          border: "0.26px solid #91949926",
-          background: "#FFFFFF0F",
-          backdropFilter: "blur(10.33px)",
-        }}
-      >
-        <div
-          className="w-9 h-9 rounded-full flex items-center justify-center"
-          style={{ backgroundColor: "rgba(49, 46, 129, 0.5)" }}
-        >
-          <Plus size={20} className="text-indigo-400" />
-        </div>
-        <span
-          style={{
-            fontFamily: "Inter",
-            fontWeight: 500,
-            fontSize: "20px",
-            lineHeight: "100%",
-            color: "#D2DDDA",
-          }}
-        >
-          {buttonText}
-        </span>
-      </button>
-    )}
-  </div>
-);
+  const handleConfirmDelete = () => {
+    console.log("Delete confirmed.");
+    setIsModalOpen(false);
+  };
 
-const OnclickOverviewPage: NextPage = () => {
-  const hosts: Host[] = [
-    {
-      name: "Dare Sobaloju Pamilerin",
-      email: "Pamilerincaleb@gmail.com",
-      role: "Creator",
-    },
-    {
-      name: "Dare Sobaloju Pamilerin",
-      email: "Pamilerincaleb@gmail.com",
-      role: "Guest",
-    },
-  ];
+  const headerStyle = {
+    fontFamily: "Inter",
+    fontWeight: 500,
+    fontSize: "28px",
+    lineHeight: "100%",
+    color: "#FFFFFF",
+  };
+
+  const inputContainerStyle = {
+    borderRadius: "9.19px",
+    background: "#FFFFFF05",
+    border: "0.33px solid #91949926",
+    backdropFilter: "blur(10.33px)",
+  };
+
+  const inputTextStyle = {
+    fontFamily: "Inter",
+    fontWeight: 500,
+    fontSize: "20px",
+    lineHeight: "100%",
+    letterSpacing: "-0.05em",
+    color: "#919499",
+  };
 
   return (
-    <div className="bg-[#131517] min-h-screen p-4 sm:p-6 md:p-8 text-gray-300 font-sans flex items-center justify-center">
-      <div className="max-w-4xl mx-auto w-full mt-24">
-        <div className="bg-[#FFFFFF05] border-[0.33px] border-[#91949926] rounded-[11.66px] backdrop-blur-[13.11px] p-6">
-          <div className="mb-6 flex justify-start">
-            <div className="flex items-center gap-3">
-              <button
-                className="flex items-center gap-4 rounded-[11.66px] backdrop-blur-[13.11px] hover:bg-white/10 transition-colors"
-                style={{
-                  width: "237.89px",
-                  height: "55.97px",
-                  border: "0.33px solid #91949926",
-                  background: "#FFFFFF0F",
-                  justifyContent: "flex-start",
-                  padding: "0 10px",
-                }}
-              >
-                <div
-                  className="rounded-lg flex-shrink-0 relative overflow-hidden"
-                  style={{
-                    backgroundColor: "rgba(255, 242, 0, 0.5)",
-                    width: "33.438px",
-                    height: "33.438px",
-                  }}
-                >
-                  <InviteGuestIcon
-                    className="absolute bottom-0 left-0 w-full"
-                    style={{
-                      height: "auto",
-                      objectFit: "fill",
-                    }}
-                  />
-                </div>
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "17.27px",
-                    lineHeight: "100%",
-                    color: "#D2DDDA",
-                  }}
-                >
-                  Invite Guest
-                </span>
-              </button>
-              <button
-                className="flex items-center gap-4 rounded-[11.66px] backdrop-blur-[13.11px] hover:bg-white/10 transition-colors"
-                style={{
-                  width: "237.89px",
-                  height: "55.97px",
-                  border: "0.33px solid #91949926",
-                  background: "rgba(255, 255, 255, 0.06)",
-                  justifyContent: "flex-start",
-                  padding: "0 10px",
-                }}
-              >
-                <div
-                  className="rounded-lg flex-shrink-0 flex items-center justify-center"
-                  style={{
-                    backgroundColor: "rgba(111, 79, 242, 0.14)",
-                    width: "32.730px",
-                    height: "32.730px",
-                  }}
-                >
-                  <ShareEventIcon className="w-full h-full object-contain" />
-                </div>
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "17.27px",
-                    lineHeight: "100%",
-                    color: "#D2DDDA",
-                  }}
-                >
-                  Share Event
-                </span>
-              </button>
-            </div>
-          </div>
-
-          <main className="flex flex-col md:flex-row gap-[47px]">
-            <div className="flex-none w-full md:w-[490px]">
+    <div className="min-h-screen bg-[#131517] text-white p-6">
+      <div className="max-w-4xl mx-auto w-full mt-24 space-y-6">
+        {/* Invite & Share */}
+        <div className="flex justify-start overflow-x-auto md:overflow-visible mb-[50px]">
+          <div className="flex items-center gap-3 whitespace-nowrap">
+            <button
+              className="flex items-center gap-4 rounded-[11.66px] backdrop-blur-[13.11px] hover:bg-white/10 transition-colors cursor-pointer flex-none"
+              style={{
+                width: "237.89px",
+                height: "55.97px",
+                border: "0.33px solid #91949926",
+                background: "#FFFFFF05",
+                justifyContent: "flex-start",
+                padding: "0 10px",
+              }}
+            >
               <div
-                className="bg-[#CE5620] w-full h-[393px] rounded-[18.62px] p-4 flex flex-col justify-between"
+                className="rounded-lg flex-shrink-0 relative overflow-hidden"
                 style={{
-                  background: "#CE5620",
-                  borderRadius: "18.62px",
-                  padding: "1rem",
+                  backgroundColor: "rgba(255, 242, 0, 0.5)",
+                  width: "33.438px",
+                  height: "33.438px",
                 }}
               >
-                <div className="flex flex-row gap-4">
-                  <div
-                    className="flex-shrink-0"
-                    style={{ width: "232px", height: "230.08px" }}
-                  >
-                    <img
-                      src="/spiral-img.svg"
-                      alt="Event decorative graphic"
-                      className="w-full h-full object-cover"
-                      style={{ borderRadius: "16.75px" }}
-                    />
-                  </div>
-                  <div className="flex-grow flex flex-col justify-start gap-4">
-                    <h1
-                      className="font-normal text-white"
-                      style={{
-                        fontFamily: "Instrument Serif",
-                        fontSize: "30px",
-                        lineHeight: "1.2",
-                      }}
-                    >
-                      Africa Startup
-                      <br />
-                      Conference
-                    </h1>
-                    <div className="flex items-center gap-3">
-                      <div className="w-[33.81px] h-[33.81px] flex-shrink-0 flex flex-col items-center justify-center border-[0.72px] border-[#F8F8F824] rounded-[10.79px] overflow-hidden">
-                        <div className="w-full text-center bg-[#91949966]">
-                          <span className="text-[6px] text-white/80 font-semibold block leading-tight pt-0.5">
-                            Sept
-                          </span>
-                        </div>
-                        <span className="text-[15px] font-semibold text-white block flex-grow flex items-center -mt-0.5">
-                          30
-                        </span>
-                      </div>
-                      <div>
-                        <p
-                          className="font-semibold text-white"
-                          style={{ fontSize: "11.35px" }}
-                        >
-                          Thursday, Sep 23
-                        </p>
-                        <p
-                          className="font-medium"
-                          style={{ fontSize: "11.35px", color: "#D8D8D8" }}
-                        >
-                          7:00 PM - 8:30 PM GMT+1
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-[33.81px] h-[33.81px] flex-shrink-0 flex items-center justify-center border-[0.72px] border-[#F8F8F824] rounded-[10.79px]">
-                        <MapPin size={16} className="text-white" />
-                      </div>
-                      <div>
-                        <p
-                          className="font-semibold"
-                          style={{ fontSize: "10.55px", color: "#FFFFFF" }}
-                        >
-                          Offline Location
-                        </p>
-                        <p
-                          className="font-medium"
-                          style={{ fontSize: "10.55px", color: "#D8D8D8" }}
-                        >
-                          Stable Africa, Lagos, Nigeria
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="text-white">
-                  <p
-                    className="text-xs"
-                    style={{
-                      fontFamily: "Inter",
-                      fontWeight: 500,
-                      fontSize: "10px",
-                      color: "#FFFFFF8A",
-                    }}
-                  >
-                    Hosted
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "Inter",
-                      fontWeight: 500,
-                      fontSize: "14px",
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    Dare Sobaloju
-                  </p>
-                </div>
-
-                <div>
-                  <StackedGlassLinkBars
-                    topText="Quiktis.com/xytrh"
-                    topCopyUrl="Quiktis.com/xytrh"
-                    behindText="Where Africa startup find oppurtunity"
-                    peekBehind={0} // can be used overlap and show the text behind
-                    behindFontSize="20px"
-                  />
-                </div>
+                <Image
+                  src="/icons/invite-onclick-guest.svg"
+                  alt="Invite Guest Icon"
+                  fill
+                  className="object-contain"
+                  sizes="33px"
+                />
               </div>
-            </div>
+              <span
+                style={{
+                  fontFamily: "Inter",
+                  fontWeight: 500,
+                  fontSize: "17.27px",
+                  color: "#D2DDDA",
+                }}
+              >
+                Invite Guest
+              </span>
+            </button>
 
-            <aside className="p-0 rounded-2xl flex-none w-full md:w-[341.37px]">
-              <h3 className="text-lg font-medium text-white mb-4">
-                When and Where
-              </h3>
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-[56px] h-[56px] flex-shrink-0 flex flex-col items-center justify-center border-[1.19px] border-[#F8F8F824] rounded-[17.87px] overflow-hidden">
-                  <div className="w-full text-center bg-[#91949966]">
-                    <span className="text-[8.28px] text-white-600 font-semibold block leading-tight py-0.5">
-                      Sept
-                    </span>
-                  </div>
-                  <span className="text-2xl font-semibold text-white block flex-grow flex items-center -mt-1">
-                    30
-                  </span>
-                </div>
-                <div>
-                  <p
-                    className="font-semibold text-white"
-                    style={{ fontSize: "11.35px" }}
-                  >
-                    Thursday, Sep 23
-                  </p>
-                  <p
-                    className="font-medium"
-                    style={{ fontSize: "11.35px", color: "#D8D8D8" }}
-                  >
-                    7:00 PM - 8:30 PM GMT+1
-                  </p>
-                </div>
+            <button
+              className="flex items-center gap-4 rounded-[11.66px] backdrop-blur-[13.11px] hover:bg-white/10 transition-colors cursor-pointer flex-none"
+              style={{
+                width: "237.89px",
+                height: "55.97px",
+                border: "0.33px solid #91949926",
+                background: "#FFFFFF05",
+                justifyContent: "flex-start",
+                padding: "0 10px",
+              }}
+            >
+              <div
+                className="rounded-lg flex-shrink-0 flex items-center justify-center"
+                style={{
+                  backgroundColor: "rgba(111, 79, 242, 0.14)",
+                  width: "32.730px",
+                  height: "32.730px",
+                }}
+              >
+                <Image
+                  src="/icons/share-onclick-event.svg"
+                  alt="Share Event Icon"
+                  width={33}
+                  height={33}
+                  className="object-contain"
+                />
               </div>
-              <div className="flex items-center gap-4">
-                <div className="w-[55.37px] h-[55.37px] flex-shrink-0 flex items-center justify-center border-[1.18px] border-[#F8F8F824] rounded-[17.67px]">
-                  <MapPin className="text-white" size={27} />
-                </div>
-                <div>
-                  <p className="font-semibold text-white text-sm">
-                    Offline Location
-                  </p>
-                  <p className="text-xs text-[#D8D8D8]">
-                    Stable Africa, Lagos, Nigeria
-                  </p>
-                </div>
-              </div>
-            </aside>
-          </main>
-
-          <div className="mt-8 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <button
-                className="flex items-center justify-center gap-2 font-semibold text-white transition-colors"
+              <span
                 style={{
-                  width: "143px",
-                  height: "44px",
-                  borderRadius: "9.19px",
-                  border: "0.26px solid #91949926",
-                  background: "#FFFFFF0F",
-                  backdropFilter: "blur(10.33px)",
+                  fontFamily: "Inter",
+                  fontWeight: 500,
+                  fontSize: "17.27px",
+                  color: "#D2DDDA",
                 }}
               >
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "16px",
-                    lineHeight: "100%",
-                    color: "#D2DDDA",
-                  }}
-                >
-                  Edit Event
-                </span>
-              </button>
-              <button
-                className="flex items-center justify-center gap-2 font-semibold text-white transition-colors"
-                style={{
-                  width: "143px",
-                  height: "44px",
-                  borderRadius: "9.19px",
-                  border: "0.26px solid #91949926",
-                  background: "#FFFFFF0F",
-                  backdropFilter: "blur(10.33px)",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "16px",
-                    lineHeight: "100%",
-                    color: "#D2DDDA",
-                  }}
-                >
-                  Change Image
-                </span>
-              </button>
-              <button
-                className="flex items-center justify-center gap-2 font-semibold text-white transition-colors"
-                style={{
-                  width: "143px",
-                  height: "44px",
-                  borderRadius: "9.19px",
-                  border: "0.26px solid #91949926",
-                  background: "#FFFFFF0F",
-                  backdropFilter: "blur(10.33px)",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "16px",
-                    lineHeight: "100%",
-                    color: "#D2DDDA",
-                  }}
-                >
-                  Share Event
-                </span>
-              </button>
-            </div>
-            <div className="flex items-center gap-1">
-              <a href="#" className="p-2">
-                <FacebookIcon className="w-5 h-5" />
-              </a>
-              <a href="#" className="p-2">
-                <InstagramIcon className="w-5 h-5" />
-              </a>
-              <a href="#" className="p-2">
-                <XIcon className="w-5 h-5" />
-              </a>
-            </div>
+                Share Event
+              </span>
+            </button>
           </div>
         </div>
 
-        <section style={{ marginTop: "62px" }}>
-          <SectionHeader
-            title="Add Hosts"
-            subtitle="Co-host, add guest and event manager"
-            titleClassName="text-white font-medium text-[40px] leading-[121%] tracking-[-0.05em]"
-            subtitleClassName="text-[#919499] font-medium text-[24px] leading-none"
-            buttonText="Add guest"
-          />
-          <div className="flex flex-col" style={{ gap: "21px" }}>
-            {hosts.map((host, index) => (
-              <HostItem key={index} host={host} />
-            ))}
-          </div>
-        </section>
-
-        <hr className="mt-[144px] mb-[50px] border-gray-800" />
-
-        <section style={{ marginBottom: "107px" }}>
-          <SectionHeader
-            title="Edit Visibility"
-            subtitle="Determine how people find your event"
-            titleClassName="text-white font-medium text-[40px] leading-[121%] tracking-[-0.05em]"
-            subtitleClassName="text-[#919499] font-medium text-[24px] leading-none"
-          />
+        <div className="space-y-4">
+          <h2
+            className="text-white"
+            style={{ fontFamily: "Inter", fontWeight: 500, fontSize: 28 }}
+          >
+            Tickets
+          </h2>
           <div
-            className="flex items-center justify-between p-4 rounded-lg"
+            className="p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
             style={{
+              marginTop: "30px",
+              borderRadius: "15px",
+              border: "0.5px solid #9194994F",
+              backdropFilter: "blur(15px)",
+              backgroundColor: "transparent",
+            }}
+          >
+            <div className="flex flex-col gap-4">
+              <h3
+                className="text-white text-[17.59px] md:text-[28px] font-medium leading-[100%]"
+                style={{ fontFamily: "Inter", letterSpacing: "-5%" }}
+              >
+                Cards
+              </h3>
+              <p
+                className="text-[#919499] max-w-2xl text-[11px] md:text-[18px] font-medium leading-[100%]"
+                style={{ fontFamily: "Inter", letterSpacing: "-5%" }}
+              >
+                Start selling tickets to your events. Major credit and debit
+                cards are always accepted
+              </p>
+              <button
+                className="text-[#131517] font-medium transition hover:opacity-80 flex items-center justify-center bg-white w-[107.7662px] h-[26.94155px] rounded-[4.28px] md:w-[196px] md:h-[49px] md:rounded-[7.78px] text-[10.26px] md:text-[18.67px] leading-[100%]"
+                style={{ fontFamily: "Inter", letterSpacing: "-4%" }}
+              >
+                Get Started
+              </button>
+            </div>
+
+            <button
+              className="hidden lg:flex items-center justify-center"
+              style={{ width: 48, height: 48, borderRadius: "50%" }}
+            >
+              <Image
+                src="/icons/add-icon-registration.svg"
+                alt="add"
+                width={48}
+                height={48}
+                className="object-cover"
+              />
+            </button>
+          </div>
+
+          <div
+            className="px-4 py-3 flex flex-row items-center justify-between"
+            style={{
+              marginTop: "46px",
+              borderRadius: "9.19px",
               background: "#FFFFFF05",
               border: "0.33px solid #91949926",
               backdropFilter: "blur(10.33px)",
             }}
           >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center">
-                <ProfileImage className="w-full h-full object-cover rounded-full" />
-              </div>
-              <div>
-                <p
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "24px",
-                    lineHeight: "121%",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  Personal
-                </p>
-                <p
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "12.98px",
-                    lineHeight: "121%",
-                    color: "#666666",
-                  }}
-                >
-                  All your events listed to be public
-                </p>
-              </div>
+            <div className="flex flex-wrap items-center gap-2 md:gap-4">
+              <span className="text-white font-[500] text-[18px] md:text-[24px]">
+                Event Type
+              </span>
+              <span className="text-[#707070] font-[500] text-[18px] md:text-[24px]">
+                Free
+              </span>
+              <span
+                className="flex items-center justify-center rounded-full px-3 py-1 md:px-4 md:py-2"
+                style={{ backgroundColor: "#E4751F1A" }}
+              >
+                <span className="text-[#FF994A] text-[14px] md:text-[20px]">
+                  Approval required
+                </span>
+              </span>
             </div>
-            <button
-              className="flex items-center justify-center gap-2 text-sm transition-colors"
+            <div className="flex items-center gap-1 flex-shrink-0 md:ml-4">
+              <Image
+                src="/icons/counting-registration.svg"
+                alt="count"
+                width={24}
+                height={24}
+                className="w-5 h-5 md:w-6 md:h-6"
+              />
+              <span className="text-[#919499] text-[16px] md:text-[20px]">
+                0
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-4" style={{ marginTop: 36 }}>
+          <h2 className="text-white" style={{ fontSize: 28, fontWeight: 500 }}>
+            Registration Questions
+          </h2>
+
+          <div
+            className="px-4 py-3 flex flex-wrap gap-3"
+            style={{
+              paddingTop: 17,
+              paddingBottom: 17,
+              borderRadius: 9.19,
+              background: "#FFFFFF05",
+              border: "0.33px solid #91949926",
+              backdropFilter: "blur(10.33px)",
+            }}
+          >
+            <span
+              className="flex items-center gap-2 px-4 py-2"
+              style={{ borderRadius: 100, backgroundColor: "#6F4FF21A" }}
+            >
+              <Image
+                src="/icons/full-name-registration.svg"
+                alt="full name"
+                width={20}
+                height={20}
+              />
+              <span style={{ color: "#6F4FF2", fontSize: 20 }}>Full Name</span>
+            </span>
+
+            <div
+              className="flex items-center px-4 py-2"
+              style={{ borderRadius: 100, backgroundColor: "#FB2E741A" }}
+            >
+              <span style={{ color: "#FB2E74", fontSize: 20, marginRight: 40 }}>
+                Email Address
+              </span>
+              <span style={{ color: "#FFFFFF36", fontSize: 20 }}>Required</span>
+            </div>
+
+            <span
+              className="flex items-center px-4 py-2"
+              style={{ borderRadius: 100, backgroundColor: "#E4751F1A" }}
+            >
+              <span style={{ color: "#FF994A", fontSize: 20 }}>
+                Phone Number
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div className="space-y-2" style={{ marginTop: 49 }}>
+          <h2 className="text-white" style={headerStyle}>
+            Custom Question
+          </h2>
+          <input
+            placeholder="Input your questions here...."
+            value={customQuestion}
+            onChange={(e) => setCustomQuestion(e.target.value)}
+            className="w-full bg-transparent text-white focus:outline-none focus:ring-0 px-4 py-3"
+            style={{
+              ...inputContainerStyle,
+              ...inputTextStyle,
+              color: customQuestion ? "#FFFFFF" : inputTextStyle.color,
+              paddingTop: "15px",
+              paddingBottom: "15px",
+              marginTop: "17px",
+            }}
+          />
+        </div>
+
+        {/* Registration Email */}
+        <div className="space-y-2" style={{ marginTop: 46 }}>
+          <h2 className="text-white" style={headerStyle}>
+            Registration email
+          </h2>
+          <textarea
+            value={registrationEmail}
+            onChange={(e) => setRegistrationEmail(e.target.value)}
+            className="w-full bg-transparent text-white focus:outline-none focus:ring-0 px-4 py-3"
+            style={{
+              ...inputContainerStyle,
+              ...inputTextStyle,
+              minHeight: "200px",
+              color: registrationEmail ? "#FFFFFF" : inputTextStyle.color,
+              paddingTop: "15px",
+              paddingBottom: "15px",
+              marginTop: "17px",
+            }}
+          />
+        </div>
+
+        {/* Cancel Event */}
+        <div className="space-y-2 pt-4" style={{ marginTop: 49 }}>
+          <h2
+            className="text-white"
+            style={{ fontFamily: "Inter", fontWeight: 500, fontSize: 28 }}
+          >
+            Cancel Event
+          </h2>
+          <p
+            style={{
+              fontFamily: "Inter",
+              fontWeight: 500,
+              fontSize: 20,
+              color: "#919499",
+              marginTop: 7,
+              width: "95%",
+              lineHeight: 1.15,
+            }}
+          >
+            <span style={{ display: "block" }}>
+              Cancel and permanently delete this event. This operation cannot be
+              undone. If there are
+            </span>
+            <span style={{ display: "block", marginTop: 6 }}>
+              any registered guests, we will notify them that the event has been
+              canceled.
+            </span>
+          </p>
+
+          <button
+            onClick={handleOpenCancel}
+            className="inline-flex items-center justify-start gap-4 transition-colors px-6"
+            style={{
+              marginTop: "55px",
+              width: "312px",
+              height: "77px",
+              borderRadius: "22.38px",
+              backgroundColor: "#FF00000F",
+            }}
+          >
+            <Image
+              src="/icons/cancel-registration.svg"
+              alt="cancel"
+              width={32}
+              height={32}
+              className="w-8 h-8"
+            />
+            <span
               style={{
-                width: "135px",
-                height: "42px",
-                borderRadius: "7px",
-                background: "#FFFFFF05",
-                backdropFilter: "blur(20px)",
+                fontFamily: "Inter",
+                fontWeight: 500,
+                fontSize: 32,
+                color: "#FF0000",
               }}
             >
-              <div className="flex items-center gap-1">
-                {" "}
-                <PublicIcon className="w-5 h-5" />
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                    fontWeight: 500,
-                    fontSize: "20px",
-                    lineHeight: "100%",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  Public
-                </span>
-              </div>
-            </button>
-          </div>
-        </section>
+              Cancel Event
+            </span>
+          </button>
+        </div>
       </div>
+
+      <CancelDeleteModal
+        isOpen={isModalOpen}
+        onClose={handleCloseCancel}
+        onDelete={handleConfirmDelete}
+      />
     </div>
   );
 };
 
-export default OnclickOverviewPage;
+export default OnclickRegistrationPage;

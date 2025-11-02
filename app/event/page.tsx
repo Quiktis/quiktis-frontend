@@ -9,7 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SpecialFooterPast from "@/components/ui/SpecialFooterPast";
 import { useUser } from "../context/UserContext";
-import { useGetAllEvents } from "@/ApiServices/queries";
+import { useGetAllUserEvents } from "@/ApiServices/queries";
 import { GetAllEventsResponse, EventData } from "../types";
 
 const socials = [
@@ -29,7 +29,7 @@ export default function EventsActivePage() {
           data: eventsData,
           isLoading: loadingEvent,
           isError: errorEvent,
-        } = useGetAllEvents();
+        } = useGetAllUserEvents();
 
   // 🟢 Extract active tab (upcoming or past)
   const currentTab =

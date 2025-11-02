@@ -14,7 +14,7 @@ const authTabs = [
   
   { label: "Events", link: "/event", icon: "" },
   
-  { label: "Explore Events", link: "/explore-events", icon: "" },
+  { label: "Explore Events", link: "/discover", icon: "" },
 
   { label: "Create Event", link: "/create-event", icon: <Image src="/arrow-45.svg" alt='logo' height={10} width={10} unoptimized className='ml-1.5 object-contain'/> },
 

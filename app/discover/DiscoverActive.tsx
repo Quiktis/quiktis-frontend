@@ -1,17 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Laptop } from "lucide-react";
+import { Laptop, Link as LinkIcon } from "lucide-react";
+import Link from "next/link";
+import { useGetAllEvents } from "@/ApiServices/queries";
+import { EventData } from "../types";
+import { formatDateShort, getDayFromISO, getWeekday, getTime, formatDate } from "@/app/utils/utils";
+import SafeImage from "@/components/SafeImage";
 
-type Event = {
-  id: number;
-  title: string;
-  date: string;
-  time: string;
-  venue: string;
-  location: string;
-  imageUrl: string;
-};
 
 type Category = {
   id: number;
@@ -21,62 +17,7 @@ type Category = {
   eventCount: string;
 };
 
-const popularEvents: Event[] = [
-  {
-    id: 1,
-    title: "Ladies Night Live Music",
-    date: "Thurs, Sep 23",
-    time: "7:00PM",
-    venue: "Yawa club house",
-    location: "Lagos, Nigeria",
-    imageUrl: "/ladies-night-party.svg",
-  },
-  {
-    id: 2,
-    title: "Stable Conference",
-    date: "Thurs, Sep 23",
-    time: "7:00PM",
-    venue: "Stable",
-    location: "Lagos",
-    imageUrl: "/ladies-night-party.svg",
-  },
-  {
-    id: 3,
-    title: "Ladies Night Live Music",
-    date: "Thurs, Sep 23",
-    time: "7:00PM",
-    venue: "Yawa club house",
-    location: "Lagos, Nigeria",
-    imageUrl: "/ladies-night-party.svg",
-  },
-  {
-    id: 4,
-    title: "Outside Team Connect",
-    date: "Thurs, Sep 23",
-    time: "7:00PM",
-    venue: "Yawa club house",
-    location: "Lagos, Nigeria",
-    imageUrl: "/ladies-night-party.svg",
-  },
-  {
-    id: 5,
-    title: "Ladies Night Live Music",
-    date: "Thurs, Sep 23",
-    time: "7:00PM",
-    venue: "Yawa club house",
-    location: "Lagos, Nigeria",
-    imageUrl: "/ladies-night-party.svg",
-  },
-  {
-    id: 6,
-    title: "Ladies Night Live Music",
-    date: "Thurs, Sep 23",
-    time: "7:00PM",
-    venue: "Yawa club house",
-    location: "Lagos, Nigeria",
-    imageUrl: "/ladies-night-party.svg",
-  },
-];
+
 
 const allCategories: Category[] = [
   {
@@ -102,48 +43,116 @@ const allCategories: Category[] = [
   },
 ];
 
-const EventCard: React.FC<{ event: Event }> = ({ event }) => (
-  <div className="flex space-x-4">
-    <img
-      src={event.imageUrl}
-      alt={event.title}
-      style={{
-        width: "91.019px",
-        height: "91.019px",
-        borderRadius: "6.9px",
-      }}
-      className="object-cover"
-      onError={(e) => {
-        const target = e.target as HTMLImageElement;
-        target.onerror = null; // prevent infinite loop
-        target.src = "https://placehold.co/80x80/333333/FFFFFF?text=Error";
-      }}
-    />
-    <div className="flex-1 flex flex-col justify-between">
-      <div>
-        <h3 className="font-semibold text-white" style={{ fontSize: "20px" }}>
-          {event.title}
-        </h3>
-      </div>
-      <div>
-        <p
-          className="font-medium"
-          style={{ fontSize: "16px", color: "#666666" }}
-        >
-          {event.date}, {event.time}
-        </p>
-        <p
-          className="font-medium -mt-2"
-          style={{ fontSize: "16px", color: "#666666" }}
-        >
-          {event.venue} - {event.location}
-        </p>
-      </div>
-    </div>
-  </div>
-);
+const EventCard: React.FC<{ event: EventData }> = ({ event }) => {
+  const mobileCardStyle: React.CSSProperties = {
+    border: "none",
+    background: "transparent",
+    backdropFilter: "none",
+  };
 
-// LocationButton Component
+  
+
+  return (
+    <>
+      {/* Mobile Layout */}
+      <Link  href={`/events-checkout/${event.id}`}  className="md:hidden">
+        <div className="p-3 box-border rounded-xl" style={mobileCardStyle}>
+          <div className="flex gap-3 items-start">
+            <div className="flex-shrink-0">
+              <div className="w-[86px] h-[86px] rounded-md overflow-hidden">
+                <SafeImage
+                width={100}
+                  height={100}
+                  src={event?.coverImage}
+                  alt={event?.eventName}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src =
+                      "https://placehold.co/86x86/333333/FFFFFF?text=Error";
+                  }}
+                />
+              </div>
+            </div>
+
+            <div
+              className="flex-1 flex flex-col justify-between min-w-0"
+              style={{ minHeight: "86px" }}
+            >
+              <div>
+                <h3 className="text-white text-[18px] font-semibold leading-tight hover:underline break-words">
+                  {event?.eventName}
+                </h3>
+              </div>
+
+              <div className="mt-auto pt-3">
+                <div className="text-gray-400 text-[13px] font-medium">
+                  {formatDate(event?.startDate?? "")}, {getTime(event?.startDate?? "")}
+                </div>
+
+                <div className="flex items-center gap-1 text-gray-400 mt-1">
+                  <span
+                    className="font-inter font-medium text-[13px] truncate"
+                    title={`${event?.location}`}
+                  >
+                    {event?.location}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Link>
+
+      {/* Desktop Layout */}
+      <Link href={`/events-checkout/${event.id}`} className="hidden md:flex space-x-4">
+        <SafeImage
+        width={100}
+                  height={100}
+          src={event?.coverImage}
+          alt={event?.eventName}
+          style={{
+            width: "91.019px",
+            height: "91.019px",
+            borderRadius: "6.9px",
+          }}
+          className="object-cover"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.onerror = null;
+            target.src = "https://placehold.co/80x80/333333/FFFFFF?text=Error";
+          }}
+        />
+        <div className="flex-1 flex flex-col justify-between">
+          <div>
+            <h3
+              className="hover:underline font-semibold text-white"
+              style={{ fontSize: "20px" }}
+            >
+              {event?.eventName}
+            </h3>
+          </div>
+          <div>
+            <p
+              className="font-medium"
+              style={{ fontSize: "16px", color: "#666666" }}
+            >
+              {formatDate(event?.startDate?? "")}, {getTime(event?.startDate?? "")}
+            </p>
+            <p
+              className="font-medium -mt-2"
+              style={{ fontSize: "16px", color: "#666666" }}
+            >
+             {event?.location}
+            </p>
+          </div>
+        </div>
+      </Link>
+    </>
+  );
+};
+
 const FilterButton: React.FC<{
   label: string;
   isActive?: boolean;
@@ -151,11 +160,11 @@ const FilterButton: React.FC<{
 }> = ({ label, isActive = false, onClick }) => (
   <button
     onClick={onClick}
-    className={`flex-shrink-0 flex-grow-0 rounded-[8.4px] text-xl font-medium transition-colors duration-200
-      ${isActive ? "text-[#D2DDDA]" : "text-[#666666]"}`}
+    className={`flex-1 md:flex-none rounded-[8.4px] font-medium transition-colors duration-200
+      ${
+        isActive ? "text-[#D2DDDA]" : "text-[#666666]"
+      } text-[14px] md:text-xl w-full md:w-[120px] h-9 md:h-10 flex items-center justify-center`}
     style={{
-      width: "120px",
-      height: "40px",
       backgroundColor: "rgba(255, 255, 255, 0.06)",
       backdropFilter: "blur(24px)",
     }}
@@ -168,13 +177,68 @@ const FilterButton: React.FC<{
 const BrowseCategory: React.FC = () => {
   return (
     <section>
-      <h2
-        className="text-white mb-[49.3px]"
-        style={{ fontSize: "32px", fontWeight: 500 }}
-      >
+      <h2 className="text-white mb-6 md:mb-[49.3px] text-2xl md:text-[32px] font-medium md:font-medium">
         Browse Category
       </h2>
-      <div className="flex justify-between pb-4 overflow-x-auto scrollbar-hide gap-4">
+
+      {/* Mobile Layout  */}
+      <div
+        className="md:hidden flex pb-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+        style={{ gap: "27px" }}
+      >
+        {allCategories.map((category) => {
+          return (
+            <div
+              key={category.id}
+              className="flex-shrink-0 shadow-lg transition-transform duration-200 active:scale-95 p-4 flex flex-col justify-between cursor-pointer snap-start"
+              style={{
+                width: "210.2px",
+                height: "132.04px",
+                borderRadius: "14.8px",
+                backgroundColor: "#FFFFFF0F",
+                border: "0.3px solid #91949926",
+                backdropFilter: "blur(14.604201316833496px)",
+              }}
+            >
+              <div className="flex justify-start">
+                <div
+                  style={{ width: "21.89px", height: "21.89px" }}
+                  className="flex items-center justify-center"
+                >
+                  <SafeImage
+                  width={100}
+                  height={100}
+                    src={category.icon}
+                    alt={`${category.title} icon`}
+                    className="w-full h-full"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <h3
+                  className="text-white font-medium"
+                  style={{ fontSize: "20px", marginTop: "4px" }}
+                >
+                  {category.title}
+                </h3>
+                <p
+                  className="font-medium"
+                  style={{
+                    fontSize: "13px",
+                    color: "#666666",
+                    marginTop: "2px",
+                  }}
+                >
+                  {category.eventCount}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden md:flex justify-between pb-4 overflow-x-auto scrollbar-hide gap-4">
         {allCategories.map((category) => {
           return (
             <div
@@ -189,7 +253,9 @@ const BrowseCategory: React.FC = () => {
             >
               <div className="flex justify-start">
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center">
-                  <img
+                  <SafeImage
+                  width={100}
+                  height={100}
                     src={category.icon}
                     alt={`${category.title} icon`}
                     className="w-full h-full"
@@ -231,22 +297,30 @@ const DiscoverActive: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>("Lagos");
   const locations: string[] = ["Lagos", "America", "Ghana", "Kenya"];
 
+  const {
+            data: eventsData,
+            isLoading: loadingEvent,
+            isError: errorEvent,
+          } = useGetAllEvents();
+
+  const events = eventsData?.data.events
+
   return (
     <>
       <div className="bg-[#131517] min-h-screen text-gray-300 font-sans p-4 sm:p-8">
-        <div className="max-w-4xl mx-auto pt-20">
+        <div className="max-w-5xl mx-auto pt-20">
           {/* Header Section */}
-          <header className="mb-[45px]">
-            <h1 className="text-[#FFFFFF] text-[48px] font-medium leading-[1.21] tracking-[-5%] mb-2">
-              Discover Events
+          <header className="mb-8 md:mb-[45px]">
+            <h1 className="text-[#FFFFFF] text-3xl md:text-[48px] font-medium leading-[1.21] tracking-[-5%] mb-2">
+              Explore Events
             </h1>
-            <p className="text-[#919499] text-xl font-medium leading-[1.00] tracking-[0%]">
+            <p className="text-[#919499] text-base md:text-xl font-medium leading-[1.00] tracking-[0%]">
               Explore popular and local events around you
             </p>
           </header>
 
-          {/* Location Filters Section */}
-          <div className="flex flex-wrap items-center space-x-2 mb-[62.6px]">
+          {/* Location filter Section */}
+          <div className="flex overflow-x-auto scrollbar-hide gap-3 md:gap-2 mb-8 md:mb-[62.6px] pb-2">
             {locations.map((location) => (
               <FilterButton
                 key={location}
@@ -257,38 +331,70 @@ const DiscoverActive: React.FC = () => {
             ))}
           </div>
 
-          {/* Popular Events Section */}
-          <section className="mb-[76.85px]">
-            <div className="flex justify-between items-center mb-[53px]">
-              <div>
-                <h2 className="text-white text-[32px] font-medium mb-1 leading-none tracking-normal">
+          {/* Popular Events Section + the view all  */}
+          <section className="mb-12 md:mb-[76.85px]">
+            <div className="flex justify-between items-center mb-6 md:mb-[53px] gap-4">
+              <div className="pl-4 md:pl-0">
+                <h2 className="text-white text-[18px] md:text-[32px] font-medium mb-1 leading-none tracking-normal">
                   Popular Events
                 </h2>
-                <p className="text-[#666666] text-[32px] font-medium leading-none tracking-normal">
+                <p className="text-[#666666] text-[14px] md:text-[32px] font-medium leading-none tracking-normal">
                   {activeFilter}
                 </p>
               </div>
               <button
-                className="font-medium text-[20px] rounded-[7px] text-[#D2DDDA]"
+                className="font-medium text-[11.8px] text-[#D2DDDA] md:hidden flex items-center justify-center flex-shrink-0"
+                style={{
+                  width: "80px",
+                  height: "32px",
+                  borderRadius: "59.01px",
+                  backgroundColor: "#FFFFFF0F",
+                  backdropFilter: "blur(11.801170349121094px)",
+                }}
+              >
+                View All
+              </button>
+
+              {/* The Desktop View All */}
+              <button
+                className="hidden md:inline-flex font-medium text-base text-[#D2DDDA]"
                 style={{
                   width: "135px",
                   height: "42px",
-                  backgroundColor: "rgba(255, 255, 255, 0.06)",
+                  borderRadius: "100px",
+                  backgroundColor: "#FFFFFF0F",
                   backdropFilter: "blur(20px)",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 View All
               </button>
             </div>
-            {/* Events Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[70px] gap-y-[16px]">
-              {popularEvents.map((event) => (
+            <div className="md:hidden flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4">
+              {events && events.map(
+                (event) => (
+                  <div
+                    key={event.id}
+                    className="flex-shrink-0 snap-start flex flex-col gap-4"
+                    style={{ width: "calc(100vw - 32px)", maxWidth: "400px" }}
+                  >
+                   
+                     
+                        <EventCard key={event.id} event={event} />
+                   
+                  </div>
+                )
+              )}
+            </div>
+
+            <div className="hidden md:grid grid-cols-2 gap-x-[70px] gap-y-[16px]">
+              {events && events.map((event) => (
                 <EventCard key={event.id} event={event} />
               ))}
             </div>
           </section>
 
-          {/* Browse Category Section */}
           <BrowseCategory />
         </div>
       </div>

@@ -7,6 +7,7 @@ import EventCard from "./EventCard";
 import { FiPlus } from "react-icons/fi";
 import { useStore } from "@/app/lib/store";
 import { EventData } from "@/app/types";
+import { redirect } from "next/dist/server/api-utils";
 
 // A simple empty state component
 function EmptyState() {
@@ -81,8 +82,9 @@ export default function UpcomingActive({ events, pageTitle }: { events: EventDat
           {events.map((event) => (
           <EventCard
             key={event.eventId}
+            redirectLink={`/event/${event.eventId}`}
             event={{
-              id: event.id,
+              id: event.eventId,
               title: event.eventName,
               startsAt: event.startDate,
               organizer: event.organiser?.name || "Unknown Organizer",
