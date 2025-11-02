@@ -79,7 +79,8 @@ export default function Header() {
     <>
       <header className="absolute top-0 bottom-auto left-0 right-0 font-inter text-[0.95em] z-50">
         <div className="w-[90%] mx-auto py-7 flex gap-4 justify-between h-fit">
-          <Link href={"/"}>
+          <div className="flex md:w-[70%] lg:w-[60%] gap-6 xl:w-[50%] 2xl:w-[40%] justify-between">
+          <Link href={"/"} className="my-auto">
             <Image
               src="/New logo.png"
               alt="logo"
@@ -90,12 +91,40 @@ export default function Header() {
             />
           </Link>
 
-          <div className="flex gap-9 text-[#919499] font-medium max-md:hidden">
-            <p className="my-auto">
-              <TimeWithGmt />
-            </p>
-            <Link href={user?.id ? "/create-event" : "/register"} className="cursor-pointer my-auto flex gap-1">
-              {user?.id ? "Create event" : "Explore event"}
+          <div className="hidden md:flex gap-8">
+
+            <div className="flex gap-6 px-7 py-4 bg-[#00000038] rounded-full items-center">
+              <Link href={user?.id ? "/event" : "/event"} className="cursor-pointer my-auto flex gap-1.5 font-semibold text-white">
+              <Image
+                src="/icons/ticket-icon.svg"
+                alt="ticket"
+                height={18}
+                width={18}
+                unoptimized
+                className="object-contain"
+              />
+             Events
+            </Link>
+
+            
+            <Link href={"/explore-events"} className="cursor-pointer my-auto flex gap-1 text-[#919499] font-medium">
+            <Image
+                src="/discover.svg"
+                alt="explore"
+                height={20}
+                width={20}
+                unoptimized
+                className="object-contain"
+              />
+              Explore Events
+            </Link>
+            </div>
+
+            
+
+            
+            <Link href={user?.id ? "/create-event" : '/register'} className="cursor-pointer my-auto flex gap-1.5">
+              Create Event
               <Image
                 src="/arrow-45.svg"
                 alt="arrow"
@@ -106,21 +135,31 @@ export default function Header() {
               />
             </Link>
 
-            {user?.id && <Link href={"/event"} className="cursor-pointer my-auto flex gap-1">
-              My events
-            </Link>}
+          </div>
+          </div>
 
-            {user?.id && <Link href={"/explore-events"} className="cursor-pointer my-auto flex gap-1">
-              Explore events
-            </Link>}
+          <div className="flex gap-9 text-[#919499] font-medium max-md:hidden">
+            
+
+      
+
 
             {/* ✅ Show greeting if logged in, else Sign in */}
             {user?.id ? (
-              <span className="my-auto text-white">Hi {firstName}</span>
+              <Link href="/profile" className="my-auto flex gap-[2px] text-gray-300 font-normal items-center">
+                <Image
+                src="/icons/Profile-img.svg"
+                alt="arrow"
+                height={33}
+                width={33}
+                unoptimized
+                className="object-contain"
+              />
+              Hi {firstName}</Link>
             ) : (
               <Link
                 href={"/register"}
-                className="cursor-pointer px-4 py-1 rounded-full bg-[#919499]/20"
+                className="cursor-pointer px-4 py-1 rounded-full h-fit my-auto bg-[#919499]/20"
               >
                 Sign in
               </Link>
@@ -128,16 +167,16 @@ export default function Header() {
           </div>
 
           <button
-            className="hidden max-md:block my-auto"
+            className="hidden my-auto h-8 w-8 max-md:grid place-items-center rounded-md bg-[#ffffff17]"
             onClick={() => setSidebarOpen(true)}
           >
             <Image
               unoptimized
-              src="/ep_menu.svg"
+              src="/icons/menu.svg"
               alt="menu"
-              height={24}
-              width={24}
-              className="opacity-40"
+              height={18}
+              width={18}
+              className="opacity-40 m-auto"
             />
           </button>
         </div>

@@ -7,7 +7,7 @@ import { InitiateResetPassword, Login, ResetPassword, SignUp } from "../app/type
 import { create } from "domain";
 
 export const Mutations = () => {
-  const { setLoading, setMessage, setUser } = useStore();
+  const { setUser } = useStore();
   const router = useRouter();
 
 
@@ -18,53 +18,41 @@ export const Mutations = () => {
   });
 
 
-  const { mutateAsync: createEventMutation } = useMutation({
+  const createEventMutation = useMutation({
     mutationKey: ["create-event"],
     mutationFn: request.createEvent,  
-    onMutate: () => {
-      setLoading(true);
-      setMessage(null, null);
-    },
+    
     onSuccess: (response) => {
       if (response) {
-        setMessage("Event created successfully!", "success");
         router.push("/event");
       }
     },
-    onError: (err: any) => {
-      const errorMsg =
-        err?.response?.data?.error || 
-        err?.message ||               
-        "An unexpected error occurred";
-      setMessage(`${errorMsg}`, "error");
-    },
-    onSettled: () => {
-      setLoading(false);
-    },
   });
 
+
+  const isUploadingMedia = uploadMediaMutation.isPending;
+const isCreatingEvent = createEventMutation.isPending;
+const isCreating = isUploadingMedia || isCreatingEvent;
 
 
   const createEventWithUpload = async (
   data: Omit<CreateEventData, "coverImage"> & { file: File }
 ) => {
   try {
-    setLoading(true);
-    setMessage(null, null);
 
-    // 1️⃣ Upload the image first
+    // Upload the image first
     const uploadResponse = await uploadMediaMutation.mutateAsync(data.file);
 
-    // ✅ Defensive: handle both `file` and `files` keys gracefully
+    // Defensive: handle both `file` and `files` keys gracefully
     const fileData =
       uploadResponse.data.files || uploadResponse.data.files || [];
     const coverImage = fileData[0]?.cloudinaryUrl;
     if (!coverImage) throw new Error("Upload failed — no image URL returned.");
 
-    // 2️⃣ Remove file field before sending to backend
+    // Remove file field before sending to backend
     const { file, ...rest } = data;
 
-    // 3️⃣ Create the event payload
+    // Create the event payload
     const createData: CreateEventData = {
       ...rest,
       coverImage,
@@ -73,10 +61,9 @@ export const Mutations = () => {
     console.log("[DEBUG] Creating event with data:", createData);
 
     // 4️⃣ Create the event
-    const response = await createEventMutation(createData);
+    const response = await createEventMutation.mutateAsync(createData);
     console.log("[DEBUG] Event created response:", response);
 
-    setMessage("Event created successfully!", "success");
     router.push("/event");
     return response;
   } catch (err: any) {
@@ -84,25 +71,16 @@ export const Mutations = () => {
       err?.response?.data?.error ||
       err?.message ||
       "Failed to create event.";
-    setMessage(errorMsg, "error");
   } finally {
-    setLoading(false);
   }
 };
 
 
-
-
-  const { mutateAsync: loginMutation } = useMutation({
+  const { mutateAsync: loginMutation, isPending: isLoggingIn, isError: isLoginError, error:loginError } = useMutation({
     mutationKey: ["login"],
     mutationFn: request.login,
-    onMutate: () => {
-      setLoading(true);
-      setMessage(null, null);
-    },
     onSuccess: (response) => {
       if (response) {
-        setMessage(response.message, "success");
         setUser(response?.data?.user);
         router.push("/event");
       }
@@ -114,80 +92,52 @@ export const Mutations = () => {
     "An unexpected error occurred"; // final fallback
 
 
-      setMessage( errorMsg === 'Invalid credentials' ? "Invalid email or password" : errorMsg, "error");
-    },
-    onSettled: () => {
-      setLoading(false);
     },
   });
 
-  const { mutateAsync: signUpMutation } = useMutation({
+  const { 
+    mutateAsync: signUpMutation, 
+    isPending: isSigningUp, 
+    isError: isSignupError, 
+    error:signupError 
+  } = useMutation({
+
     mutationKey: ["signup"],
     mutationFn: request.signup,
-    onMutate: () => {
-      setLoading(true);
-      setMessage(null, null);
-    },
     onSuccess: (response) => {
       if (response) {
-        setMessage(response.message, "success");
         router.push("/verify-email");
       }
     },
     onError: (err: any) => {
       const errorMsg =
-        err?.response?.data?.error ||
-        err?.error ||
-        "Sign-up failed. Please try again.";
-      setMessage(errorMsg, "error");
-    },
-    onSettled: () => {
-      setLoading(false);
+    err?.response?.data?.error || // 👈 backend error text
+    err?.message ||               // fallback from Axios
+    "An unexpected error occurred"; // final fallback
+
+
     },
   });
 
   const { mutateAsync: initiateResetPasswordMutation } = useMutation({
     mutationKey: ["initiate-reset"],
     mutationFn: request.initiateResetPassword,
-    onMutate: () => {
-      setLoading(true);
-      setMessage(null, null);
-    },
+    
     onSuccess: (response) => {
-      setMessage(response.message, "success");
+      //setMessage(response.message, "success");
     },
-    onError: (err: any) => {
-      const errorMsg =
-        err?.response?.data?.message ||
-        err?.message ||
-        "Unable to send reset link.";
-      setMessage(errorMsg, "error");
-    },
-    onSettled: () => {
-      setLoading(false);
-    },
+    
   });
 
   const { mutateAsync: resetPasswordMutation } = useMutation({
     mutationKey: ["reset-password"],
     mutationFn: request.resetPassword,
-    onMutate: () => {
-      setLoading(true);
-      setMessage(null, null);
-    },
+    
     onSuccess: (response) => {
-      setMessage(response.message, "success");
+      //setMessage(response.message, "success");
     },
-    onError: (err: any) => {
-      const errorMsg =
-        err?.response?.data?.message ||
-        err?.message ||
-        "Failed to reset password.";
-      setMessage(errorMsg, "error");
-    },
-    onSettled: () => {
-      setLoading(false);
-    },
+    
+   
   });
 
   return {
@@ -199,5 +149,19 @@ export const Mutations = () => {
     initiateResetPassword: (data: InitiateResetPassword) =>
       initiateResetPasswordMutation(data),
     resetPassword: (data: ResetPassword) => resetPasswordMutation(data),
+
+    // Loading states
+    isCreating,
+    isCreatingEvent,
+    isLoggingIn,
+    isSigningUp,
+
+    // Error States
+    isLoginError,
+    isSignupError,
+
+    // Errors
+    loginError,
+    signupError
   };
 };

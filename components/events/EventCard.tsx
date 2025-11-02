@@ -49,14 +49,10 @@ export default function EventCard({ event }: { event: EventItem }) {
 
 
   return (
-    <div className="max-md:w-[83vw] mx-auto"
-      role="button"
-      //onClick={() => router.push(href)}
-      //className="cursor-pointer"
-      aria-label={`Open event ${event.title}`}
-    >
+
+    <>
       {/* ---------- MOBILE LAYOUT ---------- */}
-      <div className="md:hidden -mx-4">
+      <Link href={`/event/${event.id}`} className="md:hidden">
         <div className="text-left mb-6 px-0">
           <div className="text-white font-semibold md:text-lg">{formatDateShort(event.startsAt)}</div>
           <div className="text-gray-400 text-md md:font-medium">{getWeekday(event.startsAt)}</div>
@@ -73,10 +69,10 @@ export default function EventCard({ event }: { event: EventItem }) {
                 {getTime(event.startsAt)}
               </div>
 
-              <Link href={`/event/${event.id}`} className="text-white hover:underline text-base font-semibold leading-tight break-words max-sm:max-w-[65%]
+              <h3 className="text-white hover:underline text-base font-semibold leading-tight break-words max-sm:max-w-[65%]
               ">
                 {event.title}
-              </Link>
+              </h3>
 
               <div className="flex items-center gap-2">
                 <SafeImage
@@ -107,11 +103,11 @@ export default function EventCard({ event }: { event: EventItem }) {
 
               <div className="flex gap-2 pt-1">
               
-              <Link href={`/event/${event.id}`}
+              {/*<Link href={`/event/${event.id}`}
               className="inline-flex items-center gap-2 text-white px-3 py-1 rounded-md text-sm font-semibold w-fit cursor-pointer bg-[#6F4FF2] text-[0.8em]"
             >
               Manage event
-            </Link>
+            </Link>*/}
             <div
               className="inline-flex items-center gap-2 text-white px-3 py-1 rounded-md text-sm font-semibold w-fit bg-[#EA4335] text-[0.8em]"
             >
@@ -136,7 +132,7 @@ export default function EventCard({ event }: { event: EventItem }) {
             </div>
           </div>
         </div>
-      </div>
+      </Link>
 
       {/* ---------- DESKTOP ---------- */}
 
@@ -186,11 +182,11 @@ export default function EventCard({ event }: { event: EventItem }) {
               </span>
             </div>
             <span className="space-x-2">
-              <Link href={`/event/${event.id}`}
+              {(user?.name === event.organizer) && <Link href={`/event/${event.id}`}
               className="inline-flex items-center gap-2 text-white px-3 py-1 rounded-md text-sm font-semibold w-fit cursor-pointer bg-[#6F4FF2]"
             >
               Manage event
-            </Link>
+            </Link>  }
             <div
               className="inline-flex items-center gap-2 text-white px-3 py-1 rounded-md text-sm font-semibold w-fit bg-[#EA4335]"
             >
@@ -220,6 +216,6 @@ export default function EventCard({ event }: { event: EventItem }) {
         {/* Main content */}
         
       </div>
-    </div>
+      </>
   );
 }

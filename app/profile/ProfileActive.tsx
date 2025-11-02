@@ -1,5 +1,14 @@
 "use client";
 
+import { useGetAllUserEvents } from "@/ApiServices/queries";
+import { useStore } from "../lib/store";
+import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
+import { EventData } from "../types";
+import { formatDate, getTime } from "../utils/utils";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
 import React from "react";
 
 interface ProfileActiveProps {
@@ -12,63 +21,49 @@ interface ProfileActiveProps {
   };
 }
 
-const ProfileActive: React.FC<ProfileActiveProps> = ({
-  user = {
-    name: "Anjola Adeyemi",
-    profileImage: "/icons/Profile-img.svg",
-    joinedDate: "September 2025",
-    eventsOrganized: 0,
-    eventsAttended: 2,
-  },
-}) => {
-  const events = [
-    {
-      id: 1,
-      title: "Ladies Night Live Music",
-      date: "Thurs, Sep 23",
-      time: "7:00PM",
-      venue: "Yawa club house - Lagos, Nigeria",
-      imageUrl: "/ladies-night-party.svg",
-    },
-    {
-      id: 2,
-      title: "Ladies Night Live Music",
-      date: "Thurs, Sep 23",
-      time: "7:00PM",
-      venue: "Yawa club house - Lagos, Nigeria",
-      imageUrl: "/ladies-night-party.svg",
-    },
-  ];
+const ProfileActive: React.FC<ProfileActiveProps> = () => {
+
+  const { user, logout } = useStore();
+
+  const router = useRouter();
+
+  const {
+            data: eventsData,
+            isLoading: loadingEvent,
+            isError: errorEvent,
+          } = useGetAllUserEvents();
+
+  const events = eventsData?.data.events
+
+  const handleLogout = () => {
+    logout();
+    router.push("/")
+  }
 
   return (
     <div className="min-h-screen bg-[#131517] text-white p-6">
-      <div className="max-w-4xl mx-auto w-full mt-24 space-y-6">
+      <div className="max-w-4xl mx-auto w-full mt-[5em] md:mt-[8em] space-y-6">
         {/* Profile Header */}
-        <header style={{ marginBottom: "73px" }}>
-          <div className="flex items-center" style={{ gap: "28px" }}>
+        <header className="mb-8 md:mb-[3.5em] -ml-3">
+          <div className="flex items-center gap-2 md:gap-4 ">
             <div className="relative">
-              <img
-                src={user.profileImage}
-                alt={user.name}
-                className="w-20 h-20 rounded-full object-cover"
+              <Image
+                src="/icons/Profile-img.svg"
+                alt={user?.name ?? ""}
+                height={18}
+                width={18}
+                unoptimized
+                className="w-20 h-20 max-md:w-[50px] max-md:h-[50px] rounded-full object-contain"
               />
             </div>
             <div className="flex-1">
               <h1
-                style={{
-                  fontFamily: "Inter",
-                  fontWeight: 500,
-                  fontSize: "48px",
-                  lineHeight: "121%",
-                  letterSpacing: "0%",
-                  color: "#FFFFFF",
-                  margin: 0,
-                  marginBottom: "14px",
-                }}
+              className="font-inter font-medium text-xl md:text-2xl lg:text-4xl text-white"
+                
               >
-                {user.name}
+                {user?.name}
               </h1>
-              <div className="flex items-center space-x-2">
+              {/*<div className="flex items-center space-x-2">
                 <img
                   src="/icons/calender-profile.svg"
                   alt="Calendar"
@@ -84,9 +79,9 @@ const ProfileActive: React.FC<ProfileActiveProps> = ({
                     color: "#919499",
                   }}
                 >
-                  Joined {user.joinedDate}
+                  {/*Joined {user.joinedDate}/
                 </span>
-              </div>
+              </div>*/}
             </div>
           </div>
         </header>
@@ -94,18 +89,7 @@ const ProfileActive: React.FC<ProfileActiveProps> = ({
         <main>
           {/* Cultural Identity Section */}
           <div style={{ marginBottom: "115px" }}>
-            <h2
-              style={{
-                fontFamily: "Inter",
-                fontWeight: 600,
-                fontSize: "40px",
-                lineHeight: "121%",
-                letterSpacing: "-4%",
-                color: "#FFFFFF",
-                marginBottom: "17px",
-                margin: 0,
-              }}
-            >
+            <h2 className="font-inter font-medium text-white mb-3 text-lg md:text-3xl">
               Your Cultural Identity
             </h2>
             <div
@@ -118,84 +102,54 @@ const ProfileActive: React.FC<ProfileActiveProps> = ({
                 className="w-4 h-4"
               />
               <span
-                style={{
-                  fontFamily: "Inter",
-                  fontWeight: 500,
-                  fontSize: "20px",
-                  lineHeight: "100%",
-                  letterSpacing: "0%",
-                  color: "#919499",
-                }}
+              className="font-inter font-medium text-[#919499]"
+               
               >
-                {user.eventsOrganized} organized
+                {`${events?.length}`} organized
               </span>
               <span
-                style={{
-                  fontFamily: "Inter",
-                  fontWeight: 500,
-                  fontSize: "20px",
-                  lineHeight: "100%",
-                  letterSpacing: "0%",
-                  color: "#919499",
-                }}
+                className="font-inter font-medium text-[#919499]"
               >
                 |
               </span>
               <span
-                style={{
-                  fontFamily: "Inter",
-                  fontWeight: 500,
-                  fontSize: "20px",
-                  lineHeight: "100%",
-                  letterSpacing: "0%",
-                  color: "#FFFFFF",
-                }}
+                className="font-inter font-medium text-white"
               >
-                {user.eventsAttended} Attended
+                {0} Attended
               </span>
             </div>
 
             {/* Event List */}
-            <div style={{ marginTop: "79px" }}>
-              {events.map((event, index) => (
+            <div className="flex flex-col gap-8 mt-[3em]">
+              {events && events.map((event: EventData, index) => (
                 <div
                   key={event.id}
                   className="flex space-x-4"
-                  style={{
-                    marginBottom: index < events.length - 1 ? "40px" : "0",
-                  }}
                 >
-                  <img
-                    src={event.imageUrl}
-                    alt={event.title}
-                    style={{
-                      width: "80px",
-                      height: "80px",
-                      borderRadius: "8px",
-                    }}
-                    className="object-cover"
-                  />
+                  <SafeImage
+                                  src={event.coverImage}
+                                  alt={`${event.eventName} poster`}
+                                  width={156}
+                                  height={156}
+                                  className=" object-cover w-[75px] h-[75px] md:w-[80px] md:h-[80px] rounded-md"
+                                  unoptimized
+                                />
+                 
                   <div
-                    className="flex-1 flex flex-col justify-between"
-                    style={{ minHeight: "80px" }}
+                    className="flex flex-col gap-3"
                   >
-                    <div>
-                      <h3
-                        style={{
-                          fontFamily: "Inter",
-                          fontWeight: 500,
-                          fontSize: "20px",
-                          lineHeight: "100%",
-                          letterSpacing: "0%",
-                          color: "#FFFFFF",
-                          margin: 0,
-                        }}
+                    <Link
+                      href ={`/event/${event.eventId}`} 
+                      className="cursor-pointer hover:underline "
                       >
-                        {event.title}
+                      <h3
+                        className="font-inter font-semibold text-white"
+                      >
+                        {event.eventName}
                       </h3>
-                    </div>
-                    <div>
-                      <p
+                    </Link>
+                     <div>
+                      {event?.startDate && <p
                         style={{
                           fontFamily: "Inter",
                           fontWeight: 400,
@@ -207,8 +161,8 @@ const ProfileActive: React.FC<ProfileActiveProps> = ({
                           marginBottom: "4px",
                         }}
                       >
-                        {event.date}, {event.time}
-                      </p>
+                        {formatDate(event?.startDate?? "")}, {getTime(event.startDate?? "")}
+                      </p>}
                       <p
                         style={{
                           fontFamily: "Inter",
@@ -220,7 +174,7 @@ const ProfileActive: React.FC<ProfileActiveProps> = ({
                           margin: 0,
                         }}
                       >
-                        {event.venue}
+                        {event.location}
                       </p>
                     </div>
                   </div>
@@ -236,50 +190,21 @@ const ProfileActive: React.FC<ProfileActiveProps> = ({
               style={{ marginTop: "286.47px" }}
             >
               <button
-                style={{
-                  fontFamily: "Inter",
-                  fontWeight: 500,
-                  fontSize: "18.67px",
-                  lineHeight: "100%",
-                  letterSpacing: "-4%",
-                  color: "#FFFFFF",
-                  backgroundColor: "transparent",
-                  border: "1px solid #373737",
-                  borderRadius: "7.78px",
-                  width: "196px",
-                  height: "49px",
-                  cursor: "pointer",
-                  opacity: 1,
-                }}
+              className="px-4 py-3 text-white border border-gray-500 rounded-md w-fit"
+              onClick={handleLogout}
+             
               >
-                Check Journal
+                Logout
               </button>
 
               <button
-                className="flex items-center gap-2"
-                style={{
-                  fontFamily: "Inter",
-                  fontWeight: 500,
-                  fontSize: "18.67px",
-                  lineHeight: "100%",
-                  letterSpacing: "-4%",
-                  color: "#131517",
-                  backgroundColor: "#FFFFFF",
-                  border: "none",
-                  borderRadius: "7.78px",
-                  width: "196px",
-                  height: "49px",
-                  cursor: "pointer",
-                  opacity: 1,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+                className="px-4 flex gap-2 items-center py-3 text-[#131517] bg-white border border-gray-500 rounded-md w-fit"
+                
               >
                 <img
                   src="/icons/diamond-profile.svg"
                   alt="Diamond"
-                  className="w-5 h-5"
+                  className="w-5 h-5 text-[#131517] my-auto"
                 />
                 View Reward
               </button>

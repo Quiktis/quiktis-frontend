@@ -8,10 +8,12 @@ import Button from "@/components/ui/Button";
 import Image from "next/image";
 import SigninForm from "./components/SigninForm";
 import { useStore } from "../lib/store";
+import { FaBedPulse } from "react-icons/fa6";
 
 
 export function SignUpScreen() {
 
+  const [showError, setShowError] = useState(false)
   const [isNewUser, setIsNewUser] = useState(true);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -19,9 +21,8 @@ export function SignUpScreen() {
     email: "",
     password: "",
   });
-  const { signUp, login } = Mutations();
+  const { signUp, login, isSigningUp, isLoggingIn, signupError, loginError } = Mutations();
 
-  const { message, messageType, loading, setMessage } = useStore()
   //const message = useStore((state) => state.message);
   //const loading = useStore((state) => state.loading);
   
@@ -43,13 +44,15 @@ export function SignUpScreen() {
   };
 
   useEffect(() => {
-    if (messageType === "error") {
+    if ((loginError || signupError) && (!isLoggingIn || !isSigningUp)) {
+      //console.log('login error: ', loginError.response.data.error)
+      setShowError(true)
       const timer = setTimeout(() => {
-        setMessage(null, null); // hide after 3 s
+        setShowError(false); // hide after 3 s
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [message, messageType, setMessage]);
+  }, [loginError, signupError, isLoggingIn, isSigningUp]);
 
   
 
@@ -113,9 +116,9 @@ export function SignUpScreen() {
           </div>
 
           {/* Error message block ✅ */}
-          {message && messageType === "error" && (
+          {showError && (
             <div className={`text-center text-red-500 bg-red-500/10 border border-red-500/30 rounded-lg py-3 px-3 text-sm`}>
-              {message}
+              {loginError?.response?.data?.error ?? ""}{signupError?.response?.data?.error ?? ""}
             </div>
           )}
 
@@ -154,7 +157,7 @@ export function SignUpScreen() {
             handleInputChange={handleInputChange}
             formData={formData}
             isNewUser={isNewUser}
-            loading={loading}
+            loading={isLoggingIn || isSigningUp}
           />
 
           {/* Toggle */}

@@ -6,6 +6,7 @@ import { UserProvider } from "./context/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import ClientLayout from "./context/ClientLayout";
 import { Suspense } from "react";
+import { SessionWatcher } from "./context/SessionWatcher";
 
 import { EventsTabProvider } from "@/lib/EventsTabContext";
 
@@ -50,7 +51,8 @@ export default function RootLayout({
         <Suspense fallback={<div></div>}>
           <ClientLayout>
             <UserProvider>
-              <GoogleOAuthProvider clientId="YOUR_CLIENT_ID_HERE">
+              <SessionWatcher />
+            
                 <EventsTabProvider>
                   <div className="relative">
                     <Header />
@@ -58,7 +60,8 @@ export default function RootLayout({
                     <FooterOverride />
                   </div>
                 </EventsTabProvider>
-              </GoogleOAuthProvider>
+
+           
             </UserProvider>
           </ClientLayout>
         </Suspense>

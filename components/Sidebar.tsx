@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import { useRouter } from "next/navigation";
-import { useUser } from "@/app/context/UserContext";
+import { useStore } from "@/app/lib/store";
 import Image from "next/image";
 
 interface SidebarProps {
@@ -11,29 +11,34 @@ interface SidebarProps {
 }
 
 const authTabs = [
-  { label: "Home", link: "/", icon: "" },
-  { label: "Create Events", link: "/create-event", icon: "" },
-  { label: "My Events", link: "/event", icon: "" },
+  
+  { label: "Events", link: "/event", icon: "" },
+  
   { label: "Explore Events", link: "/explore-events", icon: "" },
+
+  { label: "Create Event", link: "/create-event", icon: <Image src="/arrow-45.svg" alt='logo' height={10} width={10} unoptimized className='ml-1.5 object-contain'/> },
+
 ];
 
 const guestTabs = [
-  { label: "Explore Events", link: "/register", icon: <Image src="/arrow-45.svg" alt='logo' height={10} width={10} unoptimized className='ml-1.5 object-contain'/> },
-  { label: "Sign in", link: "/register", icon: "" },
+  { label: "Explore Events", link: "/register", 
+    icon: <Image src="/arrow-45.svg" alt='logo' height={10} width={10} unoptimized className='ml-1.5 object-contain'/> },
+  
   
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
   const router = useRouter();
-  const { user, logout } = useUser();
+  const { user } = useStore();
 
   const tabsToRender = user?.email ? authTabs : guestTabs;
+  const firstName = user?.name ? user.name.split(" ")[0] : null;
 
 
   return (
     <>
       {isOpen && (
-        <aside className="md:hidden fixed px-2 py-6 bg-[#1b1b1b] rounded-xl grid w-[15em] right-4 z-[2000] top-5 shadow ">
+        <aside className="md:hidden fixed px-2 py-6 pb-8 bg-[#1b1b1b] rounded-xl grid w-[15em] right-4 z-[2000] top-5 shadow ">
           <ul className="grid w-[90%] gap-2 place-items-center mx-auto">
             <li className="w-full grid">
               <button
@@ -49,17 +54,37 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onSidebarClose }) => {
                 <Link
                   href={item.link}
                   onClick={() => onSidebarClose()}
-                  className="w-full text-gray-200 flex justify-center py-3">
+                  className="w-full text-gray-200 flex justify-center py-4">
                   {item.label}{item.icon ?? item.icon}
                 </Link>
               </li>
             ))}
-            {user?.email && <button className="mt-5 bg-white/5 px-6 py-1 rounded-full" 
+            {/*user?.email && <button className="mt-5 bg-white/5 px-6 py-1 rounded-full" 
             onClick={() => {
               onSidebarClose();
-              logout();
+              //logout();
             }}
-            >Logout</button>}
+            >Logout</button>*/}
+
+            {user?.id ? (
+              <Link href="/profile" className="bg-[#ffffff0c] px-3 pr-4 py-2 rounded-full my-auto mt-4 flex gap-[2px] text-gray-300 font-normal items-center">
+                <Image
+                src="/icons/Profile-img.svg"
+                alt="arrow"
+                height={25}
+                width={25}
+                unoptimized
+                className="object-contain"
+              />
+              Hi {firstName}</Link>
+            ) : (
+              <Link
+                href={"/register"}
+                className="cursor-pointer px-4 py-1 rounded-full h-fit my-auto bg-[#919499]/20"
+              >
+                Sign in
+              </Link>
+            )}
           </ul>
         </aside>
       )}

@@ -178,6 +178,18 @@ html, body {
   );
 }
 
+
+.radial-gradient-green {
+  border-radius: 50%; /* Ensures the gradient is perfectly circular */
+  background: radial-gradient(
+    circle,
+    
+    rgba(85, 255, 0, 0.55), 0%,
+    rgba(85, 255, 0, 0.55), 50%,
+    rgba(226, 226, 226, 0.048) 100%
+  );
+}
+
 .radial-gradient-red-light {
   border-radius: 50%; /* Ensures the gradient is perfectly circular */
   background: radial-gradient(

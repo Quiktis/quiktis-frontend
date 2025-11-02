@@ -3,7 +3,7 @@
 import type { NextPage } from "next";
 import { Plus, MapPin } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import { Queries } from "@/ApiServices/queries";
+import { useGetEventById } from "@/ApiServices/queries";
 import { useParams } from "next/navigation";
 import { useStore } from "@/app/lib/store";
 import { formatDateShort, getDayFromISO, getWeekday, getTime, formatDate } from "@/app/utils/utils";
@@ -271,11 +271,17 @@ const OnclickOverviewPage: NextPage = () => {
   const origin =
     typeof window !== "undefined" ? window.location.origin : "";
   
-  const { getEventById } = Queries(eventId as string);
+  
 
-  const { data, isLoading, error } = getEventById;
+    const {
+        data: event,
+        isLoading: loadingEvent,
+        isError: errorEvent,
+      } = useGetEventById(eventId as string);
 
-  const eventData = data?.data;
+  
+
+  const eventData = event?.data
 
   const { user } = useStore();
 
@@ -314,6 +320,12 @@ const shareUrl = `${origin}/events/view/${eventData?.event.slug}`;
   };
 
   return (
+    <>
+    <div className="grid left-auto top-[-34em] right-auto place-items-center absolute w-full h-[50em]">
+        <div className="w-screen h-[35em] inset-0 radial-gradient-purple-new blur-3xl opacity-50"></div>
+      </div>
+
+
     <div className="bg-[#131517] min-h-screen p-4 sm:p-6 md:p-8 text-gray-300 font-sans flex items-center justify-center">
       <div className="max-w-4xl mx-auto w-full mt-24">
         <div className="bg-[#FFFFFF05] border-[0.33px] border-[#91949926] rounded-[11.66px] backdrop-blur-[13.11px] p-6 max-sm:p-4">
@@ -622,6 +634,7 @@ const shareUrl = `${origin}/events/view/${eventData?.event.slug}`;
         </section>
       </div>
     </div>
+    </>
   );
 };
 

@@ -65,6 +65,7 @@ export interface CreateEventData {
 
 export interface EventData {
   eventId: string;
+  id: string;
       createdAt: string;
       updatedAt: string;
       eventName: string;

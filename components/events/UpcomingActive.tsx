@@ -18,7 +18,7 @@ function EmptyState() {
   );
 }
 
-export default function UpcomingActive({ events }: { events: EventData[] }) {
+export default function UpcomingActive({ events, pageTitle }: { events: EventData[], pageTitle: string }) {
   //const { data: events, isLoading, isError } = useEvents();
   const { loading, message, messageType } = useStore();
 
@@ -73,16 +73,16 @@ export default function UpcomingActive({ events }: { events: EventData[] }) {
   }
 
   return (
-    <section className="relative mt-[6em] md:mt-[12em] z-50 mb-[4em]">
-      <div className="flex flex-col gap-8 mx-auto w-full md:w-fit pr-0 md:pr-12">
-         <div className="">
-          <h2 className="text-lg md:text-[2.2em] font-medium w-full">Events</h2>
-        </div>
-        {events.map((event) => (
+    <section className="relative mt-[6em] md:mt-[9em] z-50 mb-[4em]">
+  
+    
+        <div className="md:w-fit mx-auto grid grid-cols-1 gap-8 max-sm:gap-6 ">
+          <h2 className="text-2xl max-sm:mt-[1em] md:text-[1.4em] lg:text-[1.6em] font-semibold font-inter">{pageTitle}</h2>
+          {events.map((event) => (
           <EventCard
             key={event.eventId}
             event={{
-              id: event.eventId,
+              id: event.id,
               title: event.eventName,
               startsAt: event.startDate,
               organizer: event.organiser?.name || "Unknown Organizer",
@@ -94,7 +94,9 @@ export default function UpcomingActive({ events }: { events: EventData[] }) {
             }}
           />
         ))}
-      </div>
+        </div>
+        
+   
     </section>
   );
 }

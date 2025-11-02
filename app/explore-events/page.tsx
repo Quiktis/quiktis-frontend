@@ -10,7 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SpecialFooterPast from "@/components/ui/SpecialFooterPast";
 import { useUser } from "../context/UserContext";
-import { Queries } from "../../ApiServices/queries"
+import { useGetAllEvents } from "@/ApiServices/queries";
 
 const socials = [
   {
@@ -42,17 +42,21 @@ export default function EventsActivePage() {
   const currentTab =
     (searchParams?.get("tab") as "upcoming" | "past") ?? "upcoming";
     
-  const { getAllEvents } = Queries();
+  const {
+          data: eventsData,
+          isLoading: loadingEvent,
+          isError: errorEvent,
+        } = useGetAllEvents();
 
   // 🟢 Handle loading/error states
-  if (getAllEvents.isLoading)
+  if (loadingEvent)
     return (
       <div className="flex items-center justify-center min-h-screen text-gray-400">
         Loading events...
       </div>
     );
 
-  if (getAllEvents.isError)
+  if (errorEvent)
     return (
       <div className="flex items-center justify-center min-h-screen text-red-400">
         Failed to load events.
@@ -67,9 +71,15 @@ export default function EventsActivePage() {
     (currentTab === "upcoming" && hasUpcoming) ||
     (currentTab === "past" && hasPast);
 
-  const events = getAllEvents.data?.data?.events || [];
+  const events = eventsData?.data.events || [];
 
   return (
+    <>
+    <div className="grid left-auto top-[-34em] right-auto place-items-center absolute w-full h-[50em]">
+        <div className="w-screen h-[35em] inset-0 radial-gradient-green blur-3xl opacity-50"></div>
+      </div>
+
+
     <div
       className="flex flex-col min-h-screen text-white pb-8 md:pb-12"
       style={{ backgroundColor: "#131517" }}
@@ -82,9 +92,9 @@ export default function EventsActivePage() {
       >
         {currentTab === "upcoming" ? (
           hasUpcoming ? (
-            <UpcomingActive events={events} />
+            <UpcomingActive pageTitle="Explore Events" events={events} />
           ) : (
-                <UpcomingActive events={events} />
+                <UpcomingActive pageTitle="Explore Events" events={events} />
           )
         ) : currentTab === "past" ? (
           hasPast ? (
@@ -193,5 +203,6 @@ export default function EventsActivePage() {
         </footer>
       )}
     </div>
+    </>
   );
 }

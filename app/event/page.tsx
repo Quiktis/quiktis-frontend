@@ -9,7 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SpecialFooterPast from "@/components/ui/SpecialFooterPast";
 import { useUser } from "../context/UserContext";
-import { Queries } from "../../ApiServices/queries";
+import { useGetAllEvents } from "@/ApiServices/queries";
 import { GetAllEventsResponse, EventData } from "../types";
 
 const socials = [
@@ -23,29 +23,37 @@ const socials = [
 export default function EventsActivePage() {
   const { user, logout } = useUser();
   const searchParams = useSearchParams();
-  const { getAllUserEvents } = Queries();
+  
+
+  const {
+          data: eventsData,
+          isLoading: loadingEvent,
+          isError: errorEvent,
+        } = useGetAllEvents();
 
   // 🟢 Extract active tab (upcoming or past)
   const currentTab =
     (searchParams?.get("tab") as "upcoming" | "past") ?? "upcoming";
 
   // 🟢 Handle loading/error states
-  if (getAllUserEvents.isLoading)
+  if (loadingEvent)
     return (
       <div className="flex items-center justify-center min-h-screen text-gray-400">
         Loading events...
       </div>
     );
 
-  if (getAllUserEvents.isError)
+  if (errorEvent)
     return (
       <div className="flex items-center justify-center min-h-screen text-red-400">
         Failed to load events.
       </div>
     );
 
-  const events = getAllUserEvents.data?.data?.events || [];
+
 const now = new Date();
+
+const events = eventsData?.data.events || []
 
 const upcomingEvents = events.filter((event) => {
   const start = new Date(event.startDate);
@@ -83,10 +91,11 @@ const displayedEvents =
       className="flex flex-col min-h-screen text-white pb-8 md:pb-12"
       style={{ backgroundColor: "#131517" }}
     >
-      <main className="flex-1 w-[90%] lg:w-[90%] xl:w-[85%] mx-auto">
+      <main className=" w-[90%] lg:w-[95%] xl:w-[95%] mx-auto">
         {/* ✅ Conditional rendering for Upcoming/Past */}
         {events.length > 0 ? (
             <UpcomingActive 
+            pageTitle="Events"
             events={events} 
             />
           )

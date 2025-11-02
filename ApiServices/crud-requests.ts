@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { TokenService } from "./token-service";
 import { BASE_URL } from "./base-urls";
+import { useStore } from "@/app/lib/store";
 
 console.log("[AXIOS DEBUG] Initializing axios instance with BASE_URL:", BASE_URL);
 
@@ -11,6 +12,7 @@ const axiosInstance = axios.create({
   },
 });
 
+const store = useStore.getState();
 // 🟢 REQUEST INTERCEPTOR
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -71,6 +73,13 @@ axiosInstance.interceptors.response.use(
         case 404:
           break;
         case 500:
+          console.log("500 case error: ", (error.response?.data as { error: string })?.error)
+          if ((error.response?.data as { error: string })?.error === "Token expired") {
+            TokenService.removeCookie();
+            store.setSessionExpired(true);
+            store.setUser(null);
+            useStore.persist.clearStorage();
+          }
           break;
         default:
       }
