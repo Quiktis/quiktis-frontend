@@ -27,9 +27,6 @@ const CountingIcon = ({ className }: { className?: string }) => (
   />
 );
 
-type Props = {
-  eventId: string;
-};
 
 interface Guest {
   name: string;
@@ -45,7 +42,7 @@ const guestData: Guest[] = [
   { name: "Marpxist Krek", status: "Guest approved", id: 5 },
 ];
 
-const GuestActive: React.FC<Props> = ({ eventId }) => {
+const GuestActive = ({ eventId }: {eventId: string}) => {
   return (
     <div className="bg-[#131517] min-h-screen p-4 sm:p-6 md:p-8 text-gray-300 font-sans flex items-center justify-center">
       <div className="max-w-5xl mx-auto w-full mt-40">

@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 type TabType = "overview" | "registration" | "guest";
 
 interface EventToggleProps {
-  eventId: string;
+  eventId: string | any;
   defaultTab?: TabType;
 }
 
