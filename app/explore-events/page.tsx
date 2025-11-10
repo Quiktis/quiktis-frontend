@@ -10,7 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SpecialFooterPast from "@/components/ui/SpecialFooterPast";
 import { useUser } from "../context/UserContext";
-import { Queries } from "../../ApiServices/queries"
+import { Queries } from "../../ApiServices/queries";
 
 const socials = [
   {
@@ -41,7 +41,7 @@ export default function EventsActivePage() {
   const searchParams = useSearchParams();
   const currentTab =
     (searchParams?.get("tab") as "upcoming" | "past") ?? "upcoming";
-    
+
   const { getAllEvents } = Queries();
 
   // 🟢 Handle loading/error states
@@ -82,9 +82,9 @@ export default function EventsActivePage() {
       >
         {currentTab === "upcoming" ? (
           hasUpcoming ? (
-            <UpcomingActive events={events} />
+            <UpcomingActive />
           ) : (
-                <UpcomingActive events={events} />
+            <UpcomingActive />
           )
         ) : currentTab === "past" ? (
           hasPast ? (

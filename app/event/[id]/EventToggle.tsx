@@ -60,11 +60,10 @@ const EventToggle: React.FC<EventToggleProps> = ({
             <Link key={tab.id} href={tab.href}>
               <div className="relative">
                 <div
-                  className="transition-colors cursor-pointer flex items-center justify-center"
+                  className="transition-colors cursor-pointer flex items-center justify-center rounded-[7.11px] bg-[#FFFFFF05]"
                   style={{
-                    borderRadius: "7.11px",
-                    background: "#FFFFFF05",
                     backdropFilter: "blur(20.307693481445312px)",
+                    WebkitBackdropFilter: "blur(20.307693481445312px)",
                   }}
                 >
                   <style jsx>{`
@@ -80,13 +79,8 @@ const EventToggle: React.FC<EventToggleProps> = ({
                     }
                   `}</style>
                   <span
-                    className="text-[18px] md:text-[20.31px]"
+                    className="font-inter font-medium text-[18px] md:text-[20.31px] leading-[100%] tracking-[0%] align-middle"
                     style={{
-                      fontFamily: "Inter",
-                      fontWeight: 500,
-                      lineHeight: "100%",
-                      letterSpacing: "0%",
-                      verticalAlign: "middle",
                       color: activeTab === tab.id ? "#FFFFFF" : "#666666",
                     }}
                   >
@@ -94,12 +88,7 @@ const EventToggle: React.FC<EventToggleProps> = ({
                   </span>
                 </div>
                 {activeTab === tab.id && (
-                  <div
-                    className="absolute left-0 w-full h-[1.5px] md:h-[2px] bg-white z-[2]"
-                    style={{
-                      bottom: "-14px",
-                    }}
-                  >
+                  <div className="absolute left-0 w-full h-[1.5px] md:h-[2px] bg-white z-[2] -bottom-[14px]">
                     <style jsx>{`
                       @media (min-width: 768px) {
                         div {
@@ -115,12 +104,7 @@ const EventToggle: React.FC<EventToggleProps> = ({
         })}
       </div>
 
-      <div
-        className="absolute left-1/2 -translate-x-1/2 w-screen max-w-[1508.5px] h-0 border-t border-[#91949924] z-[1]"
-        style={{
-          bottom: "-14px",
-        }}
-      >
+      <div className="absolute left-1/2 -translate-x-1/2 w-screen max-w-[1508.5px] h-0 border-t border-[#91949924] z-[1] -bottom-[14px]">
         <style jsx>{`
           @media (min-width: 768px) {
             div {

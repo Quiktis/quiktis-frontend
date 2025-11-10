@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface MetricCardProps {
   iconSrc: string;
@@ -9,48 +10,24 @@ interface MetricCardProps {
 const MetricCard: React.FC<MetricCardProps> = ({ iconSrc, label, value }) => {
   return (
     <div
-      className="flex items-center justify-between px-4 py-3"
+      className="flex items-center justify-between px-4 py-3 h-[79px] rounded-[15px] border border-[#9194994F] bg-[#FFFFFF03]"
       style={{
-        height: "79px",
-        borderRadius: "15px",
-        background: "#FFFFFF03",
-        border: "1px solid #9194994F",
         backdropFilter: "blur(15px)",
       }}
     >
       <div className="flex items-center gap-[4.91px]">
-        <img
+        <Image
           src={iconSrc}
           alt={label}
+          width={25}
+          height={25}
           className="object-contain"
-          style={{
-            width: "25px",
-            height: "25px",
-          }}
         />
-        <span
-          style={{
-            fontFamily: "Inter",
-            fontSize: "20.31px",
-            fontWeight: 500,
-            lineHeight: "100%",
-            letterSpacing: "0%",
-            color: "#919499",
-          }}
-        >
+        <span className="text-[#919499] font-medium text-[20.31px] leading-none">
           {label}
         </span>
       </div>
-      <span
-        style={{
-          fontFamily: "Inter",
-          fontSize: "20.31px",
-          fontWeight: 500,
-          lineHeight: "100%",
-          letterSpacing: "0%",
-          color: "#FFFFFF",
-        }}
-      >
+      <span className="text-white font-medium text-[20.31px] leading-none">
         {value}
       </span>
     </div>
@@ -69,15 +46,7 @@ export default function InsightsTab() {
     <div className="min-h-screen pb-60">
       <div className="max-w-6xl mx-auto px-4 sm:px-8 pt-[90px]">
         {/* DARE Header */}
-        <h1
-          className="uppercase mb-12 sm:mb-16 text-[40px] md:text-[96px] text-left text-[var(--Color-7,#FFF8EC)] md:text-white"
-          style={{
-            fontFamily: "Silkscreen",
-            fontWeight: 700,
-            lineHeight: "80%",
-            letterSpacing: "-20%",
-          }}
-        >
+        <h1 className="uppercase mb-12 sm:mb-16 text-[40px] md:text-[96px] text-left text-[var(--Color-7,#FFF8EC)] md:text-white font-[Silkscreen] font-bold leading-[80%] tracking-[-0.2em]">
           DARE
         </h1>
 

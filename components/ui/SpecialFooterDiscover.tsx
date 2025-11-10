@@ -241,7 +241,7 @@ export default function SpecialFooterDiscover() {
                 color: "transparent",
               }}
             >
-              Host your events with Quiktis
+              Make your Mark with Quiktis
             </span>
             <BsArrowUpSquare
               size={20}
@@ -312,7 +312,7 @@ export default function SpecialFooterDiscover() {
                 color: "transparent",
               }}
             >
-              Host your events with Quiktis
+              Make your Mark with Quiktis
             </span>
 
             <BsArrowUpSquare

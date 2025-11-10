@@ -49,10 +49,7 @@ export default function EventsActivePage() {
     (currentTab === "past" && hasPast);
 
   return (
-    <div
-      className="flex flex-col min-h-screen text-white pb-8 md:pb-12"
-      style={{ backgroundColor: "#131517" }}
-    >
+    <div className="flex flex-col min-h-screen text-white pb-8 md:pb-12 bg-[#131517]">
       {/* Main content */}
       <main
         className={`flex-1 w-[90%] lg:w-[90%] xl:w-[85%] mx-auto ${
@@ -64,9 +61,8 @@ export default function EventsActivePage() {
             <UpcomingActive />
           ) : (
             <div className="grid place-items-center min-h-screen">
-                <UpcomingActive  />
+              <UpcomingActive />
             </div>
-            
           )
         ) : currentTab === "past" ? (
           hasPast ? (

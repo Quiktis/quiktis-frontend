@@ -24,7 +24,7 @@ export default function SpecialFooterProfile() {
               color: "transparent",
             }}
           >
-            Host your events with Quiktis
+            Make your Mark with Quiktis
           </span>
 
           <BsArrowUpSquare

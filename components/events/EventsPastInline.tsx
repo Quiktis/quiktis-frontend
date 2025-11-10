@@ -10,11 +10,12 @@ export default function EventsEmptyInline({
 }: {
   tab?: "upcoming" | "past";
 }) {
-  const title = tab === "past" ? "No Cultural Footprint" : "No upcoming Events";
+  const title =
+    tab === "past" ? "No Cultural Footprint yet." : "No upcoming Events";
   const subtitle =
     tab === "past"
-      ? "No upcoming events at this time. Take a bold step, Host one!"
-      : "No upcoming events at this time. Take a bold step, Host one!";
+      ? "Be the spark that starts the next cultural moment.."
+      : "No Cultural Footprint yet. Be the spark that starts the next cultural moment..";
 
   return (
     <div className="w-[95%] lg:w-[90%] xl:w-[85%] mx-auto">
@@ -31,10 +32,10 @@ export default function EventsEmptyInline({
         </div>
 
         <div className="text-center">
-          <h2 className="mb-4 text-2xl md:text-3xl font-medium text-[#919499]">
+          <h2 className="mb-4 font-medium text-[34px] leading-[100%] tracking-[-0.04em] text-[#919499] font-inter">
             {title}
           </h2>
-          <p className="mb-8 text-sm md:text-base text-gray-400 max-w-md">
+          <p className="mb-8 font-medium text-[22px] leading-[25.07px] tracking-[-0.04em] text-gray-400 max-w-md font-[Poppins]">
             {subtitle}
           </p>
         </div>

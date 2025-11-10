@@ -56,7 +56,8 @@ export default function EventCard({ event }: { event: EventItem }) {
   };
 
   return (
-    <div className="max-sm:w-[87vw] mx-auto"
+    <div
+      className="max-sm:w-[87vw] mx-auto"
       role="button"
       //onClick={() => router.push(href)}
       //className="cursor-pointer"
@@ -66,13 +67,12 @@ export default function EventCard({ event }: { event: EventItem }) {
       <div className="md:hidden -mx-4">
         <div className="text-left mb-6 px-0">
           <div className="text-white font-bold md:text-lg">{dateStr}</div>
-          <div className="text-gray-400 text-md md:font-medium">{weekdayStr}</div>
+          <div className="text-gray-400 text-md md:font-medium">
+            {weekdayStr}
+          </div>
         </div>
 
-        <div
-          className="p-3 box-border rounded-xl"
-          style={mobileCardStyle}
-        >
+        <div className="p-3 box-border rounded-xl" style={mobileCardStyle}>
           <div className="flex gap-3 items-start">
             {/* Info column */}
             <div className="flex-1 flex flex-col min-w-0 space-y-1.5">
@@ -80,8 +80,10 @@ export default function EventCard({ event }: { event: EventItem }) {
                 {timeStr}
               </div>
 
-              <h2 className="text-white text-base font-semibold leading-tight break-words max-sm:max-w-[65%]
-              ">
+              <h2
+                className="text-white text-base font-semibold leading-tight break-words max-sm:max-w-[65%]
+              "
+              >
                 {event.title}
               </h2>
 
