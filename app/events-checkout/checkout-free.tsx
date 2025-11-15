@@ -39,7 +39,7 @@ export default function CheckoutFree() {
   };
 
   return (
-    <div className="bg-[#131517] min-h-screen text-gray-300 font-sans p-4 sm:p-6 md:p-8">
+    <div className="bg-[#131517] min-h-screen text-gray-300 font-sans p-3 sm:p-4 md:p-6 lg:p-8">
       <style jsx>{`
         @keyframes slideDown {
           from {
@@ -62,10 +62,10 @@ export default function CheckoutFree() {
           display: none; /* Chrome, Safari, Opera */
         }
       `}</style>
-      <div className="max-w-[1250px] mx-auto pt-28 px-4 sm:px-6 md:px-12 lg:px-16 pb-24">
-        <main className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+      <div className="max-w-[1250px] mx-auto pt-16 sm:pt-20 md:pt-24 lg:pt-28 px-3 sm:px-4 md:px-8 lg:px-12 xl:px-16 pb-12 sm:pb-16 md:pb-20 lg:pb-24">
+        <main className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
           {/* Left Section */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6">
             <PublicBadge />
 
             <EventHeader
@@ -94,17 +94,17 @@ export default function CheckoutFree() {
       {/* Ticket Popup Overlay */}
       {showTicketPopup && (
         <div
-          className="hide-scrollbar fixed inset-0 w-screen h-screen bg-[#131517F7] z-[9999] flex items-center justify-center p-5 overflow-auto"
+          className="hide-scrollbar fixed inset-0 w-screen h-screen bg-[#131517F7] z-[9999] flex items-center justify-center p-3 sm:p-5 overflow-auto"
           onClick={() => setShowTicketPopup(false)}
         >
           <div
-            className="hide-scrollbar bg-transparent w-full max-w-[1250px] flex flex-col items-start pt-20 pb-10 max-h-[160vh] overflow-auto"
+            className="hide-scrollbar bg-transparent w-full max-w-[1250px] flex flex-col items-start pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-10 max-h-[160vh] overflow-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mb-6 -mt-[72px]">
+            <div className="mb-4 sm:mb-6 -mt-[40px] sm:-mt-[60px] md:-mt-[72px]">
               <button
                 onClick={() => setShowTicketPopup(false)}
-                className="w-[124px] h-[42px] bg-transparent border border-[#373737] rounded-[5px] shrink-0 min-w-[124px] whitespace-nowrap font-medium text-xl leading-none text-white cursor-pointer flex items-center justify-center gap-2"
+                className="w-[100px] sm:w-[124px] h-[38px] sm:h-[42px] bg-transparent border border-[#373737] rounded-[5px] shrink-0 min-w-[100px] sm:min-w-[124px] whitespace-nowrap font-medium text-lg sm:text-xl leading-none text-white cursor-pointer flex items-center justify-center gap-2"
               >
                 <svg
                   width="4.46"
@@ -125,7 +125,7 @@ export default function CheckoutFree() {
               </button>
             </div>
 
-            <div className="w-full max-w-[600px] flex flex-col gap-10 self-center">
+            <div className="w-full max-w-[600px] flex flex-col gap-6 sm:gap-8 md:gap-10 self-center px-3 sm:px-0">
               <div className="text-center">
                 <h2 className="font-medium text-4xl leading-[96%] text-center text-white m-0 mb-3">
                   Choose Ticket Type
